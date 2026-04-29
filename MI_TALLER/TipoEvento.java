@@ -1,0 +1,14 @@
+package MI_TALLER;
+
+public enum TipoEvento {
+    GOL,
+    TARJETAAMARILLA,
+    TARJETAROJA,
+    PENALCOMETIDO,
+    PENALCONVERTIDO,
+    PENALERRADO,
+    DOBLEAMARILLA,
+    SUSTITUCION,
+    LESION;
+    
+}
