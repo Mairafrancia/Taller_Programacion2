@@ -55,4 +55,9 @@ public class Grupo {
         this.selecciones = selecciones;
     }
 
+    //metodo obtener puntos
+    public int obtenerPuntos(Seleccion s){
+      return 0;
+    }
+
 }
