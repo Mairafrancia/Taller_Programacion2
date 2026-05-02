@@ -1,6 +1,6 @@
 package MI_TALLER;
 import java.util.ArrayList;
-
+//jjhjh
 
 public class Arbitro extends Persona {
     private int aniosExperiencia;
