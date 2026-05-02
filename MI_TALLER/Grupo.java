@@ -5,13 +5,19 @@ public class Grupo {
     private String identificador;
     private String descripcion;
     private Fase fase;
-    private ArrayList<Seleccion> selecciones = new ArrayList<>();
+    private ArrayList<Seleccion> selecciones;
 
-    //constructor
-    public Grupo(String identificador, String descripcion, Fase fase) {
+    //constructor por defecto
+    public Grupo(){
+        this.selecciones = new ArrayList<>();
+    }
+    //constructor parametrizado
+    
+    public Grupo(String identificador, String descripcion, Fase fase, ArrayList<Seleccion> selecciones) {
         this.identificador = identificador;
         this.descripcion = descripcion;
         this.fase = fase;
+        this.selecciones = selecciones;
     }
 
     //metodo agregar seleccion

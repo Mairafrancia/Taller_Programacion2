@@ -5,7 +5,7 @@ public class Jugador extends Persona{
     private Posicion posicion;
     private float peso;
     private float altura;
-    private ArrayList<Evento> eventos = new ArrayList<>(); //un jugador puede tener o no varios eventos
+    private ArrayList<Evento> eventos ; //un jugador puede tener o no varios eventos
 
    
     //constructor
@@ -17,6 +17,10 @@ public class Jugador extends Persona{
         this.altura = altura;
     }
 
+    public Jugador(){
+        this.eventos = new ArrayList<>();
+    }
+
     //metodo agregar evento
     public void agregarEvento(Evento evento){
         if (evento != null){
@@ -24,6 +28,7 @@ public class Jugador extends Persona{
         }
     }
 
+    //metodos get y set
     public int getDorsal() {
         return dorsal;
     }

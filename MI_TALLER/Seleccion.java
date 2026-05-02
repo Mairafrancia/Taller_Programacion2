@@ -10,7 +10,7 @@ public class Seleccion {
     private Grupo grupo;
     private Pais pais;
     private ArrayList<Jugador> jugadores = new ArrayList<>();
-    private ArrayList<DirectorTecnico> directoresTecnicos = new ArrayList<>();
+    private ArrayList<DirectorTecnico> directoresTecnicos = new ArrayList<>(); //ES UNO SOLO!!!!!!!!!! ESTA MAL EL UML
     private ArrayList<CuerpoTecnico> cuerposTecnicos = new ArrayList<>();
     private ArrayList<Participacion> participaciones = new ArrayList<>(); //lista de n participaciones
 

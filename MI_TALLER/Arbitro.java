@@ -5,15 +5,23 @@ import java.util.ArrayList;
 public class Arbitro extends Persona {
     private int aniosExperiencia;
     private Pais pais;
-    private ArrayList<Arbitraje> arbitrajes = new ArrayList<>();
+    private ArrayList<Arbitraje> arbitrajes;
 
-    //constructor
-    public Arbitro(String nombre, int fecNacimiento,Pais pais, int aniosExperiencia) {
-        super(nombre, fecNacimiento);
-        this.pais = pais;
-        this.aniosExperiencia = aniosExperiencia;
+    public Arbitro(){
+        super("", 0);
+        this.arbitrajes = new ArrayList<>();
     }
+
+    //constructor parametrizado
+   
     
+    public Arbitro(String nombre, int fecNacimiento, int aniosExperiencia, Pais pais, ArrayList<Arbitraje> arbitrajes) {
+        super(nombre, fecNacimiento);
+        this.aniosExperiencia = aniosExperiencia;
+        this.pais = pais;
+        this.arbitrajes = arbitrajes;
+    }
+
     //metodo agregar arbitraje
     public void agregarArbitraje(Arbitraje arbitraje){
         if (arbitraje != null){

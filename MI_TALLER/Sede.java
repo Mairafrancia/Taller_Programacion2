@@ -9,7 +9,7 @@ public class Sede {
     private String clima;
     private String zonaHoraria;
     private Pais pais; // una sede pertenece a un pais
-    private ArrayList<Estadio> estadios = new ArrayList<>(); //una sede puede tener uno o mas estadios
+    private ArrayList<Estadio> estadios; // no se insrancia en la def de la clase  
     
     
     public Sede(String ciudad, float alturaNivelMar, String clima, String zonaHoraria, Pais pais) {
@@ -18,6 +18,7 @@ public class Sede {
         this.clima = clima;
         this.zonaHoraria = zonaHoraria;
         this.pais = pais;
+        //aca si se crea el new arraylist
         
     }
 

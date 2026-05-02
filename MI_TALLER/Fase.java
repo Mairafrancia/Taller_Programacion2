@@ -3,13 +3,22 @@ import java.util.ArrayList;
 
 public class Fase {
     private NombreFase nombre;
-    private ArrayList<Grupo> grupos = new ArrayList<>();
-    private ArrayList<Partido> partidos = new ArrayList<>();
+    private ArrayList<Grupo> grupos ;
+    private ArrayList<Partido> partidos ;
 
-    //constructor
-    public Fase(NombreFase nombre) {
-        this.nombre = nombre;
+    //constructor por defecto
+    public Fase(){
+        this.partidos = new ArrayList<>();
     }
+
+    //constructor parametrizado
+   
+    public Fase(NombreFase nombre, ArrayList<Grupo> grupos, ArrayList<Partido> partidos) {
+        this.nombre = nombre;
+        this.grupos = grupos;
+        this.partidos = partidos;
+    }
+
     //metodos de agregar
     public void agregarGrupo(Grupo grupo){
         if (grupo != null){

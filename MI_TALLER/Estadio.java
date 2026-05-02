@@ -5,13 +5,23 @@ public class Estadio {
     private String nombre;
     private int capacidad;
     private Sede sede; // un estadio pertenece a una sede
-    private ArrayList<Partido> partidos = new ArrayList<>(); //lista de partidos que tiene ese estadio
-    //constructor
-    public Estadio(String nombre, int capacidad, Sede sede) {
+    private ArrayList<Partido> partidos; //lista de partidos que tiene ese estadio
+
+    //constructor por defecto
+    public Estadio(){
+        this.partidos = new ArrayList<>();
+    }
+    
+    //constructor parametrizado
+    public Estadio(String nombre, int capacidad, Sede sede, ArrayList<Partido> partidos) {
         this.nombre = nombre;
         this.capacidad = capacidad;
         this.sede = sede;
+        this.partidos = partidos;
     }
+    
+
+    
 
     //metodo agregarPartido
     public void agregarPartido(Partido partido){

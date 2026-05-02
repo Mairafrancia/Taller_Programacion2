@@ -6,7 +6,7 @@ public class Mundial {
     private String mascota;
     private int fechaDesde;
     private int fechaHasta;
-    private ArrayList<Sede> sedes = new ArrayList<>(); // el mundial agrega varias sedes (clase contenedora en la clase sede(componente) no se hace referencia a mundial)
+    private ArrayList<Sede> sedes; // new ArrayList<>(); // el mundial agrega varias sedes (clase contenedora en la clase sede(componente) no se hace referencia a mundial)
    
     //constructor 
     public Mundial(int anio, String mascota, int fechaDesde, int fechaHasta) {

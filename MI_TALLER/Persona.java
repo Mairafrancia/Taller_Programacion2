@@ -1,8 +1,13 @@
 package MI_TALLER;
 
 public abstract class Persona {
-    private String nombre;
-    private int fecNacimiento;
+    protected String nombre;
+    protected int fecNacimiento;
+
+    public Persona(){
+        this.fecNacimiento= 0;
+        this.nombre = "";
+    }
 
     public Persona(String nombre, int fecNacimiento) {
         this.nombre = nombre;

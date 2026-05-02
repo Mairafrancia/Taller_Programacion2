@@ -9,7 +9,7 @@ public class Partido {
     private LocalTime horario;
     private int duracion;
     private int tiempoAdicional;
-    private Participacion[] participaciones = new Participacion[2]; //un array con solo dos participaciones
+    private Participacion[] participaciones = new Participacion[2]; //un array con solo dos participaciones (mejor una lista )
     private Estadio estadio; //un partido se lleva a cabo en un estadio
     private Fase fase; // corresponde a una fase
     private ArrayList<Evento> eventos = new ArrayList<>();
