@@ -9,6 +9,10 @@ public class Mundial {
     private ArrayList<Sede> sedes; // new ArrayList<>(); // el mundial agrega varias sedes (clase contenedora en la clase sede(componente) no se hace referencia a mundial)
    
     //constructor 
+    public Mundial(){
+        this.sedes = new ArrayList<>();
+    }
+    
     public Mundial(int anio, String mascota, int fechaDesde, int fechaHasta) {
         this.anio = anio;
         this.mascota = mascota;

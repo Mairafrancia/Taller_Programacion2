@@ -9,13 +9,20 @@ public class Seleccion {
     private int rankingFIFA;
     private Grupo grupo;
     private Pais pais;
-    private ArrayList<Jugador> jugadores = new ArrayList<>();
-    private ArrayList<DirectorTecnico> directoresTecnicos = new ArrayList<>(); //ES UNO SOLO!!!!!!!!!! ESTA MAL EL UML
-    private ArrayList<CuerpoTecnico> cuerposTecnicos = new ArrayList<>();
-    private ArrayList<Participacion> participaciones = new ArrayList<>(); //lista de n participaciones
+    private ArrayList<Jugador> jugadores;
+    private ArrayList<DirectorTecnico> directoresTecnicos; //ES UNO SOLO!!!!!!!!!! ESTA MAL EL UML
+    private ArrayList<CuerpoTecnico> cuerposTecnicos;
+    private ArrayList<Participacion> participaciones;//lista de n participaciones
 
 
     //constructor
+    public Seleccion(){
+        this.jugadores = new ArrayList<>();
+        this.directoresTecnicos = new ArrayList<>();
+        this.cuerposTecnicos = new ArrayList<>();
+        this.participaciones = new ArrayList<>();
+    }
+
     public Seleccion(String nombreFederacion, String camisetaPrincipal, String camisetaSecundaria, boolean cabezaGrupo,
             int rankingFIFA, Grupo grupo, Pais pais) {
         this.nombreFederacion = nombreFederacion;
@@ -27,6 +34,7 @@ public class Seleccion {
         this.pais = pais;
     }
     
+
     //metodos de agregar
     public void agregarJugador(Jugador jugador){
         if (jugador != null){

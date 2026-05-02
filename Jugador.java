@@ -9,16 +9,16 @@ public class Jugador extends Persona{
 
    
     //constructor
+    public Jugador(){
+      this.eventos = new ArrayList<>();
+    }
+
     public Jugador(String nombre, int fecNacimiento, int dorsal, Posicion posicion, float peso, float altura) {
         super(nombre, fecNacimiento);
         this.dorsal = dorsal;
         this.posicion = posicion;
         this.peso = peso;
         this.altura = altura;
-    }
-
-    public Jugador(){
-        this.eventos = new ArrayList<>();
     }
 
     //metodo agregar evento

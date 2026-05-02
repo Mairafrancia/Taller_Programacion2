@@ -12,11 +12,16 @@ public class Partido {
     private Participacion[] participaciones = new Participacion[2]; //un array con solo dos participaciones (mejor una lista )
     private Estadio estadio; //un partido se lleva a cabo en un estadio
     private Fase fase; // corresponde a una fase
-    private ArrayList<Evento> eventos = new ArrayList<>();
-    private ArrayList<Arbitraje> arbitrajes = new ArrayList<>();
+    private ArrayList<Evento> eventos;
+    private ArrayList<Arbitraje> arbitrajes;
 
     //constructor
     
+    public Partido(){
+        this.eventos = new ArrayList<>();
+        this.arbitrajes = new ArrayList<>();
+    }
+
     public Partido(LocalDate fecha, LocalTime horario, int duracion, int tiempoAdicional,
              Estadio estadio, Fase fase) {
         this.fecha = fecha;

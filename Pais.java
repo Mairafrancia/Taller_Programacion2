@@ -7,9 +7,14 @@ public class Pais{
     private String bandera;
     private ArrayList<Sede> sedes; //un pais tiene muchas sedes
     private Seleccion seleccion; //puede tener o no una seleccion
-    private ArrayList<Arbitro> arbitros = new ArrayList<>();
+    private ArrayList<Arbitro> arbitros;
     
     //constructor 
+    public Pais(){
+        this.sedes = new ArrayList<>();
+        this.arbitros = new ArrayList<>();
+    }
+
     public Pais(String nombre, String bandera, Seleccion seleccion) {
         this.nombre = nombre;
         this.bandera = bandera;
