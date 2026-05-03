@@ -19,6 +19,7 @@ public class Jugador extends Persona{
         this.posicion = posicion;
         this.peso = peso;
         this.altura = altura;
+        this.eventos = new ArrayList<>();
     }
 
     //metodo agregar evento

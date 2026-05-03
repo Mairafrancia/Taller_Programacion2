@@ -9,6 +9,7 @@ public class Fase {
     //constructor por defecto
     public Fase(){
         this.partidos = new ArrayList<>();
+        this.grupos = new ArrayList<>();
     }
 
     //constructor parametrizado

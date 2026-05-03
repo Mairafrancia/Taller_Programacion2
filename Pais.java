@@ -19,6 +19,8 @@ public class Pais{
         this.nombre = nombre;
         this.bandera = bandera;
         this.seleccion = seleccion;
+        this.sedes = new ArrayList<>();
+        this.arbitros = new ArrayList<>();
     }
     //metodo agregarSede
     public void agregarSede(Sede sede){

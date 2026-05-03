@@ -31,6 +31,9 @@ public class Seleccion {
         this.rankingFIFA = rankingFIFA;
         this.grupo = grupo;
         this.pais = pais;
+        this.jugadores = new ArrayList<>();
+        this.cuerposTecnicos = new ArrayList<>();
+        this.participaciones = new ArrayList<>();
     }
     
 

@@ -21,6 +21,7 @@ public class Sede {
         this.clima = clima;
         this.zonaHoraria = zonaHoraria;
         this.pais = pais;
+        this.estadios = new ArrayList<>();
     }
 
     //----------Metodo agregarEstadio
