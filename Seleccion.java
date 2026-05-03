@@ -10,7 +10,7 @@ public class Seleccion {
     private Grupo grupo;
     private Pais pais;
     private ArrayList<Jugador> jugadores;
-    private ArrayList<DirectorTecnico> directoresTecnicos; //ES UNO SOLO!!!!!!!!!! ESTA MAL EL UML
+    private DirectorTecnico directorTecnico;
     private ArrayList<CuerpoTecnico> cuerposTecnicos;
     private ArrayList<Participacion> participaciones;//lista de n participaciones
 
@@ -18,7 +18,6 @@ public class Seleccion {
     //constructor
     public Seleccion(){
         this.jugadores = new ArrayList<>();
-        this.directoresTecnicos = new ArrayList<>();
         this.cuerposTecnicos = new ArrayList<>();
         this.participaciones = new ArrayList<>();
     }
@@ -39,12 +38,6 @@ public class Seleccion {
     public void agregarJugador(Jugador jugador){
         if (jugador != null){
             this.jugadores.add(jugador);
-        }
-    }
-
-    public void agregarDirectorTecnico(DirectorTecnico directorTecnico){
-        if (directorTecnico != null){
-            this.directoresTecnicos.add(directorTecnico);
         }
     }
 
@@ -109,12 +102,6 @@ public class Seleccion {
     public void setJugadores(ArrayList<Jugador> jugadores) {
         this.jugadores = jugadores;
     }
-    public ArrayList<DirectorTecnico> getDirectoresTecnicos() {
-        return directoresTecnicos;
-    }
-    public void setDirectoresTecnicos(ArrayList<DirectorTecnico> directoresTecnicos) {
-        this.directoresTecnicos = directoresTecnicos;
-    }
     public ArrayList<CuerpoTecnico> getCuerposTecnicos() {
         return cuerposTecnicos;
     }
@@ -126,6 +113,12 @@ public class Seleccion {
     }
     public void setParticipaciones(ArrayList<Participacion> participaciones) {
         this.participaciones = participaciones;
+    }
+    public DirectorTecnico getDirectorTecnico () {
+        return directorTecnico;
+    }
+    public void setDirectorTecnico (DirectorTecnico directorTecnico){
+        this.directorTecnico = directorTecnico;
     }
 
 
