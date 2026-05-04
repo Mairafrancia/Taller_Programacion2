@@ -7,14 +7,25 @@ public class Pais{
     private String bandera;
     private ArrayList<Sede> sedes; //un pais tiene muchas sedes
     private Seleccion seleccion; //puede tener o no una seleccion
-    private ArrayList<Arbitro> arbitros = new ArrayList<>();
+    private ArrayList<Arbitro> arbitros;
     
-    //constructor 
-    public Pais(String nombre, String bandera, Seleccion seleccion) {
+    //constructor parametrizado
+
+    public Pais(String nombre, String bandera, ArrayList<Sede> sedes, Seleccion seleccion,
+            ArrayList<Arbitro> arbitros) {
         this.nombre = nombre;
         this.bandera = bandera;
+        this.sedes = sedes;
         this.seleccion = seleccion;
+        this.arbitros = arbitros;
     }
+
+    //constructor por defecto
+    public Pais(){
+        this.sedes = new ArrayList<>();
+        this.arbitros = new ArrayList<>();
+    }
+   
     //metodo agregarSede
     public void agregarSede(Sede sede){
         if (sede != null){

@@ -5,6 +5,7 @@ public class Arbitraje {
     private Partido partido;
     private Arbitro arbitro;
 
+   
     //constructor
 
     public Arbitraje(CategoriaArbitro rol, Partido partido, Arbitro arbitro) {

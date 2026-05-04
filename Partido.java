@@ -1,31 +1,38 @@
 package MI_TALLER;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 
 
 public class Partido {
-    private LocalDate fecha;
-    private LocalTime horario;
+    private int fecha;
+    private int horario;
     private int duracion;
     private int tiempoAdicional;
     private Participacion[] participaciones = new Participacion[2]; //un array con solo dos participaciones (mejor una lista )
     private Estadio estadio; //un partido se lleva a cabo en un estadio
     private Fase fase; // corresponde a una fase
-    private ArrayList<Evento> eventos = new ArrayList<>();
-    private ArrayList<Arbitraje> arbitrajes = new ArrayList<>();
+    private ArrayList<Evento> eventos;
+    private ArrayList<Arbitraje> arbitrajes ;
 
-    //constructor
-    
-    public Partido(LocalDate fecha, LocalTime horario, int duracion, int tiempoAdicional,
-             Estadio estadio, Fase fase) {
+    //constructor por defecto
+    public Partido(){
+        this.eventos = new ArrayList<>();
+        this.arbitrajes = new ArrayList<>();
+    }
+
+    //constructor parametrizado
+     public Partido(int fecha, int horario, int duracion, int tiempoAdicional, Participacion[] participaciones,
+            Estadio estadio, Fase fase, ArrayList<Evento> eventos, ArrayList<Arbitraje> arbitrajes) {
         this.fecha = fecha;
         this.horario = horario;
         this.duracion = duracion;
         this.tiempoAdicional = tiempoAdicional;
+        this.participaciones = participaciones;
         this.estadio = estadio;
         this.fase = fase;
+        this.eventos = eventos;
+        this.arbitrajes = arbitrajes;
     }
+   
     
     //metodos para agregar
 
@@ -49,19 +56,19 @@ public class Partido {
 
      //metodos get y set
 
-    public LocalDate getFecha() {
+    public int getFecha() {
         return fecha;
     }
 
-    public void setFecha(LocalDate fecha) {
+    public void setFecha(int fecha) {
         this.fecha = fecha;
     }
 
-    public LocalTime getHorario() {
+    public int getHorario() {
         return horario;
     }
 
-    public void setHorario(LocalTime horario) {
+    public void setHorario(int horario) {
         this.horario = horario;
     }
 

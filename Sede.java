@@ -9,17 +9,22 @@ public class Sede {
     private String clima;
     private String zonaHoraria;
     private Pais pais; // una sede pertenece a un pais
-    private ArrayList<Estadio> estadios; // no se insrancia en la def de la clase  
+    private ArrayList<Estadio> estadios; 
     
-    
-    public Sede(String ciudad, float alturaNivelMar, String clima, String zonaHoraria, Pais pais) {
+   //constructor parametrizado
+    public Sede(String ciudad, float alturaNivelMar, String clima, String zonaHoraria, Pais pais,
+            ArrayList<Estadio> estadios) {
         this.ciudad = ciudad;
         this.alturaNivelMar = alturaNivelMar;
         this.clima = clima;
         this.zonaHoraria = zonaHoraria;
         this.pais = pais;
-        //aca si se crea el new arraylist
-        
+        this.estadios = estadios;
+    }
+
+    //constructor por defecto
+    public Sede(){
+        this.estadios = new ArrayList<>();
     }
 
     //----------Metodo agregarEstadio

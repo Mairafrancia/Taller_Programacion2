@@ -7,13 +7,18 @@ public class Mundial {
     private int fechaDesde;
     private int fechaHasta;
     private ArrayList<Sede> sedes; // new ArrayList<>(); // el mundial agrega varias sedes (clase contenedora en la clase sede(componente) no se hace referencia a mundial)
-   
-    //constructor 
-    public Mundial(int anio, String mascota, int fechaDesde, int fechaHasta) {
+    
+    //constructor por defecto
+    public Mundial(){
+        this.sedes = new ArrayList<>();
+    }
+    //constructor parametrizado
+    public Mundial(int anio, String mascota, int fechaDesde, int fechaHasta, ArrayList<Sede> sedes) {
         this.anio = anio;
         this.mascota = mascota;
         this.fechaDesde = fechaDesde;
         this.fechaHasta = fechaHasta;
+        this.sedes = sedes;
     }
 
     //metodo agregarSede

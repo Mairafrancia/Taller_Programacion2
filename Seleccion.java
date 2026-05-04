@@ -9,15 +9,22 @@ public class Seleccion {
     private int rankingFIFA;
     private Grupo grupo;
     private Pais pais;
-    private ArrayList<Jugador> jugadores = new ArrayList<>();
-    private ArrayList<DirectorTecnico> directoresTecnicos = new ArrayList<>(); //ES UNO SOLO!!!!!!!!!! ESTA MAL EL UML
-    private ArrayList<CuerpoTecnico> cuerposTecnicos = new ArrayList<>();
-    private ArrayList<Participacion> participaciones = new ArrayList<>(); //lista de n participaciones
+    private ArrayList<Jugador> jugadores ;
+    private DirectorTecnico directorTecnico; 
+    private ArrayList<CuerpoTecnico> cuerposTecnicos ;
+    private ArrayList<Participacion> participaciones; //lista de n participaciones
 
-
-    //constructor
+    //constructor por defecto(){
+    public Seleccion(){
+        this.jugadores = new ArrayList<>();
+        this.cuerposTecnicos = new ArrayList<>();
+        this.participaciones = new ArrayList<>();
+    }
+   
+    //constructor parametrizado
     public Seleccion(String nombreFederacion, String camisetaPrincipal, String camisetaSecundaria, boolean cabezaGrupo,
-            int rankingFIFA, Grupo grupo, Pais pais) {
+            int rankingFIFA, Grupo grupo, Pais pais, ArrayList<Jugador> jugadores, DirectorTecnico directorTecnico,
+            ArrayList<CuerpoTecnico> cuerposTecnicos, ArrayList<Participacion> participaciones) {
         this.nombreFederacion = nombreFederacion;
         this.camisetaPrincipal = camisetaPrincipal;
         this.camisetaSecundaria = camisetaSecundaria;
@@ -25,8 +32,12 @@ public class Seleccion {
         this.rankingFIFA = rankingFIFA;
         this.grupo = grupo;
         this.pais = pais;
+        this.jugadores = jugadores;
+        this.directorTecnico = directorTecnico;
+        this.cuerposTecnicos = cuerposTecnicos;
+        this.participaciones = participaciones;
     }
-    
+
     //metodos de agregar
     public void agregarJugador(Jugador jugador){
         if (jugador != null){
