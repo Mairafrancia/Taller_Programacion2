@@ -5,7 +5,12 @@ public class Evento {
     private int minuto;
     private Jugador jugador; //un solo jugador esta involucrado a un evento
     
-    //constructor
+    //constructor por defecto
+    public Evento(){
+
+    }
+    
+    //constructor parametrizado
     public Evento(TipoEvento tipo, int minuto, Jugador jugador) {
         this.tipo = tipo;
         this.minuto = minuto;

@@ -3,7 +3,11 @@ package taller_programacion2;
 public class CuerpoTecnico extends Persona {
     private Rol rol;
 
-    //constructor
+    //constructor por defecto
+
+    public CuerpoTecnico(){}
+    
+    //constructor parametrizado
     public CuerpoTecnico(String nombre, int fecNacimiento, Rol rol) {
         super(nombre, fecNacimiento);
         this.rol = rol;

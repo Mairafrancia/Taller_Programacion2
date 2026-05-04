@@ -8,7 +8,12 @@ public class Participacion {
     private Partido partido;
     private Seleccion seleccion;
 
-    //constructor
+    //constructor por defecto
+    public Participacion(){
+        
+    }
+
+    //constructor parametrizado
     
     public Participacion(boolean esLocal, Partido partido, Seleccion seleccion) {
         this.esLocal = esLocal;
