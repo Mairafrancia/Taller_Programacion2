@@ -2,19 +2,29 @@ package organizacion_deportiva;
 import taller_programacion2.*;
 
 public class OrganizacionDeportiva {
-    public void configurarFaseYGrupo(Mundial mundial, NombreFase nombre, String idGrupo, String desc) {
+    public Fase configurarFaseYGrupo(Mundial mundial, NombreFase nombre, String idGrupo, String desc) {
         // 1. Crear y configurar la Fase
         Fase nuevaFase = new Fase();
         nuevaFase.setNombre(nombre); // Ejemplo: NombreFase.GRUPOS
         
-        // 2. Crear el Grupo y asociarlo a la Fase
+        // 2. Reutilizar la lógica de configuración de grupo
+        configurarGrupoEnFase(nuevaFase, idGrupo, desc);
+        
+        // 3. Devolver la fase para poder agregar más grupos después
+        return nuevaFase;
+    }
+
+    public void configurarGrupoEnFase(Fase faseExistente, String idGrupo, String desc) {
+        // 1. Crear el Grupo
         Grupo nuevoGrupo = new Grupo();
         nuevoGrupo.setIdentificador(idGrupo);
         nuevoGrupo.setDescripcion(desc);
-        nuevoGrupo.setFase(nuevaFase);
         
-        // 3. Vincular según el diagrama (Fase 1 --- * Grupo)
-        nuevaFase.agregarGrupo(nuevoGrupo);
+        // 2. Vincular el grupo con la fase existente (Relación * --- 1)
+        nuevoGrupo.setFase(faseExistente);
+        
+        // 3. Agregar el grupo a la lista de la fase (Relación 1 --- *)
+        faseExistente.agregarGrupo(nuevoGrupo);
     }
 
     public void planificarPartido(Fase fase, Estadio estadio, Seleccion local, Seleccion visitante, int fecha, int horario) {

@@ -14,6 +14,8 @@ public class main{
         Mundial mundial = new Mundial();
         mundial.setAnio(2026);
         mundial.setMascota("Mascota Mundial");
+        mundial.setFechaDesde(20260601); // Fecha desde
+        mundial.setFechaHasta(20260630); // Fecha hasta
 
         // Instancias de las clases de gestión
         GestionInfraestructura gi = new GestionInfraestructura();
@@ -84,6 +86,9 @@ public class main{
         jugador2.setDorsal(11);
         ad.registrarJugador(seleccion1, jugador2);
 
+        DirectorTecnico dt1 = new DirectorTecnico("Lionel Scaloni", 1972, 20221101);
+        seleccion1.setDirectorTecnico(dt1); // Asignar como director técnico
+
         CuerpoTecnico ct1 = new CuerpoTecnico();
         ct1.setNombre("Lionel Scaloni");
         ct1.setRol(Rol.AYUDANTECAMPO);
@@ -105,6 +110,9 @@ public class main{
         jugador3.setDorsal(10);
         ad.registrarJugador(seleccion2, jugador3);
 
+        DirectorTecnico dt2 = new DirectorTecnico("Tite", 1961, 20220601);
+        seleccion2.setDirectorTecnico(dt2); // Asignar como director técnico
+
         CuerpoTecnico ct2 = new CuerpoTecnico();
         ct2.setNombre("Tite");
         ct2.setRol(Rol.ENTRENADORARQUEROS);
@@ -118,33 +126,75 @@ public class main{
         // Prueba 3: Organización Deportiva (Ampliada)
         System.out.println("\n=== PRUEBA ORGANIZACIÓN DEPORTIVA ===");
         
-        // Fase de Grupos
-        Fase faseGrupos = new Fase();
-        faseGrupos.setNombre(NombreFase.GRUPOS);
-        od.configurarFaseYGrupo(mundial, NombreFase.GRUPOS, "Grupo A", "Grupo de primera fase");
-        od.configurarFaseYGrupo(mundial, NombreFase.GRUPOS, "Grupo B", "Grupo de primera fase");
+        // Fase de Grupos - Capturar la fase y agregar múltiples grupos
+        Fase faseGrupos = od.configurarFaseYGrupo(mundial, NombreFase.GRUPOS, "A", "Grupo de primera fase");
+        od.configurarGrupoEnFase(faseGrupos, "B", "Grupo de primera fase");
+        od.configurarGrupoEnFase(faseGrupos, "C", "Grupo de primera fase");
+        od.configurarGrupoEnFase(faseGrupos, "D", "Grupo de primera fase");
 
-        // Fase de Eliminatorias
-        Fase faseEliminatorias = new Fase();
-        faseEliminatorias.setNombre(NombreFase.CUARTOS);
-        od.configurarFaseYGrupo(mundial, NombreFase.CUARTOS, "Cuartos", "Fase de eliminación");
+        // Fase de Eliminatorias - Capturar la fase
+        Fase faseEliminatorias = od.configurarFaseYGrupo(mundial, NombreFase.CUARTOS, "Cuartos", "Fase de eliminación");
 
         // Planificar partidos
         od.planificarPartido(faseGrupos, estadio1, seleccion1, seleccion2, 20261101, 2000);
         od.planificarPartido(faseGrupos, estadio3, seleccion2, seleccion1, 20261105, 1800);
 
+        // Crear y asignar árbitros a los partidos
+        Arbitro arbitro1 = new Arbitro();
+        arbitro1.setNombre("Pierluigi Collina");
+        arbitro1.setFecNacimiento(1960);
+        arbitro1.setAniosExperiencia(30);
+        arbitro1.setPais(pais1);
+
+        Arbitro arbitro2 = new Arbitro();
+        arbitro2.setNombre("Cesar Ramos");
+        arbitro2.setFecNacimiento(1975);
+        arbitro2.setAniosExperiencia(20);
+        arbitro2.setPais(pais2);
+
+        Arbitro arbitro3 = new Arbitro();
+        arbitro3.setNombre("Wilmar Roldán");
+        arbitro3.setFecNacimiento(1978);
+        arbitro3.setAniosExperiencia(18);
+        arbitro3.setPais(pais1);
+
+        // Asignar árbitros al primer partido
+        Partido partido1 = faseGrupos.getPartidos().get(0);
+        Arbitraje arbitrajePrincipal1 = new Arbitraje(CategoriaArbitro.PRINCIPAL, partido1, arbitro1);
+        Arbitraje arbitrajeAsistente1 = new Arbitraje(CategoriaArbitro.ASISTENTE1, partido1, arbitro2);
+        Arbitraje arbitrajeAsistente2 = new Arbitraje(CategoriaArbitro.ASISTENTE2, partido1, arbitro3);
+        
+        partido1.agregarArbitraje(arbitrajePrincipal1);
+        partido1.agregarArbitraje(arbitrajeAsistente1);
+        partido1.agregarArbitraje(arbitrajeAsistente2);
+        
+        arbitro1.agregarArbitraje(arbitrajePrincipal1);
+        arbitro2.agregarArbitraje(arbitrajeAsistente1);
+        arbitro3.agregarArbitraje(arbitrajeAsistente2);
+
+        // Asignar árbitros al segundo partido
+        Partido partido2 = faseGrupos.getPartidos().get(1);
+        Arbitraje arbitrajePrincipal2 = new Arbitraje(CategoriaArbitro.PRINCIPAL, partido2, arbitro2);
+        Arbitraje arbitrajeAsistente3 = new Arbitraje(CategoriaArbitro.ASISTENTE1, partido2, arbitro1);
+        
+        partido2.agregarArbitraje(arbitrajePrincipal2);
+        partido2.agregarArbitraje(arbitrajeAsistente3);
+        
+        arbitro2.agregarArbitraje(arbitrajePrincipal2);
+        arbitro1.agregarArbitraje(arbitrajeAsistente3);
+
         System.out.println("Grupos en fase de grupos: " + faseGrupos.getGrupos().size());
         System.out.println("Partidos en fase de grupos: " + faseGrupos.getPartidos().size());
         System.out.println("Grupos en fase de eliminatorias: " + faseEliminatorias.getGrupos().size());
+        System.out.println("Árbitros en partido 1: " + partido1.getArbitrajes().size());
+        System.out.println("Árbitros en partido 2: " + partido2.getArbitrajes().size());
 
         // Prueba 4: Registro de Eventos (Ampliada)
         System.out.println("\n=== PRUEBA REGISTRO DE EVENTOS ===");
-        Partido partido1 = faseGrupos.getPartidos().get(0); // Partido 1
         rec.registrarEventoDeCampo(partido1, TipoEvento.GOL, 45, jugador1);
         rec.registrarEventoDeCampo(partido1, TipoEvento.TARJETAAMARILLA, 67, jugador2);
         rec.registrarEventoDeCampo(partido1, TipoEvento.PENALCOMETIDO, 78, jugador3);
 
-        Partido partido2 = faseGrupos.getPartidos().get(1); // Partido 2
         rec.registrarEventoDeCampo(partido2, TipoEvento.GOL, 23, jugador3);
         rec.registrarEventoDeCampo(partido2, TipoEvento.SUSTITUCION, 60, jugador1);
 
