@@ -47,13 +47,39 @@ public class Partido {
             this.arbitrajes.add(arbitraje);
         }
     }
-
+    //Verifica que p1 y p2 no sean null, ni que tengan el mismo valor de esLocal, luego asigna
     public void asignarParticipaciones(Participacion p1, Participacion p2) {
+        if (p1 == null || p2 == null) {
+            System.out.println("Error: las participaciones no pueden ser null");
+            return ;
+        }
+        if (p1.isEsLocal () == p2.isEsLocal()){
+            System.err.println( "Error: una participación debe ser local y la  otra visitante");
+            return ;
+        }
         this.participaciones[0] = p1;
         this.participaciones[1] = p2;
     }
-
-
+    
+    //Recorre las participaciones del partido y devuelve la del equipo local (esLocal = true)
+    // el participaciones[i] != null en el if lo utilizo para evitar un error en caso de que todavía no se hayan asignado las participaciones.
+    public Participacion getParticipacionLocal(){
+         for (int i = 0; i < participaciones.length; i++){
+             if (participaciones[i] != null && participaciones[i].isEsLocal()){
+                return participaciones[i];
+            }
+         }
+         return null;
+}
+    //Recorre las participaciones del partido y devuelve la del equipo visitante (esLocal = false)
+        public Participacion getParticipacionVisitante(){
+            for (int i = 0; i < participaciones.length; i++){
+                 if (participaciones[i] != null && !participaciones[i].isEsLocal()){
+                 return participaciones[i];
+                 }
+            }
+             return null;
+    }
      //metodos get y set
 
     public int getFecha() {

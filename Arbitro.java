@@ -21,6 +21,7 @@ public class Arbitro extends Persona {
         this.aniosExperiencia = aniosExperiencia;
         this.pais = pais;
         this.arbitrajes = arbitrajes;
+        
     }
 
     //metodo agregar arbitraje

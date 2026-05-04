@@ -11,19 +11,30 @@ public class Sede {
     private Pais pais; // una sede pertenece a un pais
     private ArrayList<Estadio> estadios; 
     
+<<<<<<< HEAD
    //constructor parametrizado
     public Sede(String ciudad, float alturaNivelMar, String clima, String zonaHoraria, Pais pais,
             ArrayList<Estadio> estadios) {
+=======
+    public Sede(){
+        this.estadios = new ArrayList<>();
+    }
+
+    public Sede(String ciudad, float alturaNivelMar, String clima, String zonaHoraria, Pais pais) {
+>>>>>>> 8e5e9c8e7db4f24fb146a77aadf12ca5d8c1f451
         this.ciudad = ciudad;
         this.alturaNivelMar = alturaNivelMar;
         this.clima = clima;
         this.zonaHoraria = zonaHoraria;
         this.pais = pais;
+<<<<<<< HEAD
         this.estadios = estadios;
     }
 
     //constructor por defecto
     public Sede(){
+=======
+>>>>>>> 8e5e9c8e7db4f24fb146a77aadf12ca5d8c1f451
         this.estadios = new ArrayList<>();
     }
 

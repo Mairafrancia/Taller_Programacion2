@@ -10,6 +10,7 @@ public class Fase {
     public Fase(){
         this.grupos = new ArrayList<>();
         this.partidos = new ArrayList<>();
+        this.grupos = new ArrayList<>();
     }
 
     //constructor parametrizado

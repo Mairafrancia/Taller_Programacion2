@@ -14,6 +14,7 @@ public class Seleccion {
     private ArrayList<CuerpoTecnico> cuerposTecnicos ;
     private ArrayList<Participacion> participaciones; //lista de n participaciones
 
+   
     //constructor por defecto(){
     public Seleccion(){
         this.jugadores = new ArrayList<>();
@@ -45,12 +46,6 @@ public class Seleccion {
         }
     }
 
-    public void agregarDirectorTecnico(DirectorTecnico directorTecnico){
-        if (directorTecnico != null){
-            this.directoresTecnicos.add(directorTecnico);
-        }
-    }
-
     public void agregarCuerpoTecnico(CuerpoTecnico cuerpoTecnico){
         if (cuerpoTecnico != null){
             this.cuerposTecnicos.add(cuerpoTecnico);
@@ -64,73 +59,93 @@ public class Seleccion {
     }
 
     //metodos get y set
-    public String getNombreFederacion() {
+     public String getNombreFederacion() {
         return nombreFederacion;
     }
+
     public void setNombreFederacion(String nombreFederacion) {
         this.nombreFederacion = nombreFederacion;
     }
+
     public String getCamisetaPrincipal() {
         return camisetaPrincipal;
     }
+
     public void setCamisetaPrincipal(String camisetaPrincipal) {
         this.camisetaPrincipal = camisetaPrincipal;
     }
+
     public String getCamisetaSecundaria() {
         return camisetaSecundaria;
     }
+
     public void setCamisetaSecundaria(String camisetaSecundaria) {
         this.camisetaSecundaria = camisetaSecundaria;
     }
+
     public boolean isCabezaGrupo() {
         return cabezaGrupo;
     }
+
     public void setCabezaGrupo(boolean cabezaGrupo) {
         this.cabezaGrupo = cabezaGrupo;
     }
+
     public int getRankingFIFA() {
         return rankingFIFA;
     }
+
     public void setRankingFIFA(int rankingFIFA) {
         this.rankingFIFA = rankingFIFA;
     }
+
     public Grupo getGrupo() {
         return grupo;
     }
+
     public void setGrupo(Grupo grupo) {
         this.grupo = grupo;
     }
+
     public Pais getPais() {
         return pais;
     }
+
     public void setPais(Pais pais) {
         this.pais = pais;
     }
+
     public ArrayList<Jugador> getJugadores() {
         return jugadores;
     }
+
     public void setJugadores(ArrayList<Jugador> jugadores) {
         this.jugadores = jugadores;
     }
-    public ArrayList<DirectorTecnico> getDirectoresTecnicos() {
-        return directoresTecnicos;
+
+    public DirectorTecnico getDirectorTecnico() {
+        return directorTecnico;
     }
-    public void setDirectoresTecnicos(ArrayList<DirectorTecnico> directoresTecnicos) {
-        this.directoresTecnicos = directoresTecnicos;
+
+    public void setDirectorTecnico(DirectorTecnico directorTecnico) {
+        this.directorTecnico = directorTecnico;
     }
+
     public ArrayList<CuerpoTecnico> getCuerposTecnicos() {
         return cuerposTecnicos;
     }
+
     public void setCuerposTecnicos(ArrayList<CuerpoTecnico> cuerposTecnicos) {
         this.cuerposTecnicos = cuerposTecnicos;
     }
+
     public ArrayList<Participacion> getParticipaciones() {
         return participaciones;
     }
+
     public void setParticipaciones(ArrayList<Participacion> participaciones) {
         this.participaciones = participaciones;
     }
-
 
 
 }
