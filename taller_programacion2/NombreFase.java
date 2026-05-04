@@ -1,4 +1,5 @@
-package MI_TALLER;
+package taller_programacion2;
+
 
 public enum NombreFase {
     GRUPOS,
@@ -9,3 +10,4 @@ public enum NombreFase {
     FINAL;
 
 }
+

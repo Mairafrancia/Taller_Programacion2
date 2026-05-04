@@ -1,17 +1,19 @@
-package MI_TALLER;
+package taller_programacion2;
+
 import java.util.ArrayList;
+
 
 public class CargadorDatos {
     public static Mundial cargar() {
         // acá van todos los objetos
         //crear mundial vacio
-        Mundial mundial = new Mundial(2026, "nombre mascota", 1, 30);
+        Mundial mundial = new Mundial(2026, "nombre mascota", 1, 30, new ArrayList<>());
         //crear un país
         Pais argentina = new Pais();
         argentina.setNombre("Argentina");
         argentina.setBandera("arg.png");
         //crear una Sede y asociaral al Pais
-        Sede sede1 = new Sede("Buenos Aires", 25.0f, "templado", "GMT-3", argentina);
+        Sede sede1 = new Sede("Buenos Aires", 25.0f, "templado", "GMT-3", argentina, new ArrayList<>());
         argentina.agregarSede(sede1);
         mundial.agregarSede(sede1);
         //Crear un Estadio y asociar

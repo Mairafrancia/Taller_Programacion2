@@ -1,7 +1,7 @@
-package MI_TALLER;
+package taller_programacion2;
+
 import java.util.ArrayList;
-//jjhjh
-//cambio
+
 
 public class Arbitro extends Persona {
     private int aniosExperiencia;
@@ -57,3 +57,5 @@ public class Arbitro extends Persona {
     }
 
 }
+
+

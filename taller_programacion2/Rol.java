@@ -1,4 +1,4 @@
-package MI_TALLER;
+package taller_programacion2;
 
 public enum Rol{
     AYUDANTECAMPO,
@@ -10,3 +10,5 @@ public enum Rol{
     NUTRICIONISTA,
     PSICOLOGO;
 }
+
+

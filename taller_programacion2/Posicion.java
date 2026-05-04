@@ -1,4 +1,6 @@
-package MI_TALLER;
+package taller_programacion2;
+
+
 
 public enum Posicion {
     ARQUERO,
@@ -6,3 +8,4 @@ public enum Posicion {
     MEDIOCAMPISTA,
     DELANTERO;
 }
+

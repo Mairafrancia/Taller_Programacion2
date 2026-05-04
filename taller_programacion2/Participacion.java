@@ -1,4 +1,6 @@
-package MI_TALLER;
+package taller_programacion2;
+
+
 
 public class Participacion {
     private boolean esLocal;
@@ -53,3 +55,5 @@ public class Participacion {
     }
     
 }
+
+

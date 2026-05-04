@@ -1,6 +1,6 @@
-package MI_TALLER;
-import java.util.ArrayList;
+package taller_programacion2;
 
+import java.util.ArrayList;
 public class Mundial {
     private int anio;
     private String mascota;

@@ -1,4 +1,5 @@
-package MI_TALLER;
+package taller_programacion2;
+
 import java.util.ArrayList;
 public class Jugador extends Persona{
     private int dorsal;
@@ -66,3 +67,4 @@ public class Jugador extends Persona{
 
 
 }
+

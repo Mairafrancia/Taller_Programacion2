@@ -1,4 +1,5 @@
-package MI_TALLER;
+package taller_programacion2;
+
 
 public abstract class Persona {
     protected String nombre;
@@ -30,3 +31,4 @@ public abstract class Persona {
 
 
 }
+

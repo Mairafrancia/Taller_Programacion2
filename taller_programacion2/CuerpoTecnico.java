@@ -1,4 +1,4 @@
-package MI_TALLER;
+package taller_programacion2;
 
 public class CuerpoTecnico extends Persona {
     private Rol rol;

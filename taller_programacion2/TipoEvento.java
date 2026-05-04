@@ -1,4 +1,6 @@
-package MI_TALLER;
+package taller_programacion2;
+
+
 
 public enum TipoEvento {
     GOL,
@@ -12,3 +14,4 @@ public enum TipoEvento {
     LESION;
     
 }
+

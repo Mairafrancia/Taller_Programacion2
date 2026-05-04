@@ -1,4 +1,5 @@
-package MI_TALLER;
+package taller_programacion2;
+
 
 public enum CategoriaArbitro {
     PRINCIPAL,
@@ -8,3 +9,4 @@ public enum CategoriaArbitro {
     VARPRINCIPAL,
     VARASISTENTE;
 }
+

@@ -1,4 +1,5 @@
-package MI_TALLER;
+package taller_programacion2;
+
 import java.util.ArrayList;
 
 public class Seleccion {
@@ -149,3 +150,4 @@ public class Seleccion {
 
 
 }
+

@@ -1,4 +1,5 @@
-package MI_TALLER;
+package taller_programacion2;
+
 
 public class Arbitraje {
     private CategoriaArbitro rol;
@@ -35,3 +36,4 @@ public class Arbitraje {
     }
 
 }
+
