@@ -3,18 +3,18 @@ package taller_programacion2;
 public class CuerpoTecnico extends Persona {
     private Rol rol;
 
-    //constructor por defecto
+    // CONSTRUCTOR SIN PARAMETROS
+    public CuerpoTecnico() {
+        this.rol = null;
+    }
 
-    public CuerpoTecnico(){}
-    
-    //constructor parametrizado
+    // CONSTRUCTOR PARAMETRIZADO
     public CuerpoTecnico(String nombre, int fecNacimiento, Rol rol) {
         super(nombre, fecNacimiento);
         this.rol = rol;
     }
 
-    //metodo get y set
-
+    // SETTERS Y GETTERS
     public Rol getRol() {
         return rol;
     }
@@ -22,5 +22,5 @@ public class CuerpoTecnico extends Persona {
     public void setRol(Rol rol) {
         this.rol = rol;
     }
-    
+
 }

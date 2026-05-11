@@ -3,21 +3,25 @@ package taller_programacion2;
 public class Evento {
     private TipoEvento tipo;
     private int minuto;
+
+    // ASOCIACIONES
     private Jugador jugador; //un solo jugador esta involucrado a un evento
     
-    //constructor por defecto
-    public Evento(){
-
+    // CONSTRUCTOR SIN PARAMETROS
+    public Evento() {
+        this.tipo = null;
+        this.minuto = 0;
+        this.jugador = null;
     }
     
-    //constructor parametrizado
+    // CONSTRUCTOR CON PARAMETROS
     public Evento(TipoEvento tipo, int minuto, Jugador jugador) {
         this.tipo = tipo;
         this.minuto = minuto;
         this.jugador = jugador;
     }
     
-    //metodos get y set
+    // SETTERS Y GETTERS
     public TipoEvento getTipo() {
         return tipo;
     }

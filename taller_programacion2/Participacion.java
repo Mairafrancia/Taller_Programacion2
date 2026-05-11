@@ -1,27 +1,28 @@
 package taller_programacion2;
 
-
-
 public class Participacion {
+
     private boolean esLocal;
-    //tiene 1 partido y 1 seleccion
+
+    // tiene 1 partido y 1 seleccion
     private Partido partido;
     private Seleccion seleccion;
 
-    //constructor por defecto
-    public Participacion(){
-        
+    // CONSTRUCTOR SIN PARAMETROS
+    public Participacion() {
+        this.esLocal = false;
+        this.partido = null;
+        this.seleccion = null;
     }
 
-    //constructor parametrizado
-    
+    // CONSTRUCTOR CON PARAMETROS
     public Participacion(boolean esLocal, Partido partido, Seleccion seleccion) {
         this.esLocal = esLocal;
         this.partido = partido;
         this.seleccion = seleccion;
     }
 
-    //metodos get y set
+    // SETTERS Y GETTERS
     public boolean isEsLocal() {
         return esLocal;
     }
@@ -46,19 +47,17 @@ public class Participacion {
         this.seleccion = seleccion;
     }
 
-    //metodos del UML
-    public int cantidadGoles(){
+    // METODOS
+    public int cantidadGoles() {
         return 0;
     }
 
-    public int cantidadTarjAmarillas(){
+    public int cantidadTarjAmarillas() {
         return 0;
     }
 
-    public int cantidadTarRojas(){
+    public int cantidadTarRojas() {
         return 0;
     }
-    
+
 }
-
-
