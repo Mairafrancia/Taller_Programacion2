@@ -3,17 +3,20 @@ package taller_programacion2;
 import java.util.ArrayList;
 
 public class Grupo {
+    
     private String identificador;
     private String descripcion;
+
+    // ASOCIACIONES
     private Fase fase;
     private ArrayList<Seleccion> selecciones;
 
-    //constructor por defecto
-    public Grupo(){
+    // CONSTRUCTOR SIN PARAMETROS
+    public Grupo() {
         this.selecciones = new ArrayList<>();
     }
-    //constructor parametrizado
     
+    // CONSTRUCTOR PARAMETRIZADO
     public Grupo(String identificador, String descripcion, Fase fase, ArrayList<Seleccion> selecciones) {
         this.identificador = identificador;
         this.descripcion = descripcion;
@@ -21,16 +24,8 @@ public class Grupo {
         this.selecciones = selecciones;
     }
 
-    //metodo agregar seleccion
-    public void agregarSeleccion(Seleccion seleccion){
-        if (seleccion != null){
-            this.selecciones.add(seleccion);
-        }
-    }
-
-    //metodos get y set
-    
-      public String getIdentificador() {
+    //SETTERS Y GETTERS
+    public String getIdentificador() {
         return identificador;
     }
 
@@ -62,10 +57,16 @@ public class Grupo {
         this.selecciones = selecciones;
     }
 
-    //metodo obtener puntos
-    public int obtenerPuntos(Seleccion s){
-      return 0;
+    //METODOS ASOCIACIONES
+    public void agregarSeleccion(Seleccion seleccion) {
+        if (seleccion != null) {
+            this.selecciones.add(seleccion);
+        }
+    }
+
+    // METODO
+    public int obtenerPuntos(Seleccion s) {
+        return 0;
     }
 
 }
-

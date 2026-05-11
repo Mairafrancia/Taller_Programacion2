@@ -2,37 +2,35 @@ package taller_programacion2;
 
 import java.util.ArrayList;
 
-
 public class Arbitro extends Persona {
     private int aniosExperiencia;
     private Pais pais;
     private ArrayList<Arbitraje> arbitrajes;
 
-    public Arbitro(){
+    public Arbitro() {
         super("", 0);
         this.arbitrajes = new ArrayList<>();
     }
 
-    //constructor parametrizado
-   
-    
+    // constructor parametrizado
+
     public Arbitro(String nombre, int fecNacimiento, int aniosExperiencia, Pais pais, ArrayList<Arbitraje> arbitrajes) {
         super(nombre, fecNacimiento);
         this.aniosExperiencia = aniosExperiencia;
         this.pais = pais;
         this.arbitrajes = arbitrajes;
-        
+
     }
 
-    //metodo agregar arbitraje
-    public void agregarArbitraje(Arbitraje arbitraje){
-        if (arbitraje != null){
+    // metodo agregar arbitraje
+    public void agregarArbitraje(Arbitraje arbitraje) {
+        if (arbitraje != null) {
             this.arbitrajes.add(arbitraje);
         }
     }
 
-    //metodos get y set 
-     public Pais getPais() {
+    // metodos get y set
+    public Pais getPais() {
         return pais;
     }
 
@@ -57,5 +55,3 @@ public class Arbitro extends Persona {
     }
 
 }
-
-

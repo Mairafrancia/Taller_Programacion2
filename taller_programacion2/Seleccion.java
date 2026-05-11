@@ -8,22 +8,23 @@ public class Seleccion {
     private String camisetaSecundaria;
     private boolean cabezaGrupo;
     private int rankingFIFA;
+
+    // ASOCIACIONES
     private Grupo grupo;
     private Pais pais;
-    private ArrayList<Jugador> jugadores ;
-    private DirectorTecnico directorTecnico; 
-    private ArrayList<CuerpoTecnico> cuerposTecnicos ;
-    private ArrayList<Participacion> participaciones; //lista de n participaciones
+    private ArrayList<Jugador> jugadores;
+    private DirectorTecnico directorTecnico; // es una lista de agregacion
+    private ArrayList<CuerpoTecnico> cuerposTecnicos;
+    private ArrayList<Participacion> participaciones; // lista de n participaciones
 
-   
-    //constructor por defecto(){
-    public Seleccion(){
-        this.jugadores = new ArrayList<>();
-        this.cuerposTecnicos = new ArrayList<>();
+    // CONSTRUCTOR SIN PARAMETROS
+    public Seleccion() {
+        this.jugadores = new ArrayList<>(); // en agregacion no se inicializan, solo con metodo
+        this.cuerposTecnicos = new ArrayList<>(); // lo mismo
         this.participaciones = new ArrayList<>();
     }
-   
-    //constructor parametrizado
+
+    // CONSTRUCTOR CON PARAMETROS
     public Seleccion(String nombreFederacion, String camisetaPrincipal, String camisetaSecundaria, boolean cabezaGrupo,
             int rankingFIFA, Grupo grupo, Pais pais, ArrayList<Jugador> jugadores, DirectorTecnico directorTecnico,
             ArrayList<CuerpoTecnico> cuerposTecnicos, ArrayList<Participacion> participaciones) {
@@ -40,27 +41,9 @@ public class Seleccion {
         this.participaciones = participaciones;
     }
 
-    //metodos de agregar
-    public void agregarJugador(Jugador jugador){
-        if (jugador != null){
-            this.jugadores.add(jugador);
-        }
-    }
 
-    public void agregarCuerpoTecnico(CuerpoTecnico cuerpoTecnico){
-        if (cuerpoTecnico != null){
-            this.cuerposTecnicos.add(cuerpoTecnico);
-        }
-    }
-
-    public void agregarParticipacion(Participacion participacion){
-        if (participacion != null){
-            this.participaciones.add(participacion);
-        }
-    }
-
-    //metodos get y set
-     public String getNombreFederacion() {
+    // SETTERS Y GETTERS
+    public String getNombreFederacion() {
         return nombreFederacion;
     }
 
@@ -148,6 +131,22 @@ public class Seleccion {
         this.participaciones = participaciones;
     }
 
+    // METODOS
+    public void agregarJugador(Jugador jugador) {
+        if (jugador != null) {
+            this.jugadores.add(jugador);
+        }
+    }
 
+    public void agregarCuerpoTecnico(CuerpoTecnico cuerpoTecnico) {
+        if (cuerpoTecnico != null) {
+            this.cuerposTecnicos.add(cuerpoTecnico);
+        }
+    }
+
+    public void agregarParticipacion(Participacion participacion) {
+        if (participacion != null) {
+            this.participaciones.add(participacion);
+        }
+    }
 }
-
