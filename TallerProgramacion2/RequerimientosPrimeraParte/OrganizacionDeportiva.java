@@ -1,4 +1,5 @@
-package organizacion_deportiva;
+package RequerimientosPrimeraParte;
+
 import taller_programacion2.*;
 
 public class OrganizacionDeportiva {
@@ -57,4 +58,5 @@ public class OrganizacionDeportiva {
     
 }
     
+
 

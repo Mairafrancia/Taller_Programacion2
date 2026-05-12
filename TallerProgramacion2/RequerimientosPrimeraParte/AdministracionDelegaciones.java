@@ -1,4 +1,6 @@
-package administracion_delegaciones;
+package RequerimientosPrimeraParte;
+
+
 import java.util.ArrayList;
 
 import taller_programacion2.*;
@@ -20,7 +22,7 @@ public class AdministracionDelegaciones {
         // 2. Si el Pais tiene una lista de sedes, lo agregamos
         pais.getSedes().add(sede);
         
-        // 3. Aseguramos que la sede esté en el mundial
+        // 3. Aseguramos que la sede esté en el mundial 
         if (!mundial.getSedes().contains(sede)) {
             mundial.getSedes().add(sede);
         }

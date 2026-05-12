@@ -1,5 +1,6 @@
- // Declaración del nuevo paquete
-package gestion_infraestructura;
+package RequerimientosPrimeraParte;
+
+
 import taller_programacion2.*;
 
 public class GestionInfraestructura {

@@ -2,10 +2,7 @@ package pruebas_metodosprimerparte;
 
 
 import taller_programacion2.*;
-import administracion_delegaciones.AdministracionDelegaciones;
-import organizacion_deportiva.OrganizacionDeportiva;
-import gestion_infraestructura.GestionInfraestructura;
-import registros_eventos_campos.RegistrosEventosCampos;
+import RequerimientosPrimeraParte.*;
 import java.util.ArrayList;
 
 public class main{
@@ -31,7 +28,9 @@ public class main{
         sede1.setCiudad("Buenos Aires");
         sede1.setClima("Templado");
         sede1.setZonaHoraria("GMT-3");
+        //gi.registrarSede(mundial, sede1);
         gi.registrarSede(mundial, sede1);
+    
 
         Estadio estadio1 = new Estadio();
         estadio1.setNombre("Estadio Monumental");
@@ -161,8 +160,8 @@ public class main{
         // Asignar árbitros al primer partido
         Partido partido1 = faseGrupos.getPartidos().get(0);
         Arbitraje arbitrajePrincipal1 = new Arbitraje(CategoriaArbitro.PRINCIPAL, partido1, arbitro1);
-        Arbitraje arbitrajeAsistente1 = new Arbitraje(CategoriaArbitro.ASISTENTE1, partido1, arbitro2);
-        Arbitraje arbitrajeAsistente2 = new Arbitraje(CategoriaArbitro.ASISTENTE2, partido1, arbitro3);
+        Arbitraje arbitrajeAsistente1 = new Arbitraje(CategoriaArbitro.ASISTENTE_1, partido1, arbitro2);
+        Arbitraje arbitrajeAsistente2 = new Arbitraje(CategoriaArbitro.ASISTENTE_2, partido1, arbitro3);
         
         partido1.agregarArbitraje(arbitrajePrincipal1);
         partido1.agregarArbitraje(arbitrajeAsistente1);
@@ -175,7 +174,7 @@ public class main{
         // Asignar árbitros al segundo partido
         Partido partido2 = faseGrupos.getPartidos().get(1);
         Arbitraje arbitrajePrincipal2 = new Arbitraje(CategoriaArbitro.PRINCIPAL, partido2, arbitro2);
-        Arbitraje arbitrajeAsistente3 = new Arbitraje(CategoriaArbitro.ASISTENTE1, partido2, arbitro1);
+        Arbitraje arbitrajeAsistente3 = new Arbitraje(CategoriaArbitro.ASISTENTE_1, partido2, arbitro1);
         
         partido2.agregarArbitraje(arbitrajePrincipal2);
         partido2.agregarArbitraje(arbitrajeAsistente3);

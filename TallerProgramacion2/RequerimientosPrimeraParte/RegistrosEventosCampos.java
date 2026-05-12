@@ -1,5 +1,9 @@
-package registros_eventos_campos;
+package RequerimientosPrimeraParte;
+
 import taller_programacion2.*;
+
+/* Registro de Eventos de Campo: Durante los partidos, se deben registrar los
+Eventos en tiempo real detallando entre otros el minuto y el jugador involucrado */
 
 public class RegistrosEventosCampos {
 
