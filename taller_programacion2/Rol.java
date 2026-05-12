@@ -1,0 +1,14 @@
+package taller_programacion2;
+
+public enum Rol{
+    AYUDANTECAMPO,
+    PREPARADORFISICO,
+    MEDICO,
+    KINESIOLOGO,
+    ENTRENADORARQUEROS,
+    ANALISTAVIDEOS,
+    NUTRICIONISTA,
+    PSICOLOGO;
+}
+
+
