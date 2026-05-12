@@ -7,7 +7,7 @@ public class Arbitraje {
     private Partido partido;
     private Arbitro arbitro;
 
-    // CONSTRCTOR SIN PARAMETROS
+    // CONSTRUCTOR SIN PARAMETROS
     public Arbitraje(){
         this.rol= null;
         this.arbitro = null;
