@@ -21,6 +21,6 @@ public class EstadísticasdeSedes{
         System.out.println("Cantidad de partidos en la ciudad " + ciudad + ": " + cantidadPartidos);
     }
 
-    
+
 }
 
