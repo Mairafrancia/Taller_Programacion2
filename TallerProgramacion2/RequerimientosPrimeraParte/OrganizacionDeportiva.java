@@ -3,7 +3,7 @@ package RequerimientosPrimeraParte;
 import taller_programacion2.*;
 
 public class OrganizacionDeportiva {
-    public Fase configurarFaseYGrupo(Mundial mundial, NombreFase nombre, String idGrupo, String desc) {
+    public Fase configurarFaseYGrupo(NombreFase nombre, String idGrupo, String desc) {
         // 1. Crear y configurar la Fase
         Fase nuevaFase = new Fase();
         nuevaFase.setNombre(nombre); // Ejemplo: NombreFase.GRUPOS
@@ -50,7 +50,9 @@ public class OrganizacionDeportiva {
         // 4. SOLUCIÓN AL ERROR DEL ARRAY:
         // En lugar de usar .add(), usamos el método que vos misma creaste en Partido.java
         partido.asignarParticipaciones(pLocal, pVisitante);
-
+        pLocal.setPartido(partido);
+        pVisitante.setPartido(partido);
+        estadio.agregarPartido(partido); // Agregar el partido al estadio para que el estadio conozca su calendario
         // 5. Guardar el partido en la fase para que la fase conozca su calendario
         fase.agregarPartido(partido);
     }
