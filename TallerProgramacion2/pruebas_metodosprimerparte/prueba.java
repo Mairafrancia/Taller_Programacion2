@@ -3,23 +3,24 @@ package pruebas_metodosprimerparte;
 
 import taller_programacion2.*;
 import RequerimientosPrimeraParte.*;
-import java.util.ArrayList;
+//import java.util.ArrayList;
 
-public class main{
+public class prueba{
     public static void main(String[] args) {
         // Crear instancia del Mundial
         Mundial mundial = new Mundial();
         mundial.setAnio(2026);
-        mundial.setMascota("Mascota Mundial");
-        mundial.setFechaDesde(20260601); // Fecha desde
-        mundial.setFechaHasta(20260630); // Fecha hasta
+        mundial.setMascota("Zayu");
+        mundial.setFechaDesde(20260611); // Fecha desde
+        mundial.setFechaHasta(20260719); // Fecha hasta
 
-        // Instancias de las clases de gestión
+        // Instanciamos  clases de gestión
         GestionInfraestructura gi = new GestionInfraestructura();
         AdministracionDelegaciones ad = new AdministracionDelegaciones();
         OrganizacionDeportiva od = new OrganizacionDeportiva();
         RegistrosEventosCampos rec = new RegistrosEventosCampos();
 
+        //--------------------------------------
         // Prueba 1: Gestión de Infraestructura (Ampliada)
         System.out.println("=== PRUEBA GESTIÓN DE INFRAESTRUCTURA ===");
         
@@ -27,22 +28,33 @@ public class main{
         Sede sede1 = new Sede();
         sede1.setCiudad("Buenos Aires");
         sede1.setClima("Templado");
-        sede1.setZonaHoraria("GMT-3");
-        //gi.registrarSede(mundial, sede1);
+        sede1.setZonaHoraria("UTC-3");
+
+        //CUMPLIMIENTO DEL PRIMER METODO DE LA CLASE GESTION INFRAESTRUCTURA
         gi.registrarSede(mundial, sede1);
-    
+
+        //REGISTRAR (2)ESTADIOS EN (1)SEDE - CUMPLIMIENTO DEL SEGUNDO METODO DE LA CLASE GESTION INFRAESTRUCTURA
 
         Estadio estadio1 = new Estadio();
         estadio1.setNombre("Estadio Monumental");
-        estadio1.setCapacidad(70000);
-        gi.registrarEstadioEnSede(sede1, "Estadio Monumental", 70000);
+        estadio1.setCapacidad(85018);
+        gi.registrarEstadioEnSede(sede1, "Estadio Monumental", 85018);
 
         Estadio estadio2 = new Estadio();
         estadio2.setNombre("Estadio Libertadores de América");
         estadio2.setCapacidad(48000);
         gi.registrarEstadioEnSede(sede1, "Estadio Libertadores de América", 48000);
 
-        // Segunda sede
+        // RECUPERAMOS LOS ESTADIOS REALES:
+        // Hacemos esto para asegurarnos de que la variable 'estadio1' sea EL MISMO objeto 
+        // que se guardó en la sede. Si no lo hacemos, podríamos estar trabajando con 
+        // una "copia" y los partidos no aparecerían después en la lista de la sede.
+
+        estadio1 = sede1.getEstadios().get(0); 
+        estadio2 = sede1.getEstadios().get(1);
+
+
+        // Segunda sede y su estadio
         Sede sede2 = new Sede();
         sede2.setCiudad("Río de Janeiro");
         sede2.setClima("Tropical");
@@ -54,11 +66,14 @@ public class main{
         estadio3.setCapacidad(78000);
         gi.registrarEstadioEnSede(sede2, "Maracaná", 78000);
 
+        estadio3 = sede2.getEstadios().get(0);
+
         System.out.println("Sedes registradas: " + mundial.getSedes().size());
         System.out.println("Estadios en sede1: " + sede1.getEstadios().size());
         System.out.println("Estadios en sede2: " + sede2.getEstadios().size());
 
-        // Prueba 2: Administración de Delegaciones (Ampliada)
+        //----------------------------------------------
+        // Prueba 2: Administración de Delegaciones 
         System.out.println("\n=== PRUEBA ADMINISTRACIÓN DE DELEGACIONES ===");
         
         // País 1: Argentina
@@ -75,25 +90,51 @@ public class main{
         ad.vincularPaisAlSistema(mundial, sede1, pais1);
         ad.gestionarSeleccion(pais1, seleccion1, grupo1);
 
+        //REGISTRO DE JUGADORES 
         Jugador jugador1 = new Jugador();
         jugador1.setNombre("Lionel Messi");
         jugador1.setDorsal(10);
-        ad.registrarJugador(seleccion1, jugador1);
+        
 
         Jugador jugador2 = new Jugador();
         jugador2.setNombre("Ángel Di María");
         jugador2.setDorsal(11);
+        
+        ad.registrarJugador(seleccion1, jugador1);
         ad.registrarJugador(seleccion1, jugador2);
 
+        //REGISTRO DE DIRECTOR TECNICO Y EQUIPO TECNICO
         DirectorTecnico dt1 = new DirectorTecnico("Lionel Scaloni", 1972, 20221101);
         seleccion1.setDirectorTecnico(dt1); // Asignar como director técnico
 
         CuerpoTecnico ct1 = new CuerpoTecnico();
-        ct1.setNombre("Lionel Scaloni");
+        ct1.setNombre("Pablo Aimar");
         ct1.setRol(Rol.AYUDANTECAMPO);
-        ad.registrarCuerpoTecnico(seleccion1, ct1);
 
-        // País 2: Brasil
+        CuerpoTecnico ct2 = new CuerpoTecnico();
+        ct2.setNombre("Walter Samuel");
+        ct2.setRol(Rol.AYUDANTECAMPO);
+
+        CuerpoTecnico ct3 = new CuerpoTecnico();
+        ct3.setNombre("Roberto Ayala");
+        ct3.setRol(Rol.AYUDANTECAMPO);
+
+        CuerpoTecnico ct4 = new CuerpoTecnico();
+        ct4.setNombre("Martin Tocalli");
+        ct4.setRol(Rol.ENTRENADORARQUEROS);
+
+        CuerpoTecnico ct5 = new CuerpoTecnico();
+        ct5.setNombre("Luis Martin");
+        ct5.setRol(Rol.PREPARADORFISICO);
+
+        ad.registrarCuerpoTecnico(seleccion1, ct1);
+        ad.registrarCuerpoTecnico(seleccion1, ct2);
+        ad.registrarCuerpoTecnico(seleccion1, ct3);
+        ad.registrarCuerpoTecnico(seleccion1, ct4);
+        ad.registrarCuerpoTecnico(seleccion1, ct5);
+        //--------------
+
+        //REGISTRAR SEGUNDO PAIS, SELECCION Y JUGADOR
         Pais pais2 = new Pais();
         pais2.setNombre("Brasil");
         pais2.setBandera("Bandera Brasil");
@@ -109,30 +150,34 @@ public class main{
         jugador3.setDorsal(10);
         ad.registrarJugador(seleccion2, jugador3);
 
-        DirectorTecnico dt2 = new DirectorTecnico("Tite", 1961, 20220601);
+        DirectorTecnico dt2 = new DirectorTecnico("Carlos Ancelotti", 1959, 20220601);
         seleccion2.setDirectorTecnico(dt2); // Asignar como director técnico
 
-        CuerpoTecnico ct2 = new CuerpoTecnico();
-        ct2.setNombre("Tite");
-        ct2.setRol(Rol.ENTRENADORARQUEROS);
-        ad.registrarCuerpoTecnico(seleccion2, ct2);
+        CuerpoTecnico ctB = new CuerpoTecnico();
+        ctB.setNombre("Tite");
+        ctB.setRol(Rol.ENTRENADORARQUEROS);
+        ad.registrarCuerpoTecnico(seleccion2, ctB);
+
+        //IMPRIMIR LA CANTIDAD DE JUGADORES Y CUERPO TECNICO EN CADA SELECCION PARA VERIFICAR Q SE REGISTRARON BIEN
 
         System.out.println("Jugadores en selección Argentina: " + seleccion1.getJugadores().size());
         System.out.println("Cuerpo técnico en selección Argentina: " + seleccion1.getCuerposTecnicos().size());
         System.out.println("Jugadores en selección Brasil: " + seleccion2.getJugadores().size());
         System.out.println("Cuerpo técnico en selección Brasil: " + seleccion2.getCuerposTecnicos().size());
 
+        //------------------------------
+
         // Prueba 3: Organización Deportiva (Ampliada)
         System.out.println("\n=== PRUEBA ORGANIZACIÓN DEPORTIVA ===");
         
         // Fase de Grupos - Capturar la fase y agregar múltiples grupos
-        Fase faseGrupos = od.configurarFaseYGrupo(mundial, NombreFase.GRUPOS, "A", "Grupo de primera fase");
+        Fase faseGrupos = od.configurarFaseYGrupo(NombreFase.GRUPOS, "A", "Grupo de primera fase");
         od.configurarGrupoEnFase(faseGrupos, "B", "Grupo de primera fase");
         od.configurarGrupoEnFase(faseGrupos, "C", "Grupo de primera fase");
         od.configurarGrupoEnFase(faseGrupos, "D", "Grupo de primera fase");
 
         // Fase de Eliminatorias - Capturar la fase
-        Fase faseEliminatorias = od.configurarFaseYGrupo(mundial, NombreFase.CUARTOS, "Cuartos", "Fase de eliminación");
+        Fase faseEliminatorias = od.configurarFaseYGrupo(NombreFase.CUARTOS, "Cuartos", "Fase de eliminación");
 
         // Planificar partidos
         od.planificarPartido(faseGrupos, estadio1, seleccion1, seleccion2, 20261101, 2000);
