@@ -1,15 +1,11 @@
 package RequerimientosPrimeraParte;
 
 
-import java.util.ArrayList;
+
 
 import taller_programacion2.*;
 
 public class AdministracionDelegaciones {
-
-     // Lista para controlar que no se repitan jugadores en todo el mundial
-    private ArrayList<Jugador> jugadoresAsignados = new ArrayList<>();
-
 
     // Cambiamos el enfoque: El país se registra al crearlo, 
     // pero se vincula al mundial a través de su Sede.
@@ -42,25 +38,28 @@ public class AdministracionDelegaciones {
     
    
 
-    // Añade un jugador a una selección si no ha sido asignado previamente a otra selección.
-    public void registrarJugador(Seleccion seleccion, Jugador nuevoJugador) {
-        // Controlamos si el objeto ya está en nuestra lista global de control
-        if (!jugadoresAsignados.contains(nuevoJugador)) {
-            seleccion.getJugadores().add(nuevoJugador); // Agregamos a la colección
-            jugadoresAsignados.add(nuevoJugador); // Marcamos como asignado
-        } else {
-            System.out.println("Error: El jugador " + nuevoJugador.getNombre() + " ya pertenece a una selección.");
+    // Añade un jugador a una selección si no ha sido asignado previamente a otra selección del grupo.
+    public boolean registrarJugador(Seleccion seleccion, Jugador nuevoJugador) {
+        // Verificar si el jugador ya está en otra selección del mismo grupo
+        Grupo grupo = seleccion.getGrupo();
+        if (grupo != null) {
+            for (Seleccion sel : grupo.getSelecciones()) {
+                if (sel.getJugadores().contains(nuevoJugador)) {
+                    return false; // El jugador ya está registrado en otra selección
+                }
+            }
         }
+        // Si no está en ninguna selección del grupo, lo registramos
+        seleccion.getJugadores().add(nuevoJugador);
+        return true;
     }
 
     // Registra un integrante del cuerpo técnico en la selección correspondiente.
-    public void registrarCuerpoTecnico(Seleccion seleccion, CuerpoTecnico integrante) {
+    public boolean registrarCuerpoTecnico(Seleccion seleccion, CuerpoTecnico integrante) {
         // La selección cuenta con una lista de integrantes del cuerpo técnico según el diagrama
         // Usamos el método getter de la clase Seleccion para obtener la lista y añadir al integrante
-        seleccion.getCuerposTecnicos().add(integrante); 
-        
-        // imprimir un mensaje de confirmación para el seguimiento del cargador
-        System.out.println("Registrado: " + integrante.getNombre() + " como " + integrante.getRol() + " en la selección de " + seleccion.getPais().getNombre());
+        seleccion.getCuerposTecnicos().add(integrante);
+        return true;
     }
 
 
