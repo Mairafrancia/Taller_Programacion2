@@ -20,6 +20,9 @@ public class prueba{
         OrganizacionDeportiva od = new OrganizacionDeportiva();
         RegistrosEventosCampos rec = new RegistrosEventosCampos();
 
+        // Crear fase de grupos temprana para usar el mismo Grupo al registrar selecciones
+        Fase faseGrupos = od.configurarFaseYGrupo(NombreFase.GRUPOS, "A", "Grupo de primera fase");
+
         //--------------------------------------
         // Prueba 1: Gestión de Infraestructura (Ampliada)
         System.out.println("=== PRUEBA GESTIÓN DE INFRAESTRUCTURA ===");
@@ -84,8 +87,7 @@ public class prueba{
         Seleccion seleccion1 = new Seleccion();
         seleccion1.setNombreFederacion("AFA");
 
-        Grupo grupo1 = new Grupo();
-        grupo1.setIdentificador("A");
+        Grupo grupo1 = faseGrupos.getGrupos().get(0);
 
         ad.vincularPaisAlSistema(mundial, sede1, pais1);
         ad.gestionarSeleccion(pais1, seleccion1, grupo1);
@@ -170,8 +172,7 @@ public class prueba{
         // Prueba 3: Organización Deportiva (Ampliada)
         System.out.println("\n=== PRUEBA ORGANIZACIÓN DEPORTIVA ===");
         
-        // Fase de Grupos - Capturar la fase y agregar múltiples grupos
-        Fase faseGrupos = od.configurarFaseYGrupo(NombreFase.GRUPOS, "A", "Grupo de primera fase");
+        // Fase de Grupos: ya creada antes; aquí agregamos más grupos a la misma fase
         od.configurarGrupoEnFase(faseGrupos, "B", "Grupo de primera fase");
         od.configurarGrupoEnFase(faseGrupos, "C", "Grupo de primera fase");
         od.configurarGrupoEnFase(faseGrupos, "D", "Grupo de primera fase");
