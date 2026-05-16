@@ -1,0 +1,1860 @@
+[1mdiff --git a/TallerProgramacion2/RequerimientosPrimeraParte/AdministracionDelegaciones.java b/TallerProgramacion2/RequerimientosPrimeraParte/AdministracionDelegaciones.java[m
+[1mnew file mode 100644[m
+[1mindex 0000000..ce00f0d[m
+[1m--- /dev/null[m
+[1m+++ b/TallerProgramacion2/RequerimientosPrimeraParte/AdministracionDelegaciones.java[m
+[36m@@ -0,0 +1,67 @@[m
+[32m+[m[32mpackage RequerimientosPrimeraParte;[m
+[32m+[m
+[32m+[m
+[32m+[m
+[32m+[m
+[32m+[m[32mimport taller_programacion2.*;[m
+[32m+[m
+[32m+[m[32mpublic class AdministracionDelegaciones {[m
+[32m+[m
+[32m+[m[32m    // Cambiamos el enfoque: El país se registra al crearlo,[m[41m [m
+[32m+[m[32m    // pero se vincula al mundial a través de su Sede.[m
+[32m+[m
+[32m+[m[32m    // Vincula un país con una sede y asegura que esa sede esté registrada en el Mundial.[m
+[32m+[m[32m    public void vincularPaisAlSistema(Mundial mundial, Sede sede, Pais pais) {[m
+[32m+[m[32m        // 1. Relacionamos Sede con Pais (Sede * --- 1 Pais)[m
+[32m+[m[32m        sede.setPais(pais);[m
+[32m+[m[41m        [m
+[32m+[m[32m        // 2. Si el Pais tiene una lista de sedes, lo agregamos[m
+[32m+[m[32m        pais.getSedes().add(sede);[m
+[32m+[m[41m        [m
+[32m+[m[32m        // 3. Aseguramos que la sede esté en el mundial[m[41m [m
+[32m+[m[32m        if (!mundial.getSedes().contains(sede)) {[m
+[32m+[m[32m            mundial.getSedes().add(sede);[m
+[32m+[m[32m        }[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    // Asocia una selección a un país y la asigna al grupo correspondiente.[m
+[32m+[m[32m    public void gestionarSeleccion(Pais pais, Seleccion seleccion, Grupo grupo) {[m
+[32m+[m[32m        // Vincular la selección con el país (Relación 1 a 1)[m
+[32m+[m[32m        pais.setSeleccion(seleccion);[m
+[32m+[m[32m        seleccion.setPais(pais);[m
+[32m+[m[41m        [m
+[32m+[m[32m        // Asignar la selección a un grupo (Relación * a 1)[m
+[32m+[m[32m        seleccion.setGrupo(grupo);[m
+[32m+[m[32m        grupo.agregarSeleccion(seleccion);[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[41m    [m
+[32m+[m[41m   [m
+[32m+[m
+[32m+[m[32m    // Añade un jugador a una selección si no ha sido asignado previamente a otra selección del grupo.[m
+[32m+[m[32m    public boolean registrarJugador(Seleccion seleccion, Jugador nuevoJugador) {[m
+[32m+[m[32m        // Verificar si el jugador ya está en otra selección del mismo grupo[m
+[32m+[m[32m        Grupo grupo = seleccion.getGrupo();[m
+[32m+[m[32m        if (grupo != null) {[m
+[32m+[m[32m            for (Seleccion sel : grupo.getSelecciones()) {[m
+[32m+[m[32m                if (sel.getJugadores().contains(nuevoJugador)) {[m
+[32m+[m[32m                    return false; // El jugador ya está registrado en otra selección[m
+[32m+[m[32m                }[m
+[32m+[m[32m            }[m
+[32m+[m[32m        }[m
+[32m+[m[32m        // Si no está en ninguna selección del grupo, lo registramos[m
+[32m+[m[32m        seleccion.getJugadores().add(nuevoJugador);[m
+[32m+[m[32m        return true;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    // Registra un integrante del cuerpo técnico en la selección correspondiente.[m
+[32m+[m[32m    public boolean registrarCuerpoTecnico(Seleccion seleccion, CuerpoTecnico integrante) {[m
+[32m+[m[32m        // La selección cuenta con una lista de integrantes del cuerpo técnico según el diagrama[m
+[32m+[m[32m        // Usamos el método getter de la clase Seleccion para obtener la lista y añadir al integrante[m
+[32m+[m[32m        seleccion.getCuerposTecnicos().add(integrante);[m
+[32m+[m[32m        return true;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m
+[32m+[m[41m    [m
+[32m+[m[32m}[m
+[1mdiff --git a/TallerProgramacion2/RequerimientosPrimeraParte/GestionInfraestructura.java b/TallerProgramacion2/RequerimientosPrimeraParte/GestionInfraestructura.java[m
+[1mnew file mode 100644[m
+[1mindex 0000000..0eb00a4[m
+[1m--- /dev/null[m
+[1m+++ b/TallerProgramacion2/RequerimientosPrimeraParte/GestionInfraestructura.java[m
+[36m@@ -0,0 +1,26 @@[m
+[32m+[m[32mpackage RequerimientosPrimeraParte;[m
+[32m+[m
+[32m+[m
+[32m+[m[32mimport taller_programacion2.*;[m
+[32m+[m
+[32m+[m[32mpublic class GestionInfraestructura {[m
+[32m+[m
+[32m+[m[32m    // MÉTODO PARA REGISTRAR SEDE[m
+[32m+[m[32m    public boolean registrarSede(Mundial mundial, Sede nuevaSede) {[m
+[32m+[m[32m        // Se agrega la sede al mundial siguiendo el diagrama de clases[m
+[32m+[m[32m        mundial.getSedes().add(nuevaSede);[m
+[32m+[m[32m        return true;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    // MÉTODO PARA REGISTRAR ESTADIO CON CAPACIDAD[m
+[32m+[m[32m    public boolean registrarEstadioEnSede(Sede sede, String nombre, int capacidad) {[m
+[32m+[m[32m        Estadio nuevoEstadio = new Estadio();[m
+[32m+[m[32m        nuevoEstadio.setNombre(nombre);[m
+[32m+[m[32m        nuevoEstadio.setCapacidad(capacidad); // Requerimiento específico de capacidad[m
+[32m+[m[32m        nuevoEstadio.setSede(sede);[m
+[32m+[m[41m        [m
+[32m+[m[32m        // Se vincula según la relación 1..* del diagrama[m
+[32m+[m[32m        sede.getEstadios().add(nuevoEstadio);[m
+[32m+[m[32m        return true;[m
+[32m+[m[32m    }[m
+[32m+[m[32m}[m
+\ No newline at end of file[m
+[1mdiff --git a/TallerProgramacion2/RequerimientosPrimeraParte/OrganizacionDeportiva.java b/TallerProgramacion2/RequerimientosPrimeraParte/OrganizacionDeportiva.java[m
+[1mnew file mode 100644[m
+[1mindex 0000000..44f93cb[m
+[1m--- /dev/null[m
+[1m+++ b/TallerProgramacion2/RequerimientosPrimeraParte/OrganizacionDeportiva.java[m
+[36m@@ -0,0 +1,64 @@[m
+[32m+[m[32mpackage RequerimientosPrimeraParte;[m
+[32m+[m
+[32m+[m[32mimport taller_programacion2.*;[m
+[32m+[m
+[32m+[m[32mpublic class OrganizacionDeportiva {[m
+[32m+[m[32m    public Fase configurarFaseYGrupo(NombreFase nombre, String idGrupo, String desc) {[m
+[32m+[m[32m        // 1. Crear y configurar la Fase[m
+[32m+[m[32m        Fase nuevaFase = new Fase();[m
+[32m+[m[32m        nuevaFase.setNombre(nombre); // Ejemplo: NombreFase.GRUPOS[m
+[32m+[m[41m        [m
+[32m+[m[32m        // 2. Reutilizar la lógica de configuración de grupo[m
+[32m+[m[32m        configurarGrupoEnFase(nuevaFase, idGrupo, desc);[m
+[32m+[m[41m        [m
+[32m+[m[32m        // 3. Devolver la fase para poder agregar más grupos después[m
+[32m+[m[32m        return nuevaFase;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void configurarGrupoEnFase(Fase faseExistente, String idGrupo, String desc) {[m
+[32m+[m[32m        // 1. Crear el Grupo[m
+[32m+[m[32m        Grupo nuevoGrupo = new Grupo();[m
+[32m+[m[32m        nuevoGrupo.setIdentificador(idGrupo);[m
+[32m+[m[32m        nuevoGrupo.setDescripcion(desc);[m
+[32m+[m[41m        [m
+[32m+[m[32m        // 2. Vincular el grupo con la fase existente (Relación * --- 1)[m
+[32m+[m[32m        nuevoGrupo.setFase(faseExistente);[m
+[32m+[m[41m        [m
+[32m+[m[32m        // 3. Agregar el grupo a la lista de la fase (Relación 1 --- *)[m
+[32m+[m[32m        faseExistente.agregarGrupo(nuevoGrupo);[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void planificarPartido(Fase fase, Estadio estadio, Seleccion local, Seleccion visitante, int fecha, int horario) {[m
+[32m+[m[32m        // 1. Crear el Partido[m
+[32m+[m[32m        Partido partido = new Partido();[m
+[32m+[m[41m        [m
+[32m+[m[32m        // 2. Usar setters con tipos int (fecha y horario)[m
+[32m+[m[32m        partido.setFecha(fecha);[m[41m [m
+[32m+[m[32m        partido.setHorario(horario);[m
+[32m+[m[32m        partido.setEstadio(estadio);[m
+[32m+[m[32m        partido.setFase(fase);[m
+[32m+[m
+[32m+[m[32m        // 3. Crear los objetos Participacion[m
+[32m+[m[32m        Participacion pLocal = new Participacion();[m
+[32m+[m[32m        pLocal.setEsLocal(true);[m
+[32m+[m[32m        pLocal.setSeleccion(local);[m
+[32m+[m[41m        [m
+[32m+[m[32m        Participacion pVisitante = new Participacion();[m
+[32m+[m[32m        pVisitante.setEsLocal(false);[m
+[32m+[m[32m        pVisitante.setSeleccion(visitante);[m
+[32m+[m
+[32m+[m[32m        // 4. SOLUCIÓN AL ERROR DEL ARRAY:[m
+[32m+[m[32m        // En lugar de usar .add(), usamos el método que vos misma creaste en Partido.java[m
+[32m+[m[32m        partido.asignarParticipaciones(pLocal, pVisitante);[m
+[32m+[m[32m        pLocal.setPartido(partido);[m
+[32m+[m[32m        pVisitante.setPartido(partido);[m
+[32m+[m[32m        estadio.agregarPartido(partido); // Agregar el partido al estadio para que el estadio conozca su calendario[m
+[32m+[m[32m        // 5. Guardar el partido en la fase para que la fase conozca su calendario[m
+[32m+[m[32m        fase.agregarPartido(partido);[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[41m    [m
+[32m+[m[32m}[m
+[32m+[m[41m    [m
+[32m+[m
+[32m+[m
+[1mdiff --git a/TallerProgramacion2/RequerimientosPrimeraParte/RegistrosEventosCampos.java b/TallerProgramacion2/RequerimientosPrimeraParte/RegistrosEventosCampos.java[m
+[1mnew file mode 100644[m
+[1mindex 0000000..ddb33d2[m
+[1m--- /dev/null[m
+[1m+++ b/TallerProgramacion2/RequerimientosPrimeraParte/RegistrosEventosCampos.java[m
+[36m@@ -0,0 +1,22 @@[m
+[32m+[m[32mpackage RequerimientosPrimeraParte;[m
+[32m+[m
+[32m+[m[32mimport taller_programacion2.*;[m
+[32m+[m
+[32m+[m[32m/* Registro de Eventos de Campo: Durante los partidos, se deben registrar los[m
+[32m+[m[32mEventos en tiempo real detallando entre otros el minuto y el jugador involucrado */[m
+[32m+[m
+[32m+[m[32mpublic class RegistrosEventosCampos {[m
+[32m+[m
+[32m+[m[32m    public void registrarEventoDeCampo(Partido partido, TipoEvento tipo, int minuto, Jugador jugador) {[m
+[32m+[m[32m        // 1. Crear la instancia del Evento[m
+[32m+[m[32m        Evento nuevoEvento = new Evento();[m
+[32m+[m[32m        // 2. Configurar los datos (minuto, tipo y jugador)[m
+[32m+[m[32m        nuevoEvento.setTipo(tipo);[m[41m [m
+[32m+[m[32m        nuevoEvento.setMinuto(minuto);[m
+[32m+[m[32m        nuevoEvento.setJugador(jugador);[m
+[32m+[m[32m        // 3. Vincular el evento al partido[m
+[32m+[m[32m        // Como es composición, el partido lo guarda en su lista interna[m
+[32m+[m[32m        partido.agregarEvento(nuevoEvento);[m
+[32m+[m[32m        System.out.println("Evento registrado en el partido: " + tipo + " - Minuto: " + minuto);[m
+[32m+[m[32m    }[m
+[32m+[m[32m}[m
+[1mdiff --git a/TallerProgramacion2/pruebas_metodosprimerparte/prueba.java b/TallerProgramacion2/pruebas_metodosprimerparte/prueba.java[m
+[1mnew file mode 100644[m
+[1mindex 0000000..f1cdd79[m
+[1m--- /dev/null[m
+[1m+++ b/TallerProgramacion2/pruebas_metodosprimerparte/prueba.java[m
+[36m@@ -0,0 +1,250 @@[m
+[32m+[m[32mpackage pruebas_metodosprimerparte;[m
+[32m+[m
+[32m+[m
+[32m+[m[32mimport taller_programacion2.*;[m
+[32m+[m[32mimport RequerimientosPrimeraParte.*;[m
+[32m+[m[32m//import java.util.ArrayList;[m
+[32m+[m
+[32m+[m[32mpublic class prueba{[m
+[32m+[m[32m    public static void main(String[] args) {[m
+[32m+[m[32m        // Crear instancia del Mundial[m
+[32m+[m[32m        Mundial mundial = new Mundial();[m
+[32m+[m[32m        mundial.setAnio(2026);[m
+[32m+[m[32m        mundial.setMascota("Zayu");[m
+[32m+[m[32m        mundial.setFechaDesde(20260611); // Fecha desde[m
+[32m+[m[32m        mundial.setFechaHasta(20260719); // Fecha hasta[m
+[32m+[m
+[32m+[m[32m        // Instanciamos  clases de gestión[m
+[32m+[m[32m        GestionInfraestructura gi = new GestionInfraestructura();[m
+[32m+[m[32m        AdministracionDelegaciones ad = new AdministracionDelegaciones();[m
+[32m+[m[32m        OrganizacionDeportiva od = new OrganizacionDeportiva();[m
+[32m+[m[32m        RegistrosEventosCampos rec = new RegistrosEventosCampos();[m
+[32m+[m
+[32m+[m[32m        //--------------------------------------[m
+[32m+[m[32m        // Prueba 1: Gestión de Infraestructura (Ampliada)[m
+[32m+[m[32m        System.out.println("=== PRUEBA GESTIÓN DE INFRAESTRUCTURA ===");[m
+[32m+[m[41m        [m
+[32m+[m[32m        // Primera sede[m
+[32m+[m[32m        Sede sede1 = new Sede();[m
+[32m+[m[32m        sede1.setCiudad("Buenos Aires");[m
+[32m+[m[32m        sede1.setClima("Templado");[m
+[32m+[m[32m        sede1.setZonaHoraria("UTC-3");[m
+[32m+[m
+[32m+[m[32m        //CUMPLIMIENTO DEL PRIMER METODO DE LA CLASE GESTION INFRAESTRUCTURA[m
+[32m+[m[32m        gi.registrarSede(mundial, sede1);[m
+[32m+[m
+[32m+[m[32m        //REGISTRAR (2)ESTADIOS EN (1)SEDE - CUMPLIMIENTO DEL SEGUNDO METODO DE LA CLASE GESTION INFRAESTRUCTURA[m
+[32m+[m
+[32m+[m[32m        Estadio estadio1 = new Estadio();[m
+[32m+[m[32m        estadio1.setNombre("Estadio Monumental");[m
+[32m+[m[32m        estadio1.setCapacidad(85018);[m
+[32m+[m[32m        gi.registrarEstadioEnSede(sede1, "Estadio Monumental", 85018);[m
+[32m+[m
+[32m+[m[32m        Estadio estadio2 = new Estadio();[m
+[32m+[m[32m        estadio2.setNombre("Estadio Libertadores de América");[m
+[32m+[m[32m        estadio2.setCapacidad(48000);[m
+[32m+[m[32m        gi.registrarEstadioEnSede(sede1, "Estadio Libertadores de América", 48000);[m
+[32m+[m
+[32m+[m[32m        // RECUPERAMOS LOS ESTADIOS REALES:[m
+[32m+[m[32m        // Hacemos esto para asegurarnos de que la variable 'estadio1' sea EL MISMO objeto[m[41m [m
+[32m+[m[32m        // que se guardó en la sede. Si no lo hacemos, podríamos estar trabajando con[m[41m [m
+[32m+[m[32m        // una "copia" y los partidos no aparecerían después en la lista de la sede.[m
+[32m+[m
+[32m+[m[32m        estadio1 = sede1.getEstadios().get(0);[m[41m [m
+[32m+[m[32m        estadio2 = sede1.getEstadios().get(1);[m
+[32m+[m
+[32m+[m
+[32m+[m[32m        // Segunda sede y su estadio[m
+[32m+[m[32m        Sede sede2 = new Sede();[m
+[32m+[m[32m        sede2.setCiudad("Río de Janeiro");[m
+[32m+[m[32m        sede2.setClima("Tropical");[m
+[32m+[m[32m        sede2.setZonaHoraria("GMT-3");[m
+[32m+[m[32m        gi.registrarSede(mundial, sede2);[m
+[32m+[m
+[32m+[m[32m        Estadio estadio3 = new Estadio();[m
+[32m+[m[32m        estadio3.setNombre("Maracaná");[m
+[32m+[m[32m        estadio3.setCapacidad(78000);[m
+[32m+[m[32m        gi.registrarEstadioEnSede(sede2, "Maracaná", 78000);[m
+[32m+[m
+[32m+[m[32m        estadio3 = sede2.getEstadios().get(0);[m
+[32m+[m
+[32m+[m[32m        System.out.println("Sedes registradas: " + mundial.getSedes().size());[m
+[32m+[m[32m        System.out.println("Estadios en sede1: " + sede1.getEstadios().size());[m
+[32m+[m[32m        System.out.println("Estadios en sede2: " + sede2.getEstadios().size());[m
+[32m+[m
+[32m+[m[32m        //----------------------------------------------[m
+[32m+[m[32m        // Prueba 2: Administración de Delegaciones[m[41m [m
+[32m+[m[32m        System.out.println("\n=== PRUEBA ADMINISTRACIÓN DE DELEGACIONES ===");[m
+[32m+[m[41m        [m
+[32m+[m[32m        // País 1: Argentina[m
+[32m+[m[32m        Pais pais1 = new Pais();[m
+[32m+[m[32m        pais1.setNombre("Argentina");[m
+[32m+[m[32m        pais1.setBandera("Bandera Argentina");[m
+[32m+[m
+[32m+[m[32m        Seleccion seleccion1 = new Seleccion();[m
+[32m+[m[32m        seleccion1.setNombreFederacion("AFA");[m
+[32m+[m
+[32m+[m[32m        Grupo grupo1 = new Grupo();[m
+[32m+[m[32m        grupo1.setIdentificador("A");[m
+[32m+[m
+[32m+[m[32m        ad.vincularPaisAlSistema(mundial, sede1, pais1);[m
+[32m+[m[32m        ad.gestionarSeleccion(pais1, seleccion1, grupo1);[m
+[32m+[m
+[32m+[m[32m        //REGISTRO DE JUGADORES[m[41m [m
+[32m+[m[32m        Jugador jugador1 = new Jugador();[m
+[32m+[m[32m        jugador1.setNombre("Lionel Messi");[m
+[32m+[m[32m        jugador1.setDorsal(10);[m
+[32m+[m[41m        [m
+[32m+[m
+[32m+[m[32m        Jugador jugador2 = new Jugador();[m
+[32m+[m[32m        jugador2.setNombre("Ángel Di María");[m
+[32m+[m[32m        jugador2.setDorsal(11);[m
+[32m+[m[41m        [m
+[32m+[m[32m        ad.registrarJugador(seleccion1, jugador1);[m
+[32m+[m[32m        ad.registrarJugador(seleccion1, jugador2);[m
+[32m+[m
+[32m+[m[32m        //REGISTRO DE DIRECTOR TECNICO Y EQUIPO TECNICO[m
+[32m+[m[32m        DirectorTecnico dt1 = new DirectorTecnico("Lionel Scaloni", 1972, 20221101);[m
+[32m+[m[32m        seleccion1.setDirectorTecnico(dt1); // Asignar como director técnico[m
+[32m+[m
+[32m+[m[32m        CuerpoTecnico ct1 = new CuerpoTecnico();[m
+[32m+[m[32m        ct1.setNombre("Pablo Aimar");[m
+[32m+[m[32m        ct1.setRol(Rol.AYUDANTECAMPO);[m
+[32m+[m
+[32m+[m[32m        CuerpoTecnico ct2 = new CuerpoTecnico();[m
+[32m+[m[32m        ct2.setNombre("Walter Samuel");[m
+[32m+[m[32m        ct2.setRol(Rol.AYUDANTECAMPO);[m
+[32m+[m
+[32m+[m[32m        CuerpoTecnico ct3 = new CuerpoTecnico();[m
+[32m+[m[32m        ct3.setNombre("Roberto Ayala");[m
+[32m+[m[32m        ct3.setRol(Rol.AYUDANTECAMPO);[m
+[32m+[m
+[32m+[m[32m        CuerpoTecnico ct4 = new CuerpoTecnico();[m
+[32m+[m[32m        ct4.setNombre("Martin Tocalli");[m
+[32m+[m[32m        ct4.setRol(Rol.ENTRENADORARQUEROS);[m
+[32m+[m
+[32m+[m[32m        CuerpoTecnico ct5 = new CuerpoTecnico();[m
+[32m+[m[32m        ct5.setNombre("Luis Martin");[m
+[32m+[m[32m        ct5.setRol(Rol.PREPARADORFISICO);[m
+[32m+[m
+[32m+[m[32m        ad.registrarCuerpoTecnico(seleccion1, ct1);[m
+[32m+[m[32m        ad.registrarCuerpoTecnico(seleccion1, ct2);[m
+[32m+[m[32m        ad.registrarCuerpoTecnico(seleccion1, ct3);[m
+[32m+[m[32m        ad.registrarCuerpoTecnico(seleccion1, ct4);[m
+[32m+[m[32m        ad.registrarCuerpoTecnico(seleccion1, ct5);[m
+[32m+[m[32m        //--------------[m
+[32m+[m
+[32m+[m[32m        //REGISTRAR SEGUNDO PAIS, SELECCION Y JUGADOR[m
+[32m+[m[32m        Pais pais2 = new Pais();[m
+[32m+[m[32m        pais2.setNombre("Brasil");[m
+[32m+[m[32m        pais2.setBandera("Bandera Brasil");[m
+[32m+[m
+[32m+[m[32m        Seleccion seleccion2 = new Seleccion();[m
+[32m+[m[32m        seleccion2.setNombreFederacion("CBF");[m
+[32m+[m
+[32m+[m[32m        ad.vincularPaisAlSistema(mundial, sede2, pais2);[m
+[32m+[m[32m        ad.gestionarSeleccion(pais2, seleccion2, grupo1);[m
+[32m+[m
+[32m+[m[32m        Jugador jugador3 = new Jugador();[m
+[32m+[m[32m        jugador3.setNombre("Neymar");[m
+[32m+[m[32m        jugador3.setDorsal(10);[m
+[32m+[m[32m        ad.registrarJugador(seleccion2, jugador3);[m
+[32m+[m
+[32m+[m[32m        DirectorTecnico dt2 = new DirectorTecnico("Carlos Ancelotti", 1959, 20220601);[m
+[32m+[m[32m        seleccion2.setDirectorTecnico(dt2); // Asignar como director técnico[m
+[32m+[m
+[32m+[m[32m        CuerpoTecnico ctB = new CuerpoTecnico();[m
+[32m+[m[32m        ctB.setNombre("Tite");[m
+[32m+[m[32m        ctB.setRol(Rol.ENTRENADORARQUEROS);[m
+[32m+[m[32m        ad.registrarCuerpoTecnico(seleccion2, ctB);[m
+[32m+[m
+[32m+[m[32m        //IMPRIMIR LA CANTIDAD DE JUGADORES Y CUERPO TECNICO EN CADA SELECCION PARA VERIFICAR Q SE REGISTRARON BIEN[m
+[32m+[m
+[32m+[m[32m        System.out.println("Jugadores en selección Argentina: " + seleccion1.getJugadores().size());[m
+[32m+[m[32m        System.out.println("Cuerpo técnico en selección Argentina: " + seleccion1.getCuerposTecnicos().size());[m
+[32m+[m[32m        System.out.println("Jugadores en selección Brasil: " + seleccion2.getJugadores().size());[m
+[32m+[m[32m        System.out.println("Cuerpo técnico en selección Brasil: " + seleccion2.getCuerposTecnicos().size());[m
+[32m+[m
+[32m+[m[32m        //------------------------------[m
+[32m+[m
+[32m+[m[32m        // Prueba 3: Organización Deportiva (Ampliada)[m
+[32m+[m[32m        System.out.println("\n=== PRUEBA ORGANIZACIÓN DEPORTIVA ===");[m
+[32m+[m[41m        [m
+[32m+[m[32m        // Fase de Grupos - Capturar la fase y agregar múltiples grupos[m
+[32m+[m[32m        Fase faseGrupos = od.configurarFaseYGrupo(NombreFase.GRUPOS, "A", "Grupo de primera fase");[m
+[32m+[m[32m        od.configurarGrupoEnFase(faseGrupos, "B", "Grupo de primera fase");[m
+[32m+[m[32m        od.configurarGrupoEnFase(faseGrupos, "C", "Grupo de primera fase");[m
+[32m+[m[32m        od.configurarGrupoEnFase(faseGrupos, "D", "Grupo de primera fase");[m
+[32m+[m
+[32m+[m[32m        // Fase de Eliminatorias - Capturar la fase[m
+[32m+[m[32m        Fase faseEliminatorias = od.configurarFaseYGrupo(NombreFase.CUARTOS, "Cuartos", "Fase de eliminación");[m
+[32m+[m
+[32m+[m[32m        // Planificar partidos[m
+[32m+[m[32m        od.planificarPartido(faseGrupos, estadio1, seleccion1, seleccion2, 20261101, 2000);[m
+[32m+[m[32m        od.planificarPartido(faseGrupos, estadio3, seleccion2, seleccion1, 20261105, 1800);[m
+[32m+[m
+[32m+[m[32m        // Crear y asignar árbitros a los partidos[m
+[32m+[m[32m        Arbitro arbitro1 = new Arbitro();[m
+[32m+[m[32m        arbitro1.setNombre("Pierluigi Collina");[m
+[32m+[m[32m        arbitro1.setFecNacimiento(1960);[m
+[32m+[m[32m        arbitro1.setAniosExperiencia(30);[m
+[32m+[m[32m        arbitro1.setPais(pais1);[m
+[32m+[m
+[32m+[m[32m        Arbitro arbitro2 = new Arbitro();[m
+[32m+[m[32m        arbitro2.setNombre("Cesar Ramos");[m
+[32m+[m[32m        arbitro2.setFecNacimiento(1975);[m
+[32m+[m[32m        arbitro2.setAniosExperiencia(20);[m
+[32m+[m[32m        arbitro2.setPais(pais2);[m
+[32m+[m
+[32m+[m[32m        Arbitro arbitro3 = new Arbitro();[m
+[32m+[m[32m        arbitro3.setNombre("Wilmar Roldán");[m
+[32m+[m[32m        arbitro3.setFecNacimiento(1978);[m
+[32m+[m[32m        arbitro3.setAniosExperiencia(18);[m
+[32m+[m[32m        arbitro3.setPais(pais1);[m
+[32m+[m
+[32m+[m[32m        // Asignar árbitros al primer partido[m
+[32m+[m[32m        Partido partido1 = faseGrupos.getPartidos().get(0);[m
+[32m+[m[32m        Arbitraje arbitrajePrincipal1 = new Arbitraje(CategoriaArbitro.PRINCIPAL, partido1, arbitro1);[m
+[32m+[m[32m        Arbitraje arbitrajeAsistente1 = new Arbitraje(CategoriaArbitro.ASISTENTE_1, partido1, arbitro2);[m
+[32m+[m[32m        Arbitraje arbitrajeAsistente2 = new Arbitraje(CategoriaArbitro.ASISTENTE_2, partido1, arbitro3);[m
+[32m+[m[41m        [m
+[32m+[m[32m        partido1.agregarArbitraje(arbitrajePrincipal1);[m
+[32m+[m[32m        partido1.agregarArbitraje(arbitrajeAsistente1);[m
+[32m+[m[32m        partido1.agregarArbitraje(arbitrajeAsistente2);[m
+[32m+[m[41m        [m
+[32m+[m[32m        arbitro1.agregarArbitraje(arbitrajePrincipal1);[m
+[32m+[m[32m        arbitro2.agregarArbitraje(arbitrajeAsistente1);[m
+[32m+[m[32m        arbitro3.agregarArbitraje(arbitrajeAsistente2);[m
+[32m+[m
+[32m+[m[32m        // Asignar árbitros al segundo partido[m
+[32m+[m[32m        Partido partido2 = faseGrupos.getPartidos().get(1);[m
+[32m+[m[32m        Arbitraje arbitrajePrincipal2 = new Arbitraje(CategoriaArbitro.PRINCIPAL, partido2, arbitro2);[m
+[32m+[m[32m        Arbitraje arbitrajeAsistente3 = new Arbitraje(CategoriaArbitro.ASISTENTE_1, partido2, arbitro1);[m
+[32m+[m[41m        [m
+[32m+[m[32m        partido2.agregarArbitraje(arbitrajePrincipal2);[m
+[32m+[m[32m        partido2.agregarArbitraje(arbitrajeAsistente3);[m
+[32m+[m[41m        [m
+[32m+[m[32m        arbitro2.agregarArbitraje(arbitrajePrincipal2);[m
+[32m+[m[32m        arbitro1.agregarArbitraje(arbitrajeAsistente3);[m
+[32m+[m
+[32m+[m[32m        System.out.println("Grupos en fase de grupos: " + faseGrupos.getGrupos().size());[m
+[32m+[m[32m        System.out.println("Partidos en fase de grupos: " + faseGrupos.getPartidos().size());[m
+[32m+[m[32m        System.out.println("Grupos en fase de eliminatorias: " + faseEliminatorias.getGrupos().size());[m
+[32m+[m[32m        System.out.println("Árbitros en partido 1: " + partido1.getArbitrajes().size());[m
+[32m+[m[32m        System.out.println("Árbitros en partido 2: " + partido2.getArbitrajes().size());[m
+[32m+[m
+[32m+[m[32m        // Prueba 4: Registro de Eventos (Ampliada)[m
+[32m+[m[32m        System.out.println("\n=== PRUEBA REGISTRO DE EVENTOS ===");[m
+[32m+[m[32m        rec.registrarEventoDeCampo(partido1, TipoEvento.GOL, 45, jugador1);[m
+[32m+[m[32m        rec.registrarEventoDeCampo(partido1, TipoEvento.TARJETAAMARILLA, 67, jugador2);[m
+[32m+[m[32m        rec.registrarEventoDeCampo(partido1, TipoEvento.PENALCOMETIDO, 78, jugador3);[m
+[32m+[m
+[32m+[m[32m        rec.registrarEventoDeCampo(partido2, TipoEvento.GOL, 23, jugador3);[m
+[32m+[m[32m        rec.registrarEventoDeCampo(partido2, TipoEvento.SUSTITUCION, 60, jugador1);[m
+[32m+[m
+[32m+[m[32m        System.out.println("Eventos en partido 1: " + partido1.getEventos().size());[m
+[32m+[m[32m        System.out.println("Eventos en partido 2: " + partido2.getEventos().size());[m
+[32m+[m
+[32m+[m[32m        System.out.println("\n=== TODAS LAS PRUEBAS COMPLETADAS ===");[m
+[32m+[m[32m    }[m
+[32m+[m[32m}[m
+\ No newline at end of file[m
+[1mdiff --git a/TallerProgramacion2/taller_programacion2/Arbitraje.java b/TallerProgramacion2/taller_programacion2/Arbitraje.java[m
+[1mnew file mode 100644[m
+[1mindex 0000000..7ec7219[m
+[1m--- /dev/null[m
+[1m+++ b/TallerProgramacion2/taller_programacion2/Arbitraje.java[m
+[36m@@ -0,0 +1,50 @@[m
+[32m+[m[32mpackage taller_programacion2;[m
+[32m+[m
+[32m+[m[32mpublic class Arbitraje {[m
+[32m+[m[32m    private CategoriaArbitro rol;[m
+[32m+[m
+[32m+[m[32m    // ASOCIACIONES[m
+[32m+[m[32m    private Partido partido;[m
+[32m+[m[32m    private Arbitro arbitro;[m
+[32m+[m
+[32m+[m[32m    // CONSTRUCTOR SIN PARAMETROS[m
+[32m+[m[32m    public Arbitraje(){[m
+[32m+[m[32m        this.rol= null;[m
+[32m+[m[32m        this.arbitro = null;[m
+[32m+[m[32m        this.partido = null;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m
+[32m+[m[32m    //CONSTRUCTOR PARAMETRIZADO[m
+[32m+[m[32m    public Arbitraje(CategoriaArbitro rol, Partido partido, Arbitro arbitro) {[m
+[32m+[m[32m        this.rol = rol;[m
+[32m+[m[32m        this.partido = partido;[m
+[32m+[m[32m        this.arbitro = arbitro;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    //SETTERS Y GETTERS[m
+[32m+[m[32m    public CategoriaArbitro getRol() {[m
+[32m+[m[32m        return rol;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void setRol(CategoriaArbitro rol) {[m
+[32m+[m[32m        this.rol = rol;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public Partido getPartido() {[m
+[32m+[m[32m        return partido;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void setPartido(Partido partido) {[m
+[32m+[m[32m        this.partido = partido;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public Arbitro getArbitro() {[m
+[32m+[m[32m        return arbitro;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void setArbitro(Arbitro arbitro) {[m
+[32m+[m[32m        this.arbitro = arbitro;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m}[m
+[1mdiff --git a/TallerProgramacion2/taller_programacion2/Arbitro.java b/TallerProgramacion2/taller_programacion2/Arbitro.java[m
+[1mnew file mode 100644[m
+[1mindex 0000000..da067d3[m
+[1m--- /dev/null[m
+[1m+++ b/TallerProgramacion2/taller_programacion2/Arbitro.java[m
+[36m@@ -0,0 +1,67 @@[m
+[32m+[m[32mpackage taller_programacion2;[m
+[32m+[m
+[32m+[m[32mimport java.util.ArrayList;[m
+[32m+[m
+[32m+[m[32mpublic class Arbitro extends Persona {[m
+[32m+[m[32m    private int aniosExperiencia;[m
+[32m+[m[41m    [m
+[32m+[m[32m    // ASOCIACIONES[m
+[32m+[m[32m    private Pais pais;[m
+[32m+[m[32m    private ArrayList<Arbitraje> arbitrajes;[m
+[32m+[m
+[32m+[m[32m    // CONSTRUCTOR SIN PARAMETROS[m
+[32m+[m[32m    public Arbitro() {[m
+[32m+[m[32m        super();[m
+[32m+[m[32m        this.aniosExperiencia = 0;[m
+[32m+[m[32m        this.pais = null;[m
+[32m+[m[32m        this.arbitrajes = new ArrayList<>();[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    // CONSTRUCTOR PARAMETRIZADO[m
+[32m+[m[32m    public Arbitro(String nombre, int fecNacimiento, int aniosExperiencia, Pais pais, ArrayList<Arbitraje> arbitrajes) {[m
+[32m+[m[32m        super(nombre, fecNacimiento);[m
+[32m+[m[32m        this.aniosExperiencia = aniosExperiencia;[m
+[32m+[m[32m        this.pais = pais;[m
+[32m+[m[32m        if (arbitrajes != null) {[m
+[32m+[m[32m            this.arbitrajes = arbitrajes;[m
+[32m+[m[32m        } else {[m
+[32m+[m[32m            this.arbitrajes = new ArrayList<>();[m
+[32m+[m[32m        }[m
+[32m+[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m   // SETTERS Y GETTERS[m
+[32m+[m[32m    public Pais getPais() {[m
+[32m+[m[32m        return pais;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void setPais(Pais pais) {[m
+[32m+[m[32m        this.pais = pais;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public int getAniosExperiencia() {[m
+[32m+[m[32m        return aniosExperiencia;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void setAniosExperiencia(int aniosExperiencia) {[m
+[32m+[m[32m        this.aniosExperiencia = aniosExperiencia;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public ArrayList<Arbitraje> getArbitrajes() {[m
+[32m+[m[32m        return arbitrajes;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void setArbitrajes(ArrayList<Arbitraje> arbitrajes) {[m
+[32m+[m[32m        this.arbitrajes = arbitrajes;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    // METODOS[m
+[32m+[m
+[32m+[m[32m     // metodo agregar arbitraje[m
+[32m+[m[32m    public void agregarArbitraje(Arbitraje arbitraje) {[m
+[32m+[m[32m        if (arbitraje != null) {[m
+[32m+[m[32m            this.arbitrajes.add(arbitraje);[m
+[32m+[m[32m        }[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m}[m
+[1mdiff --git a/TallerProgramacion2/taller_programacion2/CargadorDatos.java b/TallerProgramacion2/taller_programacion2/CargadorDatos.java[m
+[1mnew file mode 100644[m
+[1mindex 0000000..becd35e[m
+[1m--- /dev/null[m
+[1m+++ b/TallerProgramacion2/taller_programacion2/CargadorDatos.java[m
+[36m@@ -0,0 +1,56 @@[m
+[32m+[m[32mpackage taller_programacion2;[m
+[32m+[m
+[32m+[m[32mimport java.util.ArrayList;[m
+[32m+[m
+[32m+[m
+[32m+[m[32mpublic class CargadorDatos {[m
+[32m+[m[32m    public static Mundial cargar() {[m
+[32m+[m
+[32m+[m
+[32m+[m[32m        // acá van todos los objetos[m
+[32m+[m[32m        //crear mundial vacio[m
+[32m+[m[32m        Mundial mundial = new Mundial(2026, "nombre mascota", 1, 30, new ArrayList<>());[m
+[32m+[m[32m        //crear un país[m
+[32m+[m[32m        Pais argentina = new Pais();[m
+[32m+[m[32m        argentina.setNombre("Argentina");[m
+[32m+[m[32m        argentina.setBandera("arg.png");[m
+[32m+[m
+[32m+[m[32m        //crear una Sede y asociaral al Pais[m
+[32m+[m[32m        Sede sede1 = new Sede("Buenos Aires", 25.0f, "templado", "GMT-3", argentina, new ArrayList<>());[m
+[32m+[m[32m        argentina.agregarSede(sede1);[m
+[32m+[m[32m        mundial.agregarSede(sede1);[m
+[32m+[m
+[32m+[m[32m        //Crear un Estadio y asociar[m
+[32m+[m[32m        Estadio estadio1 = new Estadio();[m
+[32m+[m[32m        estadio1.setNombre("Monumental");[m
+[32m+[m[32m        estadio1.setCapacidad(84567);[m
+[32m+[m[32m        estadio1.setSede(sede1);[m
+[32m+[m[32m        sede1.agregarEstadio(estadio1);[m
+[32m+[m
+[32m+[m[32m        //Crear Fase y grupo(necesario para Selecciones)[m
+[32m+[m[32m        Fase faseGrupos = new Fase();[m
+[32m+[m[32m        faseGrupos.setNombre(NombreFase.GRUPOS);[m
+[32m+[m
+[32m+[m[32m        Grupo grupoA = new Grupo();[m
+[32m+[m[32m        grupoA.setIdentificador("A");[m
+[32m+[m[32m        grupoA.setFase(faseGrupos);[m
+[32m+[m[32m        faseGrupos.agregarGrupo(grupoA);[m
+[32m+[m
+[32m+[m[32m        //Crear Director Tecnico y Selección:[m
+[32m+[m[32m        DirectorTecnico dt1 = new DirectorTecnico("Lionel Scaloni", 1978, 2018);[m
+[32m+[m
+[32m+[m[32m        Seleccion selArg = new Seleccion();[m
+[32m+[m[32m        selArg.setNombreFederacion("AFA");[m
+[32m+[m[32m        selArg.setPais(argentina);[m
+[32m+[m[32m        selArg.setGrupo(grupoA);[m
+[32m+[m[32m        selArg.setRankingFIFA(1);[m
+[32m+[m[32m        selArg.setDirectorTecnico(dt1);[m
+[32m+[m
+[32m+[m[32m        argentina.setSeleccion(selArg);[m
+[32m+[m[32m        grupoA.agregarSeleccion(selArg);[m
+[32m+[m
+[32m+[m[32m        return mundial;[m
+[32m+[m
+[32m+[m[41m        [m
+[32m+[m[32m    }[m
+[32m+[m[32m}[m
+[1mdiff --git a/TallerProgramacion2/taller_programacion2/CategoriaArbitro.java b/TallerProgramacion2/taller_programacion2/CategoriaArbitro.java[m
+[1mnew file mode 100644[m
+[1mindex 0000000..53173d4[m
+[1m--- /dev/null[m
+[1m+++ b/TallerProgramacion2/taller_programacion2/CategoriaArbitro.java[m
+[36m@@ -0,0 +1,10 @@[m
+[32m+[m[32mpackage taller_programacion2;[m
+[32m+[m
+[32m+[m[32mpublic enum CategoriaArbitro {[m
+[32m+[m[32m    PRINCIPAL,[m
+[32m+[m[32m    ASISTENTE_1,[m
+[32m+[m[32m    ASISTENTE_2,[m
+[32m+[m[32m    CUARTO_ARBITRO,[m
+[32m+[m[32m    VAR_PRINCIPAL,[m
+[32m+[m[32m    VAR_ASISTENTE;[m
+[32m+[m[32m}[m
+[1mdiff --git a/TallerProgramacion2/taller_programacion2/CuerpoTecnico.java b/TallerProgramacion2/taller_programacion2/CuerpoTecnico.java[m
+[1mnew file mode 100644[m
+[1mindex 0000000..728e1b0[m
+[1m--- /dev/null[m
+[1m+++ b/TallerProgramacion2/taller_programacion2/CuerpoTecnico.java[m
+[36m@@ -0,0 +1,26 @@[m
+[32m+[m[32mpackage taller_programacion2;[m
+[32m+[m
+[32m+[m[32mpublic class CuerpoTecnico extends Persona {[m
+[32m+[m[32m    private Rol rol;[m
+[32m+[m
+[32m+[m[32m    // CONSTRUCTOR SIN PARAMETROS[m
+[32m+[m[32m    public CuerpoTecnico() {[m
+[32m+[m[32m        this.rol = null;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    // CONSTRUCTOR PARAMETRIZADO[m
+[32m+[m[32m    public CuerpoTecnico(String nombre, int fecNacimiento, Rol rol) {[m
+[32m+[m[32m        super(nombre, fecNacimiento);[m
+[32m+[m[32m        this.rol = rol;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    // SETTERS Y GETTERS[m
+[32m+[m[32m    public Rol getRol() {[m
+[32m+[m[32m        return rol;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void setRol(Rol rol) {[m
+[32m+[m[32m        this.rol = rol;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m}[m
+[1mdiff --git a/TallerProgramacion2/taller_programacion2/DirectorTecnico.java b/TallerProgramacion2/taller_programacion2/DirectorTecnico.java[m
+[1mnew file mode 100644[m
+[1mindex 0000000..0f46ae9[m
+[1m--- /dev/null[m
+[1m+++ b/TallerProgramacion2/taller_programacion2/DirectorTecnico.java[m
+[36m@@ -0,0 +1,24 @@[m
+[32m+[m[32mpackage taller_programacion2;[m
+[32m+[m
+[32m+[m[32mpublic class DirectorTecnico extends Persona {[m
+[32m+[m[32m    private int fechaNombramiento;[m
+[32m+[m[41m    [m
+[32m+[m[32m    //constructor[m
+[32m+[m[32m    public DirectorTecnico(String nombre, int fecNacimiento, int fechaNombramiento) {[m
+[32m+[m[32m        super(nombre, fecNacimiento);[m
+[32m+[m[32m        this.fechaNombramiento = fechaNombramiento;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    //metodo get y set[m
+[32m+[m[32m    public int getFechaNombramiento() {[m
+[32m+[m[32m        return fechaNombramiento;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void setFechaNombramiento(int fechaNombramiento) {[m
+[32m+[m[32m        this.fechaNombramiento = fechaNombramiento;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m
+[1mdiff --git a/TallerProgramacion2/taller_programacion2/Estadio.java b/TallerProgramacion2/taller_programacion2/Estadio.java[m
+[1mnew file mode 100644[m
+[1mindex 0000000..81e0123[m
+[1m--- /dev/null[m
+[1m+++ b/TallerProgramacion2/taller_programacion2/Estadio.java[m
+[36m@@ -0,0 +1,62 @@[m
+[32m+[m[32mpackage taller_programacion2;[m
+[32m+[m
+[32m+[m[32mimport java.util.ArrayList;[m
+[32m+[m
+[32m+[m[32mpublic class Estadio {[m
+[32m+[m[32m    private String nombre;[m
+[32m+[m[32m    private int capacidad;[m
+[32m+[m[32m    private Sede sede; // un estadio pertenece a una sede[m
+[32m+[m[32m    private ArrayList<Partido> partidos; //lista de partidos que tiene ese estadio[m
+[32m+[m
+[32m+[m[32m    //constructor por defecto[m
+[32m+[m[32m    public Estadio(){[m
+[32m+[m[32m        this.partidos = new ArrayList<>();[m
+[32m+[m[32m    }[m
+[32m+[m[41m    [m
+[32m+[m[32m    //constructor parametrizado[m
+[32m+[m[32m    public Estadio(String nombre, int capacidad, Sede sede, ArrayList<Partido> partidos) {[m
+[32m+[m[32m        this.nombre = nombre;[m
+[32m+[m[32m        this.capacidad = capacidad;[m
+[32m+[m[32m        this.sede = sede;[m
+[32m+[m[32m        this.partidos = partidos;[m
+[32m+[m[32m    }[m
+[32m+[m[41m    [m
+[32m+[m
+[32m+[m[41m    [m
+[32m+[m
+[32m+[m[32m    //metodo agregarPartido[m
+[32m+[m[32m    public void agregarPartido(Partido partido){[m
+[32m+[m[32m        if (partido != null){[m
+[32m+[m[32m            this.partidos.add(partido);[m
+[32m+[m[32m        }[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    //metodos get y set[m
+[32m+[m
+[32m+[m[32m    public String getNombre() {[m
+[32m+[m[32m        return nombre;[m
+[32m+[m[32m    }[m
+[32m+[m[32m    public void setNombre(String nombre) {[m
+[32m+[m[32m        this.nombre = nombre;[m
+[32m+[m[32m    }[m
+[32m+[m[32m    public int getCapacidad() {[m
+[32m+[m[32m        return capacidad;[m
+[32m+[m[32m    }[m
+[32m+[m[32m    public void setCapacidad(int capacidad) {[m
+[32m+[m[32m        this.capacidad = capacidad;[m
+[32m+[m[32m    }[m
+[32m+[m[32m    public Sede getSede() {[m
+[32m+[m[32m        return sede;[m
+[32m+[m[32m    }[m
+[32m+[m[32m    public void setSede(Sede sede) {[m
+[32m+[m[32m        this.sede = sede;[m
+[32m+[m[32m    }[m
+[32m+[m[32m    public ArrayList<Partido> getPartidos() {[m
+[32m+[m[32m        return partidos;[m
+[32m+[m[32m    }[m
+[32m+[m[32m    public void setPartidos(ArrayList<Partido> partidos) {[m
+[32m+[m[32m        this.partidos = partidos;[m
+[32m+[m[32m    }[m
+[32m+[m[41m    [m
+[32m+[m[32m}[m
+[32m+[m
+[1mdiff --git a/TallerProgramacion2/taller_programacion2/Evento.java b/TallerProgramacion2/taller_programacion2/Evento.java[m
+[1mnew file mode 100644[m
+[1mindex 0000000..18c1c94[m
+[1m--- /dev/null[m
+[1m+++ b/TallerProgramacion2/taller_programacion2/Evento.java[m
+[36m@@ -0,0 +1,44 @@[m
+[32m+[m[32mpackage taller_programacion2;[m
+[32m+[m
+[32m+[m[32mpublic class Evento {[m
+[32m+[m[32m    private TipoEvento tipo;[m
+[32m+[m[32m    private int minuto;[m
+[32m+[m
+[32m+[m[32m    // ASOCIACIONES[m
+[32m+[m[32m    private Jugador jugador; //un solo jugador esta involucrado a un evento[m
+[32m+[m[41m    [m
+[32m+[m[32m    // CONSTRUCTOR SIN PARAMETROS[m
+[32m+[m[32m    public Evento() {[m
+[32m+[m[32m        this.tipo = null;[m
+[32m+[m[32m        this.minuto = 0;[m
+[32m+[m[32m        this.jugador = null;[m
+[32m+[m[32m    }[m
+[32m+[m[41m    [m
+[32m+[m[32m    // CONSTRUCTOR CON PARAMETROS[m
+[32m+[m[32m    public Evento(TipoEvento tipo, int minuto, Jugador jugador) {[m
+[32m+[m[32m        this.tipo = tipo;[m
+[32m+[m[32m        this.minuto = minuto;[m
+[32m+[m[32m        this.jugador = jugador;[m
+[32m+[m[32m    }[m
+[32m+[m[41m    [m
+[32m+[m[32m    // SETTERS Y GETTERS[m
+[32m+[m[32m    public TipoEvento getTipo() {[m
+[32m+[m[32m        return tipo;[m
+[32m+[m[32m    }[m
+[32m+[m[32m    public void setTipo(TipoEvento tipo) {[m
+[32m+[m[32m        this.tipo = tipo;[m
+[32m+[m[32m    }[m
+[32m+[m[32m    public int getMinuto() {[m
+[32m+[m[32m        return minuto;[m
+[32m+[m[32m    }[m
+[32m+[m[32m    public void setMinuto(int minuto) {[m
+[32m+[m[32m        this.minuto = minuto;[m
+[32m+[m[32m    }[m
+[32m+[m[32m    public Jugador getJugador() {[m
+[32m+[m[32m        return jugador;[m
+[32m+[m[32m    }[m
+[32m+[m[32m    public void setJugador(Jugador jugador) {[m
+[32m+[m[32m        this.jugador = jugador;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m}[m
+[1mdiff --git a/TallerProgramacion2/taller_programacion2/Fase.java b/TallerProgramacion2/taller_programacion2/Fase.java[m
+[1mnew file mode 100644[m
+[1mindex 0000000..05a85c7[m
+[1m--- /dev/null[m
+[1m+++ b/TallerProgramacion2/taller_programacion2/Fase.java[m
+[36m@@ -0,0 +1,59 @@[m
+[32m+[m[32mpackage taller_programacion2;[m
+[32m+[m[32mimport java.util.ArrayList;[m
+[32m+[m
+[32m+[m[32mpublic class Fase {[m
+[32m+[m[32m    private NombreFase nombre;[m
+[32m+[m[32m    private ArrayList<Grupo> grupos ;[m
+[32m+[m[32m    private ArrayList<Partido> partidos ;[m
+[32m+[m
+[32m+[m[32m    //constructor por defecto[m
+[32m+[m[32m    public Fase(){[m
+[32m+[m[32m        this.grupos = new ArrayList<>();[m
+[32m+[m[32m        this.partidos = new ArrayList<>();[m
+[32m+[m[32m        this.grupos = new ArrayList<>();[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    //constructor parametrizado[m
+[32m+[m[41m   [m
+[32m+[m[32m    public Fase(NombreFase nombre, ArrayList<Grupo> grupos, ArrayList<Partido> partidos) {[m
+[32m+[m[32m        this.nombre = nombre;[m
+[32m+[m[32m        this.grupos = grupos;[m
+[32m+[m[32m        this.partidos = partidos;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    //metodos de agregar[m
+[32m+[m[32m    public void agregarGrupo(Grupo grupo){[m
+[32m+[m[32m        if (grupo != null){[m
+[32m+[m[32m            this.grupos.add(grupo);[m
+[32m+[m[32m        }[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void agregarPartido(Partido partido){[m
+[32m+[m[32m        if(partido != null){[m
+[32m+[m[32m            this.partidos.add(partido);[m
+[32m+[m[32m        }[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    //metodos get y set[m
+[32m+[m[32m    public NombreFase getNombre() {[m
+[32m+[m[32m        return nombre;[m
+[32m+[m[32m    }[m
+[32m+[m[32m    public void setNombre(NombreFase nombre) {[m
+[32m+[m[32m        this.nombre = nombre;[m
+[32m+[m[32m    }[m
+[32m+[m[32m    public ArrayList<Grupo> getGrupos() {[m
+[32m+[m[32m        return grupos;[m
+[32m+[m[32m    }[m
+[32m+[m[32m    public void setGrupos(ArrayList<Grupo> grupos) {[m
+[32m+[m[32m        this.grupos = grupos;[m
+[32m+[m[32m    }[m
+[32m+[m[32m    public ArrayList<Partido> getPartidos() {[m
+[32m+[m[32m        return partidos;[m
+[32m+[m[32m    }[m
+[32m+[m[32m    public void setPartidos(ArrayList<Partido> partidos) {[m
+[32m+[m[32m        this.partidos = partidos;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m
+[32m+[m[32m}[m
+[32m+[m
+[1mdiff --git a/TallerProgramacion2/taller_programacion2/Grupo.java b/TallerProgramacion2/taller_programacion2/Grupo.java[m
+[1mnew file mode 100644[m
+[1mindex 0000000..d7955f1[m
+[1m--- /dev/null[m
+[1m+++ b/TallerProgramacion2/taller_programacion2/Grupo.java[m
+[36m@@ -0,0 +1,72 @@[m
+[32m+[m[32mpackage taller_programacion2;[m
+[32m+[m
+[32m+[m[32mimport java.util.ArrayList;[m
+[32m+[m
+[32m+[m[32mpublic class Grupo {[m
+[32m+[m[41m    [m
+[32m+[m[32m    private String identificador;[m
+[32m+[m[32m    private String descripcion;[m
+[32m+[m
+[32m+[m[32m    // ASOCIACIONES[m
+[32m+[m[32m    private Fase fase;[m
+[32m+[m[32m    private ArrayList<Seleccion> selecciones;[m
+[32m+[m
+[32m+[m[32m    // CONSTRUCTOR SIN PARAMETROS[m
+[32m+[m[32m    public Grupo() {[m
+[32m+[m[32m        this.selecciones = new ArrayList<>();[m
+[32m+[m[32m    }[m
+[32m+[m[41m    [m
+[32m+[m[32m    // CONSTRUCTOR PARAMETRIZADO[m
+[32m+[m[32m    public Grupo(String identificador, String descripcion, Fase fase, ArrayList<Seleccion> selecciones) {[m
+[32m+[m[32m        this.identificador = identificador;[m
+[32m+[m[32m        this.descripcion = descripcion;[m
+[32m+[m[32m        this.fase = fase;[m
+[32m+[m[32m        this.selecciones = selecciones;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    //SETTERS Y GETTERS[m
+[32m+[m[32m    public String getIdentificador() {[m
+[32m+[m[32m        return identificador;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void setIdentificador(String identificador) {[m
+[32m+[m[32m        this.identificador = identificador;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public String getDescripcion() {[m
+[32m+[m[32m        return descripcion;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void setDescripcion(String descripcion) {[m
+[32m+[m[32m        this.descripcion = descripcion;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public Fase getFase() {[m
+[32m+[m[32m        return fase;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void setFase(Fase fase) {[m
+[32m+[m[32m        this.fase = fase;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public ArrayList<Seleccion> getSelecciones() {[m
+[32m+[m[32m        return selecciones;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void setSelecciones(ArrayList<Seleccion> selecciones) {[m
+[32m+[m[32m        this.selecciones = selecciones;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    //METODOS ASOCIACIONES[m
+[32m+[m[32m    public void agregarSeleccion(Seleccion seleccion) {[m
+[32m+[m[32m        if (seleccion != null) {[m
+[32m+[m[32m            this.selecciones.add(seleccion);[m
+[32m+[m[32m        }[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    // METODO[m
+[32m+[m[32m    public int obtenerPuntos(Seleccion s) {[m
+[32m+[m[32m        return 0;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m}[m
+[1mdiff --git a/TallerProgramacion2/taller_programacion2/Jugador.java b/TallerProgramacion2/taller_programacion2/Jugador.java[m
+[1mnew file mode 100644[m
+[1mindex 0000000..b87c41d[m
+[1m--- /dev/null[m
+[1m+++ b/TallerProgramacion2/taller_programacion2/Jugador.java[m
+[36m@@ -0,0 +1,83 @@[m
+[32m+[m[32mpackage taller_programacion2;[m
+[32m+[m
+[32m+[m[32mimport java.util.ArrayList;[m
+[32m+[m
+[32m+[m[32mpublic class Jugador extends Persona {[m
+[32m+[m[32m    private int dorsal;[m
+[32m+[m[32m    private Posicion posicion;[m
+[32m+[m[32m    private float peso;[m
+[32m+[m[32m    private float altura;[m
+[32m+[m
+[32m+[m[32m    // ASOCIACIONES[m
+[32m+[m[32m    private ArrayList<Evento> eventos; // un jugador puede tener o no varios eventos[m
+[32m+[m
+[32m+[m[32m    // CONSTRUCTOR SIN PARAMETROS[m
+[32m+[m
+[32m+[m[32m    public Jugador() {[m
+[32m+[m[32m        super();[m
+[32m+[m[32m        this.dorsal = 0;[m
+[32m+[m[32m        this.posicion = null;[m
+[32m+[m[32m        this.peso = 0;[m
+[32m+[m[32m        this.altura = 0;[m
+[32m+[m[32m        this.eventos = new ArrayList<>();[m
+[32m+[m[32m    }[m
+[32m+[m[32m    // CONSTRUCTOR PARAMETRIZADO[m
+[32m+[m[32m    public Jugador(String nombre, int fecNacimiento, int dorsal, Posicion posicion, float peso, float altura,[m
+[32m+[m[32m            ArrayList<Evento> eventos) {[m
+[32m+[m[32m        super(nombre, fecNacimiento);[m
+[32m+[m[32m        this.dorsal = dorsal;[m
+[32m+[m[32m        this.posicion = posicion;[m
+[32m+[m[32m        this.peso = peso;[m
+[32m+[m[32m        this.altura = altura;[m
+[32m+[m[32m        this.eventos = eventos;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m
+[32m+[m[32m    //SETTERS Y GETTERS[m
+[32m+[m[32m    public int getDorsal() {[m
+[32m+[m[32m        return dorsal;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void setDorsal(int dorsal) {[m
+[32m+[m[32m        this.dorsal = dorsal;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public Posicion getPosicion() {[m
+[32m+[m[32m        return posicion;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void setPosicion(Posicion posicion) {[m
+[32m+[m[32m        this.posicion = posicion;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public float getPeso() {[m
+[32m+[m[32m        return peso;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void setPeso(float peso) {[m
+[32m+[m[32m        this.peso = peso;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public float getAltura() {[m
+[32m+[m[32m        return altura;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void setAltura(float altura) {[m
+[32m+[m[32m        this.altura = altura;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public ArrayList<Evento> getEventos() {[m
+[32m+[m[32m        return eventos;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void setEventos(ArrayList<Evento> eventos) {[m
+[32m+[m[32m        this.eventos = eventos;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    // METODOS[m
+[32m+[m[32m    public void agregarEvento(Evento evento) {[m
+[32m+[m[32m        if (evento != null) {[m
+[32m+[m[32m            this.eventos.add(evento);[m
+[32m+[m[32m        }[m
+[32m+[m[32m    }[m
+[32m+[m[32m}[m
+[1mdiff --git a/TallerProgramacion2/taller_programacion2/Main.java b/TallerProgramacion2/taller_programacion2/Main.java[m
+[1mnew file mode 100644[m
+[1mindex 0000000..cbcb3ac[m
+[1m--- /dev/null[m
+[1m+++ b/TallerProgramacion2/taller_programacion2/Main.java[m
+[36m@@ -0,0 +1,11 @@[m
+[32m+[m[32mpackage taller_programacion2;[m
+[32m+[m
+[32m+[m
+[32m+[m[32mpublic class Main {[m
+[32m+[m[32m    public static void main(String[] args) {[m
+[32m+[m[32m        Mundial mundial = CargadorDatos.cargar();[m
+[32m+[m[32m        System.out.println("Mundial " + mundial.getAnio());[m
+[32m+[m[32m    }[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m
+[1mdiff --git a/TallerProgramacion2/taller_programacion2/Mundial.java b/TallerProgramacion2/taller_programacion2/Mundial.java[m
+[1mnew file mode 100644[m
+[1mindex 0000000..0c1fbf8[m
+[1m--- /dev/null[m
+[1m+++ b/TallerProgramacion2/taller_programacion2/Mundial.java[m
+[36m@@ -0,0 +1,62 @@[m
+[32m+[m[32mpackage taller_programacion2;[m
+[32m+[m
+[32m+[m[32mimport java.util.ArrayList;[m
+[32m+[m[32mpublic class Mundial {[m
+[32m+[m[32m    private int anio;[m
+[32m+[m[32m    private String mascota;[m
+[32m+[m[32m    private int fechaDesde;[m
+[32m+[m[32m    private int fechaHasta;[m
+[32m+[m[32m    private ArrayList<Sede> sedes; // new ArrayList<>(); // el mundial agrega varias sedes (clase contenedora en la clase sede(componente) no se hace referencia a mundial)[m
+[32m+[m[41m    [m
+[32m+[m[32m    //constructor por defecto[m
+[32m+[m[32m    public Mundial(){[m
+[32m+[m[32m        this.sedes = new ArrayList<>();[m
+[32m+[m[32m    }[m
+[32m+[m[32m    //constructor parametrizado[m
+[32m+[m[32m    public Mundial(int anio, String mascota, int fechaDesde, int fechaHasta, ArrayList<Sede> sedes) {[m
+[32m+[m[32m        this.anio = anio;[m
+[32m+[m[32m        this.mascota = mascota;[m
+[32m+[m[32m        this.fechaDesde = fechaDesde;[m
+[32m+[m[32m        this.fechaHasta = fechaHasta;[m
+[32m+[m[32m        this.sedes = sedes;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    //metodo agregarSede[m
+[32m+[m[32m    public void agregarSede(Sede sede){[m
+[32m+[m[32m        if (sede != null){[m
+[32m+[m[32m            this.sedes.add(sede);[m
+[32m+[m[32m        }[m
+[32m+[m[32m    }[m
+[32m+[m[41m   [m
+[32m+[m[32m    //metodos get y set[m
+[32m+[m[32m    public int getAnio() {[m
+[32m+[m[32m        return anio;[m
+[32m+[m[32m    }[m
+[32m+[m[32m    public void setAnio(int anio) {[m
+[32m+[m[32m        this.anio = anio;[m
+[32m+[m[32m    }[m
+[32m+[m[32m    public String getMascota() {[m
+[32m+[m[32m        return mascota;[m
+[32m+[m[32m    }[m
+[32m+[m[32m    public void setMascota(String mascota) {[m
+[32m+[m[32m        this.mascota = mascota;[m
+[32m+[m[32m    }[m
+[32m+[m[32m    public int getFechaDesde() {[m
+[32m+[m[32m        return fechaDesde;[m
+[32m+[m[32m    }[m
+[32m+[m[32m    public void setFechaDesde(int fechaDesde) {[m
+[32m+[m[32m        this.fechaDesde = fechaDesde;[m
+[32m+[m[32m    }[m
+[32m+[m[32m    public int getFechaHasta() {[m
+[32m+[m[32m        return fechaHasta;[m
+[32m+[m[32m    }[m
+[32m+[m[32m    public void setFechaHasta(int fechaHasta) {[m
+[32m+[m[32m        this.fechaHasta = fechaHasta;[m
+[32m+[m[32m    }[m
+[32m+[m[32m    public ArrayList<Sede> getSedes() {[m
+[32m+[m[32m        return sedes;[m
+[32m+[m[32m    }[m
+[32m+[m[32m    public void setSedes(ArrayList<Sede> sedes) {[m
+[32m+[m[32m        this.sedes = sedes;[m
+[32m+[m[32m    }[m
+[32m+[m[32m}[m
+[1mdiff --git a/TallerProgramacion2/taller_programacion2/NombreFase.java b/TallerProgramacion2/taller_programacion2/NombreFase.java[m
+[1mnew file mode 100644[m
+[1mindex 0000000..d495a74[m
+[1m--- /dev/null[m
+[1m+++ b/TallerProgramacion2/taller_programacion2/NombreFase.java[m
+[36m@@ -0,0 +1,13 @@[m
+[32m+[m[32mpackage taller_programacion2;[m
+[32m+[m
+[32m+[m
+[32m+[m[32mpublic enum NombreFase {[m
+[32m+[m[32m    GRUPOS,[m
+[32m+[m[32m    DIECISEISAVOS,[m
+[32m+[m[32m    OCTAVOS,[m
+[32m+[m[32m    CUARTOS,[m
+[32m+[m[32m    SEMIFINAL,[m
+[32m+[m[32m    FINAL;[m
+[32m+[m
+[32m+[m[32m}[m
+[32m+[m
+[1mdiff --git a/TallerProgramacion2/taller_programacion2/Pais.java b/TallerProgramacion2/taller_programacion2/Pais.java[m
+[1mnew file mode 100644[m
+[1mindex 0000000..5c995e9[m
+[1m--- /dev/null[m
+[1m+++ b/TallerProgramacion2/taller_programacion2/Pais.java[m
+[36m@@ -0,0 +1,77 @@[m
+[32m+[m[32mpackage taller_programacion2;[m
+[32m+[m
+[32m+[m[32mimport java.util.ArrayList;[m
+[32m+[m
+[32m+[m
+[32m+[m
+[32m+[m[32mpublic class Pais{[m
+[32m+[m[32m    private String nombre;[m
+[32m+[m[32m    private String bandera;[m
+[32m+[m[32m    private ArrayList<Sede> sedes; //un pais tiene muchas sedes[m
+[32m+[m[32m    private Seleccion seleccion; //puede tener o no una seleccion[m
+[32m+[m[32m    private ArrayList<Arbitro> arbitros;[m
+[32m+[m[41m    [m
+[32m+[m[32m    //constructor parametrizado[m
+[32m+[m
+[32m+[m[32m    public Pais(String nombre, String bandera, ArrayList<Sede> sedes, Seleccion seleccion,[m
+[32m+[m[32m            ArrayList<Arbitro> arbitros) {[m
+[32m+[m[32m        this.nombre = nombre;[m
+[32m+[m[32m        this.bandera = bandera;[m
+[32m+[m[32m        this.sedes = sedes;[m
+[32m+[m[32m        this.seleccion = seleccion;[m
+[32m+[m[32m        this.arbitros = arbitros;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    //constructor por defecto[m
+[32m+[m[32m    public Pais(){[m
+[32m+[m[32m        this.sedes = new ArrayList<>();[m
+[32m+[m[32m        this.arbitros = new ArrayList<>();[m
+[32m+[m[32m    }[m
+[32m+[m[41m   [m
+[32m+[m[32m    //metodo agregarSede[m
+[32m+[m[32m    public void agregarSede(Sede sede){[m
+[32m+[m[32m        if (sede != null){[m
+[32m+[m[32m            this.sedes.add(sede);[m
+[32m+[m[32m        }[m
+[32m+[m[32m    }[m
+[32m+[m[32m    //metodo agregarArbitro[m
+[32m+[m[32m    public void agregarArbitro(Arbitro arbitro){[m
+[32m+[m[32m        if (arbitro != null){[m
+[32m+[m[32m            this.arbitros.add(arbitro);[m
+[32m+[m[32m        }[m
+[32m+[m[32m    }[m
+[32m+[m[32m    //metodos get y set[m
+[32m+[m[32m    public String getNombre() {[m
+[32m+[m[32m        return nombre;[m
+[32m+[m[32m    }[m
+[32m+[m[32m    public void setNombre(String nombre) {[m
+[32m+[m[32m        this.nombre = nombre;[m
+[32m+[m[32m    }[m
+[32m+[m[32m    public String getBandera() {[m
+[32m+[m[32m        return bandera;[m
+[32m+[m[32m    }[m
+[32m+[m[32m    public void setBandera(String bandera) {[m
+[32m+[m[32m        this.bandera = bandera;[m
+[32m+[m[32m    }[m
+[32m+[m[32m    public ArrayList<Sede> getSedes() {[m
+[32m+[m[32m        return sedes;[m
+[32m+[m[32m    }[m
+[32m+[m[32m    public void setSedes(ArrayList<Sede> sedes) {[m
+[32m+[m[32m        this.sedes = sedes;[m
+[32m+[m[32m    }[m
+[32m+[m[32m    public Seleccion getSeleccion() {[m
+[32m+[m[32m        return seleccion;[m
+[32m+[m[32m    }[m
+[32m+[m[32m    public void setSeleccion(Seleccion seleccion) {[m
+[32m+[m[32m        this.seleccion = seleccion;[m
+[32m+[m[32m    }[m
+[32m+[m[32m    public ArrayList<Arbitro> getArbitros() {[m
+[32m+[m[32m        return arbitros;[m
+[32m+[m[32m    }[m
+[32m+[m[32m    public void setArbitros(ArrayList<Arbitro> arbitros) {[m
+[32m+[m[32m        this.arbitros = arbitros;[m
+[32m+[m[32m    }[m
+[32m+[m[41m    [m
+[32m+[m
+[32m+[m
+[32m+[m[32m}[m
+\ No newline at end of file[m
+[1mdiff --git a/TallerProgramacion2/taller_programacion2/Participacion.java b/TallerProgramacion2/taller_programacion2/Participacion.java[m
+[1mnew file mode 100644[m
+[1mindex 0000000..48fc68e[m
+[1m--- /dev/null[m
+[1m+++ b/TallerProgramacion2/taller_programacion2/Participacion.java[m
+[36m@@ -0,0 +1,63 @@[m
+[32m+[m[32mpackage taller_programacion2;[m
+[32m+[m
+[32m+[m[32mpublic class Participacion {[m
+[32m+[m
+[32m+[m[32m    private boolean esLocal;[m
+[32m+[m
+[32m+[m[32m    // tiene 1 partido y 1 seleccion[m
+[32m+[m[32m    private Partido partido;[m
+[32m+[m[32m    private Seleccion seleccion;[m
+[32m+[m
+[32m+[m[32m    // CONSTRUCTOR SIN PARAMETROS[m
+[32m+[m[32m    public Participacion() {[m
+[32m+[m[32m        this.esLocal = false;[m
+[32m+[m[32m        this.partido = null;[m
+[32m+[m[32m        this.seleccion = null;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    // CONSTRUCTOR CON PARAMETROS[m
+[32m+[m[32m    public Participacion(boolean esLocal, Partido partido, Seleccion seleccion) {[m
+[32m+[m[32m        this.esLocal = esLocal;[m
+[32m+[m[32m        this.partido = partido;[m
+[32m+[m[32m        this.seleccion = seleccion;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    // SETTERS Y GETTERS[m
+[32m+[m[32m    public boolean isEsLocal() {[m
+[32m+[m[32m        return esLocal;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void setEsLocal(boolean esLocal) {[m
+[32m+[m[32m        this.esLocal = esLocal;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public Partido getPartido() {[m
+[32m+[m[32m        return partido;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void setPartido(Partido partido) {[m
+[32m+[m[32m        this.partido = partido;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public Seleccion getSeleccion() {[m
+[32m+[m[32m        return seleccion;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void setSeleccion(Seleccion seleccion) {[m
+[32m+[m[32m        this.seleccion = seleccion;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    // METODOS[m
+[32m+[m[32m    public int cantidadGoles() {[m
+[32m+[m[32m        return 0;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public int cantidadTarjAmarillas() {[m
+[32m+[m[32m        return 0;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public int cantidadTarRojas() {[m
+[32m+[m[32m        return 0;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m}[m
+[1mdiff --git a/TallerProgramacion2/taller_programacion2/Partido.java b/TallerProgramacion2/taller_programacion2/Partido.java[m
+[1mnew file mode 100644[m
+[1mindex 0000000..613242c[m
+[1m--- /dev/null[m
+[1m+++ b/TallerProgramacion2/taller_programacion2/Partido.java[m
+[36m@@ -0,0 +1,160 @@[m
+[32m+[m[32mpackage taller_programacion2;[m
+[32m+[m
+[32m+[m[32mimport java.util.ArrayList;[m
+[32m+[m
+[32m+[m
+[32m+[m
+[32m+[m[32mpublic class Partido {[m
+[32m+[m[32m    private int fecha;[m
+[32m+[m[32m    private int horario;[m
+[32m+[m[32m    private int duracion;[m
+[32m+[m[32m    private int tiempoAdicional;[m
+[32m+[m[32m    private Participacion[] participaciones = new Participacion[2]; //un array con solo dos participaciones (mejor una lista )[m
+[32m+[m[32m    private Estadio estadio; //un partido se lleva a cabo en un estadio[m
+[32m+[m[32m    private Fase fase; // corresponde a una fase[m
+[32m+[m[32m    private ArrayList<Evento> eventos;[m
+[32m+[m[32m    private ArrayList<Arbitraje> arbitrajes ;[m
+[32m+[m
+[32m+[m[32m    //constructor por defecto[m
+[32m+[m[32m    public Partido(){[m
+[32m+[m[32m        this.eventos = new ArrayList<>();[m
+[32m+[m[32m        this.arbitrajes = new ArrayList<>();[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    //constructor parametrizado[m
+[32m+[m[32m     public Partido(int fecha, int horario, int duracion, int tiempoAdicional, Participacion[] participaciones,[m
+[32m+[m[32m            Estadio estadio, Fase fase, ArrayList<Evento> eventos, ArrayList<Arbitraje> arbitrajes) {[m
+[32m+[m[32m        this.fecha = fecha;[m
+[32m+[m[32m        this.horario = horario;[m
+[32m+[m[32m        this.duracion = duracion;[m
+[32m+[m[32m        this.tiempoAdicional = tiempoAdicional;[m
+[32m+[m[32m        this.participaciones = participaciones;[m
+[32m+[m[32m        this.estadio = estadio;[m
+[32m+[m[32m        this.fase = fase;[m
+[32m+[m[32m        this.eventos = eventos;[m
+[32m+[m[32m        this.arbitrajes = arbitrajes;[m
+[32m+[m[32m    }[m
+[32m+[m[41m   [m
+[32m+[m[41m    [m
+[32m+[m[32m    //metodos para agregar[m
+[32m+[m
+[32m+[m[32m    public void agregarEvento(Evento evento){[m
+[32m+[m[32m        if (evento != null){[m
+[32m+[m[32m            this.eventos.add(evento);[m
+[32m+[m[32m        }[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void agregarArbitraje(Arbitraje arbitraje){[m
+[32m+[m[32m        if (arbitraje != null){[m
+[32m+[m[32m            this.arbitrajes.add(arbitraje);[m
+[32m+[m[32m        }[m
+[32m+[m[32m    }[m
+[32m+[m[32m    //Verifica que p1 y p2 no sean null, ni que tengan el mismo valor de esLocal, luego asigna[m
+[32m+[m[32m    public void asignarParticipaciones(Participacion p1, Participacion p2) {[m
+[32m+[m[32m        if (p1 == null || p2 == null) {[m
+[32m+[m[32m            System.out.println("Error: las participaciones no pueden ser null");[m
+[32m+[m[32m            return ;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        if (p1.isEsLocal () == p2.isEsLocal()){[m
+[32m+[m[32m            System.err.println( "Error: una participación debe ser local y la  otra visitante");[m
+[32m+[m[32m            return ;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        this.participaciones[0] = p1;[m
+[32m+[m[32m        this.participaciones[1] = p2;[m
+[32m+[m[32m    }[m
+[32m+[m[41m    [m
+[32m+[m[32m    //Recorre las participaciones del partido y devuelve la del equipo local (esLocal = true)[m
+[32m+[m[32m    // el participaciones[i] != null en el if lo utilizo para evitar un error en caso de que todavía no se hayan asignado las participaciones.[m
+[32m+[m[32m    public Participacion getParticipacionLocal(){[m
+[32m+[m[32m         for (int i = 0; i < participaciones.length; i++){[m
+[32m+[m[32m             if (participaciones[i] != null && participaciones[i].isEsLocal()){[m
+[32m+[m[32m                return participaciones[i];[m
+[32m+[m[32m            }[m
+[32m+[m[32m         }[m
+[32m+[m[32m         return null;[m
+[32m+[m[32m}[m
+[32m+[m[32m    //Recorre las participaciones del partido y devuelve la del equipo visitante (esLocal = false)[m
+[32m+[m[32m        public Participacion getParticipacionVisitante(){[m
+[32m+[m[32m            for (int i = 0; i < participaciones.length; i++){[m
+[32m+[m[32m                 if (participaciones[i] != null && !participaciones[i].isEsLocal()){[m
+[32m+[m[32m                 return participaciones[i];[m
+[32m+[m[32m                 }[m
+[32m+[m[32m            }[m
+[32m+[m[32m             return null;[m
+[32m+[m[32m    }[m
+[32m+[m[32m     //metodos get y set[m
+[32m+[m
+[32m+[m[32m    public int getFecha() {[m
+[32m+[m[32m        return fecha;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void setFecha(int fecha) {[m
+[32m+[m[32m        this.fecha = fecha;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public int getHorario() {[m
+[32m+[m[32m        return horario;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void setHorario(int horario) {[m
+[32m+[m[32m        this.horario = horario;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public int getDuracion() {[m
+[32m+[m[32m        return duracion;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void setDuracion(int duracion) {[m
+[32m+[m[32m        this.duracion = duracion;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public int getTiempoAdicional() {[m
+[32m+[m[32m        return tiempoAdicional;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void setTiempoAdicional(int tiempoAdicional) {[m
+[32m+[m[32m        this.tiempoAdicional = tiempoAdicional;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public Participacion[] getParticipaciones() {[m
+[32m+[m[32m        return participaciones;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void setParticipaciones(Participacion[] participaciones) {[m
+[32m+[m[32m        this.participaciones = participaciones;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public Estadio getEstadio() {[m
+[32m+[m[32m        return estadio;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void setEstadio(Estadio estadio) {[m
+[32m+[m[32m        this.estadio = estadio;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public Fase getFase() {[m
+[32m+[m[32m        return fase;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void setFase(Fase fase) {[m
+[32m+[m[32m        this.fase = fase;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public ArrayList<Evento> getEventos() {[m
+[32m+[m[32m        return eventos;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void setEventos(ArrayList<Evento> eventos) {[m
+[32m+[m[32m        this.eventos = eventos;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public ArrayList<Arbitraje> getArbitrajes() {[m
+[32m+[m[32m        return arbitrajes;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void setArbitrajes(ArrayList<Arbitraje> arbitrajes) {[m
+[32m+[m[32m        this.arbitrajes = arbitrajes;[m
+[32m+[m[32m    }[m
+[32m+[m[41m    [m
+[32m+[m[32m}[m
+[32m+[m
+[1mdiff --git a/TallerProgramacion2/taller_programacion2/Persona.java b/TallerProgramacion2/taller_programacion2/Persona.java[m
+[1mnew file mode 100644[m
+[1mindex 0000000..6604ce7[m
+[1m--- /dev/null[m
+[1m+++ b/TallerProgramacion2/taller_programacion2/Persona.java[m
+[36m@@ -0,0 +1,34 @@[m
+[32m+[m[32mpackage taller_programacion2;[m
+[32m+[m
+[32m+[m
+[32m+[m[32mpublic abstract class Persona {[m
+[32m+[m[32m    protected String nombre;[m
+[32m+[m[32m    protected int fecNacimiento;[m
+[32m+[m
+[32m+[m[32m    public Persona(){[m
+[32m+[m[32m        this.fecNacimiento= 0;[m
+[32m+[m[32m        this.nombre = "";[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public Persona(String nombre, int fecNacimiento) {[m
+[32m+[m[32m        this.nombre = nombre;[m
+[32m+[m[32m        this.fecNacimiento = fecNacimiento;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m
+[32m+[m[32m    public String getNombre() {[m
+[32m+[m[32m        return nombre;[m
+[32m+[m[32m    }[m
+[32m+[m[32m    public void setNombre(String nombre) {[m
+[32m+[m[32m        this.nombre = nombre;[m
+[32m+[m[32m    }[m
+[32m+[m[32m    public int getFecNacimiento() {[m
+[32m+[m[32m        return fecNacimiento;[m
+[32m+[m[32m    }[m
+[32m+[m[32m    public void setFecNacimiento(int fecNacimiento) {[m
+[32m+[m[32m        this.fecNacimiento = fecNacimiento;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m
+[32m+[m[32m}[m
+[32m+[m
+[1mdiff --git a/TallerProgramacion2/taller_programacion2/Posicion.java b/TallerProgramacion2/taller_programacion2/Posicion.java[m
+[1mnew file mode 100644[m
+[1mindex 0000000..ed5605c[m
+[1m--- /dev/null[m
+[1m+++ b/TallerProgramacion2/taller_programacion2/Posicion.java[m
+[36m@@ -0,0 +1,11 @@[m
+[32m+[m[32mpackage taller_programacion2;[m
+[32m+[m
+[32m+[m
+[32m+[m
+[32m+[m[32mpublic enum Posicion {[m
+[32m+[m[32m    ARQUERO,[m
+[32m+[m[32m    DEFENSOR,[m
+[32m+[m[32m    MEDIOCAMPISTA,[m
+[32m+[m[32m    DELANTERO;[m
+[32m+[m[32m}[m
+[32m+[m
+[1mdiff --git a/TallerProgramacion2/taller_programacion2/README.md b/TallerProgramacion2/taller_programacion2/README.md[m
+[1mnew file mode 100644[m
+[1mindex 0000000..1a1683a[m
+[1m--- /dev/null[m
+[1m+++ b/TallerProgramacion2/taller_programacion2/README.md[m
+[36m@@ -0,0 +1,2 @@[m
+[32m+[m[32m# Taller_Programacion2[m
+[32m+[m[32mRepositorio de prueba[m
+[1mdiff --git a/TallerProgramacion2/taller_programacion2/Rol.java b/TallerProgramacion2/taller_programacion2/Rol.java[m
+[1mnew file mode 100644[m
+[1mindex 0000000..edacd68[m
+[1m--- /dev/null[m
+[1m+++ b/TallerProgramacion2/taller_programacion2/Rol.java[m
+[36m@@ -0,0 +1,14 @@[m
+[32m+[m[32mpackage taller_programacion2;[m
+[32m+[m
+[32m+[m[32mpublic enum Rol{[m
+[32m+[m[32m    AYUDANTECAMPO,[m
+[32m+[m[32m    PREPARADORFISICO,[m
+[32m+[m[32m    MEDICO,[m
+[32m+[m[32m    KINESIOLOGO,[m
+[32m+[m[32m    ENTRENADORARQUEROS,[m
+[32m+[m[32m    ANALISTAVIDEOS,[m
+[32m+[m[32m    NUTRICIONISTA,[m
+[32m+[m[32m    PSICOLOGO;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m
+[1mdiff --git a/TallerProgramacion2/taller_programacion2/Sede.java b/TallerProgramacion2/taller_programacion2/Sede.java[m
+[1mnew file mode 100644[m
+[1mindex 0000000..758bb80[m
+[1m--- /dev/null[m
+[1m+++ b/TallerProgramacion2/taller_programacion2/Sede.java[m
+[36m@@ -0,0 +1,78 @@[m
+[32m+[m[32mpackage taller_programacion2;[m
+[32m+[m
+[32m+[m[32mimport java.util.ArrayList;[m
+[32m+[m
+[32m+[m
+[32m+[m
+[32m+[m[32mpublic class Sede {[m
+[32m+[m[32m    private String ciudad;[m
+[32m+[m[32m    private float alturaNivelMar;[m
+[32m+[m[32m    private String clima;[m
+[32m+[m[32m    private String zonaHoraria;[m
+[32m+[m[32m    private Pais pais; // una sede pertenece a un pais[m
+[32m+[m[32m    private ArrayList<Estadio> estadios;[m[41m [m
+[32m+[m[41m    [m
+[32m+[m[32m   //constructor parametrizado[m
+[32m+[m[32m    public Sede(String ciudad, float alturaNivelMar, String clima, String zonaHoraria, Pais pais,[m
+[32m+[m[32m            ArrayList<Estadio> estadios) {[m
+[32m+[m[32m        this.ciudad = ciudad;[m
+[32m+[m[32m        this.alturaNivelMar = alturaNivelMar;[m
+[32m+[m[32m        this.clima = clima;[m
+[32m+[m[32m        this.zonaHoraria = zonaHoraria;[m
+[32m+[m[32m        this.pais = pais;[m
+[32m+[m[32m        this.estadios = estadios;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    //constructor por defecto[m
+[32m+[m[32m    public Sede(){[m
+[32m+[m[32m        this.estadios = new ArrayList<>();[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    //----------Metodo agregarEstadio[m
+[32m+[m[32m    public void agregarEstadio(Estadio estadio){[m
+[32m+[m[32m        if (estadio != null){[m
+[32m+[m[32m            this.estadios.add(estadio);[m
+[32m+[m[32m        }[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    //----------Metodos get y set[m
+[32m+[m[32m    public String getCiudad() {[m
+[32m+[m[32m        return ciudad;[m
+[32m+[m[32m    }[m
+[32m+[m[32m    public void setCiudad(String ciudad) {[m
+[32m+[m[32m        this.ciudad = ciudad;[m
+[32m+[m[32m    }[m
+[32m+[m[32m    public float getAlturaNivelMar() {[m
+[32m+[m[32m        return alturaNivelMar;[m
+[32m+[m[32m    }[m
+[32m+[m[32m    public void setAlturaNivelMar(float alturaNivelMar) {[m
+[32m+[m[32m        this.alturaNivelMar = alturaNivelMar;[m
+[32m+[m[32m    }[m
+[32m+[m[32m    public String getClima() {[m
+[32m+[m[32m        return clima;[m
+[32m+[m[32m    }[m
+[32m+[m[32m    public void setClima(String clima) {[m
+[32m+[m[32m        this.clima = clima;[m
+[32m+[m[32m    }[m
+[32m+[m[32m    public String getZonaHoraria() {[m
+[32m+[m[32m        return zonaHoraria;[m
+[32m+[m[32m    }[m
+[32m+[m[32m    public void setZonaHoraria(String zonaHoraria) {[m
+[32m+[m[32m        this.zonaHoraria = zonaHoraria;[m
+[32m+[m[32m    }[m
+[32m+[m[32m    public Pais getPais() {[m
+[32m+[m[32m        return pais;[m
+[32m+[m[32m    }[m
+[32m+[m[32m    public void setPais(Pais pais) {[m
+[32m+[m[32m        this.pais = pais;[m
+[32m+[m[32m    }[m
+[32m+[m[32m    public ArrayList<Estadio> getEstadios() {[m
+[32m+[m[32m        return estadios;[m
+[32m+[m[32m    }[m
+[32m+[m[32m    public void setEstadios(ArrayList<Estadio> estadios) {[m
+[32m+[m[32m        this.estadios = estadios;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[41m    [m
+[32m+[m[32m}[m
+[32m+[m
+[1mdiff --git a/TallerProgramacion2/taller_programacion2/Seleccion.java b/TallerProgramacion2/taller_programacion2/Seleccion.java[m
+[1mnew file mode 100644[m
+[1mindex 0000000..bc219ec[m
+[1m--- /dev/null[m
+[1m+++ b/TallerProgramacion2/taller_programacion2/Seleccion.java[m
+[36m@@ -0,0 +1,152 @@[m
+[32m+[m[32mpackage taller_programacion2;[m
+[32m+[m
+[32m+[m[32mimport java.util.ArrayList;[m
+[32m+[m
+[32m+[m[32mpublic class Seleccion {[m
+[32m+[m[32m    private String nombreFederacion;[m
+[32m+[m[32m    private String camisetaPrincipal;[m
+[32m+[m[32m    private String camisetaSecundaria;[m
+[32m+[m[32m    private boolean cabezaGrupo;[m
+[32m+[m[32m    private int rankingFIFA;[m
+[32m+[m
+[32m+[m[32m    // ASOCIACIONES[m
+[32m+[m[32m    private Grupo grupo;[m
+[32m+[m[32m    private Pais pais;[m
+[32m+[m[32m    private ArrayList<Jugador> jugadores;[m
+[32m+[m[32m    private DirectorTecnico directorTecnico; // es una lista de agregacion[m
+[32m+[m[32m    private ArrayList<CuerpoTecnico> cuerposTecnicos;[m
+[32m+[m[32m    private ArrayList<Participacion> participaciones; // lista de n participaciones[m
+[32m+[m
+[32m+[m[32m    // CONSTRUCTOR SIN PARAMETROS[m
+[32m+[m[32m    public Seleccion() {[m
+[32m+[m[32m        this.jugadores = new ArrayList<>(); // en agregacion no se inicializan, solo con metodo[m
+[32m+[m[32m        this.cuerposTecnicos = new ArrayList<>(); // lo mismo[m
+[32m+[m[32m        this.participaciones = new ArrayList<>();[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    // CONSTRUCTOR CON PARAMETROS[m
+[32m+[m[32m    public Seleccion(String nombreFederacion, String camisetaPrincipal, String camisetaSecundaria, boolean cabezaGrupo,[m
+[32m+[m[32m            int rankingFIFA, Grupo grupo, Pais pais, ArrayList<Jugador> jugadores, DirectorTecnico directorTecnico,[m
+[32m+[m[32m            ArrayList<CuerpoTecnico> cuerposTecnicos, ArrayList<Participacion> participaciones) {[m
+[32m+[m[32m        this.nombreFederacion = nombreFederacion;[m
+[32m+[m[32m        this.camisetaPrincipal = camisetaPrincipal;[m
+[32m+[m[32m        this.camisetaSecundaria = camisetaSecundaria;[m
+[32m+[m[32m        this.cabezaGrupo = cabezaGrupo;[m
+[32m+[m[32m        this.rankingFIFA = rankingFIFA;[m
+[32m+[m[32m        this.grupo = grupo;[m
+[32m+[m[32m        this.pais = pais;[m
+[32m+[m[32m        this.jugadores = jugadores;[m
+[32m+[m[32m        this.directorTecnico = directorTecnico;[m
+[32m+[m[32m        this.cuerposTecnicos = cuerposTecnicos;[m
+[32m+[m[32m        this.participaciones = participaciones;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m
+[32m+[m[32m    // SETTERS Y GETTERS[m
+[32m+[m[32m    public String getNombreFederacion() {[m
+[32m+[m[32m        return nombreFederacion;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void setNombreFederacion(String nombreFederacion) {[m
+[32m+[m[32m        this.nombreFederacion = nombreFederacion;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public String getCamisetaPrincipal() {[m
+[32m+[m[32m        return camisetaPrincipal;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void setCamisetaPrincipal(String camisetaPrincipal) {[m
+[32m+[m[32m        this.camisetaPrincipal = camisetaPrincipal;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public String getCamisetaSecundaria() {[m
+[32m+[m[32m        return camisetaSecundaria;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void setCamisetaSecundaria(String camisetaSecundaria) {[m
+[32m+[m[32m        this.camisetaSecundaria = camisetaSecundaria;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public boolean isCabezaGrupo() {[m
+[32m+[m[32m        return cabezaGrupo;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void setCabezaGrupo(boolean cabezaGrupo) {[m
+[32m+[m[32m        this.cabezaGrupo = cabezaGrupo;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public int getRankingFIFA() {[m
+[32m+[m[32m        return rankingFIFA;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void setRankingFIFA(int rankingFIFA) {[m
+[32m+[m[32m        this.rankingFIFA = rankingFIFA;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public Grupo getGrupo() {[m
+[32m+[m[32m        return grupo;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void setGrupo(Grupo grupo) {[m
+[32m+[m[32m        this.grupo = grupo;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public Pais getPais() {[m
+[32m+[m[32m        return pais;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void setPais(Pais pais) {[m
+[32m+[m[32m        this.pais = pais;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public ArrayList<Jugador> getJugadores() {[m
+[32m+[m[32m        return jugadores;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void setJugadores(ArrayList<Jugador> jugadores) {[m
+[32m+[m[32m        this.jugadores = jugadores;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public DirectorTecnico getDirectorTecnico() {[m
+[32m+[m[32m        return directorTecnico;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void setDirectorTecnico(DirectorTecnico directorTecnico) {[m
+[32m+[m[32m        this.directorTecnico = directorTecnico;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public ArrayList<CuerpoTecnico> getCuerposTecnicos() {[m
+[32m+[m[32m        return cuerposTecnicos;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void setCuerposTecnicos(ArrayList<CuerpoTecnico> cuerposTecnicos) {[m
+[32m+[m[32m        this.cuerposTecnicos = cuerposTecnicos;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public ArrayList<Participacion> getParticipaciones() {[m
+[32m+[m[32m        return participaciones;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void setParticipaciones(ArrayList<Participacion> participaciones) {[m
+[32m+[m[32m        this.participaciones = participaciones;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    // METODOS[m
+[32m+[m[32m    public void agregarJugador(Jugador jugador) {[m
+[32m+[m[32m        if (jugador != null) {[m
+[32m+[m[32m            this.jugadores.add(jugador);[m
+[32m+[m[32m        }[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void agregarCuerpoTecnico(CuerpoTecnico cuerpoTecnico) {[m
+[32m+[m[32m        if (cuerpoTecnico != null) {[m
+[32m+[m[32m            this.cuerposTecnicos.add(cuerpoTecnico);[m
+[32m+[m[32m        }[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void agregarParticipacion(Participacion participacion) {[m
+[32m+[m[32m        if (participacion != null) {[m
+[32m+[m[32m            this.participaciones.add(participacion);[m
+[32m+[m[32m        }[m
+[32m+[m[32m    }[m
+[32m+[m[32m}[m
+[1mdiff --git a/TallerProgramacion2/taller_programacion2/TipoEvento.java b/TallerProgramacion2/taller_programacion2/TipoEvento.java[m
+[1mnew file mode 100644[m
+[1mindex 0000000..b14d424[m
+[1m--- /dev/null[m
+[1m+++ b/TallerProgramacion2/taller_programacion2/TipoEvento.java[m
+[36m@@ -0,0 +1,17 @@[m
+[32m+[m[32mpackage taller_programacion2;[m
+[32m+[m
+[32m+[m
+[32m+[m
+[32m+[m[32mpublic enum TipoEvento {[m
+[32m+[m[32m    GOL,[m
+[32m+[m[32m    TARJETAAMARILLA,[m
+[32m+[m[32m    TARJETAROJA,[m
+[32m+[m[32m    PENALCOMETIDO,[m
+[32m+[m[32m    PENALCONVERTIDO,[m
+[32m+[m[32m    PENALERRADO,[m
+[32m+[m[32m    DOBLEAMARILLA,[m
+[32m+[m[32m    SUSTITUCION,[m
+[32m+[m[32m    LESION;[m
+[32m+[m[41m    [m
+[32m+[m[32m}[m
+[32m+[m
+[1mdiff --git a/Taller_Programacion2 b/Taller_Programacion2[m
+[1mdeleted file mode 160000[m
+[1mindex 83d4e8c..0000000[m
+[1m--- a/Taller_Programacion2[m
+[1m+++ /dev/null[m
+[36m@@ -1 +0,0 @@[m
+[31m-Subproject commit 83d4e8c1122d637bbf2d4af289357cb2a3f78663[m
