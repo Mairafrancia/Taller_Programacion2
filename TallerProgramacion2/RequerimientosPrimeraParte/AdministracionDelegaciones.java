@@ -1,8 +1,5 @@
 package RequerimientosPrimeraParte;
 
-
-
-
 import taller_programacion2.*;
 
 public class AdministracionDelegaciones {
