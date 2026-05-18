@@ -236,8 +236,8 @@ public class prueba{
         // Prueba 4: Registro de Eventos (Ampliada)
         System.out.println("\n=== PRUEBA REGISTRO DE EVENTOS ===");
         rec.registrarEventoDeCampo(partido1, TipoEvento.GOL, 45, jugador1);
-        rec.registrarEventoDeCampo(partido1, TipoEvento.TARJETAAMARILLA, 67, jugador2);
-        rec.registrarEventoDeCampo(partido1, TipoEvento.PENALCOMETIDO, 78, jugador3);
+        rec.registrarEventoDeCampo(partido1, TipoEvento.TARJETA_AMARILLA, 67, jugador2);
+        rec.registrarEventoDeCampo(partido1, TipoEvento.PENAL_COMETIDO, 78, jugador3);
 
         rec.registrarEventoDeCampo(partido2, TipoEvento.GOL, 23, jugador3);
         rec.registrarEventoDeCampo(partido2, TipoEvento.SUSTITUCION, 60, jugador1);
