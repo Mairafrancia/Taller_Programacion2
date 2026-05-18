@@ -1,22 +1,22 @@
 package CLASES;
 
-import java.util.ArrayList;
-
 
 public class CargadorDatos {
+
     public static Mundial cargar() {
 
 
         // acá van todos los objetos
         //crear mundial vacio
-        Mundial mundial = new Mundial(2026, "nombre mascota", 1, 30, new ArrayList<>());
+        Mundial mundial = new Mundial(2026, "nombre mascota", 20260611, 20260719);
+        
         //crear un país
         Pais argentina = new Pais();
         argentina.setNombre("Argentina");
         argentina.setBandera("arg.png");
-
+        
         //crear una Sede y asociaral al Pais
-        Sede sede1 = new Sede("Buenos Aires", 25.0f, "templado", "GMT-3", argentina, new ArrayList<>());
+        Sede sede1 = new Sede("Buenos Aires", 25.0f, "templado", "GMT-3", argentina);
         argentina.agregarSede(sede1);
         mundial.agregarSede(sede1);
 
@@ -46,6 +46,7 @@ public class CargadorDatos {
         selArg.setRankingFIFA(1);
         selArg.setDirectorTecnico(dt1);
 
+        // Cruzar las relaciones
         argentina.setSeleccion(selArg);
         grupoA.agregarSeleccion(selArg);
 
