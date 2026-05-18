@@ -49,16 +49,63 @@ public class Participacion {
     }
 
     // METODOS
+    // METODOS DE CONTEO USANDO FOR TRADICIONAL (DEBERIAMOS USAR EQUALS Y CONTAINS???)
     public int cantidadGoles() {
-        return 0;
+        int goles = 0;
+        
+        if (this.partido != null && this.seleccion != null) {
+            // 1. Recorremos todos los eventos del partido
+            for (Evento e : this.partido.getEventos()) {
+                
+                // 2. Si el evento es un GOL y tiene un jugador asociado
+                if (e != null && e.getTipo() == TipoEvento.GOL && e.getJugador() != null) {
+                    
+                    // 3. Buscamos manualmente si ese jugador pertenece a nuestra selección
+                    for (Jugador j : this.seleccion.getJugadores()) {
+                        if (j.getNombre().equalsIgnoreCase(e.getJugador().getNombre())) {
+                            goles++;
+                            break; // Ya lo encontramos, pasamos al siguiente evento
+                        }
+                    }
+                }
+            }
+        }
+        return goles;
     }
 
     public int cantidadTarjAmarillas() {
-        return 0;
+        int amarillas = 0;
+        if (this.partido != null && this.seleccion != null) {
+            for (Evento e : this.partido.getEventos()) {
+                if (e != null && e.getTipo() == TipoEvento.TARJETA_AMARILLA && e.getJugador() != null) {
+                    
+                    for (Jugador j : this.seleccion.getJugadores()) {
+                        if (j.getNombre().equalsIgnoreCase(e.getJugador().getNombre())) {
+                            amarillas++;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        return amarillas;
     }
 
     public int cantidadTarRojas() {
-        return 0;
+        int rojas = 0;
+        if (this.partido != null && this.seleccion != null) {
+            for (Evento e : this.partido.getEventos()) {
+                if (e != null && e.getTipo() == TipoEvento.TARJETA_ROJA && e.getJugador() != null) {
+                    
+                    for (Jugador j : this.seleccion.getJugadores()) {
+                        if (j.getNombre().equalsIgnoreCase(e.getJugador().getNombre())) {
+                            rojas++;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        return rojas;
     }
-
 }
