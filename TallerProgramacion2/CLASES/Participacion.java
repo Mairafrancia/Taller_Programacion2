@@ -49,6 +49,7 @@ public class Participacion {
     }
 
     // METODOS
+    
     // METODOS DE CONTEO USANDO FOR TRADICIONAL (DEBERIAMOS USAR EQUALS Y CONTAINS???)
     public int cantidadGoles() {
         int goles = 0;

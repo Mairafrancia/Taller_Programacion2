@@ -18,7 +18,7 @@ public class AdministracionDelegaciones {
 
         // 3. Aseguramos que la sede esté en el mundial
         if (!mundial.getSedes().contains(sede)) {
-            mundial.getSedes().add(sede);
+            mundial.agregarSede(sede);
         }
     }
 
@@ -46,7 +46,7 @@ public class AdministracionDelegaciones {
             }
         }
         // Si no está en ninguna selección del grupo, lo registramos
-        seleccion.getJugadores().add(nuevoJugador);
+        seleccion.agregarJugador(nuevoJugador);
         return true;
     }
 
@@ -56,7 +56,7 @@ public class AdministracionDelegaciones {
         // diagrama
         // Usamos el método getter de la clase Seleccion para obtener la lista y añadir
         // al integrante
-        seleccion.getCuerposTecnicos().add(integrante);
+        seleccion.agregarCuerpoTecnico(integrante);
         return true;
     }
 
