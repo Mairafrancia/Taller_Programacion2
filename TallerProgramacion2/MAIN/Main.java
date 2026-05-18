@@ -1,5 +1,5 @@
 package MAIN;
-
+import CLASES.Mundial;
 import MAIN.CargadorDatos;
 
 public class Main {
