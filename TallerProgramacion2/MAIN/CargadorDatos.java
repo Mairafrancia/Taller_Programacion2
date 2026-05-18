@@ -1,5 +1,14 @@
-package CLASES;
+package MAIN;
 
+import CLASES.DirectorTecnico;
+import CLASES.Estadio;
+import CLASES.Fase;
+import CLASES.Grupo;
+import CLASES.Mundial;
+import CLASES.NombreFase;
+import CLASES.Pais;
+import CLASES.Sede;
+import CLASES.Seleccion;
 
 public class CargadorDatos {
 
