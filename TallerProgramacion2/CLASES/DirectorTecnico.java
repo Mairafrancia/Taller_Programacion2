@@ -1,4 +1,4 @@
-package taller_programacion2;
+package CLASES;
 
 public class DirectorTecnico extends Persona {
     private int fechaNombramiento;

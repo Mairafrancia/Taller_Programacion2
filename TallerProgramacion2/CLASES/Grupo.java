@@ -1,9 +1,9 @@
-package taller_programacion2;
+package CLASES;
 
 import java.util.ArrayList;
 
 public class Grupo {
-    
+
     private String identificador;
     private String descripcion;
 
@@ -15,7 +15,7 @@ public class Grupo {
     public Grupo() {
         this.selecciones = new ArrayList<>();
     }
-    
+
     // CONSTRUCTOR PARAMETRIZADO
     public Grupo(String identificador, String descripcion, Fase fase, ArrayList<Seleccion> selecciones) {
         this.identificador = identificador;
@@ -24,7 +24,7 @@ public class Grupo {
         this.selecciones = selecciones;
     }
 
-    //SETTERS Y GETTERS
+    // SETTERS Y GETTERS
     public String getIdentificador() {
         return identificador;
     }
@@ -57,16 +57,46 @@ public class Grupo {
         this.selecciones = selecciones;
     }
 
-    //METODOS ASOCIACIONES
+    // METODOS ASOCIACIONES
     public void agregarSeleccion(Seleccion seleccion) {
         if (seleccion != null) {
             this.selecciones.add(seleccion);
         }
     }
 
-    // METODO
+    // METODO PARA OBTENER LOS PUNTOS DE UNA SELECCION EN ESTE GRUPO
     public int obtenerPuntos(Seleccion s) {
-        return 0;
-    }
 
+        // **/ LOGICA SEGUN LA CONSIGNA:
+        // **/ Victoria: 3 pts.
+        // **/Empate: 1 pt.
+        // **/Derrota: 0 pts.
+
+        int puntos = 0; // Empezamos con cero puntos
+
+        // Recorremos cada partido en el que participó esta selección
+        for (Participacion p : s.getParticipaciones()) {
+            Partido part = p.getPartido();
+            int golesFavor = p.cantidadGoles(); // Goles que hicimos nosotros
+            int golesContra = 0; // Acá vamos a guardar los del rival
+
+            // IDENTIFICAMOS AL RIVAL
+            if (p.isEsLocal()) {
+                // Si nosotros fuimos locales, el rival es el visitante
+                Participacion rival = part.getParticipacionVisitante();
+                golesContra = rival.cantidadGoles();
+            } else {
+                // Si nosotros fuimos visitantes, el rival es el local
+                Participacion rival = part.getParticipacionLocal();
+                golesContra = rival.cantidadGoles();
+            }
+
+            if (golesFavor > golesContra) // Ganamos (+3)
+                puntos += 3;
+            else if (golesFavor == golesContra) // Empatamos (+1)
+                puntos += 1;
+            // Si perdimos no hace nada (suma 0)
+        }
+        return puntos; // Devolvemos el total de puntos acumulados
+    }
 }

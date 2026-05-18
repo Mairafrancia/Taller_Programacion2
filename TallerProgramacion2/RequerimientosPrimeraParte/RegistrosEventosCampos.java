@@ -1,6 +1,6 @@
 package RequerimientosPrimeraParte;
 
-import taller_programacion2.*;
+import CLASES.*;
 
 /* Registro de Eventos de Campo: Durante los partidos, se deben registrar los
 Eventos en tiempo real detallando entre otros el minuto y el jugador involucrado */

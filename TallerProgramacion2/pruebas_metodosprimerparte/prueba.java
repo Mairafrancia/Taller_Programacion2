@@ -1,7 +1,7 @@
 package pruebas_metodosprimerparte;
 
 
-import taller_programacion2.*;
+import CLASES.*;
 import RequerimientosPrimeraParte.*;
 //import java.util.ArrayList;
 

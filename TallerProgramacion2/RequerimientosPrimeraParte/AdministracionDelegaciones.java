@@ -1,21 +1,22 @@
 package RequerimientosPrimeraParte;
 
-import taller_programacion2.*;
+import CLASES.*;
 
 public class AdministracionDelegaciones {
 
-    // Cambiamos el enfoque: El país se registra al crearlo, 
+    // Cambiamos el enfoque: El país se registra al crearlo,
     // pero se vincula al mundial a través de su Sede.
 
-    // Vincula un país con una sede y asegura que esa sede esté registrada en el Mundial.
+    // Vincula un país con una sede y asegura que esa sede esté registrada en el
+    // Mundial.
     public void vincularPaisAlSistema(Mundial mundial, Sede sede, Pais pais) {
         // 1. Relacionamos Sede con Pais (Sede * --- 1 Pais)
         sede.setPais(pais);
-        
+
         // 2. Si el Pais tiene una lista de sedes, lo agregamos
         pais.getSedes().add(sede);
-        
-        // 3. Aseguramos que la sede esté en el mundial 
+
+        // 3. Aseguramos que la sede esté en el mundial
         if (!mundial.getSedes().contains(sede)) {
             mundial.getSedes().add(sede);
         }
@@ -26,16 +27,14 @@ public class AdministracionDelegaciones {
         // Vincular la selección con el país (Relación 1 a 1)
         pais.setSeleccion(seleccion);
         seleccion.setPais(pais);
-        
+
         // Asignar la selección a un grupo (Relación * a 1)
         seleccion.setGrupo(grupo);
         grupo.agregarSeleccion(seleccion);
     }
 
-    
-   
-
-    // Añade un jugador a una selección si no ha sido asignado previamente a otra selección del grupo.
+    // Añade un jugador a una selección si no ha sido asignado previamente a otra
+    // selección del grupo.
     public boolean registrarJugador(Seleccion seleccion, Jugador nuevoJugador) {
         // Verificar si el jugador ya está en otra selección del mismo grupo
         Grupo grupo = seleccion.getGrupo();
@@ -53,12 +52,12 @@ public class AdministracionDelegaciones {
 
     // Registra un integrante del cuerpo técnico en la selección correspondiente.
     public boolean registrarCuerpoTecnico(Seleccion seleccion, CuerpoTecnico integrante) {
-        // La selección cuenta con una lista de integrantes del cuerpo técnico según el diagrama
-        // Usamos el método getter de la clase Seleccion para obtener la lista y añadir al integrante
+        // La selección cuenta con una lista de integrantes del cuerpo técnico según el
+        // diagrama
+        // Usamos el método getter de la clase Seleccion para obtener la lista y añadir
+        // al integrante
         seleccion.getCuerposTecnicos().add(integrante);
         return true;
     }
 
-
-    
 }

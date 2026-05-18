@@ -1,7 +1,7 @@
 package RequerimientosPrimeraParte;
 
 
-import taller_programacion2.*;
+import CLASES.*;
 
 public class GestionInfraestructura {
 

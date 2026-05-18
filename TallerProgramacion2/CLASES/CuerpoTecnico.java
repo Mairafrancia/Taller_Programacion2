@@ -1,4 +1,4 @@
-package taller_programacion2;
+package CLASES;
 
 public class CuerpoTecnico extends Persona {
     private Rol rol;

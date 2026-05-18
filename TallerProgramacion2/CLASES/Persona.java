@@ -1,4 +1,4 @@
-package taller_programacion2;
+package CLASES;
 
 
 public abstract class Persona {

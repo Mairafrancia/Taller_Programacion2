@@ -1,6 +1,6 @@
 package RequerimientosPrimeraParte;
 
-import taller_programacion2.*;
+import CLASES.*;
 
 public class OrganizacionDeportiva {
     public Fase configurarFaseYGrupo(NombreFase nombre, String idGrupo, String desc) {
