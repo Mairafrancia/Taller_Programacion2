@@ -18,10 +18,7 @@ import CLASES.Seleccion;
 import CLASES.TipoEvento;
 import CLASES.CategoriaArbitro;
 
-import GESTION1.GestionInfraestructura;
-import GESTION1.AdministracionDelegaciones;
-import GESTION1.OrganizacionDeportiva;
-import GESTION1.RegistrosEventosCampos;
+import GESTION1.*;
 
 public class prueba {
     public static void main(String[] args) {
