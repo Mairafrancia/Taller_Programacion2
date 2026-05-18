@@ -1,5 +1,6 @@
 package MAIN;
 
+import CLASES.*;
 
 public class CargadorDatos {
 
