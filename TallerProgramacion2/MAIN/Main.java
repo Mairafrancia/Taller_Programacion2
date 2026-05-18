@@ -1,5 +1,6 @@
-package CLASES;
+package MAIN;
 
+import CLASES.*;
 
 public class Main {
     public static void main(String[] args) {
