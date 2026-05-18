@@ -1,9 +1,8 @@
-package pruebas_metodosprimerparte;
+package MAIN;
 
 
 import CLASES.*;
-import RequerimientosPrimeraParte.*;
-//import java.util.ArrayList;
+import GESTION1.*;
 
 public class prueba{
     public static void main(String[] args) {

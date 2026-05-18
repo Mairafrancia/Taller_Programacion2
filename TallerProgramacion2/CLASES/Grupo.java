@@ -13,15 +13,18 @@ public class Grupo {
 
     // CONSTRUCTOR SIN PARAMETROS
     public Grupo() {
+        this.identificador = "";
+        this.descripcion = "";
+        this.fase = null;
         this.selecciones = new ArrayList<>();
     }
 
     // CONSTRUCTOR PARAMETRIZADO
-    public Grupo(String identificador, String descripcion, Fase fase, ArrayList<Seleccion> selecciones) {
+    public Grupo(String identificador, String descripcion, Fase fase) {
         this.identificador = identificador;
         this.descripcion = descripcion;
         this.fase = fase;
-        this.selecciones = selecciones;
+        this.selecciones = new ArrayList<>(); // Inicializamos la lista de selecciones como vacía y llenamos con el metodo agregarSeleccion
     }
 
     // SETTERS Y GETTERS

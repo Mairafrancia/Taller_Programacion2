@@ -18,16 +18,11 @@ public class Arbitro extends Persona {
     }
 
     // CONSTRUCTOR PARAMETRIZADO
-    public Arbitro(String nombre, int fecNacimiento, int aniosExperiencia, Pais pais, ArrayList<Arbitraje> arbitrajes) {
+    public Arbitro(String nombre, int fecNacimiento, int aniosExperiencia, Pais pais) {
         super(nombre, fecNacimiento);
         this.aniosExperiencia = aniosExperiencia;
         this.pais = pais;
-        if (arbitrajes != null) {
-            this.arbitrajes = arbitrajes;
-        } else {
-            this.arbitrajes = new ArrayList<>();
-        }
-
+        this.arbitrajes = new ArrayList<>(); // Inicializamos la lista de arbitrajes como vacía y llenamos con el metodo
     }
 
    // SETTERS Y GETTERS

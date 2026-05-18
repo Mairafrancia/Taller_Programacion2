@@ -1,4 +1,4 @@
-package RequerimientosPrimeraParte;
+package GESTION1;
 
 import CLASES.*;
 
@@ -14,7 +14,7 @@ public class AdministracionDelegaciones {
         sede.setPais(pais);
 
         // 2. Si el Pais tiene una lista de sedes, lo agregamos
-        pais.getSedes().add(sede);
+        pais.agregarSede(sede);
 
         // 3. Aseguramos que la sede esté en el mundial
         if (!mundial.getSedes().contains(sede)) {

@@ -1,6 +1,4 @@
-package RequerimientosPrimeraParte;
-
-
+package GESTION1;
 import CLASES.*;
 
 public class GestionInfraestructura {
@@ -8,7 +6,7 @@ public class GestionInfraestructura {
     // MÉTODO PARA REGISTRAR SEDE
     public boolean registrarSede(Mundial mundial, Sede nuevaSede) {
         // Se agrega la sede al mundial siguiendo el diagrama de clases
-        mundial.getSedes().add(nuevaSede);
+        mundial.agregarSede(nuevaSede);
         return true;
     }
 
@@ -20,7 +18,7 @@ public class GestionInfraestructura {
         nuevoEstadio.setSede(sede);
         
         // Se vincula según la relación 1..* del diagrama
-        sede.getEstadios().add(nuevoEstadio);
+        sede.agregarEstadio(nuevoEstadio);
         return true;
     }
 }

@@ -2,87 +2,48 @@ package CLASES;
 
 import java.util.ArrayList;
 
-
-
 public class Partido {
     private int fecha;
     private int horario;
     private int duracion;
     private int tiempoAdicional;
-    private Participacion[] participaciones = new Participacion[2]; //un array con solo dos participaciones (mejor una lista )
-    private Estadio estadio; //un partido se lleva a cabo en un estadio
+
+    //ASOCIACIONES
+    private Participacion[] participaciones = new Participacion[2]; // un array con solo dos participaciones (mejor unalista )
+    private Estadio estadio; // un partido se lleva a cabo en un estadio
     private Fase fase; // corresponde a una fase
     private ArrayList<Evento> eventos;
-    private ArrayList<Arbitraje> arbitrajes ;
+    private ArrayList<Arbitraje> arbitrajes;
 
-    //constructor por defecto
-    public Partido(){
+    //CONSTRUCTOR SIN PARAMETROS
+    public Partido() {
+        this.fecha = 0;
+        this.horario = 0;
+        this.duracion = 0;
+        this.tiempoAdicional = 0;
+        this.participaciones = new Participacion[2];
+        this.estadio = null;
+        this.fase = null;
         this.eventos = new ArrayList<>();
         this.arbitrajes = new ArrayList<>();
     }
 
-    //constructor parametrizado
-     public Partido(int fecha, int horario, int duracion, int tiempoAdicional, Participacion[] participaciones,
-            Estadio estadio, Fase fase, ArrayList<Evento> eventos, ArrayList<Arbitraje> arbitrajes) {
+    // CONSTRUCTOR CON PARAMETROS
+    public Partido(int fecha, int horario, int duracion, int tiempoAdicional,
+            Estadio estadio, Fase fase) {
         this.fecha = fecha;
         this.horario = horario;
         this.duracion = duracion;
         this.tiempoAdicional = tiempoAdicional;
-        this.participaciones = participaciones;
+        // Nace con el espacio justo y vacío para llenarse con el método
+        this.participaciones = new Participacion[2];
         this.estadio = estadio;
         this.fase = fase;
-        this.eventos = eventos;
-        this.arbitrajes = arbitrajes;
-    }
-   
-    
-    //metodos para agregar
-
-    public void agregarEvento(Evento evento){
-        if (evento != null){
-            this.eventos.add(evento);
-        }
+        this.eventos = new ArrayList<>();
+        this.arbitrajes = new ArrayList<>();
     }
 
-    public void agregarArbitraje(Arbitraje arbitraje){
-        if (arbitraje != null){
-            this.arbitrajes.add(arbitraje);
-        }
-    }
-    //Verifica que p1 y p2 no sean null, ni que tengan el mismo valor de esLocal, luego asigna
-    public void asignarParticipaciones(Participacion p1, Participacion p2) {
-        if (p1 == null || p2 == null) {
-            System.out.println("Error: las participaciones no pueden ser null");
-            return ;
-        }
-        if (p1.isEsLocal () == p2.isEsLocal()){
-            System.err.println( "Error: una participación debe ser local y la  otra visitante");
-            return ;
-        }
-        this.participaciones[0] = p1;
-        this.participaciones[1] = p2;
-    }
-    
-    //Recorre las participaciones del partido y devuelve la del equipo local (esLocal = true)
-    // el participaciones[i] != null en el if lo utilizo para evitar un error en caso de que todavía no se hayan asignado las participaciones.
-    public Participacion getParticipacionLocal(){
-         for (int i = 0; i < participaciones.length; i++){
-             if (participaciones[i] != null && participaciones[i].isEsLocal()){
-                return participaciones[i];
-            }
-         }
-         return null;
-}
-    //Recorre las participaciones del partido y devuelve la del equipo visitante (esLocal = false)
-        public Participacion getParticipacionVisitante(){
-            for (int i = 0; i < participaciones.length; i++){
-                 if (participaciones[i] != null && !participaciones[i].isEsLocal()){
-                 return participaciones[i];
-                 }
-            }
-             return null;
-    }
-     //metodos get y set
+    //SETETRS Y GETTERS
 
     public int getFecha() {
         return fecha;
@@ -155,6 +116,57 @@ public class Partido {
     public void setArbitrajes(ArrayList<Arbitraje> arbitrajes) {
         this.arbitrajes = arbitrajes;
     }
-    
-}
 
+    //METODOS
+
+    public void agregarEvento(Evento evento) {
+        if (evento != null) {
+            this.eventos.add(evento);
+        }
+    }
+
+    public void agregarArbitraje(Arbitraje arbitraje) {
+        if (arbitraje != null) {
+            this.arbitrajes.add(arbitraje);
+        }
+    }
+
+    // Verifica que p1 y p2 no sean null, ni que tengan el mismo valor de esLocal,
+    // luego asigna
+    public void asignarParticipaciones(Participacion p1, Participacion p2) {
+        if (p1 == null || p2 == null) {
+            System.out.println("Error: las participaciones no pueden ser null");
+            return;
+        }
+        if (p1.isEsLocal() == p2.isEsLocal()) {
+            System.err.println("Error: una participación debe ser local y la  otra visitante");
+            return;
+        }
+        this.participaciones[0] = p1;
+        this.participaciones[1] = p2;
+    }
+
+    // Recorre las participaciones del partido y devuelve la del equipo local
+    // (esLocal = true)
+    // el participaciones[i] != null en el if lo utilizo para evitar un error en
+    // caso de que todavía no se hayan asignado las participaciones.
+    public Participacion getParticipacionLocal() {
+        for (int i = 0; i < participaciones.length; i++) {
+            if (participaciones[i] != null && participaciones[i].isEsLocal()) {
+                return participaciones[i];
+            }
+        }
+        return null;
+    }
+
+    // Recorre las participaciones del partido y devuelve la del equipo visitante
+    // (esLocal = false)
+    public Participacion getParticipacionVisitante() {
+        for (int i = 0; i < participaciones.length; i++) {
+            if (participaciones[i] != null && !participaciones[i].isEsLocal()) {
+                return participaciones[i];
+            }
+        }
+        return null;
+    }
+}

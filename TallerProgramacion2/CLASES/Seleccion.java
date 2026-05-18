@@ -19,6 +19,11 @@ public class Seleccion {
 
     // CONSTRUCTOR SIN PARAMETROS
     public Seleccion() {
+        this.nombreFederacion = "";
+        this.camisetaPrincipal = "";
+        this.camisetaSecundaria = "";
+        this.cabezaGrupo = false;
+        this.rankingFIFA = 0;
         this.jugadores = new ArrayList<>(); // en agregacion no se inicializan, solo con metodo
         this.cuerposTecnicos = new ArrayList<>(); // lo mismo
         this.participaciones = new ArrayList<>();
@@ -26,8 +31,7 @@ public class Seleccion {
 
     // CONSTRUCTOR CON PARAMETROS
     public Seleccion(String nombreFederacion, String camisetaPrincipal, String camisetaSecundaria, boolean cabezaGrupo,
-            int rankingFIFA, Grupo grupo, Pais pais, ArrayList<Jugador> jugadores, DirectorTecnico directorTecnico,
-            ArrayList<CuerpoTecnico> cuerposTecnicos, ArrayList<Participacion> participaciones) {
+            int rankingFIFA, Grupo grupo, Pais pais, DirectorTecnico directorTecnico) {
         this.nombreFederacion = nombreFederacion;
         this.camisetaPrincipal = camisetaPrincipal;
         this.camisetaSecundaria = camisetaSecundaria;
@@ -35,10 +39,10 @@ public class Seleccion {
         this.rankingFIFA = rankingFIFA;
         this.grupo = grupo;
         this.pais = pais;
-        this.jugadores = jugadores;
         this.directorTecnico = directorTecnico;
-        this.cuerposTecnicos = cuerposTecnicos;
-        this.participaciones = participaciones;
+        this.jugadores = new ArrayList<>(); // se incializa vacia, se llena con el metodo agregarJugador
+        this.cuerposTecnicos = new ArrayList<>(); 
+        this.participaciones = new ArrayList<>();
     }
 
 

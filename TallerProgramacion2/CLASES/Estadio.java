@@ -3,35 +3,29 @@ package CLASES;
 import java.util.ArrayList;
 
 public class Estadio {
+
     private String nombre;
     private int capacidad;
     private Sede sede; // un estadio pertenece a una sede
     private ArrayList<Partido> partidos; //lista de partidos que tiene ese estadio
 
-    //constructor por defecto
+    // CONSTRUCTOR SIN PARAMETROS
     public Estadio(){
+        this.nombre = "";
+        this.capacidad = 0;
+        this.sede = null;
         this.partidos = new ArrayList<>();
     }
     
-    //constructor parametrizado
-    public Estadio(String nombre, int capacidad, Sede sede, ArrayList<Partido> partidos) {
+    // CONSTRUCTOR CON PARAMETROS
+    public Estadio(String nombre, int capacidad, Sede sede) {
         this.nombre = nombre;
         this.capacidad = capacidad;
         this.sede = sede;
-        this.partidos = partidos;
+        this.partidos = new ArrayList<>(); // inicializamos la lista de partidos como vacía y llenamos con el metodo agregarPartido
     }
     
-
-    
-
-    //metodo agregarPartido
-    public void agregarPartido(Partido partido){
-        if (partido != null){
-            this.partidos.add(partido);
-        }
-    }
-
-    //metodos get y set
+    //SETTERS Y GETTERS
 
     public String getNombre() {
         return nombre;
@@ -56,6 +50,15 @@ public class Estadio {
     }
     public void setPartidos(ArrayList<Partido> partidos) {
         this.partidos = partidos;
+    }
+
+    //METODOS 
+
+    //metodo agregarPartido
+    public void agregarPartido(Partido partido){
+        if (partido != null){
+            this.partidos.add(partido);
+        }
     }
     
 }

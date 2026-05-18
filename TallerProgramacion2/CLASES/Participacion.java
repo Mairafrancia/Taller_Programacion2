@@ -4,6 +4,7 @@ public class Participacion {
 
     private boolean esLocal;
 
+    //ASOCIACIONES
     // tiene 1 partido y 1 seleccion
     private Partido partido;
     private Seleccion seleccion;

@@ -2,6 +2,7 @@ package CLASES;
 
 
 public abstract class Persona {
+    
     protected String nombre;
     protected int fecNacimiento;
 
