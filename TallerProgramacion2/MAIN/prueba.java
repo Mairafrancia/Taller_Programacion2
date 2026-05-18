@@ -1,23 +1,6 @@
 package MAIN;
 
-import CLASES.Arbitraje;
-import CLASES.Arbitro;
-import CLASES.CuerpoTecnico;
-import CLASES.DirectorTecnico;
-import CLASES.Estadio;
-import CLASES.Fase;
-import CLASES.Grupo;
-import CLASES.Jugador;
-import CLASES.Mundial;
-import CLASES.NombreFase;
-import CLASES.Pais;
-import CLASES.Partido;
-import CLASES.Rol;
-import CLASES.Sede;
-import CLASES.Seleccion;
-import CLASES.TipoEvento;
-import CLASES.CategoriaArbitro;
-
+import CLASES.*;
 import GESTION1.*;
 
 public class prueba {
