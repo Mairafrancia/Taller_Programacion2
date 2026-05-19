@@ -13,7 +13,7 @@ public class Seleccion {
     private Grupo grupo;
     private Pais pais;
     private ArrayList<Jugador> jugadores;
-    private DirectorTecnico directorTecnico; // es una lista de agregacion
+    private DirectorTecnico directorTecnico; // es una lista de director tecnico modificar!!!
     private ArrayList<CuerpoTecnico> cuerposTecnicos;
     private ArrayList<Participacion> participaciones; // lista de n participaciones
 

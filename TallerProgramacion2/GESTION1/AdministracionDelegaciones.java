@@ -1,6 +1,8 @@
 package GESTION1;
 
 import CLASES.*;
+/* Gestionar los Países participantes, sus
+Selecciones, cuerpos técnicos y la lista de Jugadores. */
 
 public class AdministracionDelegaciones {
 
@@ -9,21 +11,16 @@ public class AdministracionDelegaciones {
 
     // Vincula un país con una sede y asegura que esa sede esté registrada en el
     // Mundial.
-    public void vincularPaisAlSistema(Mundial mundial, Sede sede, Pais pais) {
-        // 1. Relacionamos Sede con Pais (Sede * --- 1 Pais)
-        sede.setPais(pais);
-
-        // 2. Si el Pais tiene una lista de sedes, lo agregamos
-        pais.agregarSede(sede);
-
-        // 3. Aseguramos que la sede esté en el mundial
-        if (!mundial.getSedes().contains(sede)) {
-            mundial.agregarSede(sede);
-        }
-    }
 
     // Asocia una selección a un país y la asigna al grupo correspondiente.
     public void gestionarSeleccion(Pais pais, Seleccion seleccion, Grupo grupo) {
+        if (pais == null || seleccion == null || grupo == null) {
+            return;
+        }
+        if (seleccion.getPais() != null || grupo.getSelecciones().contains(seleccion)) {
+            return;
+        }
+
         // Vincular la selección con el país (Relación 1 a 1)
         pais.setSeleccion(seleccion);
         seleccion.setPais(pais);
@@ -33,29 +30,34 @@ public class AdministracionDelegaciones {
         grupo.agregarSeleccion(seleccion);
     }
 
-    // Añade un jugador a una selección si no ha sido asignado previamente a otra
-    // selección del grupo.
+    // Añade un jugador a una selección si no está ya presente en esa selección.
+    // Verifica solo la selección actual para evitar duplicar el mismo jugador
+    // dentro de la misma selección.
+
     public boolean registrarJugador(Seleccion seleccion, Jugador nuevoJugador) {
-        // Verificar si el jugador ya está en otra selección del mismo grupo
-        Grupo grupo = seleccion.getGrupo();
-        if (grupo != null) {
-            for (Seleccion sel : grupo.getSelecciones()) {
-                if (sel.getJugadores().contains(nuevoJugador)) {
-                    return false; // El jugador ya está registrado en otra selección
-                }
-            }
+        if (seleccion == null || nuevoJugador == null) {
+            return false;
         }
-        // Si no está en ninguna selección del grupo, lo registramos
+
+        if (seleccion.getJugadores().contains(nuevoJugador)) {
+            return false; // El jugador ya está registrado en la misma selección
+        }
+
         seleccion.agregarJugador(nuevoJugador);
         return true;
     }
 
     // Registra un integrante del cuerpo técnico en la selección correspondiente.
+    //control agregado 
     public boolean registrarCuerpoTecnico(Seleccion seleccion, CuerpoTecnico integrante) {
-        // La selección cuenta con una lista de integrantes del cuerpo técnico según el
-        // diagrama
-        // Usamos el método getter de la clase Seleccion para obtener la lista y añadir
-        // al integrante
+        if (seleccion == null || integrante == null) {
+            return false;
+        }
+
+        if (seleccion.getCuerposTecnicos().contains(integrante)) {
+            return false; // El integrante ya está registrado en la selección
+        }
+
         seleccion.agregarCuerpoTecnico(integrante);
         return true;
     }

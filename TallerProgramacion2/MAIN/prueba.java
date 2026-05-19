@@ -12,7 +12,7 @@ public class prueba {
         OrganizacionDeportiva od = new OrganizacionDeportiva();
         RegistrosEventosCampos rec = new RegistrosEventosCampos();
 
-        Fase faseGrupos = od.configurarFaseYGrupo(NombreFase.GRUPOS, "A", "Grupo de primera fase");
+        Fase faseGrupos = od.crearFase(NombreFase.GRUPOS);
 
         System.out.println("=== PRUEBA GESTIÓN DE INFRAESTRUCTURA ===");
 
@@ -64,7 +64,7 @@ public class prueba {
             grupo1 = faseGrupos.getGrupos().get(0);
         }
 
-        ad.vincularPaisAlSistema(mundial, sede1, pais1);
+        gi.asignarPaisASede(mundial, sede1, pais1);
         if (grupo1 != null) {
             ad.gestionarSeleccion(pais1, seleccion1, grupo1);
         }
@@ -116,7 +116,7 @@ public class prueba {
         Seleccion seleccion2 = new Seleccion();
         seleccion2.setNombreFederacion("CBF");
 
-        ad.vincularPaisAlSistema(mundial, sede2, pais2);
+        gi.asignarPaisASede(mundial, sede2, pais2);
         if (grupo1 != null) {
             ad.gestionarSeleccion(pais2, seleccion2, grupo1);
         }
@@ -140,11 +140,11 @@ public class prueba {
         System.out.println("Cuerpo técnico en selección Brasil: " + seleccion2.getCuerposTecnicos().size());
 
         System.out.println("\n=== PRUEBA ORGANIZACIÓN DEPORTIVA ===");
-        od.configurarGrupoEnFase(faseGrupos, "B", "Grupo de primera fase");
-        od.configurarGrupoEnFase(faseGrupos, "C", "Grupo de primera fase");
-        od.configurarGrupoEnFase(faseGrupos, "D", "Grupo de primera fase");
+        od.agregarGrupoAFase(faseGrupos, "B", "Grupo de primera fase");
+        od.agregarGrupoAFase(faseGrupos, "C", "Grupo de primera fase");
+        od.agregarGrupoAFase(faseGrupos, "D", "Grupo de primera fase");
 
-        Fase faseEliminatorias = od.configurarFaseYGrupo(NombreFase.CUARTOS, "Cuartos", "Fase de eliminación");
+        Fase faseEliminatorias = od.crearFase(NombreFase.CUARTOS);
 
         if (estadio1 != null && seleccion1 != null && seleccion2 != null) {
             od.planificarPartido(faseGrupos, estadio1, seleccion1, seleccion2, 20261101, 2000);

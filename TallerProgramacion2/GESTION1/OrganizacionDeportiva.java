@@ -3,58 +3,63 @@ package GESTION1;
 import CLASES.*;
 
 public class OrganizacionDeportiva {
-    public Fase configurarFaseYGrupo(NombreFase nombre, String idGrupo, String desc) {
-        // 1. Crear y configurar la Fase
-        Fase nuevaFase = new Fase();
-        nuevaFase.setNombre(nombre); // Ejemplo: NombreFase.GRUPOS
-        
-        // 2. Reutilizar la lógica de configuración de grupo
-        configurarGrupoEnFase(nuevaFase, idGrupo, desc);
-        
-        // 3. Devolver la fase para poder agregar más grupos después
-        return nuevaFase;
+    // Separamos la creación de fases de la creación de grupos:
+    // - crearFase() crea cualquier fase (grupos o eliminación).
+    // - agregarGrupoAFase() solo agrega grupos si la fase es de GRUPOS.
+    // Esto evita que una fase de eliminación reciba grupos y deja la lógica más clara.
+
+    public Fase crearFase(NombreFase nombre) {
+        return new Fase(nombre);
     }
 
-    public void configurarGrupoEnFase(Fase faseExistente, String idGrupo, String desc) {
-        // 1. Crear el Grupo
-        Grupo nuevoGrupo = new Grupo();
-        nuevoGrupo.setIdentificador(idGrupo);
-        nuevoGrupo.setDescripcion(desc);
-        
-        // 2. Vincular el grupo con la fase existente (Relación * --- 1)
-        nuevoGrupo.setFase(faseExistente);
-        
-        // 3. Agregar el grupo a la lista de la fase (Relación 1 --- *)
+    public boolean agregarGrupoAFase(Fase faseExistente, String idGrupo, String desc) {
+        if (faseExistente == null || idGrupo == null || idGrupo.isEmpty()) {
+            return false;
+        }
+        if (!NombreFase.GRUPOS.equals(faseExistente.getNombre())) {
+            return false;
+        }
+        Grupo nuevoGrupo = new Grupo(idGrupo, desc, faseExistente);
         faseExistente.agregarGrupo(nuevoGrupo);
+        return true;
     }
 
-    public void planificarPartido(Fase fase, Estadio estadio, Seleccion local, Seleccion visitante, int fecha, int horario) {
-        // 1. Crear el Partido
+    // Este método planifica un partido, validando datos y controlando duplicados.
+    public boolean planificarPartido(Fase fase, Estadio estadio, Seleccion local, Seleccion visitante, int fecha, int horario) {
+        if (fase == null || estadio == null || local == null || visitante == null) {
+            return false;
+        }
+        if (local == visitante) {
+            return false;
+        }
+        if (fecha <= 0 || horario <= 0) {
+            return false;
+        }
+
         Partido partido = new Partido();
-        
-        // 2. Usar setters con tipos int (fecha y horario)
-        partido.setFecha(fecha); 
+        partido.setFecha(fecha);
         partido.setHorario(horario);
         partido.setEstadio(estadio);
         partido.setFase(fase);
 
-        // 3. Crear los objetos Participacion
+        if (fase.getPartidos().contains(partido) || estadio.getPartidos().contains(partido)) {
+            return false;
+        }
+
         Participacion pLocal = new Participacion();
         pLocal.setEsLocal(true);
         pLocal.setSeleccion(local);
-        
+
         Participacion pVisitante = new Participacion();
         pVisitante.setEsLocal(false);
         pVisitante.setSeleccion(visitante);
 
-        // 4. SOLUCIÓN AL ERROR DEL ARRAY:
-        // En lugar de usar .add(), usamos el método que vos misma creaste en Partido.java
         partido.asignarParticipaciones(pLocal, pVisitante);
         pLocal.setPartido(partido);
         pVisitante.setPartido(partido);
-        estadio.agregarPartido(partido); // Agregar el partido al estadio para que el estadio conozca su calendario
-        // 5. Guardar el partido en la fase para que la fase conozca su calendario
+        estadio.agregarPartido(partido);
         fase.agregarPartido(partido);
+        return true;
     }
 
     

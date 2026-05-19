@@ -169,4 +169,31 @@ public class Partido {
         }
         return null;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Partido otro = (Partido) obj;
+        if (fecha != otro.fecha || horario != otro.horario) {
+            return false;
+        }
+        if (estadio != otro.estadio) {
+            return false;
+        }
+        return fase == otro.fase;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Integer.hashCode(fecha);
+        result = 31 * result + Integer.hashCode(horario);
+        result = 31 * result + (estadio != null ? System.identityHashCode(estadio) : 0);
+        result = 31 * result + (fase != null ? System.identityHashCode(fase) : 0);
+        return result;
+    }
 }
