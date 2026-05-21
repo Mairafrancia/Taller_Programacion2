@@ -13,7 +13,7 @@ public class Seleccion {
     private Grupo grupo;
     private Pais pais;
     private ArrayList<Jugador> jugadores;
-    private DirectorTecnico directorTecnico; // es una lista de director tecnico modificar!!!
+    private ArrayList<DirectorTecnico> directoresTecnicos;// es una lista de director tecnico modificar!!!
     private ArrayList<CuerpoTecnico> cuerposTecnicos;
     private ArrayList<Participacion> participaciones; // lista de n participaciones
 
@@ -24,6 +24,7 @@ public class Seleccion {
         this.camisetaSecundaria = "";
         this.cabezaGrupo = false;
         this.rankingFIFA = 0;
+        this.directoresTecnicos = new ArrayList<>();
         this.jugadores = new ArrayList<>(); // en agregacion no se inicializan, solo con metodo
         this.cuerposTecnicos = new ArrayList<>(); // lo mismo
         this.participaciones = new ArrayList<>();
@@ -31,7 +32,7 @@ public class Seleccion {
 
     // CONSTRUCTOR CON PARAMETROS
     public Seleccion(String nombreFederacion, String camisetaPrincipal, String camisetaSecundaria, boolean cabezaGrupo,
-            int rankingFIFA, Grupo grupo, Pais pais, DirectorTecnico directorTecnico) {
+            int rankingFIFA, Grupo grupo, Pais pais) {
         this.nombreFederacion = nombreFederacion;
         this.camisetaPrincipal = camisetaPrincipal;
         this.camisetaSecundaria = camisetaSecundaria;
@@ -39,7 +40,7 @@ public class Seleccion {
         this.rankingFIFA = rankingFIFA;
         this.grupo = grupo;
         this.pais = pais;
-        this.directorTecnico = directorTecnico;
+        this.directoresTecnicos = new ArrayList<>();
         this.jugadores = new ArrayList<>(); // se incializa vacia, se llena con el metodo agregarJugador
         this.cuerposTecnicos = new ArrayList<>(); 
         this.participaciones = new ArrayList<>();
@@ -111,12 +112,12 @@ public class Seleccion {
         this.jugadores = jugadores;
     }
 
-    public DirectorTecnico getDirectorTecnico() {
-        return directorTecnico;
+    public ArrayList<DirectorTecnico> getDirectorTecnico() {
+        return directoresTecnicos;
     }
 
-    public void setDirectorTecnico(DirectorTecnico directorTecnico) {
-        this.directorTecnico = directorTecnico;
+    public void setDirectorTecnico(ArrayList<DirectorTecnico> directoresTecnicos) {
+        this.directoresTecnicos = directoresTecnicos;
     }
 
     public ArrayList<CuerpoTecnico> getCuerposTecnicos() {

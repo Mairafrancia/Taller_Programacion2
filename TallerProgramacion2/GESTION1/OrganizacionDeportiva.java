@@ -25,6 +25,7 @@ public class OrganizacionDeportiva {
     }
 
     // Este método planifica un partido, validando datos y controlando duplicados.
+    //controles agregados
     public boolean planificarPartido(Fase fase, Estadio estadio, Seleccion local, Seleccion visitante, int fecha, int horario) {
         if (fase == null || estadio == null || local == null || visitante == null) {
             return false;
