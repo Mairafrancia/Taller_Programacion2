@@ -3,24 +3,29 @@ package GESTION1;
 import CLASES.*;
 
 public class OrganizacionDeportiva {
-    // Separamos la creación de fases de la creación de grupos:
-    // - crearFase() crea cualquier fase (grupos o eliminación).
-    // - agregarGrupoAFase() solo agrega grupos si la fase es de GRUPOS.
-    // Esto evita que una fase de eliminación reciba grupos y deja la lógica más clara.
-
-    public Fase crearFase(NombreFase nombre) {
+    
+    public Fase crearFaseDeEliminacion(NombreFase nombre) { //Crea una fase de eliminación directa (Dieciseisavos, Octavos, Cuartos, Semifinal, Final).
+        if (nombre == null || NombreFase.GRUPOS.equals(nombre)) { //no acepta NombreFase.GRUPOS porque esa fase se va a crear en crearFaseDeGrupos()
+            return null; // o lanzar excepción
+        }
         return new Fase(nombre);
     }
 
+    
+    public Fase crearFaseDeGrupos() { //creamos solo fases de tipo grupos
+        return new Fase(NombreFase.GRUPOS);
+    }
+
+    
     public boolean agregarGrupoAFase(Fase faseExistente, String idGrupo, String desc) {
         if (faseExistente == null || idGrupo == null || idGrupo.isEmpty()) {
             return false;
         }
-        if (!NombreFase.GRUPOS.equals(faseExistente.getNombre())) {
+        if (!NombreFase.GRUPOS.equals(faseExistente.getNombre())) { //buaco que solo sea valido si la fase es de tipo GRUPOS
             return false;
         }
-        Grupo nuevoGrupo = new Grupo(idGrupo, desc, faseExistente);
-        faseExistente.agregarGrupo(nuevoGrupo);
+        Grupo nuevoGrupo = new Grupo(idGrupo, desc, faseExistente); 
+        faseExistente.agregarGrupo(nuevoGrupo); //agrego el nuevo grupo a la fase pasada por parametro
         return true;
     }
 
