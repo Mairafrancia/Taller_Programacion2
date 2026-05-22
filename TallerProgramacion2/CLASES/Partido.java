@@ -196,4 +196,15 @@ public class Partido {
         result = 31 * result + (fase != null ? System.identityHashCode(fase) : 0);
         return result;
     }
+
+    //METODO AGREGADO PARA PODER UTILIZARLO EN LA CLASE REGISTRO DE EVENTO PARA CONTROLAR QUE UN JUGADOR ESTE EN EL PARTIDO
+    // En la clase Partido
+    public boolean contieneJugador(Jugador jugador) {
+        for (Participacion p : participaciones) { // la lista que ya tenés
+            if (p.getSeleccion().getJugadores().contains(jugador)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

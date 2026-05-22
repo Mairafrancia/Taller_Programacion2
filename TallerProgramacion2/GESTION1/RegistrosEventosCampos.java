@@ -2,14 +2,14 @@ package GESTION1;
 
 import CLASES.*;
 
-/* Registro de Eventos de Campo: Durante los partidos, se deben registrar los
-Eventos en tiempo real detallando entre otros el minuto y el jugador involucrado */
-//controles agregados
-
 public class RegistrosEventosCampos {
 
     public boolean registrarEventoDeCampo(Partido partido, TipoEvento tipo, int minuto, Jugador jugador) {
+        // Validaciones básicas
         if (partido == null || tipo == null || jugador == null || minuto < 0) {
+            return false;
+        }
+        if (!partido.contieneJugador(jugador)) { //ESTE METODO LO PUSE EN LA CLASE PARTIDO, ESTA PARA CONTROLAR Q EL JUGADOR ESTE EN ESTE PARTIDO
             return false;
         }
 
