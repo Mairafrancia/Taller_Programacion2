@@ -18,11 +18,9 @@ public class GestionInfraestructura {
         if (mundial == null || nuevaSede == null || pais == null) {
             return false;
         }
-
         // Vinculamos la Sede con su País
         nuevaSede.setPais(pais);
         // mundial.agregarSede(nuevaSede);
-
         // El País maneja una lista de sus sedes, lo agregamos para mantener la consistencia
         if (pais.getSedes() != null && !pais.getSedes().contains(nuevaSede)) {
             pais.agregarSede(nuevaSede);
@@ -55,6 +53,9 @@ public class GestionInfraestructura {
     }
 
     // le damos la capacidad al estadio, requisito específico del método
+    if(capacidad <= 0){
+        return false;
+    }
     nuevoEstadio.setCapacidad(capacidad);
 
     // estadio pasa a conocer a qué sede pertenece
@@ -63,43 +64,10 @@ public class GestionInfraestructura {
     // la sede incorpora el estadio a su lista interna
     if (sede.getEstadios() != null) {
         sede.agregarEstadio(nuevoEstadio);
-        return true; 
+            return true; 
+        }
+
+      return false;
     }
 
-    return false;
-}
-
-    // Asigna un país a una sede y asegura que la sede esté registrada en el
-    //mundial.
-    //Esta lógica pertenece a infraestructura, no a la gestión de delegaciones.
-    //Vincular pais al sistema pasa a llamarse asignarPaisASede
-    // public void asignarPaisASede(Mundial mundial, Sede sede, Pais pais) {
-    //     if (mundial == null || sede == null || pais == null) {
-    //         return;
-    //     }
-
-    //     sede.setPais(pais);
-    //     pais.agregarSede(sede);
-
-    //     if (!mundial.getSedes().contains(sede)) {
-    //         mundial.agregarSede(sede);
-    //     }
-    // }
-
-    // // MÉTODO PARA REGISTRAR ESTADIO CON CAPACIDAD
-    // public boolean registrarEstadioEnSede(Sede sede, String nombre, int capacidad) {
-        
-    //     if (sede == null || nombre == null || nombre.trim().isEmpty() || capacidad <= 0) {
-    //         return false;
-    //     }
-
-    //     Estadio nuevoEstadio = new Estadio();
-    //     nuevoEstadio.setNombre(nombre);
-    //     nuevoEstadio.setCapacidad(capacidad); // Requerimiento específico de capacidad
-    //     nuevoEstadio.setSede(sede);
-
-    //     // Se vincula según la relación 1..* del diagrama
-    //     sede.agregarEstadio(nuevoEstadio);
-    //     return true;
-    // }
 }
