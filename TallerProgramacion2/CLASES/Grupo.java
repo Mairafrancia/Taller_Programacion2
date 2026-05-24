@@ -73,33 +73,33 @@ public class Grupo {
         // **/ LOGICA SEGUN LA CONSIGNA:
         // **/ Victoria: 3 pts.
         // **/Empate: 1 pt.
-        // **/Derrota: 0 pts.public int obtenerPuntos(Seleccion s) {
-    int puntos = 0;
+        // **/Derrota: 0 pts.
+        int puntos = 0;
 
-    for (Participacion p : s.getParticipaciones()) {
-        Partido part = p.getPartido();
+        for (Participacion p : s.getParticipaciones()) {
+            Partido part = p.getPartido();
 
-        // ✅ Filtro: solo partidos de la fase de este grupo
-        if (part == null || part.getFase() != this.fase) {
-            continue; //saltea, solo va a procesar los partidos cuya fase coincida con la del grupo
+            
+            if (part == null || part.getFase() != this.fase) {
+                continue; //saltea, solo va a procesar los partidos cuya fase coincida con la del grupo
+            }
+
+            int golesFavor = p.cantidadGoles();
+            int golesContra = 0;
+
+            if (p.isEsLocal()) {
+                Participacion rival = part.getParticipacionVisitante();
+                golesContra = (rival != null) ? rival.cantidadGoles() : 0; //OPERADOR TERNARIO PARA VALIDAR
+            } else {
+                Participacion rival = part.getParticipacionLocal();
+                golesContra = (rival != null) ? rival.cantidadGoles() : 0;
+            }
+
+            if (golesFavor > golesContra)
+                puntos += 3;
+            else if (golesFavor == golesContra)
+                puntos += 1;
         }
-
-        int golesFavor = p.cantidadGoles();
-        int golesContra = 0;
-
-        if (p.isEsLocal()) {
-            Participacion rival = part.getParticipacionVisitante();
-            golesContra = rival.cantidadGoles();
-        } else {
-            Participacion rival = part.getParticipacionLocal();
-            golesContra = rival.cantidadGoles();
+        return puntos;
         }
-
-        if (golesFavor > golesContra)
-            puntos += 3;
-        else if (golesFavor == golesContra)
-            puntos += 1;
-    }
-     return puntos;
-    }
 }

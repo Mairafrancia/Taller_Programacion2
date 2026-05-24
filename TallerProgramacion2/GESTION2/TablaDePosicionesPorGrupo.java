@@ -1,7 +1,7 @@
 package GESTION2;
 import CLASES.*;
 import java.util.ArrayList;
-import java.util.Collections;
+//import java.util.Collections;
 import java.util.Comparator;
 
 public class TablaDePosicionesPorGrupo {
@@ -16,7 +16,7 @@ public class TablaDePosicionesPorGrupo {
 
         // 2. Ordenamos la lista directamente usando un Comparator.
         // Comparamos los puntos calculados dinámicamente por el grupo de mayor a menor.
-        selecciones.sort(new Comparator<Seleccion>() {
+        selecciones.sort(new Comparator<Seleccion>(){
             @Override
             public int compare(Seleccion s1, Seleccion s2) {
                 int puntosS1 = grupo.obtenerPuntos(s1);
