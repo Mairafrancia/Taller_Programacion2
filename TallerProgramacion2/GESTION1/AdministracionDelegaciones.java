@@ -3,6 +3,7 @@ package GESTION1;
 import java.util.ArrayList;
 
 import CLASES.*;
+
 /* Gestionar los Países participantes, sus
 Selecciones, cuerpos técnicos y la lista de Jugadores. */
 
@@ -89,19 +90,56 @@ public class AdministracionDelegaciones {
         // return true;
     }
 
-    // Registra un integrante del cuerpo técnico en la selección correspondiente.
-    // control agregado
+    /**
+     * Registra un Director Técnico en la lista de directores técnicos de la
+     * Selección.
+     * 
+     * @param seleccion La Selección a la que se asignará el DT.
+     * @param dt        El objeto DirectorTecnico correspondiente.
+     * @return true si se registró correctamente; false si ya existía o hubo valores
+     *         nulos.
+     */
+    public boolean registrarDirectorTecnico(Seleccion seleccion, DirectorTecnico dt) {
+        if (seleccion == null || dt == null) {
+            return false;
+        }
+
+        // Evitamos duplicar exactamente el mismo objeto en la lista de DTs
+        if (seleccion.getDirectorTecnico() != null && seleccion.getDirectorTecnico().contains(dt)) {
+            return false;
+        }
+
+        if (seleccion.getDirectorTecnico() != null) {
+            seleccion.agregarDirectorTecnico(dt); // Va a la lista de DTs
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Registra un miembro del Cuerpo Técnico dentro de la lista de una Selección.
+     * 
+     * @param seleccion  La Selección donde cumplirá funciones el integrante.
+     * @param integrante El miembro del CuerpoTecnico a incorporar.
+     * @return true si se registró correctamente; false si ya existía o hubo nulos.
+     */
+
     public boolean registrarCuerpoTecnico(Seleccion seleccion, CuerpoTecnico integrante) {
         if (seleccion == null || integrante == null) {
             return false;
         }
 
-        if (seleccion.getCuerposTecnicos().contains(integrante)) {
-            return false; // El integrante ya está registrado en la selección
+        // Validamos que la lista exista Y controlamos que no esté duplicado
+        if (seleccion.getCuerposTecnicos() != null && seleccion.getCuerposTecnicos().contains(integrante)) {
+            return false; // Si ya contiene al integrante, rebotamos la carga devolviendo false
         }
 
-        seleccion.agregarCuerpoTecnico(integrante);
-        return true;
+        if (seleccion.getCuerposTecnicos() != null) {
+            seleccion.agregarCuerpoTecnico(integrante); // Va a la lista de Cuerpo Técnico
+            return true; // Éxito total
+        }
+        return false;
     }
 
 }
