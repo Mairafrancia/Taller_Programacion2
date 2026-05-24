@@ -23,7 +23,7 @@ public class TablaDeResultadosPorSeleccion {
         for (Participacion p : seleccion.getParticipaciones()) {
             Partido partido = p.getPartido();
             if (partido == null || partido.getFase() == null) {
-                continue; //que salte
+                continue; 
             }
 
             NombreFase faseActual = partido.getFase().getNombre();
@@ -35,20 +35,21 @@ public class TablaDeResultadosPorSeleccion {
 
             // Calculamos puntos del partido
             int golesFavor = p.cantidadGoles();
-            int golesContra = 0;
+            
+            // OPTIMIZACIÓN: Asignación del rival usando el operador ternario
+            Participacion rival = p.isEsLocal() 
+                    ? partido.getParticipacionVisitante() 
+                    : partido.getParticipacionLocal();
 
-            if (p.isEsLocal()) {
-                Participacion rival = partido.getParticipacionVisitante();
-                if (rival != null) golesContra = rival.cantidadGoles();
-            } else {
-                Participacion rival = partido.getParticipacionLocal();
-                if (rival != null) golesContra = rival.cantidadGoles();
-            }
+            // Si el rival existe, tomamos sus goles; si no, asumimos 0
+            int golesContra = (rival != null) ? rival.cantidadGoles() : 0;
 
-            if (golesFavor > golesContra)
+            // Sistema de puntuación estándar (3 por ganar, 1 por empatar)
+            if (golesFavor > golesContra) {
                 puntosTotales += 3;
-            else if (golesFavor == golesContra)
+            } else if (golesFavor == golesContra) {
                 puntosTotales += 1;
+            }
         }
 
         // Construimos el informe

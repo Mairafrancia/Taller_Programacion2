@@ -81,9 +81,9 @@ public class Participacion {
                 if (e != null && e.getTipo() == TipoEvento.TARJETA_AMARILLA && e.getJugador() != null) {
                     
                     for (Jugador j : this.seleccion.getJugadores()) {
-                        if (j.getNombre().equalsIgnoreCase(e.getJugador().getNombre())) {
+                          if (j == e.getJugador()){ //use referencia directa
                             amarillas++;
-                            break;
+                            break; // Ya lo encontramos, pasamos al siguiente evento
                         }
                     }
                 }
@@ -99,9 +99,9 @@ public class Participacion {
                 if (e != null && e.getTipo() == TipoEvento.TARJETA_ROJA && e.getJugador() != null) {
                     
                     for (Jugador j : this.seleccion.getJugadores()) {
-                        if (j.getNombre().equalsIgnoreCase(e.getJugador().getNombre())) {
+                          if (j == e.getJugador()){ //use referencia directa
                             rojas++;
-                            break;
+                            break; // Ya lo encontramos, pasamos al siguiente evento
                         }
                     }
                 }

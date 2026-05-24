@@ -80,4 +80,15 @@ public class Jugador extends Persona {
             this.eventos.add(evento);
         }
     }
+
+    //metodo aux para requerimiento ranking goleador
+    public int contarGoles() {
+        int goles = 0;
+        for (Evento e : this.eventos) {
+            if (e != null && e.getTipo() == TipoEvento.GOL) {
+                goles++;
+            }
+        }
+        return goles;
+}
 }
