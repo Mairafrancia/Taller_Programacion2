@@ -73,33 +73,33 @@ public class Grupo {
         // **/ LOGICA SEGUN LA CONSIGNA:
         // **/ Victoria: 3 pts.
         // **/Empate: 1 pt.
-        // **/Derrota: 0 pts.
+        // **/Derrota: 0 pts.public int obtenerPuntos(Seleccion s) {
+    int puntos = 0;
 
-        int puntos = 0; // Empezamos con cero puntos
+    for (Participacion p : s.getParticipaciones()) {
+        Partido part = p.getPartido();
 
-        // Recorremos cada partido en el que participó esta selección
-        for (Participacion p : s.getParticipaciones()) {
-            Partido part = p.getPartido();
-            int golesFavor = p.cantidadGoles(); // Goles que hicimos nosotros
-            int golesContra = 0; // Acá vamos a guardar los del rival
-
-            // IDENTIFICAMOS AL RIVAL
-            if (p.isEsLocal()) {
-                // Si nosotros fuimos locales, el rival es el visitante
-                Participacion rival = part.getParticipacionVisitante();
-                golesContra = rival.cantidadGoles();
-            } else {
-                // Si nosotros fuimos visitantes, el rival es el local
-                Participacion rival = part.getParticipacionLocal();
-                golesContra = rival.cantidadGoles();
-            }
-
-            if (golesFavor > golesContra) // Ganamos (+3)
-                puntos += 3;
-            else if (golesFavor == golesContra) // Empatamos (+1)
-                puntos += 1;
-            // Si perdimos no hace nada (suma 0)
+        // ✅ Filtro: solo partidos de la fase de este grupo
+        if (part == null || part.getFase() != this.fase) {
+            continue; //saltea, solo va a procesar los partidos cuya fase coincida con la del grupo
         }
-        return puntos; // Devolvemos el total de puntos acumulados
+
+        int golesFavor = p.cantidadGoles();
+        int golesContra = 0;
+
+        if (p.isEsLocal()) {
+            Participacion rival = part.getParticipacionVisitante();
+            golesContra = rival.cantidadGoles();
+        } else {
+            Participacion rival = part.getParticipacionLocal();
+            golesContra = rival.cantidadGoles();
+        }
+
+        if (golesFavor > golesContra)
+            puntos += 3;
+        else if (golesFavor == golesContra)
+            puntos += 1;
+    }
+     return puntos;
     }
 }
