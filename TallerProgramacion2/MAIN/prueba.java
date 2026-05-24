@@ -13,6 +13,7 @@ public class prueba {
         RegistrosEventosCampos rec = new RegistrosEventosCampos();
 
         Fase faseGrupos = od.crearFase(NombreFase.GRUPOS);
+        Fase faseGrupos = od.crearFaseDeGrupos(NombreFase.GRUPOS);
 
         System.out.println("=== PRUEBA GESTIÓN DE INFRAESTRUCTURA ===");
 
@@ -81,7 +82,7 @@ public class prueba {
         ad.registrarJugador(seleccion1, jugador2);
 
         DirectorTecnico dt1 = new DirectorTecnico("Lionel Scaloni", 1972, 20221101);
-        seleccion1.setDirectorTecnico(dt1);
+        seleccion1.agregarDirectorTecnico(dt1);
 
         CuerpoTecnico ct1 = new CuerpoTecnico();
         ct1.setNombre("Pablo Aimar");
@@ -127,7 +128,7 @@ public class prueba {
         ad.registrarJugador(seleccion2, jugador3);
 
         DirectorTecnico dt2 = new DirectorTecnico("Carlos Ancelotti", 1959, 20220601);
-        seleccion2.setDirectorTecnico(dt2);
+        seleccion2.agregarDirectorTecnico(dt2);
 
         CuerpoTecnico ctB = new CuerpoTecnico();
         ctB.setNombre("Tite");

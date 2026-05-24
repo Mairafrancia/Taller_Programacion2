@@ -63,7 +63,7 @@ public class Participacion {
                     
                     // 3. Buscamos manualmente si ese jugador pertenece a nuestra selección
                     for (Jugador j : this.seleccion.getJugadores()) {
-                        if (j.getNombre().equalsIgnoreCase(e.getJugador().getNombre())) {
+                        if (j == e.getJugador()){ //use referencia directa
                             goles++;
                             break; // Ya lo encontramos, pasamos al siguiente evento
                         }

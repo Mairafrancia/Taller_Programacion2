@@ -53,7 +53,7 @@ public class CargadorDatos {
         selArg.setPais(argentina);
         selArg.setGrupo(grupoA);
         selArg.setRankingFIFA(1);
-        selArg.setDirectorTecnico(dt1);
+        selArg.agregarDirectorTecnico(dt1);
 
         // Cruzar las relaciones
         argentina.setSeleccion(selArg);

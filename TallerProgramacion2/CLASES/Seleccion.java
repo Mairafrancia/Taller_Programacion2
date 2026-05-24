@@ -154,4 +154,10 @@ public class Seleccion {
             this.participaciones.add(participacion);
         }
     }
+
+    public void agregarDirectorTecnico(DirectorTecnico directorTecnico){
+        if (directorTecnico != null){
+            this.directoresTecnicos.add(directorTecnico);
+        }
+    }
 }
