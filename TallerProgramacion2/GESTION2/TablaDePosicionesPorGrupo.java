@@ -1,55 +1,39 @@
 package GESTION2;
-
 import CLASES.*;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class TablaDePosicionesPorGrupo {
 
-    /**
-     * Genera la tabla de posiciones de un grupo, ordenada por puntos de mayor a menor.
-     * Utiliza Grupo.obtenerPuntos() para calcular los puntos de cada selección,
-     * filtrando únicamente los partidos correspondientes a la fase del grupo.
-     *
-     * @param grupo El grupo del que se desea obtener la tabla.
-     * @return Lista de Strings con la posición, nombre y puntos de cada selección,
-     *         o null si el grupo es nulo.
-     */
     public ArrayList<String> obtenerTablaPosiciones(Grupo grupo) {
         if (grupo == null) {
             return null;
         }
 
-        // Copia defensiva para no modificar el orden original del grupo
+        // 1. Copia defensiva de las selecciones
         ArrayList<Seleccion> selecciones = new ArrayList<>(grupo.getSelecciones());
-        int n = selecciones.size();
 
-        // Calculamos los puntos de cada selección en un array paralelo
-        int[] puntos = new int[n];
-        for (int i = 0; i < n; i++) {
-            puntos[i] = grupo.obtenerPuntos(selecciones.get(i));
-        }
-
-        // Ordenamos por puntos de mayor a menor (burbuja)
-        for (int i = 0; i < n - 1; i++) {
-            for (int j = 0; j < n - 1 - i; j++) {
-                if (puntos[j] < puntos[j + 1]) {
-                    // Intercambiamos puntos
-                    int tempPuntos = puntos[j];
-                    puntos[j] = puntos[j + 1];
-                    puntos[j + 1] = tempPuntos;
-                    // Intercambiamos selecciones en paralelo
-                    Seleccion tempSel = selecciones.get(j);
-                    selecciones.set(j, selecciones.get(j + 1));
-                    selecciones.set(j + 1, tempSel);
-                }
+        // 2. Ordenamos la lista directamente usando un Comparator.
+        // Comparamos los puntos calculados dinámicamente por el grupo de mayor a menor.
+        selecciones.sort(new Comparator<Seleccion>() {
+            @Override
+            public int compare(Seleccion s1, Seleccion s2) {
+                int puntosS1 = grupo.obtenerPuntos(s1);
+                int puntosS2 = grupo.obtenerPuntos(s2);
+                
+                // Para ordenar de MAYOR a MENOR, comparamos s2 contra s1
+                return Integer.compare(puntosS2, puntosS1); 
             }
-        }
+        });
 
-        // Construimos el resultado
+        // 3. Construimos el resultado formateado
         ArrayList<String> tabla = new ArrayList<>();
-        for (int i = 0; i < n; i++) {
-            tabla.add((i + 1) + ". " + selecciones.get(i).getNombreFederacion()
-                    + " - " + puntos[i] + " pts");
+        for (int i = 0; i < selecciones.size(); i++) {
+            Seleccion sel = selecciones.get(i);
+            int pts = grupo.obtenerPuntos(sel);
+            
+            tabla.add((i + 1) + ". " + sel.getNombreFederacion() + " - " + pts + " pts");
         }
 
         return tabla;
