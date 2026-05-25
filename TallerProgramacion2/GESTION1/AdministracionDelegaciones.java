@@ -99,18 +99,18 @@ public class AdministracionDelegaciones {
      * @return true si se registró correctamente; false si ya existía o hubo valores
      *         nulos.
      */
-    public boolean registrarDirectorTecnico(Seleccion seleccion, DirectorTecnico dt) {
+    public boolean registrarDirectorTecnico(Seleccion seleccion, DirectoresTecnicos dt) {
         if (seleccion == null || dt == null) {
             return false;
         }
 
         // Evitamos duplicar exactamente el mismo objeto en la lista de DTs
-        if (seleccion.getDirectorTecnico() != null && seleccion.getDirectorTecnico().contains(dt)) {
+        if (seleccion.getDirectoresTecnicos() != null && seleccion.getDirectoresTecnicos().contains(dt)) {
             return false;
         }
 
-        if (seleccion.getDirectorTecnico() != null) {
-            seleccion.agregarDirectorTecnico(dt); // Va a la lista de DTs
+        if (seleccion.getDirectoresTecnicos() != null) {
+            seleccion.agregarDirectoresTecnicos(dt); // Va a la lista de DTs
             return true;
         }
 
