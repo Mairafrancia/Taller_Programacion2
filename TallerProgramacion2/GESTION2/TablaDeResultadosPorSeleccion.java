@@ -27,6 +27,7 @@ public class TablaDeResultadosPorSeleccion {
             }
 
             NombreFase faseActual = partido.getFase().getNombre();
+            if (faseActual == null) continue;
 
             // Actualizamos la instancia máxima usando ordinal()
             if (instanciaMaxima == null || faseActual.ordinal() > instanciaMaxima.ordinal()) {
@@ -57,7 +58,7 @@ public class TablaDeResultadosPorSeleccion {
         resultado.add("Selección: " + seleccion.getNombreFederacion());
         resultado.add("Puntos totales: " + puntosTotales);
         resultado.add("Instancia máxima alcanzada: " + 
-                (instanciaMaxima != null ? instanciaMaxima.name() : "Sin partidos registrados"));
+                (instanciaMaxima != null ? instanciaMaxima.name() : "Sin partidos registrados")); //operador ternario 
 
         return resultado;
     }

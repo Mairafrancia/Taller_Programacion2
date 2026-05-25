@@ -2,7 +2,7 @@ package GESTION2;
 import CLASES.*;
 import java.util.ArrayList;
 //import java.util.Collections;
-import java.util.Comparator;
+//import java.util.Comparator;
 
 public class TablaDePosicionesPorGrupo {
 
@@ -11,29 +11,34 @@ public class TablaDePosicionesPorGrupo {
             return null;
         }
 
-        // 1. Copia defensiva de las selecciones
+        // 1. Copia defensiva de las selecciones del grupo
         ArrayList<Seleccion> selecciones = new ArrayList<>(grupo.getSelecciones());
+        int n = selecciones.size();
 
-        // 2. Ordenamos la lista directamente usando un Comparator.
-        // Comparamos los puntos calculados dinámicamente por el grupo de mayor a menor.
-        selecciones.sort(new Comparator<Seleccion>(){
-            @Override
-            public int compare(Seleccion s1, Seleccion s2) {
-                int puntosS1 = grupo.obtenerPuntos(s1);
-                int puntosS2 = grupo.obtenerPuntos(s2);
-                
-                // Para ordenar de MAYOR a MENOR, comparamos s2 contra s1
-                return Integer.compare(puntosS2, puntosS1); 
-            }
-        });
+        // 2. Calculamos los puntos UNA SOLA VEZ y los guardamos en la misma posición indexada
+        int[] puntos = new int[n];
+        for (int i = 0; i < n; i++) {
+            puntos[i] = grupo.obtenerPuntos(selecciones.get(i));
+        }
 
-        // 3. Construimos el resultado formateado
+        // 3. Creamos una lista de índices (0, 1, 2, ..., n-1)
+        ArrayList<Integer> indices = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            indices.add(i);
+        }
+
+        // 4. Ordenamos los ÍNDICES basándonos en los valores del array de puntos (de Mayor a Menor)
+        indices.sort((i1, i2) -> Integer.compare(puntos[i2], puntos[i1]));
+
+        // 5. Construimos el resultado final recorriendo los índices ya ordenados
         ArrayList<String> tabla = new ArrayList<>();
-        for (int i = 0; i < selecciones.size(); i++) {
-            Seleccion sel = selecciones.get(i);
-            int pts = grupo.obtenerPuntos(sel);
+        for (int pos = 0; pos < n; pos++) {
+            int idx = indices.get(pos); // Obtenemos el índice real de la selección en esa posición
             
-            tabla.add((i + 1) + ". " + sel.getNombreFederacion() + " - " + pts + " pts");
+            Seleccion sel = selecciones.get(idx);
+            int pts = puntos[idx];
+            
+            tabla.add((pos + 1) + ". " + sel.getNombreFederacion() + " - " + pts + " pts");
         }
 
         return tabla;

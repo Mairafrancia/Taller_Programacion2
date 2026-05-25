@@ -1,16 +1,16 @@
 package CLASES;
 
-public class DirectorTecnico extends Persona {
+public class DirectoresTecnicos extends Persona {
     private int fechaNombramiento;
 
     // CONSTRUCTOR SIN PARAMETROS
-    public DirectorTecnico() {
+    public DirectoresTecnicos() {
         super();
         this.fechaNombramiento = 0;
     }
     
     // CONSTRUCTOR CON PARAMETROS
-    public DirectorTecnico(String nombre, int fecNacimiento, int fechaNombramiento) {
+    public DirectoresTecnicos(String nombre, int fecNacimiento, int fechaNombramiento) {
         super(nombre, fecNacimiento);
         this.fechaNombramiento = fechaNombramiento;
     }

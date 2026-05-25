@@ -69,31 +69,26 @@ public class Grupo {
 
     // METODO PARA OBTENER LOS PUNTOS DE UNA SELECCION EN ESTE GRUPO
     public int obtenerPuntos(Seleccion s) {
-
-        // **/ LOGICA SEGUN LA CONSIGNA:
-        // **/ Victoria: 3 pts.
-        // **/Empate: 1 pt.
-        // **/Derrota: 0 pts.
         int puntos = 0;
 
         for (Participacion p : s.getParticipaciones()) {
             Partido part = p.getPartido();
 
-            
             if (part == null || part.getFase() != this.fase) {
-                continue; //saltea, solo va a procesar los partidos cuya fase coincida con la del grupo
+                continue;
+            }
+
+            // Verificar que el rival también pertenezca a ESTE grupo
+            Participacion rivalPart = p.isEsLocal()
+                ? part.getParticipacionVisitante()
+                : part.getParticipacionLocal();
+
+            if (rivalPart == null || !this.selecciones.contains(rivalPart.getSeleccion())) {
+                continue; // El rival no es de este grupo, salteamos
             }
 
             int golesFavor = p.cantidadGoles();
-            int golesContra = 0;
-
-            if (p.isEsLocal()) {
-                Participacion rival = part.getParticipacionVisitante();
-                golesContra = (rival != null) ? rival.cantidadGoles() : 0; //OPERADOR TERNARIO PARA VALIDAR
-            } else {
-                Participacion rival = part.getParticipacionLocal();
-                golesContra = (rival != null) ? rival.cantidadGoles() : 0;
-            }
+            int golesContra = rivalPart.cantidadGoles();
 
             if (golesFavor > golesContra)
                 puntos += 3;
@@ -101,5 +96,5 @@ public class Grupo {
                 puntos += 1;
         }
         return puntos;
-        }
+    }
 }

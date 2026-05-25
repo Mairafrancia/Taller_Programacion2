@@ -13,7 +13,7 @@ public class Seleccion {
     private Grupo grupo;
     private Pais pais;
     private ArrayList<Jugador> jugadores;
-    private ArrayList<DirectorTecnico> directoresTecnicos;// es una lista de director tecnico modificar!!!
+    private ArrayList<DirectoresTecnicos> directoresTecnicos;// es una lista de director tecnico modificar!!!
     private ArrayList<CuerpoTecnico> cuerposTecnicos;
     private ArrayList<Participacion> participaciones; // lista de n participaciones
 
@@ -112,11 +112,11 @@ public class Seleccion {
         this.jugadores = jugadores;
     }
 
-    public ArrayList<DirectorTecnico> getDirectorTecnico() {
+    public ArrayList<DirectoresTecnicos> getDirectoresTecnicos() {
         return directoresTecnicos;
     }
 
-    public void setDirectorTecnico(ArrayList<DirectorTecnico> directoresTecnicos) {
+    public void setDirectoresTecnicos(ArrayList<DirectoresTecnicos> directoresTecnicos) {
         this.directoresTecnicos = directoresTecnicos;
     }
 
@@ -155,7 +155,7 @@ public class Seleccion {
         }
     }
 
-    public void agregarDirectorTecnico(DirectorTecnico directorTecnico){
+    public void agregarDirectoresTecnicos(DirectoresTecnicos directorTecnico){
         if (directorTecnico != null){
             this.directoresTecnicos.add(directorTecnico);
         }

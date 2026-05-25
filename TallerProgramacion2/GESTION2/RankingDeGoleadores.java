@@ -22,7 +22,13 @@ public class RankingDeGoleadores {
         // Creamos una copia de la lista original para proteger los datos de la Selección
         ArrayList<Jugador> jugadores = new ArrayList<>(seleccion.getJugadores());
 
-        // Ordenamos usando la clase anónima tradicional (sin lambdas)
+        // NOTA DE DISEÑO (Complejidad y Consistencia):
+        // Se optó por mantener las llamadas a contarGoles() dentro del Comparator debido a que 
+        // el tamaño del plantel es acotado y constante (N <= 26 jugadores). A diferencia de la 
+        // tabla de posiciones por grupo (donde el cálculo de puntos involucra cruces de partidos 
+        // y rivales), el impacto en la complejidad temporal aquí es despreciable.
+        // Esto nos permite priorizar la legibilidad y simplicidad del código sin penalizar 
+        // el rendimiento real de la aplicación.
         Collections.sort(jugadores, new Comparator<Jugador>() {
             @Override
             public int compare(Jugador a, Jugador b) {
@@ -39,6 +45,11 @@ public class RankingDeGoleadores {
                         + " - " + j.contarGoles() + " goles");
                 posicion++;
             }
+        }
+
+        // Si ningún jugador convirtió goles, informamos
+        if (ranking.isEmpty()) {
+            ranking.add("Sin goleadores registrados para " + seleccion.getNombreFederacion());
         }
 
         return ranking;
