@@ -1,6 +1,6 @@
 package MAIN;
 
-import CLASES.DirectorTecnico;
+import CLASES.DirectoresTecnicos;
 import CLASES.Estadio;
 import CLASES.Fase;
 import CLASES.Grupo;
@@ -46,14 +46,14 @@ public class CargadorDatos {
         faseGrupos.agregarGrupo(grupoA);
 
         //Crear Director Tecnico y Selección:
-        DirectorTecnico dt1 = new DirectorTecnico("Lionel Scaloni", 1978, 2018);
+        DirectoresTecnicos dt1 = new DirectoresTecnicos("Lionel Scaloni", 1978, 2018);
 
         Seleccion selArg = new Seleccion();
         selArg.setNombreFederacion("AFA");
         selArg.setPais(argentina);
         selArg.setGrupo(grupoA);
         selArg.setRankingFIFA(1);
-        selArg.agregarDirectorTecnico(dt1);
+        selArg.agregarDirectoresTecnicos(dt1);
 
         // Cruzar las relaciones
         argentina.setSeleccion(selArg);
