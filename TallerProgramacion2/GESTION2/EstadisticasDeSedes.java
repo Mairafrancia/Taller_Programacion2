@@ -1,7 +1,7 @@
 package GESTION2;
 
 import CLASES.*;
-import java.util.ArrayList;
+//import java.util.ArrayList;
 
 public class EstadisticasDeSedes {
 
@@ -20,7 +20,8 @@ public class EstadisticasDeSedes {
      * de una ciudad específica, recorriendo las sedes del mundial.
      */
     public int partidosPorCiudad(Mundial mundial, String ciudad) {
-        if (mundial == null || ciudad == null || ciudad.trim().isEmpty()) {
+        // Quitamos trim() y dejamos solo el chequeo de nulo y vacío directo
+        if (mundial == null || ciudad == null || ciudad.isEmpty()) {
             return -1;
         }
 
@@ -31,7 +32,7 @@ public class EstadisticasDeSedes {
                 continue;
             }
 
-            // Solo procesamos las sedes de la ciudad buscada
+            // Mantenemos el ignoreCase que es clave para las búsquedas
             if (sede.getCiudad().equalsIgnoreCase(ciudad)) {
                 for (Estadio e : sede.getEstadios()) {
                     if (e != null && e.getPartidos() != null) {
