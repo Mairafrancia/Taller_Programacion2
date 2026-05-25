@@ -76,7 +76,7 @@ public class prueba {
         jugador2.setDorsal(11);
         ad.registrarJugador(seleccion1, jugador2);
 
-        DirectorTecnico dt1 = new DirectorTecnico("Lionel Scaloni", 1972, 20221101);
+        DirectoresTecnicos dt1 = new DirectoresTecnicos("Lionel Scaloni", 1972, 20221101);
         ad.registrarDirectorTecnico(seleccion1, dt1);
 
         CuerpoTecnico ct1 = new CuerpoTecnico();
@@ -113,7 +113,7 @@ public class prueba {
         jugador3.setDorsal(10);
         ad.registrarJugador(seleccion2, jugador3);
 
-        DirectorTecnico dt2 = new DirectorTecnico("Carlos Ancelotti", 1959, 20220601);
+        DirectoresTecnicos dt2 = new DirectoresTecnicos("Carlos Ancelotti", 1959, 20220601);
         ad.registrarDirectorTecnico(seleccion2, dt2);
 
         CuerpoTecnico ctB = new CuerpoTecnico();
