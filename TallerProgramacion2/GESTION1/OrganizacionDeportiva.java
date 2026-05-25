@@ -1,6 +1,7 @@
 package GESTION1;
 
 import CLASES.*;
+import EXCEPCIONES.*;
 
 public class OrganizacionDeportiva {
 
@@ -8,20 +9,20 @@ public class OrganizacionDeportiva {
      * Vincula un Grupo a una Fase determinada del torneo.
      * Asegura la consistencia de la relación Fase 1 --- 1..* Grupo.
      * 
-     * @param fase  La Fase (ej. Grupos, Octavos, etc.) a la que pertenecerá el
-     *              grupo.
+     * @param fase  La Fase (ej. Grupos, Octavos, etc.) a la que pertenecerá el grupo.
      * @param grupo El Grupo que se desea registrar en la fase.
-     * @return true si se vinculó con éxito; false si ya existía o hubo nulos.
+     * @throws ValoresNulosException si fase o grupo es null.
+     * @throws ElementoDuplicadoException si el grupo ya está registrado en la fase.
      */
-
-    public boolean registrarGrupoEnFase(Fase fase, Grupo grupo) {
+    public void registrarGrupoEnFase(Fase fase, Grupo grupo) 
+            throws ValoresNulosException, ElementoDuplicadoException {
         if (fase == null || grupo == null) {
-            return false;
+            throw new ValoresNulosException("fase o grupo");
         }
 
         // Verificamos si la fase ya tiene este grupo incorporado
         if (fase.getGrupos() != null && fase.getGrupos().contains(grupo)) {
-            return false;
+            throw new ElementoDuplicadoException("Grupo " + grupo.getIdentificador());
         }
 
         // Relación bidireccional: el grupo conoce su fase
@@ -30,10 +31,7 @@ public class OrganizacionDeportiva {
         // La fase incorpora el grupo a su lista interna utilizando el método de Fase
         if (fase.getGrupos() != null) {
             fase.agregarGrupo(grupo);
-            return true;
         }
-
-        return false;
     }
 
     /**
@@ -42,11 +40,12 @@ public class OrganizacionDeportiva {
      * @param partido El Partido que se está planificando.
      * @param fase La Fase a la que corresponde el encuentro.
      * @param estadio El Estadio donde se disputará.
-     * @return true si se planificó correctamente; false si hubo valores nulos.
+     * @throws ValoresNulosException si alguno de los parámetros es null.
      */
-    public boolean planificarPartido(Partido partido, Fase fase, Estadio estadio) {
+    public void planificarPartido(Partido partido, Fase fase, Estadio estadio) 
+            throws ValoresNulosException {
         if (partido == null || fase == null || estadio == null) {
-            return false;
+            throw new ValoresNulosException("partido, fase o estadio");
         }
 
         // Asignamos la fase y el estadio al partido
@@ -55,10 +54,8 @@ public class OrganizacionDeportiva {
 
         // Consistencia bidireccional con Estadio: agregamos el partido a la lista del estadio
         if (estadio.getPartidos() != null && !estadio.getPartidos().contains(partido)) {
-            estadio.agregarPartido(partido); // Usamos el método que ya tenías en Estadio
+            estadio.agregarPartido(partido);
         }
-
-        return true;
     }
 
     /**
@@ -67,26 +64,26 @@ public class OrganizacionDeportiva {
      * @param partido El Partido donde se jugarán las participaciones.
      * @param local La Participación del equipo que será local.
      * @param visitante La Participación del equipo que será visitante.
-     * @return true si las participaciones se asignaron con éxito; false si hubo nulos o error de localía.
+     * @throws ValoresNulosException si alguna participación es null.
+     * @throws ParticipacionInvalidaException si ambas tienen la misma localía.
      */
-    public boolean asignarEquiposAPartido(Partido partido, Participacion local, Participacion visitante) {
+    public void asignarEquiposAPartido(Partido partido, Participacion local, Participacion visitante) 
+            throws ValoresNulosException, ParticipacionInvalidaException {
         if (partido == null || local == null || visitante == null) {
-            return false;
+            throw new ValoresNulosException("partido, local o visitante");
         }
 
         // Controlamos que cumplan las condiciones antes de asignar: uno debe ser local y el otro no
         if (local.isEsLocal() == visitante.isEsLocal()) {
-            return false; // Error: no pueden ser ambos locales o ambos visitantes
+            throw new ParticipacionInvalidaException();
         }
 
         // Seteamos de forma bidireccional en las participaciones el partido que van a jugar
         local.setPartido(partido);
         visitante.setPartido(partido);
 
-        // Usamos tu método propio de la clase Partido para meterlas en el array de tamaño 2
+        // Usamos el método de la clase Partido para asignarlas en el array de tamaño 2
         partido.asignarParticipaciones(local, visitante);
-
-        return true;
     }
 }
 

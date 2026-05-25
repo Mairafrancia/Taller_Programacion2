@@ -1,31 +1,29 @@
 package GESTION1;
 
 import CLASES.*;
+import EXCEPCIONES.*;
 
 //CORREGIDA, SE AÑADIO FALSE EN LOS RETURNS LOS METODOS
 public class GestionInfraestructura {
 
     /**
      * Registra una Sede vinculándola al Mundial y al País correspondiente.
-     * Asegura la consistencia bidireccional de las relaciones y evita duplicados en
-     * el mundial.
-     * * @param mundial El objeto Mundial donde se registrará la sede.
-     * 
+     * Asegura la consistencia bidireccional de las relaciones y evita duplicados en el mundial.
+     * @param mundial El objeto Mundial donde se registrará la sede.
      * @param nuevaSede La Sede que se desea incorporar al sistema.
-     * @param pais      El País al que pertenece geográficamente la sede.
-     * @return true si la sede se registró con éxito; false si ya existía en el
-     *         mundial o hubo valores nulos.
+     * @param pais El País al que pertenece geográficamente la sede.
+     * @throws ValoresNulosException si mundial, nuevaSede o pais es null.
+     * @throws ElementoDuplicadoException si la sede ya existe en el mundial.
      */
-
-    public boolean registrarSede(Mundial mundial, Sede nuevaSede, Pais pais) {
+    public void registrarSede(Mundial mundial, Sede nuevaSede, Pais pais) 
+            throws ValoresNulosException, ElementoDuplicadoException {
         if (mundial == null || nuevaSede == null || pais == null) {
-            return false;
+            throw new ValoresNulosException("mundial, nuevaSede o pais");
         }
         // Vinculamos la Sede con su País
         nuevaSede.setPais(pais);
-        // mundial.agregarSede(nuevaSede);
-        // El País maneja una lista de sus sedes, lo agregamos para mantener la
-        // consistencia
+        
+        // El País maneja una lista de sus sedes, lo agregamos para mantener la consistencia
         if (pais.getSedes() != null && !pais.getSedes().contains(nuevaSede)) {
             pais.agregarSede(nuevaSede);
         }
@@ -33,35 +31,34 @@ public class GestionInfraestructura {
         // Añadimos la sede al Mundial (Relación Mundial 1 --- 1..* Sede)
         if (mundial.getSedes() != null && !mundial.getSedes().contains(nuevaSede)) {
             mundial.agregarSede(nuevaSede);
-            return true; // Se registró con éxito
+        } else {
+            throw new ElementoDuplicadoException("Sede " + nuevaSede.getCiudad());
         }
-        return false;
     }
 
     /**
-     * Registra un Estadio dentro de una Sede específica, asignando su capacidad
-     * máxima.
+     * Registra un Estadio dentro de una Sede específica, asignando su capacidad máxima.
      * Asegura la consistencia bidireccional y evita duplicados en la sede.
-     * * @param sede La Sede donde se ubica el estadio.
-     * 
+     * @param sede La Sede donde se ubica el estadio.
      * @param nuevoEstadio El objeto Estadio a registrar.
-     * @param capacidad    La capacidad de espectadores del estadio.
-     * @return true si el estadio se registró con éxito; false si ya existía o hubo
-     *         nulos.
+     * @param capacidad La capacidad de espectadores del estadio.
+     * @throws ValoresNulosException si sede o estadio es null.
+     * @throws ElementoDuplicadoException si el estadio ya está registrado en la sede.
+     * @throws IllegalArgumentException si la capacidad no es válida (menor o igual a 0).
      */
-
-    public boolean registrarEstadioEnSede(Sede sede, Estadio nuevoEstadio, int capacidad) {
+    public void registrarEstadioEnSede(Sede sede, Estadio nuevoEstadio, int capacidad) 
+            throws ValoresNulosException, ElementoDuplicadoException {
         if (sede == null || nuevoEstadio == null) {
-            return false;
+            throw new ValoresNulosException("sede o nuevoEstadio");
         }
 
         if (sede.getEstadios() != null && sede.getEstadios().contains(nuevoEstadio)) {
-            return false;
+            throw new ElementoDuplicadoException("Estadio " + nuevoEstadio.getNombre());
         }
 
-        // le damos la capacidad al estadio, requisito específico del método
+        // Validar capacidad del estadio
         if (capacidad <= 0) {
-            return false;
+            throw new IllegalArgumentException("La capacidad del estadio debe ser mayor a 0");
         }
         nuevoEstadio.setCapacidad(capacidad);
 
@@ -71,10 +68,7 @@ public class GestionInfraestructura {
         // la sede incorpora el estadio a su lista interna
         if (sede.getEstadios() != null) {
             sede.agregarEstadio(nuevoEstadio);
-            return true;
         }
-
-        return false;
     }
 
 }

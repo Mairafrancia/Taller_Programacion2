@@ -1,6 +1,7 @@
 package CLASES;
 
 import java.util.ArrayList;
+import EXCEPCIONES.*;
 
 public class Partido {
     private int fecha;
@@ -119,28 +120,77 @@ public class Partido {
 
     //METODOS
 
-    public void agregarEvento(Evento evento) {
-        if (evento != null) {
-            this.eventos.add(evento);
+    /**
+     * Registra un evento en este partido validando que el jugador participe.
+     * @param evento El evento a registrar.
+     * @throws ValoresNulosException si evento o su jugador es null.
+     * @throws JugadorNoParticipaEnPartidoException si el jugador no participa en este partido.
+     */
+    public void agregarEvento(Evento evento) throws ValoresNulosException, JugadorNoParticipaEnPartidoException {
+        if (evento == null || evento.getJugador() == null) {
+            throw new ValoresNulosException("evento");
         }
+        if (!contieneJugador(evento.getJugador())) {
+            throw new JugadorNoParticipaEnPartidoException(evento.getJugador().getNombre());
+        }
+        this.eventos.add(evento);
     }
 
-    public void agregarArbitraje(Arbitraje arbitraje) {
-        if (arbitraje != null) {
-            this.arbitrajes.add(arbitraje);
+    /**
+     * Registra un arbitraje en este partido validando que tenga árbitro y rol.
+     * @param arbitraje El arbitraje a registrar.
+     * @throws ValoresNulosException si arbitraje, su árbitro o rol es null.
+     */
+    public void agregarArbitraje(Arbitraje arbitraje) throws ValoresNulosException, ArbitrajeInvalidoException {
+        if (arbitraje == null || arbitraje.getArbitro() == null || arbitraje.getRol() == null) {
+            throw new ArbitrajeInvalidoException();
         }
+        this.arbitrajes.add(arbitraje);
     }
 
-    // Verifica que p1 y p2 no sean null, ni que tengan el mismo valor de esLocal,
-    // luego asigna
-    public void asignarParticipaciones(Participacion p1, Participacion p2) {
+    public boolean tieneEquipoArbitralValido() {
+        if (this.arbitrajes == null || this.arbitrajes.isEmpty()) {
+            return false;
+        }
+        for (Arbitraje arbitraje : this.arbitrajes) {
+            if (arbitraje == null || arbitraje.getArbitro() == null || arbitraje.getRol() == null) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    // Verifica si un jugador participa en este partido por alguna de las selecciones
+    public boolean contieneJugador(Jugador jugador) {
+        if (jugador == null) {
+            return false;
+        }
+        for (Participacion p : participaciones) {
+            if (p != null && p.getSeleccion() != null && p.getSeleccion().getJugadores() != null) {
+                for (Jugador j : p.getSeleccion().getJugadores()) {
+                    if (j == jugador) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Asigna dos participaciones al partido (una local, una visitante).
+     * @param p1 Primera participación.
+     * @param p2 Segunda participación.
+     * @throws ValoresNulosException si alguna participación es null.
+     * @throws ParticipacionInvalidaException si ambas tienen la misma localía.
+     */
+    public void asignarParticipaciones(Participacion p1, Participacion p2) 
+            throws ValoresNulosException, ParticipacionInvalidaException {
         if (p1 == null || p2 == null) {
-            System.out.println("Error: las participaciones no pueden ser null");
-            return;
+            throw new ValoresNulosException("participaciones");
         }
         if (p1.isEsLocal() == p2.isEsLocal()) {
-            System.err.println("Error: una participación debe ser local y la  otra visitante");
-            return;
+            throw new ParticipacionInvalidaException();
         }
         this.participaciones[0] = p1;
         this.participaciones[1] = p2;
@@ -186,15 +236,6 @@ public class Partido {
             return false;
         }
         return fase == otro.fase;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = Integer.hashCode(fecha);
-        result = 31 * result + Integer.hashCode(horario);
-        result = 31 * result + (estadio != null ? System.identityHashCode(estadio) : 0);
-        result = 31 * result + (fase != null ? System.identityHashCode(fase) : 0);
-        return result;
     }
 
     //METODO AGREGADO PARA PODER UTILIZARLO EN LA CLASE REGISTRO DE EVENTO PARA CONTROLAR QUE UN JUGADOR ESTE EN EL PARTIDO

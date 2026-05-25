@@ -1,11 +1,13 @@
 package MAIN;
-import CLASES.Mundial;
-import MAIN.CargadorDatos;
 
+/**
+ * Punto de entrada principal del proyecto.
+ * Inicia el sistema interactivo de gestión del Mundial.
+ */
 public class Main {
     public static void main(String[] args) {
-        Mundial mundial = CargadorDatos.cargar();
-        System.out.println("Mundial " + mundial.getAnio());
+        SistemaInteractivo sistema = new SistemaInteractivo();
+        sistema.iniciar();
     }
 }
 

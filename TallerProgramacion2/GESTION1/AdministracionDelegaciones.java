@@ -3,6 +3,7 @@ package GESTION1;
 import java.util.ArrayList;
 
 import CLASES.*;
+import EXCEPCIONES.*;
 
 /* Gestionar los Países participantes, sus
 Selecciones, cuerpos técnicos y la lista de Jugadores. */
@@ -10,23 +11,21 @@ Selecciones, cuerpos técnicos y la lista de Jugadores. */
 public class AdministracionDelegaciones {
 
     /**
-     * Vincula una Selección a su correspondiente País y la asigna a un Grupo
-     * inicial.
+     * Vincula una Selección a su correspondiente País y la asigna a un Grupo.
      * Asegura la consistencia bidireccional entre País y Selección.
-     * * @param pais El objeto Pais participante.
-     * 
+     * @param pais El objeto Pais participante.
      * @param seleccion La Seleccion nacional que representa al país.
-     * @param grupo     El Grupo de la primera fase donde jugará la selección.
-     * @return true si se gestionó la selección con éxito; false si hubo valores
-     *         nulos.
+     * @param grupo El Grupo de la primera fase donde jugará la selección.
+     * @throws ValoresNulosException si alguno de los parámetros es null.
+     * @throws SeleccionYaRegistradaException si la selección ya está vinculada.
      */
-
-    public boolean gestionarSeleccion(Pais pais, Seleccion seleccion, Grupo grupo) {
+    public void gestionarSeleccion(Pais pais, Seleccion seleccion, Grupo grupo) 
+            throws ValoresNulosException, SeleccionYaRegistradaException {
         if (pais == null || seleccion == null || grupo == null) {
-            return false;
+            throw new ValoresNulosException("pais, seleccion o grupo");
         }
         if (seleccion.getPais() != null || grupo.getSelecciones().contains(seleccion)) {
-            return false;
+            throw new SeleccionYaRegistradaException(seleccion.getNombreFederacion());
         }
 
         // Relación bidireccional entre País y Selección
@@ -40,106 +39,82 @@ public class AdministracionDelegaciones {
         if (grupo.getSelecciones() != null && !grupo.getSelecciones().contains(seleccion)) {
             grupo.agregarSeleccion(seleccion);
         }
-
-        return true;
-
     }
 
     // Lista de control global interna para asegurar que un jugador no se repita entodo el torneo
     private ArrayList<Jugador> jugadoresAsignadosGlobal = new ArrayList<>();
 
     /**
-     * Añade un Jugador a la lista de una Selección, controlando rigurosamente
-     * mediante lógica tradicional que no haya sido asignado a otra delegación del
-     * torneo.
-     * * @param seleccion La Selección a la que se integrará el jugador.
-     * 
+     * Añade un Jugador a la lista de una Selección, controlando que no esté
+     * asignado a otra delegación del torneo.
+     * @param seleccion La Selección a la que se integrará el jugador.
      * @param nuevoJugador El objeto Jugador que se desea registrar.
-     * @return true si el jugador se registró con éxito; false si ya pertenecía a
-     *         otra selección o hubo nulos.
+     * @throws ValoresNulosException si selección o jugador es null.
+     * @throws JugadorDuplicadoException si el jugador ya está asignado a otra selección.
      */
-
-    public boolean registrarJugador(Seleccion seleccion, Jugador nuevoJugador) {
+    public void registrarJugador(Seleccion seleccion, Jugador nuevoJugador) 
+            throws ValoresNulosException, JugadorDuplicadoException {
         if (seleccion == null || nuevoJugador == null) {
-            return false;
+            throw new ValoresNulosException("seleccion o nuevoJugador");
         }
 
-        // if (seleccion.getJugadores().contains(nuevoJugador)) {
-        // return false; // El jugador ya está registrado en la misma selección
-        // }
-
-        // NO USAMOS CONTAINS. Recorremos y comparamos a mano:
+        // Recorremos y comparamos a mano para evitar use de contains
         for (Jugador j : jugadoresAsignadosGlobal) {
             if (j.getNombre() != null && j.getNombre().equalsIgnoreCase(nuevoJugador.getNombre()) &&
                     j.getFecNacimiento() == nuevoJugador.getFecNacimiento()) {
-
-                return false; // Si coincide el nombre y la fecha, ya existe en el mundial. Corta acá.
+                throw new JugadorDuplicadoException(nuevoJugador.getNombre());
             }
         }
 
         // Si el for terminó y no encontró a nadie igual, recién ahí lo agregamos
         if (seleccion.getJugadores() != null) {
-            seleccion.agregarJugador(nuevoJugador); // Usamos el método de la clase Selección
-            jugadoresAsignadosGlobal.add(nuevoJugador); // Lo guardamos en el control global
-            return true;
+            seleccion.agregarJugador(nuevoJugador);
+            jugadoresAsignadosGlobal.add(nuevoJugador);
         }
-
-        return false;
-
-        // seleccion.agregarJugador(nuevoJugador);
-        // return true;
     }
 
     /**
-     * Registra un Director Técnico en la lista de directores técnicos de la
-     * Selección.
-     * 
+     * Registra un Director Técnico en la lista de una Selección.
      * @param seleccion La Selección a la que se asignará el DT.
-     * @param dt        El objeto DirectorTecnico correspondiente.
-     * @return true si se registró correctamente; false si ya existía o hubo valores
-     *         nulos.
+     * @param dt El objeto DirectorTecnico correspondiente.
+     * @throws ValoresNulosException si selección o director es null.
+     * @throws ElementoDuplicadoException si el director ya está registrado.
      */
-    public boolean registrarDirectorTecnico(Seleccion seleccion, DirectoresTecnicos dt) {
+    public void registrarDirectorTecnico(Seleccion seleccion, DirectoresTecnicos dt) 
+            throws ValoresNulosException, ElementoDuplicadoException {
         if (seleccion == null || dt == null) {
-            return false;
+            throw new ValoresNulosException("seleccion o director tecnico");
         }
 
-        // Evitamos duplicar exactamente el mismo objeto en la lista de DTs
         if (seleccion.getDirectoresTecnicos() != null && seleccion.getDirectoresTecnicos().contains(dt)) {
-            return false;
+            throw new ElementoDuplicadoException("Director técnico " + dt.getNombre());
         }
 
         if (seleccion.getDirectoresTecnicos() != null) {
-            seleccion.agregarDirectoresTecnicos(dt); // Va a la lista de DTs
-            return true;
+            seleccion.agregarDirectoresTecnicos(dt);
         }
-
-        return false;
     }
 
     /**
-     * Registra un miembro del Cuerpo Técnico dentro de la lista de una Selección.
-     * 
-     * @param seleccion  La Selección donde cumplirá funciones el integrante.
+     * Registra un miembro del Cuerpo Técnico en una Selección.
+     * @param seleccion La Selección donde cumplirá funciones el integrante.
      * @param integrante El miembro del CuerpoTecnico a incorporar.
-     * @return true si se registró correctamente; false si ya existía o hubo nulos.
+     * @throws ValoresNulosException si selección o integrante es null.
+     * @throws ElementoDuplicadoException si el integrante ya está registrado.
      */
-
-    public boolean registrarCuerpoTecnico(Seleccion seleccion, CuerpoTecnico integrante) {
+    public void registrarCuerpoTecnico(Seleccion seleccion, CuerpoTecnico integrante) 
+            throws ValoresNulosException, ElementoDuplicadoException {
         if (seleccion == null || integrante == null) {
-            return false;
+            throw new ValoresNulosException("seleccion o integrante");
         }
 
-        // Validamos que la lista exista Y controlamos que no esté duplicado
         if (seleccion.getCuerposTecnicos() != null && seleccion.getCuerposTecnicos().contains(integrante)) {
-            return false; // Si ya contiene al integrante, rebotamos la carga devolviendo false
+            throw new ElementoDuplicadoException("Integrante " + integrante.getNombre());
         }
 
         if (seleccion.getCuerposTecnicos() != null) {
-            seleccion.agregarCuerpoTecnico(integrante); // Va a la lista de Cuerpo Técnico
-            return true; // Éxito total
+            seleccion.agregarCuerpoTecnico(integrante);
         }
-        return false;
     }
 
 }

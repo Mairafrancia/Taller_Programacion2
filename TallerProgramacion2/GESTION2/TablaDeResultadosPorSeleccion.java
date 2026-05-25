@@ -6,11 +6,11 @@ import java.util.ArrayList;
 public class TablaDeResultadosPorSeleccion {
 
     /**
-     * Genera un informe con los puntos totales e instancia máxima alcanzada
-     * por una selección determinada, recorriendo todas sus participaciones.
+     * Genera un informe breve de resultados para una selección específica.
+     * Recorre sus participaciones y calcula puntaje, partidos jugados y la fase máxima.
      *
      * @param seleccion La selección de la que se desea obtener el informe.
-     * @return Lista de Strings con el resumen, o null si la selección es nula.
+     * @return Lista de líneas con el resumen, o null si la selección es nula.
      */
     public ArrayList<String> obtenerResultados(Seleccion seleccion) {
         if (seleccion == null) {
@@ -18,47 +18,58 @@ public class TablaDeResultadosPorSeleccion {
         }
 
         int puntosTotales = 0;
-        NombreFase instanciaMaxima = null;
+        int partidosJugados = 0;
+        int partidosGanados = 0;
+        int partidosEmpatados = 0;
+        int partidosPerdidos = 0;
+        NombreFase instanciaMaxima = null; // fase más avanzada alcanzada
 
-        for (Participacion p : seleccion.getParticipaciones()) {
-            Partido partido = p.getPartido();
+        for (Participacion participacion : seleccion.getParticipaciones()) {
+            Partido partido = participacion.getPartido();
             if (partido == null || partido.getFase() == null) {
-                continue; 
+                continue; // ignorar participaciones sin partido válido
             }
 
             NombreFase faseActual = partido.getFase().getNombre();
-            if (faseActual == null) continue;
+            if (faseActual == null) {
+                continue;
+            }
 
-            // Actualizamos la instancia máxima usando ordinal()
             if (instanciaMaxima == null || faseActual.ordinal() > instanciaMaxima.ordinal()) {
                 instanciaMaxima = faseActual;
             }
 
-            // Calculamos puntos del partido
-            int golesFavor = p.cantidadGoles();
-            
-            // OPTIMIZACIÓN: Asignación del rival usando el operador ternario
-            Participacion rival = p.isEsLocal() 
-                    ? partido.getParticipacionVisitante() 
+            Participacion participacionRival = participacion.isEsLocal()
+                    ? partido.getParticipacionVisitante()
                     : partido.getParticipacionLocal();
+            if (participacionRival == null) {
+                continue; // ignorar si falta el rival
+            }
 
-            // Si el rival existe, tomamos sus goles; si no, asumimos 0
-            int golesContra = (rival != null) ? rival.cantidadGoles() : 0;
+            int golesFavor = participacion.cantidadGoles();
+            int golesContra = participacionRival.cantidadGoles();
 
-            // Sistema de puntuación estándar (3 por ganar, 1 por empatar)
+            partidosJugados++;
             if (golesFavor > golesContra) {
+                partidosGanados++;
                 puntosTotales += 3;
             } else if (golesFavor == golesContra) {
+                partidosEmpatados++;
                 puntosTotales += 1;
+            } else {
+                partidosPerdidos++;
             }
         }
 
-        // Construimos el informe
         ArrayList<String> resultado = new ArrayList<>();
         resultado.add("Selección: " + seleccion.getNombreFederacion());
         resultado.add("Puntos totales: " + puntosTotales);
-        resultado.add("Instancia máxima alcanzada: " + 
-                (instanciaMaxima != null ? instanciaMaxima.name() : "Sin partidos registrados")); //operador ternario 
+        resultado.add("Partidos jugados: " + partidosJugados);
+        resultado.add("Ganados: " + partidosGanados);
+        resultado.add("Empatados: " + partidosEmpatados);
+        resultado.add("Perdidos: " + partidosPerdidos);
+        resultado.add("Instancia máxima alcanzada: "
+                + (instanciaMaxima != null ? instanciaMaxima.name() : "Sin partidos registrados"));
 
         return resultado;
     }
