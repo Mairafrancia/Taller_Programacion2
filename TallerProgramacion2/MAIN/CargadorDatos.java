@@ -4,6 +4,7 @@ import CLASES.DirectoresTecnicos;
 import CLASES.Estadio;
 import CLASES.Fase;
 import CLASES.Grupo;
+import CLASES.Jugador;
 import CLASES.Mundial;
 import CLASES.NombreFase;
 import CLASES.Pais;
@@ -58,6 +59,17 @@ public class CargadorDatos {
         // Cruzar las relaciones
         argentina.setSeleccion(selArg);
         grupoA.agregarSeleccion(selArg);
+
+        //crear dos objetos jugadores
+        Jugador j1 = new Jugador();
+        j1.setNombre("Lionel Messi");
+        j1.setDorsal(10);
+        selArg.agregarJugador(j1);
+
+        Jugador j2 = new Jugador();
+        j2.setNombre("Ángel Di María");
+        j2.setDorsal(11);
+        selArg.agregarJugador(j2);
 
         return mundial;
 

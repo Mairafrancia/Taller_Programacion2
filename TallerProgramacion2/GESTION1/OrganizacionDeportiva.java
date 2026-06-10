@@ -84,6 +84,13 @@ public class OrganizacionDeportiva {
 
         // Usamos el método de la clase Partido para asignarlas en el array de tamaño 2
         partido.asignarParticipaciones(local, visitante);
+
+         if (local.getSeleccion() != null) {
+            local.getSeleccion().agregarParticipacion(local);
+        }
+        if (visitante.getSeleccion() != null) {
+            visitante.getSeleccion().agregarParticipacion(visitante);
+        }
     }
 }
 
