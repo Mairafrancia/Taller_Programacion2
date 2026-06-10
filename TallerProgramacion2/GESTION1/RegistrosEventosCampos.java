@@ -23,6 +23,11 @@ public class RegistrosEventosCampos {
             throw new ValoresNulosException("partido, jugador o evento");
         }
 
+        // VALIDACIÓN CRÍTICA: El jugador debe participar en el partido
+        if (!partido.contieneJugador(jugador)) {
+            throw new JugadorNoParticipaEnPartidoException(jugador.getNombre());
+        }
+
         // Vinculamos el jugador al evento (El evento guarda internamente quién lo hizo)
         nuevoEvento.setJugador(jugador);
 
@@ -40,12 +45,4 @@ public class RegistrosEventosCampos {
             throw new ValoresNulosException("lista de eventos del jugador");
         }
     }
-
-        // Evento nuevoEvento = new Evento();
-        // nuevoEvento.setTipo(tipo);
-        // nuevoEvento.setMinuto(minuto);
-        // nuevoEvento.setJugador(jugador);
-
-        // partido.agregarEvento(nuevoEvento);
-        // return true;
 }

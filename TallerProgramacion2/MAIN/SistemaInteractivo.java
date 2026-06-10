@@ -301,6 +301,38 @@ public class SistemaInteractivo {
         }
     }
 
+    private void registrarArbitraje() {
+        Partido partido = seleccionarPartido("Seleccione el partido:");
+        if (partido == null) return;
+
+        System.out.print("Nombre del árbitro: ");
+        String nombre = scanner.nextLine();
+        System.out.print("Año de nacimiento (YYYYMMDD): ");
+        int fecNacimiento = leerEntero();
+        System.out.print("Años de experiencia: ");
+        int anios = leerEntero();
+        Pais paisArbitro = seleccionarPais("Seleccione el país del árbitro:");
+        if (paisArbitro == null) return;
+        
+        System.out.print("Rol (PRINCIPAL, ASISTENTE_1, ASISTENTE_2, CUARTO_ARBITRO, VAR_PRINCIPAL, VAR_ASISTENTE): ");
+        String rol = scanner.nextLine().trim().toUpperCase();
+
+        try {
+            Arbitro arbitro = new Arbitro(nombre, fecNacimiento, anios, paisArbitro);
+            Arbitraje arbitraje = new Arbitraje(CategoriaArbitro.valueOf(rol), partido, arbitro);
+            partido.agregarArbitraje(arbitraje);
+            arbitro.agregarArbitraje(arbitraje);
+            System.out.println("✓ Arbitraje registrado: " + nombre + " (" + paisArbitro.getNombre() + ") como " + rol);
+            if (!partido.tieneEquipoArbitralValido()) {
+                System.out.println("⚠ Nota: El partido aún no tiene equipo arbitral completo.");
+            }
+        } catch (IllegalArgumentException e) {
+            System.out.println("Rol no válido.");
+        } catch (Exception e) {
+            System.err.println("Error: " + e.getMessage());
+        }
+    }
+
     private void verSelecciones() {
         ArrayList<Seleccion> selecciones = obtenerTodasLasSelecciones();
         if (selecciones.isEmpty()) {
@@ -323,6 +355,7 @@ public class SistemaInteractivo {
         System.out.println("1. Registrar Grupo");
         System.out.println("2. Planificar Partido");
         System.out.println("3. Asignar Equipos a Partido");
+        System.out.println("4. Registrar Arbitraje");
         System.out.println("0. Volver");
         System.out.print("Opción: ");
         int opcion = leerOpción();
@@ -330,6 +363,7 @@ public class SistemaInteractivo {
             case 1: registrarGrupo(); break;
             case 2: planificarPartido(); break;
             case 3: asignarEquiposAPartido(); break;
+            case 4: registrarArbitraje(); break;
             case 0: break;
             default: System.out.println("Opción no valida.");
         }

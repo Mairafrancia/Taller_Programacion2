@@ -36,13 +36,11 @@ public class PruebaGestion1 {
                 gi.registrarSede(mundial, sede1, pais1);
                 System.out.println("✓ Sede Buenos Aires registrada");
 
-                Estadio estadio1 = new Estadio();
-                estadio1.setNombre("Estadio Monumental");
+                Estadio estadio1 = new Estadio("Estadio Monumental", 85018, sede1);
                 gi.registrarEstadioEnSede(sede1, estadio1, 85018);
                 System.out.println("✓ Estadio Monumental registrado (capacidad: 85018)");
 
-                Estadio estadio2 = new Estadio();
-                estadio2.setNombre("Estadio Libertadores de América");
+                Estadio estadio2 = new Estadio("Estadio Libertadores de América", 48000, sede1);
                 gi.registrarEstadioEnSede(sede1, estadio2, 48000);
                 System.out.println("✓ Estadio Libertadores registrado (capacidad: 48000)");
 
@@ -59,8 +57,7 @@ public class PruebaGestion1 {
                 gi.registrarSede(mundial, sede2, pais2);
                 System.out.println("✓ Sede Río de Janeiro registrada");
 
-                Estadio estadio3 = new Estadio();
-                estadio3.setNombre("Maracaná");
+                Estadio estadio3 = new Estadio("Maracaná", 78000, sede2);
                 gi.registrarEstadioEnSede(sede2, estadio3, 78000);
                 System.out.println("✓ Estadio Maracaná registrado (capacidad: 78000)");
 
@@ -88,15 +85,11 @@ public class PruebaGestion1 {
                 System.out.println("✓ Selección AFA (Argentina) registrada en Grupo A");
 
                 // Registrar jugadores
-                Jugador jugador1 = new Jugador();
-                jugador1.setNombre("Lionel Messi");
-                jugador1.setDorsal(10);
+                Jugador jugador1 = new Jugador("Lionel Messi", 0, 10, null, 0, 0, null);
                 ad.registrarJugador(seleccion1, jugador1);
                 System.out.println("✓ Jugador: Lionel Messi (dorsal 10)");
 
-                Jugador jugador2 = new Jugador();
-                jugador2.setNombre("Ángel Di María");
-                jugador2.setDorsal(11);
+                Jugador jugador2 = new Jugador("Ángel Di María", 0, 11, null, 0, 0, null);
                 ad.registrarJugador(seleccion1, jugador2);
                 System.out.println("✓ Jugador: Ángel Di María (dorsal 11)");
 
@@ -163,38 +156,26 @@ public class PruebaGestion1 {
                 System.out.println("\n=== PRUEBA ORGANIZACIÓN DEPORTIVA ===\n");
 
                 // Crear partido 1
-                Partido partido1 = new Partido();
-                partido1.setFecha(20261101);
-                partido1.setHorario(2000);
+                Partido partido1 = new Partido(20261101, 2000, 0, 0, estadio1, faseGrupos);
                 od.planificarPartido(partido1, faseGrupos, estadio1);
                 System.out.println("✓ Partido 1 planificado en Monumental (01/11/2026 20:00)");
 
-                Participacion pLocal1 = new Participacion();
-                pLocal1.setEsLocal(true);
-                pLocal1.setSeleccion(seleccion1);
+                Participacion pLocal1 = new Participacion(true, partido1, seleccion1);
 
-                Participacion pVisitante1 = new Participacion();
-                pVisitante1.setEsLocal(false);
-                pVisitante1.setSeleccion(seleccion2);
+                Participacion pVisitante1 = new Participacion(false, partido1, seleccion2);
 
                 od.asignarEquiposAPartido(partido1, pLocal1, pVisitante1);
                 faseGrupos.agregarPartido(partido1);
                 System.out.println("✓ Equipos asignados: AFA (Local) vs CBF (Visitante)");
 
                 // Crear partido 2
-                Partido partido2 = new Partido();
-                partido2.setFecha(20261105);
-                partido2.setHorario(1800);
+                Partido partido2 = new Partido(20261105, 1800, 0, 0, estadio3, faseGrupos);
                 od.planificarPartido(partido2, faseGrupos, estadio3);
                 System.out.println("✓ Partido 2 planificado en Maracaná (05/11/2026 18:00)");
 
-                Participacion pLocal2 = new Participacion();
-                pLocal2.setEsLocal(true);
-                pLocal2.setSeleccion(seleccion2);
+                Participacion pLocal2 = new Participacion(true, partido2, seleccion2);
 
-                Participacion pVisitante2 = new Participacion();
-                pVisitante2.setEsLocal(false);
-                pVisitante2.setSeleccion(seleccion1);
+                Participacion pVisitante2 = new Participacion(false, partido2, seleccion1);
 
                 od.asignarEquiposAPartido(partido2, pLocal2, pVisitante2);
                 faseGrupos.agregarPartido(partido2);
@@ -234,15 +215,14 @@ public class PruebaGestion1 {
                 System.out.println("\n=== PRUEBA GESTION 1 COMPLETADA EXITOSAMENTE ===");
 
             } catch (TorneoException e) {
-                System.err.println("❌ Error de torneo: " + e.getMessage());
+                System.err.println("❌ Error en el torneo: " + e.getMessage());
             } catch (Exception e) {
                 System.err.println("❌ Error inesperado: " + e.getMessage());
-                e.printStackTrace();
             }
 
         } catch (Exception e) {
-            System.err.println("❌ Error crítico al cargar datos: " + e.getMessage());
-            e.printStackTrace();
+            System.err.println("❌ Error crítico: No se pudieron cargar los datos del mundial");
+            System.err.println("Razón: " + e.getMessage());
         }
     }
 }

@@ -44,8 +44,7 @@ public class PruebaGestion2 {
                 sede1.setCiudad("Buenos Aires");
                 gi.registrarSede(mundial, sede1, pais1);
 
-                Estadio estadio1 = new Estadio();
-                estadio1.setNombre("Estadio Monumental");
+                Estadio estadio1 = new Estadio("Estadio Monumental", 85018, sede1);
                 gi.registrarEstadioEnSede(sede1, estadio1, 85018);
 
                 Pais pais2 = new Pais();
@@ -54,8 +53,7 @@ public class PruebaGestion2 {
                 sede2.setCiudad("Río de Janeiro");
                 gi.registrarSede(mundial, sede2, pais2);
 
-                Estadio estadio2 = new Estadio();
-                estadio2.setNombre("Maracaná");
+                Estadio estadio2 = new Estadio("Maracaná", 78000, sede2);
                 gi.registrarEstadioEnSede(sede2, estadio2, 78000);
 
                 // Crear grupos y selecciones
@@ -71,24 +69,16 @@ public class PruebaGestion2 {
                 ad.gestionarSeleccion(pais2, sel2, grupo1);
 
                 // Crear jugadores
-                Jugador jug1 = new Jugador();
-                jug1.setNombre("Lionel Messi");
-                jug1.setDorsal(10);
+                Jugador jug1 = new Jugador("Lionel Messi", 0, 10, null, 0, 0, null);
                 ad.registrarJugador(sel1, jug1);
 
-                Jugador jug2 = new Jugador();
-                jug2.setNombre("Ángel Di María");
-                jug2.setDorsal(11);
+                Jugador jug2 = new Jugador("Ángel Di María", 0, 11, null, 0, 0, null);
                 ad.registrarJugador(sel1, jug2);
 
-                Jugador jug3 = new Jugador();
-                jug3.setNombre("Neymar");
-                jug3.setDorsal(10);
+                Jugador jug3 = new Jugador("Neymar", 0, 10, null, 0, 0, null);
                 ad.registrarJugador(sel2, jug3);
 
-                Jugador jug4 = new Jugador();
-                jug4.setNombre("Vinicius Junior");
-                jug4.setDorsal(7);
+                Jugador jug4 = new Jugador("Vinicius Junior", 0, 7, null, 0, 0, null);
                 ad.registrarJugador(sel2, jug4);
 
                 // Crear partidos con participaciones y eventos
@@ -97,13 +87,9 @@ public class PruebaGestion2 {
                 partido1.setHorario(2000);
                 od.planificarPartido(partido1, faseGrupos, estadio1);
 
-                Participacion pLocal1 = new Participacion();
-                pLocal1.setEsLocal(true);
-                pLocal1.setSeleccion(sel1);
+                Participacion pLocal1 = new Participacion(true, partido1, sel1);
 
-                Participacion pVisitante1 = new Participacion();
-                pVisitante1.setEsLocal(false);
-                pVisitante1.setSeleccion(sel2);
+                Participacion pVisitante1 = new Participacion(false, partido1, sel2);
 
                 od.asignarEquiposAPartido(partido1, pLocal1, pVisitante1);
                 faseGrupos.agregarPartido(partido1);
@@ -124,13 +110,9 @@ public class PruebaGestion2 {
                 partido2.setHorario(1800);
                 od.planificarPartido(partido2, faseGrupos, estadio2);
 
-                Participacion pLocal2 = new Participacion();
-                pLocal2.setEsLocal(true);
-                pLocal2.setSeleccion(sel2);
+                Participacion pLocal2 = new Participacion(true, partido2, sel2);
 
-                Participacion pVisitante2 = new Participacion();
-                pVisitante2.setEsLocal(false);
-                pVisitante2.setSeleccion(sel1);
+                Participacion pVisitante2 = new Participacion(false, partido2, sel1);
 
                 od.asignarEquiposAPartido(partido2, pLocal2, pVisitante2);
                 faseGrupos.agregarPartido(partido2);
@@ -269,15 +251,14 @@ public class PruebaGestion2 {
                 System.out.println("\n=== PRUEBA GESTION 2 COMPLETADA EXITOSAMENTE ===");
 
             } catch (TorneoException e) {
-                System.err.println("❌ Error de torneo: " + e.getMessage());
+                System.err.println("❌ Error en el torneo: " + e.getMessage());
             } catch (Exception e) {
                 System.err.println("❌ Error inesperado: " + e.getMessage());
-                e.printStackTrace();
             }
 
         } catch (Exception e) {
-            System.err.println("❌ Error crítico al cargar datos: " + e.getMessage());
-            e.printStackTrace();
+            System.err.println("❌ Error crítico: No se pudieron cargar los datos del mundial");
+            System.err.println("Razón: " + e.getMessage());
         }
     }
 }
