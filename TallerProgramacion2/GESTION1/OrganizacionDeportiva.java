@@ -20,9 +20,14 @@ public class OrganizacionDeportiva {
             throw new ValoresNulosException("fase o grupo");
         }
 
-        // Verificamos si la fase ya tiene este grupo incorporado
-        if (fase.getGrupos() != null && fase.getGrupos().contains(grupo)) {
-            throw new ElementoDuplicadoException("Grupo " + grupo.getIdentificador());
+        // Verificamos si la fase ya tiene un grupo con el mismo identificador
+        if (fase.getGrupos() != null) {
+            for (Grupo g : fase.getGrupos()) {
+                if (g != null && g.getIdentificador() != null && grupo.getIdentificador() != null
+                        && g.getIdentificador().equalsIgnoreCase(grupo.getIdentificador())) {
+                    throw new ElementoDuplicadoException("Grupo " + grupo.getIdentificador());
+                }
+            }
         }
 
         // Relación bidireccional: el grupo conoce su fase

@@ -29,11 +29,11 @@ public class GestionInfraestructura {
         }
 
         // Añadimos la sede al Mundial (Relación Mundial 1 --- 1..* Sede)
-        if (mundial.getSedes() != null && !mundial.getSedes().contains(nuevaSede)) {
-            mundial.agregarSede(nuevaSede);
-        } else {
+        
+        if (mundial.getSedes().contains(nuevaSede)) {
             throw new ElementoDuplicadoException("Sede " + nuevaSede.getCiudad());
         }
+        mundial.agregarSede(nuevaSede);
     }
 
     /**

@@ -8,7 +8,8 @@ public class Mundial {
     private int fechaDesde;
     private int fechaHasta;
     private ArrayList<Sede> sedes; // new ArrayList<>(); // el mundial agrega varias sedes (clase contenedora en la
-                                   // clase sede(componente) no se hace referencia a mundial)
+  // clase sede(componente) no se hace referencia a mundial)
+    private ArrayList<Fase> fases;
 
     //CONSTRUCTOR SIN PARAMETROS
     public Mundial() {
@@ -17,6 +18,7 @@ public class Mundial {
         this.fechaDesde = 0;
         this.fechaHasta = 0;
         this.sedes = new ArrayList<>();
+        this.fases = new ArrayList<>();
     }
 
     // CONSTRUCTOR CON PARAMETROS
@@ -26,6 +28,7 @@ public class Mundial {
         this.fechaDesde = fechaDesde;
         this.fechaHasta = fechaHasta;
         this.sedes = new ArrayList<>(); // LA CREAMOS VACIA Y USAMOS EL METODO PARA LLENARLA, ASI SEPARA LA LOGICA DE CREACION DE LA LOGICA DE AGREGAR SEDES AL MUNDIAL
+        this.fases = new ArrayList<>();
     }
 
     // SETTERS Y GETTERS
@@ -75,4 +78,11 @@ public class Mundial {
             this.sedes.add(sede);
         }
     }
+    public void agregarFase(Fase fase) {
+        if (fase != null) this.fases.add(fase);
+    }
+
+    public ArrayList<Fase> getFases() { return fases; }
+    public void setFases(ArrayList<Fase> fases) { this.fases = fases; }
+    
 }

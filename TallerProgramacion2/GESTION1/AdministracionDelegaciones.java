@@ -24,8 +24,23 @@ public class AdministracionDelegaciones {
         if (pais == null || seleccion == null || grupo == null) {
             throw new ValoresNulosException("pais, seleccion o grupo");
         }
-        if (seleccion.getPais() != null || grupo.getSelecciones().contains(seleccion)) {
+        if (seleccion.getPais() != null) {
             throw new SeleccionYaRegistradaException(seleccion.getNombreFederacion());
+        }
+        if (pais.getSeleccion() != null) {
+            throw new SeleccionYaRegistradaException(pais.getSeleccion().getNombreFederacion());
+        }
+        if (grupo.getSelecciones() != null) {
+            for (Seleccion s : grupo.getSelecciones()) {
+                if (s != null) {
+                    if (s.getNombreFederacion() != null && s.getNombreFederacion().equalsIgnoreCase(seleccion.getNombreFederacion())) {
+                        throw new SeleccionYaRegistradaException(seleccion.getNombreFederacion());
+                    }
+                    if (s.getPais() != null && pais.getNombre() != null && s.getPais().getNombre() != null && s.getPais().getNombre().equalsIgnoreCase(pais.getNombre())) {
+                        throw new SeleccionYaRegistradaException(pais.getNombre());
+                    }
+                }
+            }
         }
 
         // Relación bidireccional entre País y Selección
@@ -42,7 +57,7 @@ public class AdministracionDelegaciones {
     }
 
     // Lista de control global interna para asegurar que un jugador no se repita entodo el torneo
-    private ArrayList<Jugador> jugadoresAsignadosGlobal = new ArrayList<>();
+    private static ArrayList<Jugador> jugadoresAsignadosGlobal = new ArrayList<>();
 
     /**
      * Añade un Jugador a la lista de una Selección, controlando que no esté
@@ -86,11 +101,14 @@ public class AdministracionDelegaciones {
             throw new ValoresNulosException("seleccion o director tecnico");
         }
 
-        if (seleccion.getDirectoresTecnicos() != null && seleccion.getDirectoresTecnicos().contains(dt)) {
-            throw new ElementoDuplicadoException("Director técnico " + dt.getNombre());
-        }
-
         if (seleccion.getDirectoresTecnicos() != null) {
+            for (DirectoresTecnicos existente : seleccion.getDirectoresTecnicos()) {
+                if (existente != null && existente.getNombre() != null && dt.getNombre() != null
+                        && existente.getNombre().equalsIgnoreCase(dt.getNombre())
+                        && existente.getFecNacimiento() == dt.getFecNacimiento()) {
+                    throw new ElementoDuplicadoException("Director técnico " + dt.getNombre());
+                }
+            }
             seleccion.agregarDirectoresTecnicos(dt);
         }
     }
@@ -108,11 +126,14 @@ public class AdministracionDelegaciones {
             throw new ValoresNulosException("seleccion o integrante");
         }
 
-        if (seleccion.getCuerposTecnicos() != null && seleccion.getCuerposTecnicos().contains(integrante)) {
-            throw new ElementoDuplicadoException("Integrante " + integrante.getNombre());
-        }
-
         if (seleccion.getCuerposTecnicos() != null) {
+            for (CuerpoTecnico existente : seleccion.getCuerposTecnicos()) {
+                if (existente != null && existente.getNombre() != null && integrante.getNombre() != null
+                        && existente.getNombre().equalsIgnoreCase(integrante.getNombre())
+                        && existente.getRol() == integrante.getRol()) {
+                    throw new ElementoDuplicadoException("Integrante " + integrante.getNombre());
+                }
+            }
             seleccion.agregarCuerpoTecnico(integrante);
         }
     }

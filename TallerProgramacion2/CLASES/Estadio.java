@@ -58,11 +58,12 @@ public class Estadio {
     public void agregarPartido(Partido partido){
         if (partido != null){
             this.partidos.add(partido);
+            // Le avisamos al partido que este es su estadio
+            if (partido.getEstadio() != this) {
+                partido.setEstadio(this);
+            }
         }
-        // Le avisamos al partido que este es su estadio
-        if (partido.getEstadio() != this) {
-            partido.setEstadio(this);
-        }
+       
     }
     
 }

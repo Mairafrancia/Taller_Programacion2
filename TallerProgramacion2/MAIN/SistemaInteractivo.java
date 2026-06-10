@@ -42,10 +42,9 @@ public class SistemaInteractivo {
         this.informeCards = new InformeDisciplinario();
         this.fichaTecnica = new FichaTecnicaDeUnPartido();
         this.estadisticasSedes = new EstadisticasDeSedes();
-        this.fases = new ArrayList<>();
-        this.fases.add(new Fase(NombreFase.GRUPOS));
+        this.fases = mundial.getFases();
+        
     }
-
     public void iniciar() {
         boolean salir = false;
         while (!salir) {
@@ -141,6 +140,7 @@ public class SistemaInteractivo {
             sede.setZonaHoraria(zonaHoraria);
             gi.registrarSede(mundial, sede, pais);
             System.out.println("Sede registrada: " + ciudad);
+            System.out.println("Total sedes ahora: " + mundial.getSedes().size());
         } catch (TorneoException e) {
             System.err.println("Error: " + e.getMessage());
         }
@@ -681,8 +681,8 @@ public class SistemaInteractivo {
 
     private Fase seleccionarFase(String prompt) {
         if (fases == null || fases.isEmpty()) {
-            fases = new ArrayList<>();
-            fases.add(new Fase(NombreFase.GRUPOS));
+            System.out.println("No hay fases registradas.");
+            return null;
         }
         System.out.println(prompt);
         for (int i = 0; i < fases.size(); i++) {

@@ -238,6 +238,12 @@ public class Partido {
         return fase == otro.fase;
     }
 
+    // En Partido.java, agregar este método:
+    public void asignarParticipacionesSinExcepcion(Participacion p1, Participacion p2) {
+        this.participaciones[0] = p1;
+        this.participaciones[1] = p2;
+    }
+
     //METODO AGREGADO PARA PODER UTILIZARLO EN LA CLASE REGISTRO DE EVENTO PARA CONTROLAR QUE UN JUGADOR ESTE EN EL PARTIDO
     // En la clase Partido
     // public boolean contieneJugador(Jugador jugador) {
