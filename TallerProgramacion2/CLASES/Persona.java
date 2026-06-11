@@ -29,7 +29,5 @@ public abstract class Persona {
     public void setFecNacimiento(int fecNacimiento) {
         this.fecNacimiento = fecNacimiento;
     }
-
-
 }
 

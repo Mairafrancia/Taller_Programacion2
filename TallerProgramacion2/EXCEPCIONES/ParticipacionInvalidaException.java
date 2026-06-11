@@ -13,4 +13,7 @@ public class ParticipacionInvalidaException extends TorneoException {
     public ParticipacionInvalidaException() {
         super("Error: una participación debe ser local y la otra visitante.");
     }
+    public ParticipacionInvalidaException(String mensaje) {
+        super(mensaje);
+    }
 }

@@ -89,14 +89,14 @@ public class TablaDePosicionesPorGrupo {
             Posicion posicionEquipo = posiciones.get(i);
             // Construir la línea de salida para esta selección
             tabla.add((i + 1) + ". " + posicionEquipo.seleccion.getNombreFederacion()
-                    + " - Pts:" + posicionEquipo.puntos
-                    + " | PJ:" + posicionEquipo.partidosJugados
-                    + " PG:" + posicionEquipo.partidosGanados
-                    + " PE:" + posicionEquipo.partidosEmpatados
-                    + " PP:" + posicionEquipo.partidosPerdidos
-                    + " | GF:" + posicionEquipo.golesFavor
-                    + " GC:" + posicionEquipo.golesContra
-                    + " | DG:" + posicionEquipo.getDiferenciaGoles());
+                    + " | Puntos: "          + posicionEquipo.puntos
+                    + " | Jugados: "         + posicionEquipo.partidosJugados
+                    + " | Ganados: "         + posicionEquipo.partidosGanados
+                    + " | Empatados: "       + posicionEquipo.partidosEmpatados
+                    + " | Perdidos: "        + posicionEquipo.partidosPerdidos
+                    + " | Goles a favor: "   + posicionEquipo.golesFavor
+                    + " | Goles en contra: " + posicionEquipo.golesContra
+                    + " | Diferencia: "      + posicionEquipo.getDiferenciaGoles());
         }
 
         return tabla;

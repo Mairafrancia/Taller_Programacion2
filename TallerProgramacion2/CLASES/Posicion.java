@@ -1,7 +1,4 @@
 package CLASES;
-
-
-
 public enum Posicion {
     ARQUERO,
     DEFENSOR,

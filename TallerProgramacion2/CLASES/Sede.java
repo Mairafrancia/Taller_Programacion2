@@ -2,8 +2,6 @@ package CLASES;
 
 import java.util.ArrayList;
 
-
-
 public class Sede {
 
     private String ciudad;

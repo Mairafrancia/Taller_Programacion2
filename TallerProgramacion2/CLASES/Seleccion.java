@@ -25,7 +25,7 @@ public class Seleccion {
         this.cabezaGrupo = false;
         this.rankingFIFA = 0;
         this.directoresTecnicos = new ArrayList<>();
-        this.jugadores = new ArrayList<>(); // en agregacion no se inicializan, solo con metodo
+        this.jugadores = new ArrayList<>(); 
         this.cuerposTecnicos = new ArrayList<>(); // lo mismo
         this.participaciones = new ArrayList<>();
     }

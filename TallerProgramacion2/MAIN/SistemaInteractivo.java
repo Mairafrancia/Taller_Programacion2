@@ -43,8 +43,8 @@ public class SistemaInteractivo {
         this.fichaTecnica = new FichaTecnicaDeUnPartido();
         this.estadisticasSedes = new EstadisticasDeSedes();
         this.fases = mundial.getFases();
-        
     }
+
     public void iniciar() {
         boolean salir = false;
         while (!salir) {
@@ -130,6 +130,12 @@ public class SistemaInteractivo {
         System.out.print("Zona horaria: ");
         String zonaHoraria = scanner.nextLine();
 
+        if (nombrePais.trim().isEmpty() || ciudad.trim().isEmpty()
+                || clima.trim().isEmpty() || zonaHoraria.trim().isEmpty()) {
+            System.out.println("Error: ningún campo puede estar vacío.");
+            return;
+        }
+
         try {
             Pais pais = new Pais();
             pais.setNombre(nombrePais);
@@ -154,11 +160,19 @@ public class SistemaInteractivo {
         }
         System.out.print("Nombre del Estadio: ");
         String nombre = scanner.nextLine();
+        if (nombre.trim().isEmpty()) {
+            System.out.println("Error: el nombre del estadio no puede estar vacío.");
+            return;
+        }
         System.out.print("Capacidad: ");
         int capacidad = leerEntero();
+        if (capacidad <= 0) {
+            System.out.println("Error: la capacidad debe ser un número mayor a 0.");
+            return;
+        }
         System.out.println("Sedes disponibles:");
         for (int i = 0; i < sedes.size(); i++) {
-            System.out.println((i+1) + ". " + sedes.get(i).getCiudad());
+            System.out.println((i + 1) + ". " + sedes.get(i).getCiudad());
         }
         System.out.print("Seleccione sede: ");
         int index = leerOpción() - 1;
@@ -218,15 +232,15 @@ public class SistemaInteractivo {
 
     private void registrarSeleccion() {
         Grupo grupo = seleccionarGrupo("Seleccione el grupo:");
-        if (grupo == null) {
-            return;
-        }
+        if (grupo == null) return;
         Pais pais = seleccionarPais("Seleccione el país:");
-        if (pais == null) {
-            return;
-        }
+        if (pais == null) return;
         System.out.print("Nombre de la federación: ");
         String nombre = scanner.nextLine();
+        if (nombre.trim().isEmpty()) {
+            System.out.println("Error: el nombre de la federación no puede estar vacío.");
+            return;
+        }
         Seleccion sel = new Seleccion();
         sel.setNombreFederacion(nombre);
         sel.setRankingFIFA(0);
@@ -240,15 +254,25 @@ public class SistemaInteractivo {
 
     private void registrarJugador() {
         Seleccion seleccion = seleccionarSeleccion("Seleccione la selección:");
-        if (seleccion == null) {
-            return;
-        }
+        if (seleccion == null) return;
         System.out.print("Nombre del jugador: ");
         String nombre = scanner.nextLine();
+        if (nombre.trim().isEmpty()) {
+            System.out.println("Error: el nombre del jugador no puede estar vacío.");
+            return;
+        }
         System.out.print("Dorsal: ");
         int dorsal = leerEntero();
+        if (dorsal <= 0) {
+            System.out.println("Error: el dorsal debe ser un número mayor a 0.");
+            return;
+        }
         System.out.print("Fecha nacimiento (YYYYMMDD): ");
         int fecha = leerEntero();
+        if (fecha <= 0) {
+            System.out.println("Error: la fecha debe ser un número válido.");
+            return;
+        }
         Jugador jugador = new Jugador();
         jugador.setNombre(nombre);
         jugador.setDorsal(dorsal);
@@ -263,13 +287,19 @@ public class SistemaInteractivo {
 
     private void registrarDirectorTecnico() {
         Seleccion seleccion = seleccionarSeleccion("Seleccione la selección:");
-        if (seleccion == null) {
-            return;
-        }
+        if (seleccion == null) return;
         System.out.print("Nombre DT: ");
         String nombre = scanner.nextLine();
+        if (nombre.trim().isEmpty()) {
+            System.out.println("Error: el nombre del DT no puede estar vacío.");
+            return;
+        }
         System.out.print("Año de nacimiento: ");
         int ano = leerEntero();
+        if (ano <= 0) {
+            System.out.println("Error: el año de nacimiento debe ser un número válido.");
+            return;
+        }
         DirectoresTecnicos dt = new DirectoresTecnicos(nombre, ano, 20000101);
         try {
             ad.registrarDirectorTecnico(seleccion, dt);
@@ -281,13 +311,19 @@ public class SistemaInteractivo {
 
     private void registrarCuerpoTecnico() {
         Seleccion seleccion = seleccionarSeleccion("Seleccione la selección:");
-        if (seleccion == null) {
-            return;
-        }
+        if (seleccion == null) return;
         System.out.print("Nombre integrante: ");
         String nombre = scanner.nextLine();
+        if (nombre.trim().isEmpty()) {
+            System.out.println("Error: el nombre del integrante no puede estar vacío.");
+            return;
+        }
         System.out.print("Rol (AYUDANTECAMPO, ENTRENADORARQUEROS, PREPARADORFISICO, MEDICO): ");
         String rol = scanner.nextLine().trim().toUpperCase();
+        if (rol.isEmpty()) {
+            System.out.println("Error: el rol no puede estar vacío.");
+            return;
+        }
         try {
             CuerpoTecnico ct = new CuerpoTecnico();
             ct.setNombre(nombre);
@@ -307,16 +343,31 @@ public class SistemaInteractivo {
 
         System.out.print("Nombre del árbitro: ");
         String nombre = scanner.nextLine();
+        if (nombre.trim().isEmpty()) {
+            System.out.println("Error: el nombre del árbitro no puede estar vacío.");
+            return;
+        }
         System.out.print("Año de nacimiento (YYYYMMDD): ");
         int fecNacimiento = leerEntero();
+        if (fecNacimiento <= 0) {
+            System.out.println("Error: el año de nacimiento debe ser un número válido.");
+            return;
+        }
         System.out.print("Años de experiencia: ");
         int anios = leerEntero();
+        if (anios < 0) {
+            System.out.println("Error: los años de experiencia no pueden ser negativos.");
+            return;
+        }
         Pais paisArbitro = seleccionarPais("Seleccione el país del árbitro:");
         if (paisArbitro == null) return;
-        
-        System.out.print("Rol (PRINCIPAL, ASISTENTE_1, ASISTENTE_2, CUARTO_ARBITRO, VAR_PRINCIPAL, VAR_ASISTENTE): ");
-        String rol = scanner.nextLine().trim().toUpperCase();
 
+        System.out.print("Rol (PRINCIPAL, ASISTENTE1, ASISTENTE2, CUARTOARBITRO, VARPRINCIPAL, VARASISTENTE): ");
+        String rol = scanner.nextLine().trim().toUpperCase();
+        if (rol.isEmpty()) {
+            System.out.println("Error: el rol no puede estar vacío.");
+            return;
+        }
         try {
             Arbitro arbitro = new Arbitro(nombre, fecNacimiento, anios, paisArbitro);
             Arbitraje arbitraje = new Arbitraje(CategoriaArbitro.valueOf(rol), partido, arbitro);
@@ -371,13 +422,19 @@ public class SistemaInteractivo {
 
     private void registrarGrupo() {
         Fase fase = seleccionarFase("Seleccione la fase:");
-        if (fase == null) {
-            return;
-        }
+        if (fase == null) return;
         System.out.print("Id grupo: ");
         String id = scanner.nextLine();
+        if (id.trim().isEmpty()) {
+            System.out.println("Error: el id del grupo no puede estar vacío.");
+            return;
+        }
         System.out.print("Descripción: ");
         String desc = scanner.nextLine();
+        if (desc.trim().isEmpty()) {
+            System.out.println("Error: la descripción no puede estar vacía.");
+            return;
+        }
         Grupo grupo = new Grupo(id, desc, fase);
         try {
             od.registrarGrupoEnFase(fase, grupo);
@@ -389,17 +446,21 @@ public class SistemaInteractivo {
 
     private void planificarPartido() {
         Fase fase = seleccionarFase("Seleccione la fase:");
-        if (fase == null) {
-            return;
-        }
+        if (fase == null) return;
         Estadio estadio = seleccionarEstadio("Seleccione el estadio:");
-        if (estadio == null) {
-            return;
-        }
+        if (estadio == null) return;
         System.out.print("Fecha (YYYYMMDD): ");
         int fecha = leerEntero();
+        if (fecha <= 0) {
+            System.out.println("Error: la fecha debe ser un número válido.");
+            return;
+        }
         System.out.print("Horario (HHMM): ");
         int horario = leerEntero();
+        if (horario <= 0) {
+            System.out.println("Error: el horario debe ser un número válido.");
+            return;
+        }
         Partido partido = new Partido();
         partido.setFecha(fecha);
         partido.setHorario(horario);
@@ -414,9 +475,7 @@ public class SistemaInteractivo {
 
     private void asignarEquiposAPartido() {
         Partido partido = seleccionarPartido("Seleccione el partido:");
-        if (partido == null) {
-            return;
-        }
+        if (partido == null) return;
         ArrayList<Seleccion> selecciones = obtenerTodasLasSelecciones();
         if (selecciones.size() < 2) {
             System.out.println("Se necesitan al menos dos selecciones.");
@@ -424,14 +483,10 @@ public class SistemaInteractivo {
         }
         System.out.println("Seleccione local:");
         Seleccion local = seleccionarSeleccionDeLista(selecciones);
-        if (local == null) {
-            return;
-        }
+        if (local == null) return;
         System.out.println("Seleccione visitante:");
         Seleccion visitante = seleccionarSeleccionDeLista(selecciones, local);
-        if (visitante == null) {
-            return;
-        }
+        if (visitante == null) return;
         Participacion pLocal = new Participacion();
         pLocal.setEsLocal(true);
         pLocal.setSeleccion(local);
@@ -465,17 +520,21 @@ public class SistemaInteractivo {
 
     private void registrarEvento() {
         Partido partido = seleccionarPartido("Seleccione el partido:");
-        if (partido == null) {
-            return;
-        }
+        if (partido == null) return;
         Jugador jugador = seleccionarJugadorDePartido(partido);
-        if (jugador == null) {
-            return;
-        }
+        if (jugador == null) return;
         System.out.print("Tipo de evento: ");
         String tipo = scanner.nextLine().trim().toUpperCase();
+        if (tipo.isEmpty()) {
+            System.out.println("Error: el tipo de evento no puede estar vacío.");
+            return;
+        }
         System.out.print("Minuto: ");
         int minuto = leerEntero();
+        if (minuto <= 0) {
+            System.out.println("Error: el minuto debe ser un número mayor a 0.");
+            return;
+        }
         try {
             Evento evento = new Evento(TipoEvento.valueOf(tipo), minuto, jugador);
             rec.registrarEventoDeCampo(partido, jugador, evento);
@@ -489,9 +548,7 @@ public class SistemaInteractivo {
 
     private void verEventosPartido() {
         Partido partido = seleccionarPartido("Seleccione el partido:");
-        if (partido == null) {
-            return;
-        }
+        if (partido == null) return;
         if (partido.getEventos() == null || partido.getEventos().isEmpty()) {
             System.out.println("No hay eventos registrados.");
             return;
@@ -504,9 +561,7 @@ public class SistemaInteractivo {
 
     private void reporteTablaPosiciones() {
         Grupo grupo = seleccionarGrupo("Seleccione el grupo:");
-        if (grupo == null) {
-            return;
-        }
+        if (grupo == null) return;
         ArrayList<String> tabla = tablaPosiciones.obtenerTablaPosiciones(grupo);
         if (tabla == null || tabla.isEmpty()) {
             System.out.println("No hay datos para esta tabla.");
@@ -519,9 +574,7 @@ public class SistemaInteractivo {
 
     private void reporteTablaResultados() {
         Seleccion seleccion = seleccionarSeleccion("Seleccione la selección:");
-        if (seleccion == null) {
-            return;
-        }
+        if (seleccion == null) return;
         ArrayList<String> resultados = tablaResultados.obtenerResultados(seleccion);
         if (resultados == null || resultados.isEmpty()) {
             System.out.println("No hay resultados para esta seleccion.");
@@ -534,9 +587,7 @@ public class SistemaInteractivo {
 
     private void reporteRankingGoleadores() {
         Seleccion seleccion = seleccionarSeleccion("Seleccione la selección:");
-        if (seleccion == null) {
-            return;
-        }
+        if (seleccion == null) return;
         ArrayList<String> ranking = rankingGoles.rankingPorSeleccion(seleccion);
         if (ranking == null || ranking.isEmpty()) {
             System.out.println("No hay goleadores registrados.");
@@ -554,9 +605,7 @@ public class SistemaInteractivo {
         int opcion = leerOpción();
         if (opcion == 1) {
             Seleccion seleccion = seleccionarSeleccion("Seleccione la selección:");
-            if (seleccion == null) {
-                return;
-            }
+            if (seleccion == null) return;
             ArrayList<String> informe = informeCards.informePorSeleccion(seleccion);
             if (informe == null || informe.isEmpty()) {
                 System.out.println("No hay datos disciplinarios.");
@@ -567,13 +616,9 @@ public class SistemaInteractivo {
             }
         } else if (opcion == 2) {
             Seleccion seleccion = seleccionarSeleccion("Seleccione la selección del jugador:");
-            if (seleccion == null) {
-                return;
-            }
+            if (seleccion == null) return;
             Jugador jugador = seleccionarJugador(seleccion);
-            if (jugador == null) {
-                return;
-            }
+            if (jugador == null) return;
             ArrayList<String> informe = informeCards.informePorJugador(jugador);
             if (informe == null || informe.isEmpty()) {
                 System.out.println("No hay datos disciplinarios.");
@@ -582,14 +627,14 @@ public class SistemaInteractivo {
             for (String linea : informe) {
                 System.out.println(linea);
             }
+        } else {
+            System.out.println("Opción no válida.");
         }
     }
 
     private void reporteFichaTecnica() {
         Partido partido = seleccionarPartido("Seleccione el partido:");
-        if (partido == null) {
-            return;
-        }
+        if (partido == null) return;
         ArrayList<String> ficha = fichaTecnica.obtenerFicha(partido);
         if (ficha == null || ficha.isEmpty()) {
             System.out.println("No hay ficha técnica disponible.");
@@ -607,9 +652,7 @@ public class SistemaInteractivo {
         int opcion = leerOpción();
         if (opcion == 1) {
             Estadio estadio = seleccionarEstadio("Seleccione el estadio:");
-            if (estadio == null) {
-                return;
-            }
+            if (estadio == null) return;
             int partidos = estadisticasSedes.partidosPorEstadio(estadio);
             System.out.println("Partidos en " + estadio.getNombre() + ": " + partidos);
         } else if (opcion == 2) {
@@ -617,6 +660,8 @@ public class SistemaInteractivo {
             String ciudad = scanner.nextLine().trim();
             int partidos = estadisticasSedes.partidosPorCiudad(mundial, ciudad);
             System.out.println("Partidos en " + ciudad + ": " + partidos);
+        } else {
+            System.out.println("Opción no válida.");
         }
     }
 
@@ -637,7 +682,7 @@ public class SistemaInteractivo {
         }
         System.out.println(prompt);
         for (int i = 0; i < paises.size(); i++) {
-            System.out.println((i+1) + ". " + paises.get(i).getNombre());
+            System.out.println((i + 1) + ". " + paises.get(i).getNombre());
         }
         System.out.print("Opción: ");
         int opcion = leerOpción() - 1;
@@ -658,7 +703,7 @@ public class SistemaInteractivo {
         for (int i = 0; i < selecciones.size(); i++) {
             Seleccion sel = selecciones.get(i);
             String pais = sel.getPais() != null ? sel.getPais().getNombre() : "Sin país";
-            System.out.println((i+1) + ". " + sel.getNombreFederacion() + " (" + pais + ")");
+            System.out.println((i + 1) + ". " + sel.getNombreFederacion() + " (" + pais + ")");
         }
         System.out.print("Opción: ");
         int opcion = leerOpción() - 1;
@@ -673,7 +718,7 @@ public class SistemaInteractivo {
         for (int i = 0; i < selecciones.size(); i++) {
             Seleccion sel = selecciones.get(i);
             String pais = sel.getPais() != null ? sel.getPais().getNombre() : "Sin país";
-            System.out.println((i+1) + ". " + sel.getNombreFederacion() + " (" + pais + ")");
+            System.out.println((i + 1) + ". " + sel.getNombreFederacion() + " (" + pais + ")");
         }
         System.out.print("Opción: ");
         int opcion = leerOpción() - 1;
@@ -702,7 +747,7 @@ public class SistemaInteractivo {
         }
         System.out.println(prompt);
         for (int i = 0; i < grupos.size(); i++) {
-            System.out.println((i+1) + ". " + grupos.get(i).getIdentificador() + " - " + grupos.get(i).getDescripcion());
+            System.out.println((i + 1) + ". " + grupos.get(i).getIdentificador() + " - " + grupos.get(i).getDescripcion());
         }
         System.out.print("Opción: ");
         int opcion = leerOpción() - 1;
@@ -720,7 +765,7 @@ public class SistemaInteractivo {
         }
         System.out.println(prompt);
         for (int i = 0; i < fases.size(); i++) {
-            System.out.println((i+1) + ". " + fases.get(i).getNombre());
+            System.out.println((i + 1) + ". " + fases.get(i).getNombre());
         }
         System.out.print("Opción: ");
         int opcion = leerOpción() - 1;
@@ -741,7 +786,7 @@ public class SistemaInteractivo {
         for (int i = 0; i < estadios.size(); i++) {
             Estadio e = estadios.get(i);
             String ciudad = e.getSede() != null ? e.getSede().getCiudad() : "Sin sede";
-            System.out.println((i+1) + ". " + e.getNombre() + " - " + ciudad);
+            System.out.println((i + 1) + ". " + e.getNombre() + " - " + ciudad);
         }
         System.out.print("Opción: ");
         int opcion = leerOpción() - 1;
@@ -762,7 +807,7 @@ public class SistemaInteractivo {
         for (int i = 0; i < partidos.size(); i++) {
             Partido p = partidos.get(i);
             String estadio = p.getEstadio() != null ? p.getEstadio().getNombre() : "Sin estadio";
-            System.out.println((i+1) + ". " + p.getFecha() + " " + p.getHorario() + " - " + estadio);
+            System.out.println((i + 1) + ". " + p.getFecha() + " " + p.getHorario() + " - " + estadio);
         }
         System.out.print("Opción: ");
         int opcion = leerOpción() - 1;
@@ -781,7 +826,7 @@ public class SistemaInteractivo {
         System.out.println("Seleccione jugador:");
         for (int i = 0; i < seleccion.getJugadores().size(); i++) {
             Jugador j = seleccion.getJugadores().get(i);
-            System.out.println((i+1) + ". " + j.getNombre() + " (" + j.getDorsal() + ")");
+            System.out.println((i + 1) + ". " + j.getNombre() + " (" + j.getDorsal() + ")");
         }
         System.out.print("Opción: ");
         int opcion = leerOpción() - 1;
@@ -810,7 +855,7 @@ public class SistemaInteractivo {
         System.out.println("Seleccione jugador:");
         for (int i = 0; i < jugadores.size(); i++) {
             Jugador j = jugadores.get(i);
-            System.out.println((i+1) + ". " + j.getNombre() + " (" + j.getDorsal() + ")");
+            System.out.println((i + 1) + ". " + j.getNombre() + " (" + j.getDorsal() + ")");
         }
         System.out.print("Opción: ");
         int opcion = leerOpción() - 1;
@@ -927,4 +972,3 @@ public class SistemaInteractivo {
         }
     }
 }
-

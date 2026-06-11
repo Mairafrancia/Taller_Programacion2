@@ -15,26 +15,26 @@ public class GestionInfraestructura {
      * @throws ValoresNulosException si mundial, nuevaSede o pais es null.
      * @throws ElementoDuplicadoException si la sede ya existe en el mundial.
      */
-    public void registrarSede(Mundial mundial, Sede nuevaSede, Pais pais) 
+    public void registrarSede(Mundial mundial, Sede nuevaSede, Pais pais)
             throws ValoresNulosException, ElementoDuplicadoException {
+
         if (mundial == null || nuevaSede == null || pais == null) {
             throw new ValoresNulosException("mundial, nuevaSede o pais");
         }
-        // Vinculamos la Sede con su País
-        nuevaSede.setPais(pais);
-        
-        // El País maneja una lista de sus sedes, lo agregamos para mantener la consistencia
-        if (pais.getSedes() != null && !pais.getSedes().contains(nuevaSede)) {
-            pais.agregarSede(nuevaSede);
-        }
 
-        // Añadimos la sede al Mundial (Relación Mundial 1 --- 1..* Sede)
-        
+        // Primero validar duplicado, antes de modificar nada
         if (mundial.getSedes().contains(nuevaSede)) {
             throw new ElementoDuplicadoException("Sede " + nuevaSede.getCiudad());
         }
+
+        // Recién después vincular todo
+        nuevaSede.setPais(pais);
+        if (pais.getSedes() != null && !pais.getSedes().contains(nuevaSede)) {
+            pais.agregarSede(nuevaSede);
+        }
         mundial.agregarSede(nuevaSede);
     }
+
 
     /**
      * Registra un Estadio dentro de una Sede específica, asignando su capacidad máxima.

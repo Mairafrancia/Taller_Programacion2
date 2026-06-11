@@ -1,7 +1,4 @@
 package CLASES;
-
-
-
 public enum TipoEvento {
     GOL,
     TARJETA_AMARILLA,
