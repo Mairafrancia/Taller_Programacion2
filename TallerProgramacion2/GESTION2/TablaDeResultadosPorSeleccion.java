@@ -27,7 +27,7 @@ public class TablaDeResultadosPorSeleccion {
         for (Participacion participacion : seleccion.getParticipaciones()) {
             Partido partido = participacion.getPartido();
             if (partido == null || partido.getFase() == null) {
-                continue; // ignorar participaciones sin partido válido
+                continue; 
             }
 
             NombreFase faseActual = partido.getFase().getNombre();
@@ -39,9 +39,7 @@ public class TablaDeResultadosPorSeleccion {
                 instanciaMaxima = faseActual;
             }
 
-            Participacion participacionRival = participacion.isEsLocal()
-                    ? partido.getParticipacionVisitante()
-                    : partido.getParticipacionLocal();
+            Participacion participacionRival = participacion.isEsLocal() ? partido.getParticipacionVisitante(): partido.getParticipacionLocal();
             if (participacionRival == null) {
                 continue; // ignorar si falta el rival
             }

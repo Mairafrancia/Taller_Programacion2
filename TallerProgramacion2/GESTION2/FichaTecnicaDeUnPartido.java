@@ -30,13 +30,12 @@ public class FichaTecnicaDeUnPartido {
             ficha.add("Estadio: " + partido.getEstadio().getNombre());
         }
 
-        // RESULTADO FINAL (Movido arriba o protegido contra nulos)
+        
         ficha.add("--- Resultado Final ---");
         if (local != null && visitante != null) {
             int golesLocal = local.cantidadGoles();
             int golesVisitante = visitante.cantidadGoles();
             
-            // CORRECCIÓN: Validación segura por si la selección es nula
             String nombreLocal = (local.getSeleccion() != null) ? local.getSeleccion().getNombreFederacion() : "Local";
             String nombreVisitante = (visitante.getSeleccion() != null) ? visitante.getSeleccion().getNombreFederacion() : "Visitante";
             
@@ -57,7 +56,6 @@ public class FichaTecnicaDeUnPartido {
         } else {
             ficha.add("Alineación local no disponible");
         }
-
         // ALINEACIÓN VISITANTE
         ficha.add("--- Alineación Visitante ---");
         if (visitante != null && visitante.getSeleccion() != null) {
@@ -70,10 +68,8 @@ public class FichaTecnicaDeUnPartido {
         } else {
             ficha.add("Alineación visitante no disponible");
         }
-
         // EVENTOS DEL PARTIDO
         ficha.add("--- Eventos ---");
-        // CORRECCIÓN: Validar que la lista de eventos no sea nula antes de preguntar si está vacía
         if (partido.getEventos() == null || partido.getEventos().isEmpty()) {
             ficha.add("Sin eventos registrados");
         } else {
@@ -84,7 +80,6 @@ public class FichaTecnicaDeUnPartido {
                 }
             }
         }
-
         return ficha;
     }
 }

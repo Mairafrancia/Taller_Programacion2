@@ -4,7 +4,6 @@ import CLASES.*;
 //import java.util.ArrayList;
 
 public class EstadisticasDeSedes {
-
     /**
      * Devuelve la cantidad de partidos jugados en un estadio específico.
      */
@@ -14,7 +13,6 @@ public class EstadisticasDeSedes {
         }
         return estadio.getPartidos().size();
     }
-
     /**
      * Devuelve la cantidad de partidos jugados en todos los estadios
      * de una ciudad específica, recorriendo las sedes del mundial.
@@ -24,14 +22,11 @@ public class EstadisticasDeSedes {
         if (mundial == null || ciudad == null || ciudad.isEmpty()) {
             return -1;
         }
-
         int totalPartidos = 0;
-
         for (Sede sede : mundial.getSedes()) {
             if (sede == null || sede.getCiudad() == null) {
                 continue;
             }
-
             // Mantenemos el ignoreCase que es clave para las búsquedas
             if (sede.getCiudad().equalsIgnoreCase(ciudad)) {
                 for (Estadio e : sede.getEstadios()) {
@@ -41,7 +36,6 @@ public class EstadisticasDeSedes {
                 }
             }
         }
-
         return totalPartidos;
     }
 }
