@@ -18,7 +18,6 @@ public class EstadisticasDeSedes {
      * de una ciudad específica, recorriendo las sedes del mundial.
      */
     public int partidosPorCiudad(Mundial mundial, String ciudad) {
-        // Quitamos trim() y dejamos solo el chequeo de nulo y vacío directo
         if (mundial == null || ciudad == null || ciudad.isEmpty()) {
             return -1;
         }
