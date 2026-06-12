@@ -33,7 +33,7 @@ public class RegistrosEventosCampos {
 
         // Registramos el evento en el Partido (lanza excepciones si hay problemas)
         if (partido.getEventos() != null) {
-            partido.agregarEvento(nuevoEvento);
+            partido.getEventos().add(nuevoEvento);  // ← único cambio
         } else {
             throw new ValoresNulosException("lista de eventos del partido");
         }

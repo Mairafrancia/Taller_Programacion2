@@ -75,10 +75,22 @@ public class CargadorDatos {
         Jugador neymar = new Jugador("Neymar", 19920205, 10, null, 0, 0, null);
         registrarJugador(ad, selBra, neymar);
 
+        // ===== ÁRBITROS =====
+        Arbitro arbitro1 = new Arbitro("Referee Uno", 19700101, 10, argentina);
+        Arbitro arbitro2 = new Arbitro("Referee Dos", 19720101, 8, brasil);
+
         // ===== PARTIDO 1: AFA vs CBF =====
         Partido partido1 = new Partido(20261101, 2000, 0, 0, estadio1, faseGrupos);
         estadio1.agregarPartido(partido1);
         faseGrupos.agregarPartido(partido1);
+
+        // Árbitro partido 1
+        try {
+            Arbitraje arbitraje1 = new Arbitraje(CategoriaArbitro.PRINCIPAL, partido1, arbitro1);
+            partido1.agregarArbitraje(arbitraje1);
+        } catch (Exception e) {
+            System.out.println("Error al cargar arbitro partido 1: " + e.getMessage());
+        }
 
         Participacion pLocal1 = new Participacion(true, partido1, selArg);
         selArg.agregarParticipacion(pLocal1);
@@ -113,6 +125,14 @@ public class CargadorDatos {
         Partido partido2 = new Partido(20261115, 1800, 0, 0, estadio2, faseGrupos);
         estadio2.agregarPartido(partido2);
         faseGrupos.agregarPartido(partido2);
+
+        // Árbitro partido 2
+        try {
+            Arbitraje arbitraje2 = new Arbitraje(CategoriaArbitro.PRINCIPAL, partido2, arbitro2);
+            partido2.agregarArbitraje(arbitraje2);
+        } catch (Exception e) {
+            System.out.println("Error al cargar arbitro partido 2: " + e.getMessage());
+        }
 
         Participacion pLocal2 = new Participacion(true, partido2, selBra);
         selBra.agregarParticipacion(pLocal2);
