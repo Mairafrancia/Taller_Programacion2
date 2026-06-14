@@ -1,17 +1,6 @@
 package MAIN;
 import CLASES.*; import GESTION1.*; import GESTION2.*; import EXCEPCIONES.*; import java.util.ArrayList;import java.util.Scanner;
-/**
- * Sistema interactivo para la gestión del Torneo Mundial 2026.
- * Permite al usuario:
- * - Gestionar infraestructura, delegaciones y organizacion deportiva
- * - Registrar eventos en tiempo real
- * - Consultar reportes de gestion
- *
- * NOTA: Todos los métodos que piden datos por consola usan los helpers
- * leerEnteroValido() y leerTextoNoVacio(), que reintentan automáticamente
- * hasta que el usuario ingrese un dato válido, en lugar de cancelar la
- * operación ante el primer error de tipeo.
- */
+
 public class SistemaInteractivo {
     private Scanner scanner;
     private Mundial mundial;
@@ -102,53 +91,61 @@ public class SistemaInteractivo {
     // -------------------------------------------------------------------------
 
     private void menuInfraestructura() {
-        System.out.print("\n| GESTION DE INFRAESTRUCTURA |\n"
-            + "1. Registrar Nueva Sede\n2. Registrar Estadio en Sede\n3. Ver Sedes Registradas\n0. Volver\nOpcion: ");
-        switch (leerOpcion()) {
-            case 1: registrarSede(); break;
-            case 2: registrarEstadio(); break;
-            case 3: verSedes(); break;
-            case 0: break;
-            default: System.out.println("Opcion no valida.");
+        while (true) {
+            System.out.print("\n| GESTION DE INFRAESTRUCTURA |\n"
+                + "1. Registrar Nueva Sede\n2. Registrar Estadio en Sede\n3. Ver Sedes Registradas\n0. Volver\nOpcion: ");
+            switch (leerOpcion()) {
+                case 1: registrarSede(); break;
+                case 2: registrarEstadio(); break;
+                case 3: verSedes(); break;
+                case 0: return;
+                default: System.out.println("Opcion no valida.");
+            }
         }
     }
 
     private void menuDelegaciones() {
-        System.out.print("\n| ADMINISTRACION DELEGACIONES |\n"
-            + "1. Registrar Seleccion\n2. Registrar Jugador\n3. Registrar Director Tecnico\n"
-            + "4. Registrar Cuerpo Tecnico\n5. Ver Selecciones\n0. Volver\nOpcion: ");
-        switch (leerOpcion()) {
-            case 1: registrarSeleccion(); break;
-            case 2: registrarJugador(); break;
-            case 3: registrarDirectorTecnico(); break;
-            case 4: registrarCuerpoTecnico(); break;
-            case 5: verSelecciones(); break;
-            case 0: break;
-            default: System.out.println("Opcion no valida.");
+        while (true) {
+            System.out.print("\n| ADMINISTRACION DELEGACIONES |\n"
+                + "1. Registrar Seleccion\n2. Registrar Jugador\n3. Registrar Director Tecnico\n"
+                + "4. Registrar Cuerpo Tecnico\n5. Ver Selecciones\n0. Volver\nOpcion: ");
+            switch (leerOpcion()) {
+                case 1: registrarSeleccion(); break;
+                case 2: registrarJugador(); break;
+                case 3: registrarDirectorTecnico(); break;
+                case 4: registrarCuerpoTecnico(); break;
+                case 5: verSelecciones(); break;
+                case 0: return;
+                default: System.out.println("Opcion no valida.");
+            }
         }
     }
 
     private void menuOrganizacionDeportiva() {
-        System.out.print("\n| ORGANIZACION DEPORTIVA |\n"
-            + "1. Registrar Grupo\n2. Planificar Partido\n3. Asignar Equipos a Partido\n4. Registrar Arbitraje\n0. Volver\nOpcion: ");
-        switch (leerOpcion()) {
-            case 1: registrarGrupo(); break;
-            case 2: planificarPartido(); break;
-            case 3: asignarEquiposAPartido(); break;
-            case 4: registrarArbitraje(); break;
-            case 0: break;
-            default: System.out.println("Opcion no valida.");
+        while (true) {
+            System.out.print("\n| ORGANIZACION DEPORTIVA |\n"
+                + "1. Registrar Grupo\n2. Planificar Partido\n3. Asignar Equipos a Partido\n4. Registrar Arbitraje\n0. Volver\nOpcion: ");
+            switch (leerOpcion()) {
+                case 1: registrarGrupo(); break;
+                case 2: planificarPartido(); break;
+                case 3: asignarEquiposAPartido(); break;
+                case 4: registrarArbitraje(); break;
+                case 0: return;
+                default: System.out.println("Opcion no valida.");
+            }
         }
     }
 
     private void menuRegistroEventos() {
-        System.out.print("\n| REGISTRO DE EVENTOS |\n"
-            + "1. Registrar Evento\n2. Ver Eventos de un Partido\n0. Volver\nOpcion: ");
-        switch (leerOpcion()) {
-            case 1: registrarEvento(); break;
-            case 2: verEventosPartido(); break;
-            case 0: break;
-            default: System.out.println("Opcion no valida.");
+        while (true) {
+            System.out.print("\n| REGISTRO DE EVENTOS |\n"
+                + "1. Registrar Evento\n2. Ver Eventos de un Partido\n0. Volver\nOpcion: ");
+            switch (leerOpcion()) {
+                case 1: registrarEvento(); break;
+                case 2: verEventosPartido(); break;
+                case 0: return;
+                default: System.out.println("Opcion no valida.");
+            }
         }
     }
 
@@ -157,13 +154,16 @@ public class SistemaInteractivo {
     // -------------------------------------------------------------------------
 
     private void registrarSede() {
-        String nombrePais = leerTextoNoVacio("Nombre del Pais: ", "El nombre del pais no puede estar vacio.");
-        System.out.print("Bandera: ");
-        String bandera = scanner.nextLine();
-        String ciudad = leerTextoNoVacio("Ciudad: ", "La ciudad no puede estar vacia.");
-        String clima = leerTextoNoVacio("Clima: ", "El clima no puede estar vacio.");
-        String zonaHoraria = leerTextoNoVacio("Zona horaria: ", "La zona horaria no puede estar vacia.");
-
+        String nombrePais  = leerNombre("Nombre del Pais: ",
+                                        "El nombre del pais solo puede contener letras.");
+        String bandera     = leerArchivoImagen("Bandera (ej: arg.png): ",
+                                        "Formato invalido. Use nombre.extension (ej: arg.png, ireland.jpg).");
+        String ciudad      = leerNombre("Ciudad: ",
+                                        "La ciudad solo puede contener letras.");
+        String clima       = leerNombre("Clima: ",
+                                        "El clima solo puede contener letras.");
+        String zonaHoraria = leerZonaHoraria("Zona horaria (ej. GMT-3): ",
+                                              "Formato invalido. Use GMT+N o GMT-N (ej: GMT-3, GMT+1).");
         try {
             Pais pais = new Pais();
             pais.setNombre(nombrePais);
@@ -184,8 +184,9 @@ public class SistemaInteractivo {
         ArrayList<Sede> sedes = mundial.getSedes();
         if (sedes == null || sedes.isEmpty()) { System.out.println("No hay sedes registradas."); return; }
 
-        String nombre = leerTextoNoVacio("Nombre del Estadio: ", "El nombre no puede estar vacio.");
-        int capacidad = leerEnteroValido("Capacidad: ", "La capacidad debe ser mayor a 0.", v -> v > 0);
+        String nombre   = leerNombre("Nombre del Estadio: ",
+                                     "El nombre solo puede contener letras.");
+        int capacidad   = leerEnteroValido("Capacidad: ", "La capacidad debe ser mayor a 0.", v -> v > 0);
 
         System.out.println("Sedes disponibles:");
         for (int i = 0; i < sedes.size(); i++) System.out.println((i + 1) + ". " + sedes.get(i).getCiudad());
@@ -222,7 +223,13 @@ public class SistemaInteractivo {
         if (grupo == null) return;
         Pais pais = seleccionarPais("Seleccione el pais:");
         if (pais == null) return;
-        String nombre = leerTextoNoVacio("Nombre de la federacion: ", "El nombre no puede estar vacio.");
+        if (pais.getSeleccion() != null) {
+            System.out.println("Error: " + pais.getNombre() + " ya tiene una seleccion registrada ("
+                + pais.getSeleccion().getNombreFederacion() + "). Un pais solo puede tener una seleccion.");
+            return;
+        }
+        String nombre = leerNombre("Nombre de la federacion: ",
+                                   "El nombre solo puede contener letras.");
         Seleccion sel = new Seleccion();
         sel.setNombreFederacion(nombre);
         sel.setRankingFIFA(0);
@@ -237,9 +244,10 @@ public class SistemaInteractivo {
     private void registrarJugador() {
         Seleccion seleccion = seleccionarSeleccion("Seleccione la seleccion:");
         if (seleccion == null) return;
-        String nombre = leerTextoNoVacio("Nombre del jugador: ", "El nombre no puede estar vacio.");
+        String nombre = leerNombre("Nombre del jugador: ",
+                                   "El nombre solo puede contener letras.");
         int dorsal = leerEnteroValido("Dorsal: ", "El dorsal debe ser mayor a 0.", v -> v > 0);
-        int fecha = leerEnteroValido("Fecha nacimiento (YYYYMMDD): ", "Fecha invalida.", v -> v > 0);
+        int fecha  = leerFecha("Fecha nacimiento (YYYYMMDD): ");
         Jugador jugador = new Jugador();
         jugador.setNombre(nombre);
         jugador.setDorsal(dorsal);
@@ -255,9 +263,10 @@ public class SistemaInteractivo {
     private void registrarDirectorTecnico() {
         Seleccion seleccion = seleccionarSeleccion("Seleccione la seleccion:");
         if (seleccion == null) return;
-        String nombre = leerTextoNoVacio("Nombre DT: ", "El nombre no puede estar vacio.");
-        int ano = leerEnteroValido("Año de nacimiento: ", "Año invalido.", v -> v > 0);
-        DirectoresTecnicos dt = new DirectoresTecnicos(nombre, ano, 20000101);
+        String nombre = leerNombre("Nombre DT: ",
+                                   "El nombre solo puede contener letras.");
+        int fechaNac = leerFecha("Fecha de nacimiento (YYYYMMDD): ");
+        DirectoresTecnicos dt = new DirectoresTecnicos(nombre, fechaNac, 20000101);
         try {
             ad.registrarDirectorTecnico(seleccion, dt);
             System.out.println("Director tecnico registrado: " + nombre);
@@ -269,7 +278,8 @@ public class SistemaInteractivo {
     private void registrarCuerpoTecnico() {
         Seleccion seleccion = seleccionarSeleccion("Seleccione la seleccion:");
         if (seleccion == null) return;
-        String nombre = leerTextoNoVacio("Nombre integrante: ", "El nombre no puede estar vacio.");
+        String nombre = leerNombre("Nombre integrante: ",
+                                   "El nombre solo puede contener letras.");
 
         Rol rolElegido = null;
         while (rolElegido == null) {
@@ -316,8 +326,8 @@ public class SistemaInteractivo {
     private void registrarGrupo() {
         Fase fase = seleccionarFase("Seleccione la fase:");
         if (fase == null) return;
-        String id = leerTextoNoVacio("Id grupo: ", "El id no puede estar vacio.");
-        String desc = leerTextoNoVacio("Descripcion: ", "La descripcion no puede estar vacia.");
+        String id   = leerTextoNoVacio("Id grupo (ej: A, B): ", "El id no puede estar vacio.");
+        String desc = leerNombre("Descripcion: ", "La descripcion solo puede contener letras.");
         Grupo grupo = new Grupo(id, desc, fase);
         try {
             od.registrarGrupoEnFase(fase, grupo);
@@ -332,8 +342,10 @@ public class SistemaInteractivo {
         if (fase == null) return;
         Estadio estadio = seleccionarEstadio("Seleccione el estadio:");
         if (estadio == null) return;
-        int fecha = leerEnteroValido("Fecha (YYYYMMDD): ", "Fecha invalida.", v -> v > 0);
-        int horario = leerEnteroValido("Horario (HHMM): ", "Horario invalido.", v -> v > 0);
+        int fecha   = leerFecha("Fecha (YYYYMMDD): ");
+        int horario = leerEnteroValido("Horario (HHMM, ej: 2000): ",
+                                       "Horario invalido. Use formato HHMM entre 0000 y 2359.",
+                                       v -> v >= 0 && v <= 2359);
         Partido partido = new Partido();
         partido.setFecha(fecha);
         partido.setHorario(horario);
@@ -374,9 +386,12 @@ public class SistemaInteractivo {
     private void registrarArbitraje() {
         Partido partido = seleccionarPartido("Seleccione el partido:");
         if (partido == null) return;
-        String nombre = leerTextoNoVacio("Nombre del arbitro: ", "El nombre no puede estar vacio.");
-        int fecNacimiento = leerEnteroValido("Fecha nacimiento (YYYYMMDD): ", "Fecha invalida.", v -> v > 0);
-        int anios = leerEnteroValido("Anos de experiencia: ", "Los anos no pueden ser negativos.", v -> v >= 0);
+        String nombre = leerNombre("Nombre del arbitro: ",
+                                   "El nombre solo puede contener letras.");
+        int fecNacimiento = leerFecha("Fecha nacimiento (YYYYMMDD): ");
+        int anios = leerEnteroValido("Anos de experiencia: ",
+                                     "Los anos deben ser entre 0 y 50.",
+                                     v -> v >= 0 && v <= 50);
         Pais paisArbitro = seleccionarPais("Seleccione el pais del arbitro:");
         if (paisArbitro == null) return;
 
@@ -434,7 +449,9 @@ public class SistemaInteractivo {
             }
         }
 
-        int minuto = leerEnteroValido("Minuto: ", "El minuto debe ser mayor a 0.", v -> v > 0);
+        int minuto = leerEnteroValido("Minuto (1-120): ",
+                                      "El minuto debe estar entre 1 y 120.",
+                                      v -> v >= 1 && v <= 120);
 
         try {
             Evento evento = new Evento(tipoElegido, minuto, jugador);
@@ -513,14 +530,13 @@ public class SistemaInteractivo {
             if (estadio == null) return;
             System.out.println("Partidos en " + estadio.getNombre() + ": " + estadisticasSedes.partidosPorEstadio(estadio));
         } else {
-            System.out.print("Ciudad: ");
-            String ciudad = scanner.nextLine().trim();
+            String ciudad = leerNombre("Ciudad: ", "La ciudad solo puede contener letras.");
             System.out.println("Partidos en " + ciudad + ": " + estadisticasSedes.partidosPorCiudad(mundial, ciudad));
         }
     }
 
     private void mostrarInfoMundial() {
-    System.out.println("\nInformacion del Mundial: \n" + "Año: " + mundial.getAnio() + "\n" + "Mascota: " + mundial.getMascota() );
+        System.out.println("\nInformacion del Mundial: \n" + "Año: " + mundial.getAnio() + "\n" + "Mascota: " + mundial.getMascota());
         if (mundial.getSedes() != null) System.out.println("Sedes registradas: " + mundial.getSedes().size());
     }
 
@@ -716,37 +732,73 @@ public class SistemaInteractivo {
         catch (NumberFormatException e) { return -1; }
     }
 
-    /**
-     * Pide un texto no vacio por consola, reintentando hasta que el usuario
-     * ingrese al menos un caracter no en blanco.
-     */
     private String leerTextoNoVacio(String prompt, String mensajeError) {
         while (true) {
             System.out.print(prompt);
             String texto = scanner.nextLine();
-            if (!texto.trim().isEmpty()) {
+            if (!texto.trim().isEmpty()) return texto;
+            System.out.println("Error: " + mensajeError + " Intente nuevamente.");
+        }
+    }
+
+    /**
+     * Pide un nombre de archivo de imagen con formato valido (letras/numeros/guion/guion_bajo
+     * seguido de punto y extension conocida: png, jpg, jpeg, gif, bmp, svg).
+     * Rechaza cualquier texto que no cumpla ese patron.
+     */
+    private String leerArchivoImagen(String prompt, String mensajeError) {
+        while (true) {
+            System.out.print(prompt);
+            String texto = scanner.nextLine().trim();
+            if (!texto.isEmpty() && texto.matches("[a-zA-Z0-9_\\-]+\\.(png|jpg|jpeg|gif|bmp|svg)")) {
                 return texto;
             }
             System.out.println("Error: " + mensajeError + " Intente nuevamente.");
         }
     }
 
-    /**
-     * Pide un numero entero por consola, reintentando hasta que el usuario
-     * ingrese un numero valido que cumpla la condicion indicada.
-     * Si el texto ingresado no es numerico, o no cumple la condicion,
-     * se muestra el mensaje de error y se vuelve a pedir el dato
-     * (no se cancela la operacion).
-     */
+    private String leerNombre(String prompt, String mensajeError) {
+        while (true) {
+            System.out.print(prompt);
+            String texto = scanner.nextLine().trim();
+            if (!texto.isEmpty() && texto.matches("[a-zA-ZáéíóúÁÉÍÓÚüÜñÑàèìòùâêîôûäëïöü\\s\\-']+")) {
+                return texto;
+            }
+            System.out.println("Error: " + mensajeError + " Intente nuevamente.");
+        }
+    }
+
+    private String leerZonaHoraria(String prompt, String mensajeError) {
+        while (true) {
+            System.out.print(prompt);
+            String texto = scanner.nextLine().trim().toUpperCase();
+            if (texto.matches("GMT[+-]\\d{1,2}")) return texto;
+            System.out.println("Error: " + mensajeError + " Intente nuevamente.");
+        }
+    }
+
+    private int leerFecha(String prompt) {
+        while (true) {
+            System.out.print(prompt);
+            String entrada = scanner.nextLine().trim();
+            if (entrada.matches("\\d{8}")) {
+                int mes = Integer.parseInt(entrada.substring(4, 6));
+                int dia = Integer.parseInt(entrada.substring(6, 8));
+                if (mes >= 1 && mes <= 12 && dia >= 1 && dia <= 31) {
+                    return Integer.parseInt(entrada);
+                }
+            }
+            System.out.println("Error: Fecha invalida. Use el formato YYYYMMDD (ej: 19901204). Intente nuevamente.");
+        }
+    }
+
     private int leerEnteroValido(String prompt, String mensajeError, java.util.function.IntPredicate condicion) {
         while (true) {
             System.out.print(prompt);
             String entrada = scanner.nextLine().trim();
             try {
                 int valor = Integer.parseInt(entrada);
-                if (condicion.test(valor)) {
-                    return valor;
-                }
+                if (condicion.test(valor)) return valor;
                 System.out.println("Error: " + mensajeError + " Intente nuevamente.");
             } catch (NumberFormatException e) {
                 System.out.println("Entrada no valida. " + mensajeError + " Intente nuevamente.");

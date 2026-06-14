@@ -14,13 +14,13 @@ public class CargadorDatos {
         // =====================================================================
         // PAÍSES
         // =====================================================================
-        Pais argentina = new Pais("Argentina", "arg.png", null);
-        Pais brasil    = new Pais("Brasil",    "bra.png", null);
-        Pais uruguay   = new Pais("Uruguay",   "uru.png", null);
-        Pais colombia  = new Pais("Colombia",  "col.png", null);
-        Pais francia   = new Pais("Francia",   "fra.png", null);
-        Pais alemania  = new Pais("Alemania",  "ger.png", null);
-        Pais espania   = new Pais("España",    "esp.png", null);
+        Pais argentina = new Pais("Argentina", "arg", null);
+        Pais brasil    = new Pais("Brasil",    "bra", null);
+        Pais uruguay   = new Pais("Uruguay",   "uru", null);
+        Pais colombia  = new Pais("Colombia",  "col", null);
+        Pais francia   = new Pais("Francia",   "fra", null);
+        Pais alemania  = new Pais("Alemania",  "ger", null);
+        Pais espania   = new Pais("España",    "esp", null);
 
         // =====================================================================
         // SEDES
@@ -67,10 +67,6 @@ public class CargadorDatos {
         // =====================================================================
         // FASES
         // =====================================================================
-        // IMPORTANTE: NombreFase debe estar ordenado de menor a mayor en el enum
-        // para que TablaDeResultadosPorSeleccion.ordinal() funcione correctamente:
-        // GRUPOS, OCTAVOS, CUARTOS, SEMIFINAL, FINAL
-
         Fase faseGrupos    = new Fase();  faseGrupos.setNombre(NombreFase.GRUPOS);
         Fase faseSemifinal = new Fase();  faseSemifinal.setNombre(NombreFase.SEMIFINAL);
         Fase faseFinal     = new Fase();  faseFinal.setNombre(NombreFase.FINAL);
@@ -94,7 +90,7 @@ public class CargadorDatos {
         Arbitro arbitro1 = new Arbitro("Roberto Tobar",    19750310, 15, colombia);
         Arbitro arbitro2 = new Arbitro("Clement Turpin",   19820118, 12, francia);
         Arbitro arbitro3 = new Arbitro("Felix Brych",      19750808, 18, alemania);
-        Arbitro arbitro4 = new Arbitro("Daniele Orsato",   19750205, 20, argentina); // usamos arg como placeholder
+        Arbitro arbitro4 = new Arbitro("Daniele Orsato",   19750205, 20, argentina);
 
         // =====================================================================
         // DELEGACIONES — GRUPO A
@@ -103,7 +99,7 @@ public class CargadorDatos {
 
         // --- ARGENTINA ---
         DirectoresTecnicos dt_arg = new DirectoresTecnicos("Lionel Scaloni", 1978, 2018);
-        Seleccion selArg = new Seleccion("AFA", "arg_kit.png", "arg_alt.png", false, 1, grupoA, argentina);
+        Seleccion selArg = new Seleccion("AFA", "argkit", "argalt", false, 1, grupoA, argentina);
         selArg.agregarDirectoresTecnicos(dt_arg);
         argentina.setSeleccion(selArg);
         grupoA.agregarSeleccion(selArg);
@@ -119,7 +115,7 @@ public class CargadorDatos {
 
         // --- BRASIL ---
         DirectoresTecnicos dt_bra = new DirectoresTecnicos("Carlo Ancelotti", 1959, 2024);
-        Seleccion selBra = new Seleccion("CBF", "bra_kit.png", "bra_alt.png", false, 5, grupoA, brasil);
+        Seleccion selBra = new Seleccion("CBF", "brakit", "braalt", false, 5, grupoA, brasil);
         selBra.agregarDirectoresTecnicos(dt_bra);
         brasil.setSeleccion(selBra);
         grupoA.agregarSeleccion(selBra);
@@ -135,15 +131,15 @@ public class CargadorDatos {
 
         // --- URUGUAY ---
         DirectoresTecnicos dt_uru = new DirectoresTecnicos("Marcelo Bielsa", 1955, 2023);
-        Seleccion selUru = new Seleccion("AUF", "uru_kit.png", "uru_alt.png", false, 6, grupoA, uruguay);
+        Seleccion selUru = new Seleccion("AUF", "urukit", "urualt", false, 6, grupoA, uruguay);
         selUru.agregarDirectoresTecnicos(dt_uru);
         uruguay.setSeleccion(selUru);
         grupoA.agregarSeleccion(selUru);
 
-        Jugador suarez   = new Jugador("Luis Suarez",     19870124,  9, null, 0, 0, null);
-        Jugador cavani   = new Jugador("Edinson Cavani",  19870214, 21, null, 0, 0, null);
-        Jugador valverde = new Jugador("Federico Valverde", 19980722, 8, null, 0, 0, null);
-        Jugador bentancur = new Jugador("Rodrigo Bentancur", 19971025, 6, null, 0, 0, null);
+        Jugador suarez    = new Jugador("Luis Suarez",        19870124,  9, null, 0, 0, null);
+        Jugador cavani    = new Jugador("Edinson Cavani",     19870214, 21, null, 0, 0, null);
+        Jugador valverde  = new Jugador("Federico Valverde",  19980722,  8, null, 0, 0, null);
+        Jugador bentancur = new Jugador("Rodrigo Bentancur",  19971025,  6, null, 0, 0, null);
 
         for (Jugador j : new Jugador[]{suarez, cavani, valverde, bentancur})
             registrarJugador(ad, selUru, j);
@@ -154,46 +150,45 @@ public class CargadorDatos {
 
         // --- FRANCIA ---
         DirectoresTecnicos dt_fra = new DirectoresTecnicos("Didier Deschamps", 1968, 2012);
-        Seleccion selFra = new Seleccion("FFF", "fra_kit.png", "fra_alt.png", false, 2, grupoB, francia);
+        Seleccion selFra = new Seleccion("FFF", "frakit", "fraalt", false, 2, grupoB, francia);
         selFra.agregarDirectoresTecnicos(dt_fra);
         francia.setSeleccion(selFra);
         grupoB.agregarSeleccion(selFra);
 
-        Jugador mbappe   = new Jugador("Kylian Mbappe",   19981220,  9, null, 0, 0, null);
-        Jugador griezmann = new Jugador("Antoine Griezmann", 19910321, 7, null, 0, 0, null);
-        Jugador tchouameni = new Jugador("Aurelien Tchouameni", 20000116, 8, null, 0, 0, null);
-        Jugador kante    = new Jugador("N'Golo Kante",    19910329, 13, null, 0, 0, null);
+        Jugador mbappe     = new Jugador("Kylian Mbappe",        19981220,  9, null, 0, 0, null);
+        Jugador griezmann  = new Jugador("Antoine Griezmann",    19910321,  7, null, 0, 0, null);
+        Jugador tchouameni = new Jugador("Aurelien Tchouameni",  20000116,  8, null, 0, 0, null);
+        Jugador kante      = new Jugador("N'Golo Kante",         19910329, 13, null, 0, 0, null);
 
         for (Jugador j : new Jugador[]{mbappe, griezmann, tchouameni, kante})
             registrarJugador(ad, selFra, j);
 
         // --- ALEMANIA ---
         DirectoresTecnicos dt_ger = new DirectoresTecnicos("Julian Nagelsmann", 1987, 2023);
-        Seleccion selAle = new Seleccion("DFB", "ger_kit.png", "ger_alt.png", false, 4, grupoB, alemania);
+        Seleccion selAle = new Seleccion("DFB", "gerkit", "geralt", false, 4, grupoB, alemania);
         selAle.agregarDirectoresTecnicos(dt_ger);
         alemania.setSeleccion(selAle);
         grupoB.agregarSeleccion(selAle);
 
-        Jugador mueller   = new Jugador("Thomas Mueller",  19891313, 25, null, 0, 0, null);
-        Jugador sane      = new Jugador("Leroy Sane",      19960111, 19, null, 0, 0, null);
-        Jugador kroos     = new Jugador("Toni Kroos",      19900104,  8, null, 0, 0, null);
-        Jugador gnabry    = new Jugador("Serge Gnabry",    19950714, 10, null, 0, 0, null);
+        Jugador mueller = new Jugador("Thomas Mueller", 19891313, 25, null, 0, 0, null);
+        Jugador sane    = new Jugador("Leroy Sane",     19960111, 19, null, 0, 0, null);
+        Jugador kroos   = new Jugador("Toni Kroos",     19900104,  8, null, 0, 0, null);
+        Jugador gnabry  = new Jugador("Serge Gnabry",   19950714, 10, null, 0, 0, null);
 
         for (Jugador j : new Jugador[]{mueller, sane, kroos, gnabry})
             registrarJugador(ad, selAle, j);
 
         // --- ESPAÑA ---
-        // España no tiene sede propia en este ejemplo, pero igual participa
         DirectoresTecnicos dt_esp = new DirectoresTecnicos("Luis de la Fuente", 1966, 2022);
-        Seleccion selEsp = new Seleccion("RFEF", "esp_kit.png", "esp_alt.png", false, 3, grupoB, espania);
+        Seleccion selEsp = new Seleccion("RFEF", "espkit", "espalt", false, 3, grupoB, espania);
         selEsp.agregarDirectoresTecnicos(dt_esp);
         espania.setSeleccion(selEsp);
         grupoB.agregarSeleccion(selEsp);
 
-        Jugador yamal    = new Jugador("Lamine Yamal",   20070716, 22, null, 0, 0, null);
-        Jugador morata   = new Jugador("Alvaro Morata",  19920223,  7, null, 0, 0, null);
-        Jugador pedri    = new Jugador("Pedri",          20021125,  8, null, 0, 0, null);
-        Jugador rodri    = new Jugador("Rodri",          19960622, 16, null, 0, 0, null);
+        Jugador yamal  = new Jugador("Lamine Yamal",  20070716, 22, null, 0, 0, null);
+        Jugador morata = new Jugador("Alvaro Morata", 19920223,  7, null, 0, 0, null);
+        Jugador pedri  = new Jugador("Pedri",         20021125,  8, null, 0, 0, null);
+        Jugador rodri  = new Jugador("Rodri",         19960622, 16, null, 0, 0, null);
 
         for (Jugador j : new Jugador[]{yamal, morata, pedri, rodri})
             registrarJugador(ad, selEsp, j);
@@ -209,15 +204,15 @@ public class CargadorDatos {
 
         agregarArbitraje(partido1, CategoriaArbitro.PRINCIPAL, arbitro1);
 
-        Participacion p1Local    = new Participacion(true,  partido1, selArg);
-        Participacion p1Visit    = new Participacion(false, partido1, selBra);
+        Participacion p1Local = new Participacion(true,  partido1, selArg);
+        Participacion p1Visit = new Participacion(false, partido1, selBra);
         selArg.agregarParticipacion(p1Local);
         selBra.agregarParticipacion(p1Visit);
         partido1.asignarParticipacionesSinExcepcion(p1Local, p1Visit);
 
-        agregarEvento(partido1, messi,    TipoEvento.GOL,             23);
-        agregarEvento(partido1, martinez, TipoEvento.GOL,             67);
-        agregarEvento(partido1, vinicius, TipoEvento.GOL,             80);
+        agregarEvento(partido1, messi,    TipoEvento.GOL,              23);
+        agregarEvento(partido1, martinez, TipoEvento.GOL,              67);
+        agregarEvento(partido1, vinicius, TipoEvento.GOL,              80);
         agregarEvento(partido1, diMaria,  TipoEvento.TARJETA_AMARILLA, 45);
         agregarEvento(partido1, neymar,   TipoEvento.TARJETA_ROJA,     70);
 
@@ -234,8 +229,8 @@ public class CargadorDatos {
         selArg.agregarParticipacion(p2Visit);
         partido2.asignarParticipacionesSinExcepcion(p2Local, p2Visit);
 
-        agregarEvento(partido2, suarez,   TipoEvento.GOL, 30);   // Uruguay marca
-        agregarEvento(partido2, messi,    TipoEvento.GOL, 85);   // Argentina empata
+        agregarEvento(partido2, suarez,   TipoEvento.GOL,              30);
+        agregarEvento(partido2, messi,    TipoEvento.GOL,              85);
         agregarEvento(partido2, valverde, TipoEvento.TARJETA_AMARILLA, 60);
 
         // --- Partido 3: BRA vs URU (Brasil gana 3-0) ---
@@ -251,11 +246,11 @@ public class CargadorDatos {
         selUru.agregarParticipacion(p3Visit);
         partido3.asignarParticipacionesSinExcepcion(p3Local, p3Visit);
 
-        agregarEvento(partido3, vinicius, TipoEvento.GOL, 10);
-        agregarEvento(partido3, rodrygo,  TipoEvento.GOL, 55);
-        agregarEvento(partido3, raphinha, TipoEvento.GOL, 78);
-        agregarEvento(partido3, cavani,   TipoEvento.TARJETA_AMARILLA, 40);
-        agregarEvento(partido3, bentancur, TipoEvento.TARJETA_ROJA,    88);
+        agregarEvento(partido3, vinicius,  TipoEvento.GOL,              10);
+        agregarEvento(partido3, rodrygo,   TipoEvento.GOL,              55);
+        agregarEvento(partido3, raphinha,  TipoEvento.GOL,              78);
+        agregarEvento(partido3, cavani,    TipoEvento.TARJETA_AMARILLA, 40);
+        agregarEvento(partido3, bentancur, TipoEvento.TARJETA_ROJA,     88);
 
         // =====================================================================
         // PARTIDOS — GRUPO B
@@ -274,8 +269,8 @@ public class CargadorDatos {
         selAle.agregarParticipacion(p4Visit);
         partido4.asignarParticipacionesSinExcepcion(p4Local, p4Visit);
 
-        agregarEvento(partido4, mbappe,    TipoEvento.GOL, 18);
-        agregarEvento(partido4, griezmann, TipoEvento.GOL, 72);
+        agregarEvento(partido4, mbappe,    TipoEvento.GOL,              18);
+        agregarEvento(partido4, griezmann, TipoEvento.GOL,              72);
         agregarEvento(partido4, kroos,     TipoEvento.TARJETA_AMARILLA, 55);
 
         // --- Partido 5: ESP vs ALE (Empate 1-1) ---
@@ -291,8 +286,8 @@ public class CargadorDatos {
         selAle.agregarParticipacion(p5Visit);
         partido5.asignarParticipacionesSinExcepcion(p5Local, p5Visit);
 
-        agregarEvento(partido5, yamal,  TipoEvento.GOL, 25);    // España
-        agregarEvento(partido5, sane,   TipoEvento.GOL, 90);    // Alemania empata
+        agregarEvento(partido5, yamal,  TipoEvento.GOL,              25);
+        agregarEvento(partido5, sane,   TipoEvento.GOL,              90);
         agregarEvento(partido5, gnabry, TipoEvento.TARJETA_AMARILLA, 66);
 
         // --- Partido 6: FRA vs ESP (España gana 1-0) ---
@@ -308,10 +303,10 @@ public class CargadorDatos {
         selEsp.agregarParticipacion(p6Visit);
         partido6.asignarParticipacionesSinExcepcion(p6Local, p6Visit);
 
-        agregarEvento(partido6, morata,  TipoEvento.GOL,              61);
-        agregarEvento(partido6, mbappe,  TipoEvento.TARJETA_AMARILLA, 34);
-        agregarEvento(partido6, kante,   TipoEvento.TARJETA_AMARILLA, 78);
-        agregarEvento(partido6, pedri,   TipoEvento.DOBLE_AMARILLA,   89);  // expulsado
+        agregarEvento(partido6, morata, TipoEvento.GOL,              61);
+        agregarEvento(partido6, mbappe, TipoEvento.TARJETA_AMARILLA, 34);
+        agregarEvento(partido6, kante,  TipoEvento.TARJETA_AMARILLA, 78);
+        agregarEvento(partido6, pedri,  TipoEvento.DOBLE_AMARILLA,   89);
 
         // =====================================================================
         // SEMIFINAL: ARG vs FRA
@@ -328,10 +323,9 @@ public class CargadorDatos {
         selFra.agregarParticipacion(sf1Visit);
         semifinal1.asignarParticipacionesSinExcepcion(sf1Local, sf1Visit);
 
-        agregarEvento(semifinal1, messi,    TipoEvento.GOL, 45);
-        agregarEvento(semifinal1, dybala,   TipoEvento.GOL, 77);
-        agregarEvento(semifinal1, mbappe,   TipoEvento.GOL, 88);
-        // Argentina gana 2-1
+        agregarEvento(semifinal1, messi,  TipoEvento.GOL, 45);
+        agregarEvento(semifinal1, dybala, TipoEvento.GOL, 77);
+        agregarEvento(semifinal1, mbappe, TipoEvento.GOL, 88);
 
         // =====================================================================
         // SEMIFINAL: ESP vs BRA
@@ -351,7 +345,6 @@ public class CargadorDatos {
         agregarEvento(semifinal2, yamal,    TipoEvento.GOL, 33);
         agregarEvento(semifinal2, vinicius, TipoEvento.GOL, 70);
         agregarEvento(semifinal2, rodri,    TipoEvento.GOL, 95);
-        // España gana 2-1
 
         // =====================================================================
         // FINAL: ARG vs ESP
@@ -368,10 +361,9 @@ public class CargadorDatos {
         selEsp.agregarParticipacion(finVisit);
         final1.asignarParticipacionesSinExcepcion(finLocal, finVisit);
 
-        agregarEvento(final1, messi,   TipoEvento.GOL, 38);
-        agregarEvento(final1, morata,  TipoEvento.GOL, 67);
-        agregarEvento(final1, dybala,  TipoEvento.GOL, 99);
-        // Argentina campeón 2-1 en tiempo extra
+        agregarEvento(final1, messi,  TipoEvento.GOL, 38);
+        agregarEvento(final1, morata, TipoEvento.GOL, 67);
+        agregarEvento(final1, dybala, TipoEvento.GOL, 99);
 
         return mundial;
     }
@@ -391,7 +383,6 @@ public class CargadorDatos {
         }
     }
 
-    /** Crea y agrega un Arbitraje al partido sin detener la carga si falla. */
     private static void agregarArbitraje(Partido partido,
                                           CategoriaArbitro categoria, Arbitro arbitro) {
         try {
@@ -403,7 +394,6 @@ public class CargadorDatos {
         }
     }
 
-    /** Crea un Evento y lo vincula al partido y al jugador. */
     private static void agregarEvento(Partido partido, Jugador jugador,
                                        TipoEvento tipo, int minuto) {
         Evento evento = new Evento(tipo, minuto, jugador);
