@@ -520,9 +520,7 @@ public class SistemaInteractivo {
     }
 
     private void mostrarInfoMundial() {
-        System.out.println("\nInformacion del Mundial:");
-        System.out.println("Año: " + mundial.getAnio());
-        System.out.println("Mascota: " + mundial.getMascota());
+    System.out.println("\nInformacion del Mundial: \n" + "Año: " + mundial.getAnio() + "\n" + "Mascota: " + mundial.getMascota() );
         if (mundial.getSedes() != null) System.out.println("Sedes registradas: " + mundial.getSedes().size());
     }
 

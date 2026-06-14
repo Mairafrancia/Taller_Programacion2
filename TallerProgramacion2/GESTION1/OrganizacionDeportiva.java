@@ -92,5 +92,5 @@ public class OrganizacionDeportiva {
         if (local.getSeleccion() != null) local.getSeleccion().agregarParticipacion(local);
         if (visitante.getSeleccion() != null) visitante.getSeleccion().agregarParticipacion(visitante);
     }
-    }
+}
 
