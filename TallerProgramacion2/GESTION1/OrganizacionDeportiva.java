@@ -73,34 +73,24 @@ public class OrganizacionDeportiva {
      * @throws ParticipacionInvalidaException si ambas tienen la misma localía.
      */
     public void asignarEquiposAPartido(Partido partido, Participacion local, Participacion visitante)
-        throws ValoresNulosException, ParticipacionInvalidaException {
+        throws ValoresNulosException, ParticipacionInvalidaException, EquipoArbitralInvalidoException {
         if (partido == null || local == null || visitante == null) {
             throw new ValoresNulosException("partido, local o visitante");
         }
-
-        // Verificar que el partido no tenga equipos ya asignados
         if (partido.getParticipacionLocal() != null || partido.getParticipacionVisitante() != null) {
             throw new ParticipacionInvalidaException("El partido ya tiene equipos asignados.");
         }
-
-        // Controlamos que cumplan las condiciones antes de asignar: uno debe ser local y el otro no
+        if (!partido.tieneEquipoArbitralValido()) {
+            throw new EquipoArbitralInvalidoException();
+        }
         if (local.isEsLocal() == visitante.isEsLocal()) {
             throw new ParticipacionInvalidaException();
         }
-
-        // Seteamos de forma bidireccional en las participaciones el partido que van a jugar
         local.setPartido(partido);
         visitante.setPartido(partido);
-
-        // Usamos el método de la clase Partido para asignarlas en el array de tamaño 2
         partido.asignarParticipaciones(local, visitante);
-
-        if (local.getSeleccion() != null) {
-            local.getSeleccion().agregarParticipacion(local);
-        }
-        if (visitante.getSeleccion() != null) {
-            visitante.getSeleccion().agregarParticipacion(visitante);
-        }
+        if (local.getSeleccion() != null) local.getSeleccion().agregarParticipacion(local);
+        if (visitante.getSeleccion() != null) visitante.getSeleccion().agregarParticipacion(visitante);
     }
-}
+    }
 

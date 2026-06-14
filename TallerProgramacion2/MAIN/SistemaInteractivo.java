@@ -6,6 +6,11 @@ import CLASES.*; import GESTION1.*; import GESTION2.*; import EXCEPCIONES.*; imp
  * - Gestionar infraestructura, delegaciones y organizacion deportiva
  * - Registrar eventos en tiempo real
  * - Consultar reportes de gestion
+ *
+ * NOTA: Todos los métodos que piden datos por consola usan los helpers
+ * leerEnteroValido() y leerTextoNoVacio(), que reintentan automáticamente
+ * hasta que el usuario ingrese un dato válido, en lugar de cancelar la
+ * operación ante el primer error de tipeo.
  */
 public class SistemaInteractivo {
     private Scanner scanner;
@@ -152,22 +157,13 @@ public class SistemaInteractivo {
     // -------------------------------------------------------------------------
 
     private void registrarSede() {
-        System.out.print("Nombre del Pais: ");
-        String nombrePais = scanner.nextLine();
+        String nombrePais = leerTextoNoVacio("Nombre del Pais: ", "El nombre del pais no puede estar vacio.");
         System.out.print("Bandera: ");
         String bandera = scanner.nextLine();
-        System.out.print("Ciudad: ");
-        String ciudad = scanner.nextLine();
-        System.out.print("Clima: ");
-        String clima = scanner.nextLine();
-        System.out.print("Zona horaria: ");
-        String zonaHoraria = scanner.nextLine();
+        String ciudad = leerTextoNoVacio("Ciudad: ", "La ciudad no puede estar vacia.");
+        String clima = leerTextoNoVacio("Clima: ", "El clima no puede estar vacio.");
+        String zonaHoraria = leerTextoNoVacio("Zona horaria: ", "La zona horaria no puede estar vacia.");
 
-        if (nombrePais.trim().isEmpty() || ciudad.trim().isEmpty()
-                || clima.trim().isEmpty() || zonaHoraria.trim().isEmpty()) {
-            System.out.println("Error: ningun campo puede estar vacio.");
-            return;
-        }
         try {
             Pais pais = new Pais();
             pais.setNombre(nombrePais);
@@ -187,17 +183,14 @@ public class SistemaInteractivo {
     private void registrarEstadio() {
         ArrayList<Sede> sedes = mundial.getSedes();
         if (sedes == null || sedes.isEmpty()) { System.out.println("No hay sedes registradas."); return; }
-        System.out.print("Nombre del Estadio: ");
-        String nombre = scanner.nextLine();
-        if (nombre.trim().isEmpty()) { System.out.println("Error: el nombre no puede estar vacio."); return; }
-        System.out.print("Capacidad: ");
-        int capacidad = leerEntero();
-        if (capacidad <= 0) { System.out.println("Error: la capacidad debe ser mayor a 0."); return; }
+
+        String nombre = leerTextoNoVacio("Nombre del Estadio: ", "El nombre no puede estar vacio.");
+        int capacidad = leerEnteroValido("Capacidad: ", "La capacidad debe ser mayor a 0.", v -> v > 0);
+
         System.out.println("Sedes disponibles:");
         for (int i = 0; i < sedes.size(); i++) System.out.println((i + 1) + ". " + sedes.get(i).getCiudad());
-        System.out.print("Seleccione sede: ");
-        int index = leerOpcion() - 1;
-        if (index < 0 || index >= sedes.size()) { System.out.println("Opcion invalida."); return; }
+        int index = leerEnteroValido("Seleccione sede: ", "Opcion invalida.", v -> v >= 1 && v <= sedes.size()) - 1;
+
         try {
             Estadio estadio = new Estadio();
             estadio.setNombre(nombre);
@@ -229,9 +222,7 @@ public class SistemaInteractivo {
         if (grupo == null) return;
         Pais pais = seleccionarPais("Seleccione el pais:");
         if (pais == null) return;
-        System.out.print("Nombre de la federacion: ");
-        String nombre = scanner.nextLine();
-        if (nombre.trim().isEmpty()) { System.out.println("Error: el nombre no puede estar vacio."); return; }
+        String nombre = leerTextoNoVacio("Nombre de la federacion: ", "El nombre no puede estar vacio.");
         Seleccion sel = new Seleccion();
         sel.setNombreFederacion(nombre);
         sel.setRankingFIFA(0);
@@ -246,15 +237,9 @@ public class SistemaInteractivo {
     private void registrarJugador() {
         Seleccion seleccion = seleccionarSeleccion("Seleccione la seleccion:");
         if (seleccion == null) return;
-        System.out.print("Nombre del jugador: ");
-        String nombre = scanner.nextLine();
-        if (nombre.trim().isEmpty()) { System.out.println("Error: el nombre no puede estar vacio."); return; }
-        System.out.print("Dorsal: ");
-        int dorsal = leerEntero();
-        if (dorsal <= 0) { System.out.println("Error: el dorsal debe ser mayor a 0."); return; }
-        System.out.print("Fecha nacimiento (YYYYMMDD): ");
-        int fecha = leerEntero();
-        if (fecha <= 0) { System.out.println("Error: fecha invalida."); return; }
+        String nombre = leerTextoNoVacio("Nombre del jugador: ", "El nombre no puede estar vacio.");
+        int dorsal = leerEnteroValido("Dorsal: ", "El dorsal debe ser mayor a 0.", v -> v > 0);
+        int fecha = leerEnteroValido("Fecha nacimiento (YYYYMMDD): ", "Fecha invalida.", v -> v > 0);
         Jugador jugador = new Jugador();
         jugador.setNombre(nombre);
         jugador.setDorsal(dorsal);
@@ -270,12 +255,8 @@ public class SistemaInteractivo {
     private void registrarDirectorTecnico() {
         Seleccion seleccion = seleccionarSeleccion("Seleccione la seleccion:");
         if (seleccion == null) return;
-        System.out.print("Nombre DT: ");
-        String nombre = scanner.nextLine();
-        if (nombre.trim().isEmpty()) { System.out.println("Error: el nombre no puede estar vacio."); return; }
-        System.out.print("Año de nacimiento: ");
-        int ano = leerEntero();
-        if (ano <= 0) { System.out.println("Error: año invalido."); return; }
+        String nombre = leerTextoNoVacio("Nombre DT: ", "El nombre no puede estar vacio.");
+        int ano = leerEnteroValido("Año de nacimiento: ", "Año invalido.", v -> v > 0);
         DirectoresTecnicos dt = new DirectoresTecnicos(nombre, ano, 20000101);
         try {
             ad.registrarDirectorTecnico(seleccion, dt);
@@ -288,20 +269,29 @@ public class SistemaInteractivo {
     private void registrarCuerpoTecnico() {
         Seleccion seleccion = seleccionarSeleccion("Seleccione la seleccion:");
         if (seleccion == null) return;
-        System.out.print("Nombre integrante: ");
-        String nombre = scanner.nextLine();
-        if (nombre.trim().isEmpty()) { System.out.println("Error: el nombre no puede estar vacio."); return; }
-        System.out.print("Rol (AYUDANTECAMPO, ENTRENADORARQUEROS, PREPARADORFISICO, MEDICO): ");
-        String rol = scanner.nextLine().trim().toUpperCase();
-        if (rol.isEmpty()) { System.out.println("Error: el rol no puede estar vacio."); return; }
+        String nombre = leerTextoNoVacio("Nombre integrante: ", "El nombre no puede estar vacio.");
+
+        Rol rolElegido = null;
+        while (rolElegido == null) {
+            System.out.print("Rol (AYUDANTECAMPO, ENTRENADORARQUEROS, PREPARADORFISICO, MEDICO): ");
+            String rol = scanner.nextLine().trim().toUpperCase();
+            if (rol.isEmpty()) {
+                System.out.println("Error: el rol no puede estar vacio. Intente nuevamente.");
+                continue;
+            }
+            try {
+                rolElegido = Rol.valueOf(rol);
+            } catch (IllegalArgumentException e) {
+                System.out.println("Rol no valido. Intente nuevamente.");
+            }
+        }
+
         try {
             CuerpoTecnico ct = new CuerpoTecnico();
             ct.setNombre(nombre);
-            ct.setRol(Rol.valueOf(rol));
+            ct.setRol(rolElegido);
             ad.registrarCuerpoTecnico(seleccion, ct);
             System.out.println("Integrante creado: " + nombre);
-        } catch (IllegalArgumentException e) {
-            System.out.println("Rol no valido.");
         } catch (TorneoException e) {
             System.err.println("Error: " + e.getMessage());
         }
@@ -326,12 +316,8 @@ public class SistemaInteractivo {
     private void registrarGrupo() {
         Fase fase = seleccionarFase("Seleccione la fase:");
         if (fase == null) return;
-        System.out.print("Id grupo: ");
-        String id = scanner.nextLine();
-        if (id.trim().isEmpty()) { System.out.println("Error: el id no puede estar vacio."); return; }
-        System.out.print("Descripcion: ");
-        String desc = scanner.nextLine();
-        if (desc.trim().isEmpty()) { System.out.println("Error: la descripcion no puede estar vacia."); return; }
+        String id = leerTextoNoVacio("Id grupo: ", "El id no puede estar vacio.");
+        String desc = leerTextoNoVacio("Descripcion: ", "La descripcion no puede estar vacia.");
         Grupo grupo = new Grupo(id, desc, fase);
         try {
             od.registrarGrupoEnFase(fase, grupo);
@@ -346,12 +332,8 @@ public class SistemaInteractivo {
         if (fase == null) return;
         Estadio estadio = seleccionarEstadio("Seleccione el estadio:");
         if (estadio == null) return;
-        System.out.print("Fecha (YYYYMMDD): ");
-        int fecha = leerEntero();
-        if (fecha <= 0) { System.out.println("Error: fecha invalida."); return; }
-        System.out.print("Horario (HHMM): ");
-        int horario = leerEntero();
-        if (horario <= 0) { System.out.println("Error: horario invalido."); return; }
+        int fecha = leerEnteroValido("Fecha (YYYYMMDD): ", "Fecha invalida.", v -> v > 0);
+        int horario = leerEnteroValido("Horario (HHMM): ", "Horario invalido.", v -> v > 0);
         Partido partido = new Partido();
         partido.setFecha(fecha);
         partido.setHorario(horario);
@@ -392,30 +374,35 @@ public class SistemaInteractivo {
     private void registrarArbitraje() {
         Partido partido = seleccionarPartido("Seleccione el partido:");
         if (partido == null) return;
-        System.out.print("Nombre del arbitro: ");
-        String nombre = scanner.nextLine();
-        if (nombre.trim().isEmpty()) { System.out.println("Error: el nombre no puede estar vacio."); return; }
-        System.out.print("Fecha nacimiento (YYYYMMDD): ");
-        int fecNacimiento = leerEntero();
-        if (fecNacimiento <= 0) { System.out.println("Error: fecha invalida."); return; }
-        System.out.print("Anos de experiencia: ");
-        int anios = leerEntero();
-        if (anios < 0) { System.out.println("Error: los anos no pueden ser negativos."); return; }
+        String nombre = leerTextoNoVacio("Nombre del arbitro: ", "El nombre no puede estar vacio.");
+        int fecNacimiento = leerEnteroValido("Fecha nacimiento (YYYYMMDD): ", "Fecha invalida.", v -> v > 0);
+        int anios = leerEnteroValido("Anos de experiencia: ", "Los anos no pueden ser negativos.", v -> v >= 0);
         Pais paisArbitro = seleccionarPais("Seleccione el pais del arbitro:");
         if (paisArbitro == null) return;
-        System.out.print("Rol (PRINCIPAL, ASISTENTE1, ASISTENTE2, CUARTOARBITRO, VARPRINCIPAL, VARASISTENTE): ");
-        String rol = scanner.nextLine().trim().toUpperCase();
-        if (rol.isEmpty()) { System.out.println("Error: el rol no puede estar vacio."); return; }
+
+        CategoriaArbitro rolElegido = null;
+        while (rolElegido == null) {
+            System.out.print("Rol (PRINCIPAL, ASISTENTE1, ASISTENTE2, CUARTOARBITRO, VARPRINCIPAL, VARASISTENTE): ");
+            String rol = scanner.nextLine().trim().toUpperCase();
+            if (rol.isEmpty()) {
+                System.out.println("Error: el rol no puede estar vacio. Intente nuevamente.");
+                continue;
+            }
+            try {
+                rolElegido = CategoriaArbitro.valueOf(rol);
+            } catch (IllegalArgumentException e) {
+                System.out.println("Rol no valido. Intente nuevamente.");
+            }
+        }
+
         try {
             Arbitro arbitro = new Arbitro(nombre, fecNacimiento, anios, paisArbitro);
-            Arbitraje arbitraje = new Arbitraje(CategoriaArbitro.valueOf(rol), partido, arbitro);
+            Arbitraje arbitraje = new Arbitraje(rolElegido, partido, arbitro);
             partido.agregarArbitraje(arbitraje);
             arbitro.agregarArbitraje(arbitraje);
-            System.out.println("Arbitraje registrado: " + nombre + " (" + paisArbitro.getNombre() + ") como " + rol);
+            System.out.println("Arbitraje registrado: " + nombre + " (" + paisArbitro.getNombre() + ") como " + rolElegido);
             if (!partido.tieneEquipoArbitralValido())
                 System.out.println("Nota: El partido aun no tiene equipo arbitral completo.");
-        } catch (IllegalArgumentException e) {
-            System.out.println("Rol no valido.");
         } catch (Exception e) {
             System.err.println("Error: " + e.getMessage());
         }
@@ -430,18 +417,29 @@ public class SistemaInteractivo {
         if (partido == null) return;
         Jugador jugador = seleccionarJugadorDePartido(partido);
         if (jugador == null) return;
-        System.out.print("Tipo de evento: ");
-        String tipo = scanner.nextLine().trim().toUpperCase();
-        if (tipo.isEmpty()) { System.out.println("Error: el tipo no puede estar vacio."); return; }
-        System.out.print("Minuto: ");
-        int minuto = leerEntero();
-        if (minuto <= 0) { System.out.println("Error: el minuto debe ser mayor a 0."); return; }
+
+        TipoEvento tipoElegido = null;
+        while (tipoElegido == null) {
+            System.out.print("Tipo de evento (GOL, TARJETA_AMARILLA, TARJETA_ROJA, PENAL_COMETIDO, "
+                    + "PENAL_CONVERTIDO, PENAL_ERRADO, DOBLE_AMARILLA, SUSTITUCION, LESION): ");
+            String tipo = scanner.nextLine().trim().toUpperCase();
+            if (tipo.isEmpty()) {
+                System.out.println("Error: el tipo no puede estar vacio. Intente nuevamente.");
+                continue;
+            }
+            try {
+                tipoElegido = TipoEvento.valueOf(tipo);
+            } catch (IllegalArgumentException e) {
+                System.out.println("Tipo no valido. Intente nuevamente.");
+            }
+        }
+
+        int minuto = leerEnteroValido("Minuto: ", "El minuto debe ser mayor a 0.", v -> v > 0);
+
         try {
-            Evento evento = new Evento(TipoEvento.valueOf(tipo), minuto, jugador);
+            Evento evento = new Evento(tipoElegido, minuto, jugador);
             rec.registrarEventoDeCampo(partido, jugador, evento);
-            System.out.println("Evento registrado: " + tipo);
-        } catch (IllegalArgumentException e) {
-            System.out.println("Tipo no valido.");
+            System.out.println("Evento registrado: " + tipoElegido);
         } catch (TorneoException e) {
             System.err.println("Error: " + e.getMessage());
         }
@@ -486,20 +484,18 @@ public class SistemaInteractivo {
     }
 
     private void reporteInformeDisciplinario() {
-        System.out.print("\n1. Por seleccion\n2. Por jugador\nOpcion: ");
-        int opcion = leerOpcion();
+        int opcion = leerEnteroValido("\n1. Por seleccion\n2. Por jugador\nOpcion: ",
+                "Opcion no valida.", v -> v == 1 || v == 2);
         if (opcion == 1) {
             Seleccion seleccion = seleccionarSeleccion("Seleccione la seleccion:");
             if (seleccion == null) return;
             imprimirLista(informeCards.informePorSeleccion(seleccion), "No hay datos disciplinarios.");
-        } else if (opcion == 2) {
+        } else {
             Seleccion seleccion = seleccionarSeleccion("Seleccione la seleccion del jugador:");
             if (seleccion == null) return;
             Jugador jugador = seleccionarJugador(seleccion);
             if (jugador == null) return;
             imprimirLista(informeCards.informePorJugador(jugador), "No hay datos disciplinarios.");
-        } else {
-            System.out.println("Opcion no valida.");
         }
     }
 
@@ -510,18 +506,16 @@ public class SistemaInteractivo {
     }
 
     private void reporteEstadisticasSedes() {
-        System.out.print("\n1. Por estadio\n2. Por ciudad\nOpcion: ");
-        int opcion = leerOpcion();
+        int opcion = leerEnteroValido("\n1. Por estadio\n2. Por ciudad\nOpcion: ",
+                "Opcion no valida.", v -> v == 1 || v == 2);
         if (opcion == 1) {
             Estadio estadio = seleccionarEstadio("Seleccione el estadio:");
             if (estadio == null) return;
             System.out.println("Partidos en " + estadio.getNombre() + ": " + estadisticasSedes.partidosPorEstadio(estadio));
-        } else if (opcion == 2) {
+        } else {
             System.out.print("Ciudad: ");
             String ciudad = scanner.nextLine().trim();
             System.out.println("Partidos en " + ciudad + ": " + estadisticasSedes.partidosPorCiudad(mundial, ciudad));
-        } else {
-            System.out.println("Opcion no valida.");
         }
     }
 
@@ -541,10 +535,8 @@ public class SistemaInteractivo {
         if (paises.isEmpty()) { System.out.println("No hay paises disponibles."); return null; }
         System.out.println(prompt);
         for (int i = 0; i < paises.size(); i++) System.out.println((i + 1) + ". " + paises.get(i).getNombre());
-        System.out.print("Opcion: ");
-        int opcion = leerOpcion() - 1;
-        if (opcion >= 0 && opcion < paises.size()) return paises.get(opcion);
-        System.out.println("Opcion no valida."); return null;
+        int opcion = leerEnteroValido("Opcion: ", "Opcion no valida.", v -> v >= 1 && v <= paises.size()) - 1;
+        return paises.get(opcion);
     }
 
     private Seleccion seleccionarSeleccion(String prompt) {
@@ -556,10 +548,8 @@ public class SistemaInteractivo {
             String pais = sel.getPais() != null ? sel.getPais().getNombre() : "Sin pais";
             System.out.println((i + 1) + ". " + sel.getNombreFederacion() + " (" + pais + ")");
         }
-        System.out.print("Opcion: ");
-        int opcion = leerOpcion() - 1;
-        if (opcion >= 0 && opcion < selecciones.size()) return selecciones.get(opcion);
-        System.out.println("Opcion no valida."); return null;
+        int opcion = leerEnteroValido("Opcion: ", "Opcion no valida.", v -> v >= 1 && v <= selecciones.size()) - 1;
+        return selecciones.get(opcion);
     }
 
     private Seleccion seleccionarSeleccionDeLista(ArrayList<Seleccion> selecciones) {
@@ -568,10 +558,8 @@ public class SistemaInteractivo {
             String pais = sel.getPais() != null ? sel.getPais().getNombre() : "Sin pais";
             System.out.println((i + 1) + ". " + sel.getNombreFederacion() + " (" + pais + ")");
         }
-        System.out.print("Opcion: ");
-        int opcion = leerOpcion() - 1;
-        if (opcion >= 0 && opcion < selecciones.size()) return selecciones.get(opcion);
-        System.out.println("Opcion no valida."); return null;
+        int opcion = leerEnteroValido("Opcion: ", "Opcion no valida.", v -> v >= 1 && v <= selecciones.size()) - 1;
+        return selecciones.get(opcion);
     }
 
     private Seleccion seleccionarSeleccionDeLista(ArrayList<Seleccion> selecciones, Seleccion excluir) {
@@ -586,20 +574,16 @@ public class SistemaInteractivo {
         System.out.println(prompt);
         for (int i = 0; i < grupos.size(); i++)
             System.out.println((i + 1) + ". " + grupos.get(i).getIdentificador() + " - " + grupos.get(i).getDescripcion());
-        System.out.print("Opcion: ");
-        int opcion = leerOpcion() - 1;
-        if (opcion >= 0 && opcion < grupos.size()) return grupos.get(opcion);
-        System.out.println("Opcion no valida."); return null;
+        int opcion = leerEnteroValido("Opcion: ", "Opcion no valida.", v -> v >= 1 && v <= grupos.size()) - 1;
+        return grupos.get(opcion);
     }
 
     private Fase seleccionarFase(String prompt) {
         if (fases == null || fases.isEmpty()) { System.out.println("No hay fases registradas."); return null; }
         System.out.println(prompt);
         for (int i = 0; i < fases.size(); i++) System.out.println((i + 1) + ". " + fases.get(i).getNombre());
-        System.out.print("Opcion: ");
-        int opcion = leerOpcion() - 1;
-        if (opcion >= 0 && opcion < fases.size()) return fases.get(opcion);
-        System.out.println("Opcion no valida."); return null;
+        int opcion = leerEnteroValido("Opcion: ", "Opcion no valida.", v -> v >= 1 && v <= fases.size()) - 1;
+        return fases.get(opcion);
     }
 
     private Estadio seleccionarEstadio(String prompt) {
@@ -611,10 +595,8 @@ public class SistemaInteractivo {
             String ciudad = e.getSede() != null ? e.getSede().getCiudad() : "Sin sede";
             System.out.println((i + 1) + ". " + e.getNombre() + " - " + ciudad);
         }
-        System.out.print("Opcion: ");
-        int opcion = leerOpcion() - 1;
-        if (opcion >= 0 && opcion < estadios.size()) return estadios.get(opcion);
-        System.out.println("Opcion no valida."); return null;
+        int opcion = leerEnteroValido("Opcion: ", "Opcion no valida.", v -> v >= 1 && v <= estadios.size()) - 1;
+        return estadios.get(opcion);
     }
 
     private Partido seleccionarPartido(String prompt) {
@@ -626,10 +608,8 @@ public class SistemaInteractivo {
             String estadio = p.getEstadio() != null ? p.getEstadio().getNombre() : "Sin estadio";
             System.out.println((i + 1) + ". " + p.getFecha() + " " + p.getHorario() + " - " + estadio);
         }
-        System.out.print("Opcion: ");
-        int opcion = leerOpcion() - 1;
-        if (opcion >= 0 && opcion < partidos.size()) return partidos.get(opcion);
-        System.out.println("Opcion no valida."); return null;
+        int opcion = leerEnteroValido("Opcion: ", "Opcion no valida.", v -> v >= 1 && v <= partidos.size()) - 1;
+        return partidos.get(opcion);
     }
 
     private Jugador seleccionarJugador(Seleccion seleccion) {
@@ -641,10 +621,8 @@ public class SistemaInteractivo {
             Jugador j = seleccion.getJugadores().get(i);
             System.out.println((i + 1) + ". " + j.getNombre() + " (" + j.getDorsal() + ")");
         }
-        System.out.print("Opcion: ");
-        int opcion = leerOpcion() - 1;
-        if (opcion >= 0 && opcion < seleccion.getJugadores().size()) return seleccion.getJugadores().get(opcion);
-        System.out.println("Opcion no valida."); return null;
+        int opcion = leerEnteroValido("Opcion: ", "Opcion no valida.", v -> v >= 1 && v <= seleccion.getJugadores().size()) - 1;
+        return seleccion.getJugadores().get(opcion);
     }
 
     private Jugador seleccionarJugadorDePartido(Partido partido) {
@@ -661,10 +639,8 @@ public class SistemaInteractivo {
             Jugador j = jugadores.get(i);
             System.out.println((i + 1) + ". " + j.getNombre() + " (" + j.getDorsal() + ")");
         }
-        System.out.print("Opcion: ");
-        int opcion = leerOpcion() - 1;
-        if (opcion >= 0 && opcion < jugadores.size()) return jugadores.get(opcion);
-        System.out.println("Opcion no valida."); return null;
+        int opcion = leerEnteroValido("Opcion: ", "Opcion no valida.", v -> v >= 1 && v <= jugadores.size()) - 1;
+        return jugadores.get(opcion);
     }
 
     // -------------------------------------------------------------------------
@@ -742,8 +718,41 @@ public class SistemaInteractivo {
         catch (NumberFormatException e) { return -1; }
     }
 
-    private int leerEntero() {
-        try { return Integer.parseInt(scanner.nextLine().trim()); }
-        catch (NumberFormatException e) { System.out.println("Entrada no valida."); return 0; }
+    /**
+     * Pide un texto no vacio por consola, reintentando hasta que el usuario
+     * ingrese al menos un caracter no en blanco.
+     */
+    private String leerTextoNoVacio(String prompt, String mensajeError) {
+        while (true) {
+            System.out.print(prompt);
+            String texto = scanner.nextLine();
+            if (!texto.trim().isEmpty()) {
+                return texto;
+            }
+            System.out.println("Error: " + mensajeError + " Intente nuevamente.");
+        }
+    }
+
+    /**
+     * Pide un numero entero por consola, reintentando hasta que el usuario
+     * ingrese un numero valido que cumpla la condicion indicada.
+     * Si el texto ingresado no es numerico, o no cumple la condicion,
+     * se muestra el mensaje de error y se vuelve a pedir el dato
+     * (no se cancela la operacion).
+     */
+    private int leerEnteroValido(String prompt, String mensajeError, java.util.function.IntPredicate condicion) {
+        while (true) {
+            System.out.print(prompt);
+            String entrada = scanner.nextLine().trim();
+            try {
+                int valor = Integer.parseInt(entrada);
+                if (condicion.test(valor)) {
+                    return valor;
+                }
+                System.out.println("Error: " + mensajeError + " Intente nuevamente.");
+            } catch (NumberFormatException e) {
+                System.out.println("Entrada no valida. " + mensajeError + " Intente nuevamente.");
+            }
+        }
     }
 }
