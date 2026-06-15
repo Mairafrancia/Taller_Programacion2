@@ -230,12 +230,15 @@ public class SistemaInteractivo {
         }
         String nombre = leerNombre("Nombre de la federacion: ",
                                    "El nombre solo puede contener letras.");
+        int ranking = leerEnteroValido("Ranking FIFA: ",
+                                       "El ranking debe ser mayor a 0.",
+                                       v -> v > 0);
         Seleccion sel = new Seleccion();
         sel.setNombreFederacion(nombre);
-        sel.setRankingFIFA(0);
+        sel.setRankingFIFA(ranking);
         try {
             ad.gestionarSeleccion(pais, sel, grupo);
-            System.out.println("Seleccion registrada: " + nombre);
+            System.out.println("Seleccion registrada: " + nombre + " (Ranking FIFA: " + ranking + ")");
         } catch (TorneoException e) {
             System.err.println("Error: " + e.getMessage());
         }
@@ -326,7 +329,7 @@ public class SistemaInteractivo {
     private void registrarGrupo() {
         Fase fase = seleccionarFase("Seleccione la fase:");
         if (fase == null) return;
-        String id   = leerTextoNoVacio("Id grupo (ej: A, B): ", "El id no puede estar vacio.");
+        String id   = leerNombre("Id grupo (ej: A, B): ", "El id del grupo solo puede contener letras.");
         String desc = leerNombre("Descripcion: ", "La descripcion solo puede contener letras.");
         Grupo grupo = new Grupo(id, desc, fase);
         try {
@@ -732,27 +735,12 @@ public class SistemaInteractivo {
         catch (NumberFormatException e) { return -1; }
     }
 
-    private String leerTextoNoVacio(String prompt, String mensajeError) {
-        while (true) {
-            System.out.print(prompt);
-            String texto = scanner.nextLine();
-            if (!texto.trim().isEmpty()) return texto;
-            System.out.println("Error: " + mensajeError + " Intente nuevamente.");
-        }
-    }
-
-    /**
-     * Pide un nombre de archivo de imagen con formato valido (letras/numeros/guion/guion_bajo
-     * seguido de punto y extension conocida: png, jpg, jpeg, gif, bmp, svg).
-     * Rechaza cualquier texto que no cumpla ese patron.
-     */
     private String leerArchivoImagen(String prompt, String mensajeError) {
         while (true) {
             System.out.print(prompt);
             String texto = scanner.nextLine().trim();
-            if (!texto.isEmpty() && texto.matches("[a-zA-Z0-9_\\-]+\\.(png|jpg|jpeg|gif|bmp|svg)")) {
+            if (!texto.isEmpty() && texto.matches("[a-zA-Z0-9_\\-]+\\.(png|jpg|jpeg|gif|bmp|svg)"))
                 return texto;
-            }
             System.out.println("Error: " + mensajeError + " Intente nuevamente.");
         }
     }
@@ -761,9 +749,8 @@ public class SistemaInteractivo {
         while (true) {
             System.out.print(prompt);
             String texto = scanner.nextLine().trim();
-            if (!texto.isEmpty() && texto.matches("[a-zA-ZáéíóúÁÉÍÓÚüÜñÑàèìòùâêîôûäëïöü\\s\\-']+")) {
+            if (!texto.isEmpty() && texto.matches("[a-zA-ZáéíóúÁÉÍÓÚüÜñÑàèìòùâêîôûäëïöü\\s\\-']+"))
                 return texto;
-            }
             System.out.println("Error: " + mensajeError + " Intente nuevamente.");
         }
     }
@@ -784,9 +771,8 @@ public class SistemaInteractivo {
             if (entrada.matches("\\d{8}")) {
                 int mes = Integer.parseInt(entrada.substring(4, 6));
                 int dia = Integer.parseInt(entrada.substring(6, 8));
-                if (mes >= 1 && mes <= 12 && dia >= 1 && dia <= 31) {
+                if (mes >= 1 && mes <= 12 && dia >= 1 && dia <= 31)
                     return Integer.parseInt(entrada);
-                }
             }
             System.out.println("Error: Fecha invalida. Use el formato YYYYMMDD (ej: 19901204). Intente nuevamente.");
         }
