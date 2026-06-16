@@ -164,6 +164,12 @@ public class SistemaInteractivo {
                                         "El clima solo puede contener letras.");
         String zonaHoraria = leerZonaHoraria("Zona horaria (ej. GMT-3): ",
                                               "Formato invalido. Use GMT+N o GMT-N (ej: GMT-3, GMT+1).");
+        for (Sede s : mundial.getSedes()) {
+            if (s != null && s.getCiudad() != null && s.getCiudad().equalsIgnoreCase(ciudad)) {
+                System.out.println("Error: ya existe una sede registrada para la ciudad de " + ciudad + ".");
+                return;
+            }
+        }
         try {
             Pais pais = new Pais();
             pais.setNombre(nombrePais);
@@ -286,7 +292,7 @@ public class SistemaInteractivo {
 
         Rol rolElegido = null;
         while (rolElegido == null) {
-            System.out.print("Rol (AYUDANTECAMPO, PREPARADORFISICO, MEDICO, KINESIOLOGO, "  + "ENTRENADORARQUEROS, ANALISTAVIDEOS, NUTRICIONISTA, PSICOLOGO): ");
+            System.out.print("Rol (AYUDANTECAMPO, ENTRENADORARQUEROS, PREPARADORFISICO, MEDICO): ");
             String rol = scanner.nextLine().trim().toUpperCase();
             if (rol.isEmpty()) {
                 System.out.println("Error: el rol no puede estar vacio. Intente nuevamente.");
@@ -349,6 +355,14 @@ public class SistemaInteractivo {
         int horario = leerEnteroValido("Horario (HHMM, ej: 2000): ",
                                        "Horario invalido. Use formato HHMM entre 0000 y 2359.",
                                        v -> v >= 0 && v <= 2359);
+        // Validar partido duplicado: misma fecha, horario y estadio
+        for (Partido p : obtenerTodosLosPartidos()) {
+            if (p != null && p.getFecha() == fecha && p.getHorario() == horario && p.getEstadio() == estadio) {
+                System.out.println("Error: ya existe un partido en " + estadio.getNombre()
+                    + " el " + fecha + " a las " + horario + ".");
+                return;
+            }
+        }
         Partido partido = new Partido();
         partido.setFecha(fecha);
         partido.setHorario(horario);
@@ -400,7 +414,7 @@ public class SistemaInteractivo {
 
         CategoriaArbitro rolElegido = null;
         while (rolElegido == null) {
-            System.out.print("ROL: PRINCIPAL, ASISTENTE_1, ASISTENTE_2, CUARTO_ARBITRO, VAR_PRINCIPAL, VAR_ASISTENTE");
+            System.out.print("Rol (PRINCIPAL, ASISTENTE1, ASISTENTE2, CUARTOARBITRO, VARPRINCIPAL, VARASISTENTE): ");
             String rol = scanner.nextLine().trim().toUpperCase();
             if (rol.isEmpty()) {
                 System.out.println("Error: el rol no puede estar vacio. Intente nuevamente.");
@@ -413,6 +427,20 @@ public class SistemaInteractivo {
             }
         }
 
+        // Validar rol duplicado en el mismo partido
+        for (Arbitraje a : partido.getArbitrajes()) {
+            if (a != null && a.getRol() == rolElegido) {
+                System.out.println("Error: el rol " + rolElegido + " ya esta asignado en este partido.");
+                return;
+            }
+            if (a != null && a.getArbitro() != null
+                    && a.getArbitro().getNombre() != null
+                    && a.getArbitro().getNombre().equalsIgnoreCase(nombre)
+                    && a.getArbitro().getFecNacimiento() == fecNacimiento) {
+                System.out.println("Error: el arbitro " + nombre + " ya esta asignado a este partido.");
+                return;
+            }
+        }
         try {
             Arbitro arbitro = new Arbitro(nombre, fecNacimiento, anios, paisArbitro);
             Arbitraje arbitraje = new Arbitraje(rolElegido, partido, arbitro);
