@@ -3,6 +3,10 @@ package EXCEPCIONES;
 /**
  * Excepción base para todas las excepciones del sistema de gestión del Torneo Mundial.
  * Proporciona una base común para el manejo robusto de errores específicos del dominio.
+ * @author Florencia Benitez
+ * @author Agustina Barreto
+ * @author Francia Maira
+ * @author Gabriela Yañez
  */
 public class TorneoException extends Exception {
     
