@@ -5,6 +5,10 @@ package CLASES;
  * distinto del director tecnico. Puede cumplir distintos roles como
  * ayudante de campo, preparador fisico, medico, entre otros.
  * Extiende {@link Persona}.
+ * @author Florencia Benitez
+ * @author Agustina Barreto
+ * @author Francia Maira
+ * @author Gabriela Yañez
  */
 public class CuerpoTecnico extends Persona {
 

@@ -7,6 +7,10 @@ import java.util.ArrayList;
  * Cada grupo pertenece a una {@link Fase} y contiene un conjunto
  * de {@link Seleccion}es que compiten entre si para clasificar
  * a la siguiente instancia.
+ * @author Florencia Benitez
+ * @author Agustina Barreto
+ * @author Francia Maira
+ * @author Gabriela Yañez
  */
 public class Grupo {
 

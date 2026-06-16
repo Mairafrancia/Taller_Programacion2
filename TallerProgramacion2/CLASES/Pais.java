@@ -6,6 +6,10 @@ import java.util.ArrayList;
  * Representa un pais participante del torneo mundial.
  * Un pais puede tener una o mas sedes, una seleccion nacional
  * y una lista de arbitros de su nacionalidad.
+ * @author Florencia Benitez
+ * @author Agustina Barreto
+ * @author Francia Maira
+ * @author Gabriela Yañez
  */
 public class Pais {
 

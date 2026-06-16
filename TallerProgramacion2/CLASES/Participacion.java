@@ -5,6 +5,10 @@ package CLASES;
  * Vincula una {@link Seleccion} con un {@link Partido} e indica si actua
  * como local o visitante. Ademas, provee metodos para contabilizar
  * eventos propios de la seleccion en ese partido (goles, tarjetas).
+ * @author Florencia Benitez
+ * @author Agustina Barreto
+ * @author Francia Maira
+ * @author Gabriela Yañez
  */
 public class Participacion {
 

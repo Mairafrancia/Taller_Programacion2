@@ -4,6 +4,10 @@ package CLASES;
  * Representa la asignacion de un arbitro a un partido bajo un rol especifico.
  * Vincula un {@link Arbitro} con un {@link Partido} y define la categoria
  * (rol) que cumple dentro del equipo arbitral.
+ * @author Florencia Benitez
+ * @author Agustina Barreto
+ * @author Francia Maira
+ * @author Gabriela Yañez
  */
 public class Arbitraje {
 

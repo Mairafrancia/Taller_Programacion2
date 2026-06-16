@@ -8,6 +8,10 @@ import EXCEPCIONES.*;
  * Contiene informacion sobre fecha, horario, duracion, el estadio donde
  * se disputa, la fase a la que pertenece, las dos participaciones
  * (local y visitante), los eventos ocurridos y el equipo arbitral asignado.
+ * @author Florencia Benitez
+ * @author Agustina Barreto
+ * @author Francia Maira
+ * @author Gabriela Yañez
  */
 public class Partido {
 

@@ -6,6 +6,10 @@ import java.util.ArrayList;
  * Representa a un arbitro que puede oficiar partidos del torneo.
  * Extiende {@link Persona} e incorpora los anos de experiencia,
  * el pais de origen y la lista de arbitrajes que ha realizado.
+ * @author Florencia Benitez
+ * @author Agustina Barreto
+ * @author Francia Maira
+ * @author Gabriela Yañez
  */
 public class Arbitro extends Persona {
 

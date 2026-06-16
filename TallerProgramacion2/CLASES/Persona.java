@@ -5,6 +5,10 @@ package CLASES;
  * Sirve como base para todas las entidades que tienen nombre y fecha
  * de nacimiento, como jugadores, directores tecnicos, cuerpo tecnico
  * y arbitros.
+ * @author Florencia Benitez
+ * @author Agustina Barreto
+ * @author Francia Maira
+ * @author Gabriela Yañez
  */
 public abstract class Persona {
 

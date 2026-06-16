@@ -2,6 +2,10 @@ package CLASES;
 
 /**
  * Representa la función o categoría asignada a un árbitro en un partido.
+ * @author Florencia Benitez
+ * @author Agustina Barreto
+ * @author Francia Maira
+ * @author Gabriela Yañez
  */
 public enum CategoriaArbitro {
 

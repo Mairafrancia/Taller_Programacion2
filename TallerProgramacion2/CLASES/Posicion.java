@@ -2,6 +2,10 @@ package CLASES;
 
 /**
  * Representa la posición táctica que ocupa un jugador en el campo de juego.
+ * @author Florencia Benitez
+ * @author Agustina Barreto
+ * @author Francia Maira
+ * @author Gabriela Yañez
  */
 public enum Posicion {
 

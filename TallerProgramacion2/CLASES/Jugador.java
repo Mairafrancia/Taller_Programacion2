@@ -6,6 +6,10 @@ import java.util.ArrayList;
  * Representa a un jugador de futbol que forma parte de una seleccion nacional.
  * Extiende {@link Persona} e incorpora atributos propios del jugador como
  * el dorsal, posicion, peso, altura y la lista de eventos en los que participo.
+ * @author Florencia Benitez
+ * @author Agustina Barreto
+ * @author Francia Maira
+ * @author Gabriela Yañez
  */
 public class Jugador extends Persona {
 

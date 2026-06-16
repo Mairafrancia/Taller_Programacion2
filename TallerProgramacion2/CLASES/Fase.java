@@ -6,6 +6,10 @@ import java.util.ArrayList;
  * Representa una fase del torneo mundial (ej: Grupos, Octavos de Final,
  * Semifinal, Final). Cada fase agrupa los partidos y, en el caso de la
  * fase de grupos, tambien los grupos que la componen.
+ * @author Florencia Benitez
+ * @author Agustina Barreto
+ * @author Francia Maira
+ * @author Gabriela Yañez
  */
 public class Fase {
 

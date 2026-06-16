@@ -4,6 +4,10 @@ package CLASES;
  * Representa al director tecnico de una seleccion nacional.
  * Extiende {@link Persona} e incorpora la fecha en que fue nombrado
  * como director tecnico de la seleccion.
+ * @author Florencia Benitez
+ * @author Agustina Barreto
+ * @author Francia Maira
+ * @author Gabriela Yañez
  */
 public class DirectoresTecnicos extends Persona {
 

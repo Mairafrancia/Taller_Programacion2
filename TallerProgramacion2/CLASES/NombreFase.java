@@ -4,6 +4,10 @@ package CLASES;
  * Representa las distintas fases o etapas del torneo mundial.
  * * NOTA IMPORTANTE: No alterar el orden de las constantes, ya que el ordinal() 
  * se utiliza en la lógica del sistema para determinar la instancia máxima alcanzada.
+ * @author Florencia Benitez
+ * @author Agustina Barreto
+ * @author Francia Maira
+ * @author Gabriela Yañez
  */
 public enum NombreFase {
 

@@ -5,6 +5,10 @@ package CLASES;
  * Un evento es cualquier accion relevante dentro del campo de juego,
  * como un gol, una tarjeta o una sustitucion, y siempre involucra
  * a un unico jugador.
+ * @author Florencia Benitez
+ * @author Agustina Barreto
+ * @author Francia Maira
+ * @author Gabriela Yañez
  */
 public class Evento {
 

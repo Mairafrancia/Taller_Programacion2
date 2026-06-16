@@ -2,6 +2,10 @@ package CLASES;
 
 /**
  * Representa los diferentes tipos de eventos que pueden ocurrir durante un partido.
+ * @author Florencia Benitez
+ * @author Agustina Barreto
+ * @author Francia Maira
+ * @author Gabriela Yañez
  */
 public enum TipoEvento {
 

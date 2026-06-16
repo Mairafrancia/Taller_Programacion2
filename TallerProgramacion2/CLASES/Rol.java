@@ -2,6 +2,10 @@ package CLASES;
 
 /**
  * Representa el rol o cargo que ocupa un miembro dentro del cuerpo técnico.
+ * @author Florencia Benitez
+ * @author Agustina Barreto
+ * @author Francia Maira
+ * @author Gabriela Yañez
  */
 public enum Rol {
 

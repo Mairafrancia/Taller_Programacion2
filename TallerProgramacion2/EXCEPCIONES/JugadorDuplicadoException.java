@@ -3,6 +3,10 @@ package EXCEPCIONES;
 /**
  * Se lanza cuando se intenta registrar un jugador que ya ha sido asignado a otra selección
  * del torneo, violando la regla de unicidad global de jugadores.
+ * @author Florencia Benitez
+ * @author Agustina Barreto
+ * @author Francia Maira
+ * @author Gabriela Yañez
  */
 public class JugadorDuplicadoException extends TorneoException {
     

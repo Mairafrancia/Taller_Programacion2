@@ -6,6 +6,10 @@ import java.util.ArrayList;
  * Representa un estadio de futbol donde se disputan los partidos del torneo.
  * Cada estadio pertenece a una {@link Sede} y mantiene la lista de partidos
  * que se juegan en el.
+ * @author Florencia Benitez
+ * @author Agustina Barreto
+ * @author Francia Maira
+ * @author Gabriela Yañez
  */
 public class Estadio {
 
