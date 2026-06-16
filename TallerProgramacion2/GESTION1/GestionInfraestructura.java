@@ -3,13 +3,20 @@ package GESTION1;
 import CLASES.*;
 import EXCEPCIONES.*;
 
-//CORREGIDA, SE AÑADIO FALSE EN LOS RETURNS LOS METODOS
+/**
+ * Gestiona la infraestructura del torneo mundial, permitiendo el registro
+ * de sedes geográficas y la incorporación de estadios en sus respectivas sedes.
+ * * @author Florencia Benitez
+ * @author Agustina Barreto
+ * @author Francia Maira
+ * @author Gabriela Yañez
+ */
 public class GestionInfraestructura {
 
     /**
      * Registra una Sede vinculándola al Mundial y al País correspondiente.
      * Asegura la consistencia bidireccional de las relaciones y evita duplicados en el mundial.
-     * @param mundial El objeto Mundial donde se registrará la sede.
+     * * @param mundial El objeto Mundial donde se registrará la sede.
      * @param nuevaSede La Sede que se desea incorporar al sistema.
      * @param pais El País al que pertenece geográficamente la sede.
      * @throws ValoresNulosException si mundial, nuevaSede o pais es null.
@@ -35,11 +42,10 @@ public class GestionInfraestructura {
         mundial.agregarSede(nuevaSede);
     }
 
-
     /**
      * Registra un Estadio dentro de una Sede específica, asignando su capacidad máxima.
      * Asegura la consistencia bidireccional y evita duplicados en la sede.
-     * @param sede La Sede donde se ubica el estadio.
+     * * @param sede La Sede donde se ubica el estadio.
      * @param nuevoEstadio El objeto Estadio a registrar.
      * @param capacidad La capacidad de espectadores del estadio.
      * @throws ValoresNulosException si sede o estadio es null.
@@ -70,5 +76,4 @@ public class GestionInfraestructura {
             sede.agregarEstadio(nuevoEstadio);
         }
     }
-
 }

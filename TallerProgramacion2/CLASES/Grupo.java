@@ -2,16 +2,29 @@ package CLASES;
 
 import java.util.ArrayList;
 
+/**
+ * Representa un grupo de la fase de grupos del torneo mundial.
+ * Cada grupo pertenece a una {@link Fase} y contiene un conjunto
+ * de {@link Seleccion}es que compiten entre si para clasificar
+ * a la siguiente instancia.
+ */
 public class Grupo {
 
+    /** Identificador del grupo (ej: "A", "B", "C"). */
     private String identificador;
+
+    /** Descripcion del grupo (ej: "Grupo A"). */
     private String descripcion;
 
-    // ASOCIACIONES
+    /** Fase a la que pertenece este grupo. */
     private Fase fase;
+
+    /** Lista de selecciones que integran este grupo. */
     private ArrayList<Seleccion> selecciones;
 
-    // CONSTRUCTOR SIN PARAMETROS
+    /**
+     * Constructor sin parametros. Inicializa con valores por defecto.
+     */
     public Grupo() {
         this.identificador = "";
         this.descripcion = "";
@@ -19,55 +32,69 @@ public class Grupo {
         this.selecciones = new ArrayList<>();
     }
 
-    // CONSTRUCTOR PARAMETRIZADO
+    /**
+     * Constructor con parametros.
+     *
+     * @param identificador Identificador del grupo (ej: "A", "B").
+     * @param descripcion   Descripcion del grupo.
+     * @param fase          Fase a la que pertenece el grupo.
+     */
     public Grupo(String identificador, String descripcion, Fase fase) {
         this.identificador = identificador;
         this.descripcion = descripcion;
         this.fase = fase;
-        this.selecciones = new ArrayList<>(); // Inicializamos la lista de selecciones como vacía y llenamos con el metodo agregarSeleccion
+        this.selecciones = new ArrayList<>();
     }
 
-    // SETTERS Y GETTERS
-    public String getIdentificador() {
-        return identificador;
-    }
+    /** @return El identificador del grupo. */
+    public String getIdentificador() { return identificador; }
 
-    public void setIdentificador(String identificador) {
-        this.identificador = identificador;
-    }
+    /** @param identificador El identificador a asignar. */
+    public void setIdentificador(String identificador) { this.identificador = identificador; }
 
-    public String getDescripcion() {
-        return descripcion;
-    }
+    /** @return La descripcion del grupo. */
+    public String getDescripcion() { return descripcion; }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
+    /** @param descripcion La descripcion a asignar. */
+    public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
 
-    public Fase getFase() {
-        return fase;
-    }
+    /** @return La fase a la que pertenece el grupo. */
+    public Fase getFase() { return fase; }
 
-    public void setFase(Fase fase) {
-        this.fase = fase;
-    }
+    /** @param fase La fase a asignar. */
+    public void setFase(Fase fase) { this.fase = fase; }
 
-    public ArrayList<Seleccion> getSelecciones() {
-        return selecciones;
-    }
+    /** @return La lista de selecciones del grupo. */
+    public ArrayList<Seleccion> getSelecciones() { return selecciones; }
 
-    public void setSelecciones(ArrayList<Seleccion> selecciones) {
-        this.selecciones = selecciones;
-    }
+    /** @param selecciones La nueva lista de selecciones. */
+    public void setSelecciones(ArrayList<Seleccion> selecciones) { this.selecciones = selecciones; }
 
-    // METODOS ASOCIACIONES
+    /**
+     * Agrega una seleccion al grupo.
+     * No agrega si la seleccion es null.
+     *
+     * @param seleccion La seleccion a incorporar.
+     */
     public void agregarSeleccion(Seleccion seleccion) {
         if (seleccion != null) {
             this.selecciones.add(seleccion);
         }
     }
 
-    // METODO PARA OBTENER LOS PUNTOS DE UNA SELECCION EN ESTE GRUPO
+    /**
+     * Calcula los puntos acumulados por una seleccion en este grupo,
+     * considerando unicamente los partidos jugados contra rivales
+     * que pertenezcan al mismo grupo y en la misma fase.
+     * <ul>
+     *   <li>Victoria: 3 puntos</li>
+     *   <li>Empate: 1 punto</li>
+     *   <li>Derrota: 0 puntos</li>
+     * </ul>
+     *
+     * @param s La seleccion de la que se calculan los puntos.
+     * @return La cantidad de puntos acumulados en el grupo.
+     */
     public int obtenerPuntos(Seleccion s) {
         int puntos = 0;
 
@@ -78,16 +105,15 @@ public class Grupo {
                 continue;
             }
 
-            // Verificar que el rival también pertenezca a ESTE grupo
             Participacion rivalPart = p.isEsLocal()
                 ? part.getParticipacionVisitante()
                 : part.getParticipacionLocal();
 
             if (rivalPart == null || !this.selecciones.contains(rivalPart.getSeleccion())) {
-                continue; // El rival no es de este grupo, salteamos
+                continue;
             }
 
-            int golesFavor = p.cantidadGoles();
+            int golesFavor  = p.cantidadGoles();
             int golesContra = rivalPart.cantidadGoles();
 
             if (golesFavor > golesContra)

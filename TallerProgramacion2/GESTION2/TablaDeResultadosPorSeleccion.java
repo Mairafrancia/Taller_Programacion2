@@ -3,6 +3,15 @@ package GESTION2;
 import CLASES.*;
 import java.util.ArrayList;
 
+/**
+ * Se encarga de procesar el histórico de participaciones de una selección 
+ * para consolidar su rendimiento total en el torneo y determinar de manera 
+ * dinámica la instancia jerárquica más avanzada a la que logró clasificar.
+ * * @author Florencia Benitez
+ * @author Agustina Barreto
+ * @author Francia Maira
+ * @author Gabriela Yañez
+ */
 public class TablaDeResultadosPorSeleccion {
 
     /**

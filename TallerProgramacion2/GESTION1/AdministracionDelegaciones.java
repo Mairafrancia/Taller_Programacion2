@@ -5,15 +5,20 @@ import java.util.ArrayList;
 import CLASES.*;
 import EXCEPCIONES.*;
 
-/* Gestionar los Países participantes, sus
-Selecciones, cuerpos técnicos y la lista de Jugadores. */
-
+/**
+ * Gestionar los Países participantes, sus Selecciones, 
+ * cuerpos técnicos y la lista de Jugadores del torneo mundial.
+ * * @author Florencia Benitez
+ * @author Agustina Barreto
+ * @author Francia Maira
+ * @author Gabriela Yañez
+ */
 public class AdministracionDelegaciones {
 
     /**
      * Vincula una Selección a su correspondiente País y la asigna a un Grupo.
      * Asegura la consistencia bidireccional entre País y Selección.
-     * @param pais El objeto Pais participante.
+     * * @param pais El objeto Pais participante.
      * @param seleccion La Seleccion nacional que representa al país.
      * @param grupo El Grupo de la primera fase donde jugará la selección.
      * @throws ValoresNulosException si alguno de los parámetros es null.
@@ -56,13 +61,13 @@ public class AdministracionDelegaciones {
         }
     }
 
-    // Lista de control global interna para asegurar que un jugador no se repita entodo el torneo
+    /** Lista de control global interna para asegurar que un jugador no se repita en todo el torneo. */
     private static ArrayList<Jugador> jugadoresAsignadosGlobal = new ArrayList<>();
 
     /**
      * Añade un Jugador a la lista de una Selección, controlando que no esté
      * asignado a otra delegación del torneo.
-     * @param seleccion La Selección a la que se integrará el jugador.
+     * * @param seleccion La Selección a la que se integrará el jugador.
      * @param nuevoJugador El objeto Jugador que se desea registrar.
      * @throws ValoresNulosException si selección o jugador es null.
      * @throws JugadorDuplicadoException si el jugador ya está asignado a otra selección.
@@ -90,7 +95,7 @@ public class AdministracionDelegaciones {
 
     /**
      * Registra un Director Técnico en la lista de una Selección.
-     * @param seleccion La Selección a la que se asignará el DT.
+     * * @param seleccion La Selección a la que se asignará el DT.
      * @param dt El objeto DirectorTecnico correspondiente.
      * @throws ValoresNulosException si selección o director es null.
      * @throws ElementoDuplicadoException si el director ya está registrado.
@@ -115,7 +120,7 @@ public class AdministracionDelegaciones {
 
     /**
      * Registra un miembro del Cuerpo Técnico en una Selección.
-     * @param seleccion La Selección donde cumplirá funciones el integrante.
+     * * @param seleccion La Selección donde cumplirá funciones el integrante.
      * @param integrante El miembro del CuerpoTecnico a incorporar.
      * @throws ValoresNulosException si selección o integrante es null.
      * @throws ElementoDuplicadoException si el integrante ya está registrado.
@@ -137,5 +142,4 @@ public class AdministracionDelegaciones {
             seleccion.agregarCuerpoTecnico(integrante);
         }
     }
-
 }

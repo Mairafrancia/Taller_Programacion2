@@ -3,13 +3,21 @@ package GESTION1;
 import CLASES.*;
 import EXCEPCIONES.*;
 
+/**
+ * Gestiona la organización deportiva de los encuentros del torneo mundial.
+ * Se encarga de la distribución de grupos en fases, la planificación de partidos 
+ * en estadios y la correcta asignación de equipos (participaciones) competidoras.
+ * * @author Florencia Benitez
+ * @author Agustina Barreto
+ * @author Francia Maira
+ * @author Gabriela Yañez
+ */
 public class OrganizacionDeportiva {
 
     /**
      * Vincula un Grupo a una Fase determinada del torneo.
      * Asegura la consistencia de la relación Fase 1 --- 1..* Grupo.
-     * 
-     * @param fase  La Fase (ej. Grupos, Octavos, etc.) a la que pertenecerá el grupo.
+     * * @param fase  La Fase (ej. Grupos, Octavos, etc.) a la que pertenecerá el grupo.
      * @param grupo El Grupo que se desea registrar en la fase.
      * @throws ValoresNulosException si fase o grupo es null.
      * @throws ElementoDuplicadoException si el grupo ya está registrado en la fase.
@@ -42,7 +50,7 @@ public class OrganizacionDeportiva {
     /**
      * Planifica un Partido asignándole su Fase de competencia y el Estadio donde se jugará.
      * Al mismo tiempo, vincula el partido a la lista de partidos programados en ese Estadio.
-     * @param partido El Partido que se está planificando.
+     * * @param partido El Partido que se está planificando.
      * @param fase La Fase a la que corresponde el encuentro.
      * @param estadio El Estadio donde se disputará.
      * @throws ValoresNulosException si alguno de los parámetros es null.
@@ -66,11 +74,12 @@ public class OrganizacionDeportiva {
     /**
      * Establece los dos equipos (Participaciones) que se enfrentarán en un Partido ya planificado.
      * Utiliza el método de control interno del partido para validar localía/visitante.
-     * @param partido El Partido donde se jugarán las participaciones.
+     * * @param partido El Partido donde se jugarán las participaciones.
      * @param local La Participación del equipo que será local.
      * @param visitante La Participación del equipo que será visitante.
-     * @throws ValoresNulosException si alguna participación es null.
-     * @throws ParticipacionInvalidaException si ambas tienen la misma localía.
+     * @throws ValoresNulosException si alguna participación o el partido es null.
+     * @throws ParticipacionInvalidaException si ambas tienen la misma localía o el partido ya tiene equipos asignados.
+     * @throws EquipoArbitralInvalidoException si se intenta asignar equipos sin que el partido cuente con un equipo de arbitraje válido.
      */
     public void asignarEquiposAPartido(Partido partido, Participacion local, Participacion visitante)
         throws ValoresNulosException, ParticipacionInvalidaException, EquipoArbitralInvalidoException {
@@ -93,4 +102,3 @@ public class OrganizacionDeportiva {
         if (visitante.getSeleccion() != null) visitante.getSeleccion().agregarParticipacion(visitante);
     }
 }
-

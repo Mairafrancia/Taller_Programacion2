@@ -2,15 +2,34 @@ package CLASES;
 
 import java.util.ArrayList;
 
+/**
+ * Representa un pais participante del torneo mundial.
+ * Un pais puede tener una o mas sedes, una seleccion nacional
+ * y una lista de arbitros de su nacionalidad.
+ */
 public class Pais {
 
+    /** Nombre del pais. */
     private String nombre;
+
+    /** Identificador o nombre del archivo de la bandera del pais. */
     private String bandera;
-    private ArrayList<Sede> sedes; // un pais tiene muchas sedes
-    private Seleccion seleccion; // puede tener o no una seleccion
+
+    /** Lista de sedes ubicadas en este pais. */
+    private ArrayList<Sede> sedes;
+
+    /**
+     * Seleccion nacional del pais. Puede ser null si el pais
+     * no tiene seleccion registrada en el torneo.
+     */
+    private Seleccion seleccion;
+
+    /** Lista de arbitros de nacionalidad de este pais. */
     private ArrayList<Arbitro> arbitros;
 
-    // CONSTRUCTOR SIN PARAMETROS
+    /**
+     * Constructor sin parametros. Inicializa con valores por defecto.
+     */
     public Pais() {
         this.nombre = "";
         this.bandera = "";
@@ -19,66 +38,119 @@ public class Pais {
         this.arbitros = new ArrayList<>();
     }
 
-    // CONSTRUCTOR PARAMETRIZADO
+    /**
+     * Constructor con parametros.
+     *
+     * @param nombre    Nombre del pais.
+     * @param bandera   Identificador del archivo de la bandera.
+     * @param seleccion Seleccion nacional del pais (puede ser null).
+     */
     public Pais(String nombre, String bandera, Seleccion seleccion) {
         this.nombre = nombre;
         this.bandera = bandera;
         this.sedes = new ArrayList<>();
         this.seleccion = seleccion;
-        this.arbitros = new ArrayList<>(); // Inicializamos la lista de árbitros vacía y la llenamos con metodo
+        this.arbitros = new ArrayList<>();
     }
 
-    //SETTERS Y GETTERS
+    /**
+     * Retorna el nombre del pais.
+     * @return El nombre del pais.
+     */
     public String getNombre() {
         return nombre;
     }
 
+    /**
+     * Establece el nombre del pais.
+     * @param nombre El nombre a asignar.
+     */
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
+    /**
+     * Retorna el identificador de la bandera del pais.
+     * @return La bandera del pais.
+     */
     public String getBandera() {
         return bandera;
     }
 
+    /**
+     * Establece el identificador de la bandera del pais.
+     * @param bandera La bandera a asignar.
+     */
     public void setBandera(String bandera) {
         this.bandera = bandera;
     }
 
+    /**
+     * Retorna la lista de sedes del pais.
+     * @return La lista de sedes.
+     */
     public ArrayList<Sede> getSedes() {
         return sedes;
     }
 
+    /**
+     * Reemplaza la lista completa de sedes del pais.
+     * @param sedes La nueva lista de sedes.
+     */
     public void setSedes(ArrayList<Sede> sedes) {
         this.sedes = sedes;
     }
 
+    /**
+     * Retorna la seleccion nacional del pais.
+     * @return La seleccion, o null si no tiene.
+     */
     public Seleccion getSeleccion() {
         return seleccion;
     }
 
+    /**
+     * Establece la seleccion nacional del pais.
+     * @param seleccion La seleccion a asignar.
+     */
     public void setSeleccion(Seleccion seleccion) {
         this.seleccion = seleccion;
     }
 
+    /**
+     * Retorna la lista de arbitros del pais.
+     * @return La lista de arbitros.
+     */
     public ArrayList<Arbitro> getArbitros() {
         return arbitros;
     }
 
+    /**
+     * Reemplaza la lista completa de arbitros del pais.
+     * @param arbitros La nueva lista de arbitros.
+     */
     public void setArbitros(ArrayList<Arbitro> arbitros) {
         this.arbitros = arbitros;
     }
 
-    //METODOS
-
-    // metodo agregarSede
+    /**
+     * Agrega una sede a la lista del pais.
+     * No agrega si la sede es null.
+     *
+     * @param sede La sede a incorporar.
+     */
     public void agregarSede(Sede sede) {
         if (sede != null) {
             this.sedes.add(sede);
         }
     }
 
-    // metodo agregarArbitro
+    /**
+     * Agrega un arbitro a la lista del pais.
+     * No agrega si el arbitro es null.
+     *
+     * @param arbitro El arbitro a incorporar.
+     */
     public void agregarArbitro(Arbitro arbitro) {
         if (arbitro != null) {
             this.arbitros.add(arbitro);

@@ -3,16 +3,31 @@ package GESTION2;
 import CLASES.*;
 import java.util.ArrayList;
 
+/**
+ * Se encarga de procesar y consolidar la información sobre las sanciones y el 
+ * comportamiento disciplinario (tarjetas) tanto a nivel individual de jugadores 
+ * como colectivo por selecciones.
+ * * @author Florencia Benitez
+ * @author Agustina Barreto
+ * @author Francia Maira
+ * @author Gabriela Yañez
+ */
 public class InformeDisciplinario {
 
-    // Constantes para evitar "números mágicos" y mejorar la lectura de los índices del array
+    /** Índice asignado al conteo de tarjetas amarillas en los arreglos de control. */
     private static final int AMARILLAS = 0;
+    
+    /** Índice asignado al conteo de tarjetas rojas directas en los arreglos de control. */
     private static final int ROJAS = 1;
+    
+    /** Índice asignado al conteo de expulsiones por doble amonestación en los arreglos de control. */
     private static final int DOBLES = 2;
 
     /**
-     * Método privado auxiliar para no repetir la lógica de conteo de tarjetas.
-     * Retorna un array de enteros mapeado por las constantes de la clase.
+     * Método privado auxiliar para unificar la lógica de conteo de tarjetas.
+     * Recorre una lista de incidencias y clasifica las sanciones según el tipo de evento.
+     * * @param eventos Lista de eventos deportivos a procesar.
+     * @return Un array de enteros de tamaño 3 mapeado mediante las constantes de la clase.
      */
     private int[] contarTarjetas(ArrayList<Evento> eventos) {
         int[] contadores = new int[3];
@@ -30,6 +45,12 @@ public class InformeDisciplinario {
         return contadores;
     }
 
+    /**
+     * Genera un informe disciplinario consolidado acumulando las tarjetas
+     * de todos los jugadores que integran una selección determinada.
+     * * @param seleccion La Selección sobre la cual se calculará el consolidado.
+     * @return Lista de Strings con el desglose del reporte, o null si la selección provista es null.
+     */
     public ArrayList<String> informePorSeleccion(Seleccion seleccion) {
         if (seleccion == null) return null;
 
@@ -53,6 +74,12 @@ public class InformeDisciplinario {
         return informe;
     }
 
+    /**
+     * Genera un informe detallado con las estadísticas disciplinarias individuales 
+     * asociadas a las sanciones recibidas por un jugador en el torneo.
+     * * @param jugador El Jugador del cual se desea el reporte disciplinario.
+     * @return Lista de Strings con el desglose del reporte, o null si el jugador provisto es null.
+     */
     public ArrayList<String> informePorJugador(Jugador jugador) {
         if (jugador == null) return null;
 

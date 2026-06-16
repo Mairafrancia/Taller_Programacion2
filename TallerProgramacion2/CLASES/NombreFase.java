@@ -1,15 +1,27 @@
 package CLASES;
 
-
+/**
+ * Representa las distintas fases o etapas del torneo mundial.
+ * * NOTA IMPORTANTE: No alterar el orden de las constantes, ya que el ordinal() 
+ * se utiliza en la lógica del sistema para determinar la instancia máxima alcanzada.
+ */
 public enum NombreFase {
-    // IMPORTANTE: No alterar el orden de las constantes.
-    // El ordinal() se usa para determinar la instancia máxima alcanzada.
-    GRUPOS,           // ordinal 0
-    OCTAVOS_DE_FINAL, // ordinal 1
-    CUARTOS_DE_FINAL, // ordinal 2
-    SEMIFINAL,        // ordinal 3
-    TERCER_PUESTO,    // ordinal 4
-    FINAL             // ordinal 5
 
+    /** Fase inicial de grupos (Ordinal 0). */
+    GRUPOS,
+
+    /** Fase de octavos de final (Ordinal 1). */
+    OCTAVOS_DE_FINAL,
+
+    /** Fase de cuartos de final (Ordinal 2). */
+    CUARTOS_DE_FINAL,
+
+    /** Fase de semifinales (Ordinal 3). */
+    SEMIFINAL,
+
+    /** Partido por el tercer puesto del torneo (Ordinal 4). */
+    TERCER_PUESTO,
+
+    /** Partido final para definir al campeón (Ordinal 5). */
+    FINAL;
 }
-

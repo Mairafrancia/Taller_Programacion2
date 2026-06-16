@@ -6,7 +6,16 @@ import java.util.Comparator;
 import CLASES.Jugador;
 import CLASES.Seleccion;
 
+/**
+ * Se encarga de procesar las estadísticas individuales de anotaciones para 
+ * confeccionar el ranking descendente de los máximos anotadores del torneo.
+ * * @author Florencia Benitez
+ * @author Agustina Barreto
+ * @author Francia Maira
+ * @author Gabriela Yañez
+ */
 public class RankingDeGoleadores {
+
     /**
      * Genera el ranking de goleadores de una selección específica,
      * ordenado por cantidad de goles de mayor a menor.

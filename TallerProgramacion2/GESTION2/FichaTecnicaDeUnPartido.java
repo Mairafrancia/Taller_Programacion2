@@ -3,6 +3,14 @@ package GESTION2;
 import CLASES.*;
 import java.util.ArrayList;
 
+/**
+ * Se encarga de recopilar, estructurar y generar la información detallada de 
+ * un encuentro específico para su posterior visualización o impresión.
+ * * @author Florencia Benitez
+ * @author Agustina Barreto
+ * @author Francia Maira
+ * @author Gabriela Yañez
+ */
 public class FichaTecnicaDeUnPartido {
 
     /**
@@ -30,7 +38,6 @@ public class FichaTecnicaDeUnPartido {
             ficha.add("Estadio: " + partido.getEstadio().getNombre());
         }
 
-        
         ficha.add("--- Resultado Final ---");
         if (local != null && visitante != null) {
             int golesLocal = local.cantidadGoles();
@@ -56,6 +63,7 @@ public class FichaTecnicaDeUnPartido {
         } else {
             ficha.add("Alineación local no disponible");
         }
+
         // ALINEACIÓN VISITANTE
         ficha.add("--- Alineación Visitante ---");
         if (visitante != null && visitante.getSeleccion() != null) {
@@ -68,6 +76,7 @@ public class FichaTecnicaDeUnPartido {
         } else {
             ficha.add("Alineación visitante no disponible");
         }
+
         // EVENTOS DEL PARTIDO
         ficha.add("--- Eventos ---");
         if (partido.getEventos() == null || partido.getEventos().isEmpty()) {

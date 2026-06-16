@@ -7,7 +7,7 @@ package EXCEPCIONES;
 public class EquipoArbitralInvalidoException extends TorneoException {
     
     /**
-     * Constructor sin parámetros adicionales.
+     * Constructor sin parámetros adicionales. Utiliza un mensaje de error por defecto.
      */
     public EquipoArbitralInvalidoException() {
         super("Un partido debe tener asignado un equipo de Arbitraje válido (con árbitro y rol).");

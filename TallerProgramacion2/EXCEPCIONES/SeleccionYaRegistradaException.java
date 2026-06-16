@@ -3,6 +3,10 @@ package EXCEPCIONES;
 /**
  * Se lanza cuando se intenta registrar una selección que ya está vinculada a otro país
  * o que ya ha sido asignada a un grupo.
+ * @author Florencia Benitez
+ * @author Agustina Barreto
+ * @author Francia Maira
+ * @author Gabriela Yañez
  */
 public class SeleccionYaRegistradaException extends TorneoException {
     

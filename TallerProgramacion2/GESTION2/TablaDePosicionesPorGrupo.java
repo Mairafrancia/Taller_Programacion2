@@ -5,24 +5,56 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+/**
+ * Procesa los resultados de las participaciones cruzadas de los equipos en un mismo grupo
+ * para confeccionar y ordenar la tabla de posiciones oficial bajo criterios FIFA estándar.
+ * * @author Florencia Benitez
+ * @author Agustina Barreto
+ * @author Francia Maira
+ * @author Gabriela Yañez
+ */
 public class TablaDePosicionesPorGrupo {
 
-    // Clase interna para acumular las estadísticas de cada selección
+    /**
+     * Estructura de datos interna (clase de soporte) diseñada para acumular, 
+     * calcular y consolidar las variables estadísticas puntuales de cada selección.
+     */
     private static class Posicion {
+        /** La Selección nacional asociada a estas estadísticas. */
         Seleccion seleccion;
+        /** Cantidad de puntos acumulados (3 por victoria, 1 por empate). */
         int puntos;
+        /** Cantidad total de partidos válidos disputados en el grupo. */
         int partidosJugados;
+        /** Cantidad de partidos ganados. */
         int partidosGanados;
+        /** Cantidad de partidos empatados. */
         int partidosEmpatados;
+        /** Cantidad de partidos perdidos. */
         int partidosPerdidos;
+        /** Sumatoria de goles anotados por la selección. */
         int golesFavor;
+        /** Sumatoria de goles recibidos en contra. */
         int golesContra;
 
+        /**
+         * Calcula de forma dinámica la diferencia neta de goles de la selección.
+         * @return El resultado aritmético de restar goles en contra a los goles a favor.
+         */
         int getDiferenciaGoles() {
             return golesFavor - golesContra;
         }
     }
 
+    /**
+     * Genera la tabla de posiciones oficial de un Grupo, procesando sus partidos asignados
+     * y aplicando un ordenamiento jerárquico por puntos, diferencia de goles, goles a favor 
+     * y desempate alfabético.
+     *
+     * @param grupo El objeto Grupo del cual se desea calcular la tabla de posiciones.
+     * @return Lista de Strings formateada fila por fila con las estadísticas de cada equipo, 
+     * o null si el grupo provisto es nulo.
+     */
     public ArrayList<String> obtenerTablaPosiciones(Grupo grupo) {
         if (grupo == null) {
             return null;
