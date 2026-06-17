@@ -522,7 +522,7 @@ public class SistemaInteractivo {
         }
         // ------------------------------------
 
-        DirectorTecnico dt = new DirectorTecnico(nombre, fechaNac, 20000101);
+        DirectoresTecnicos dt = new DirectoresTecnicos(nombre, fechaNac, 20000101);
 
         try {
             ad.registrarDirectorTecnico(seleccion, dt);

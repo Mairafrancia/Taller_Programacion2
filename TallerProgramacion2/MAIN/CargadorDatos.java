@@ -511,7 +511,7 @@ public class CargadorDatos {
             registrarJugador(ad, selNed, j);
 
         // --- COLOMBIA ---
-        DirectorTecnico dt_col = new DirectorTecnico("Nestor Lorenzo", 19660227, 20220101);
+        DirectoresTecnicos dt_col = new DirectoresTecnicos("Nestor Lorenzo", 19660227, 20220101);
         Seleccion selCol = new Seleccion("FCF", "colkit.png", "colalt.png", false, 12, grupoD, colombia);
         selCol.agregarDirectoresTecnicos(dt_col);
         colombia.setSeleccion(selCol);
@@ -527,7 +527,7 @@ public class CargadorDatos {
             registrarJugador(ad, selCol, j);
 
         // --- URUGUAY ---
-        DirectorTecnico dt_uru = new DirectorTecnico("Marcelo Bielsa", 19550725, 20230101);
+        DirectoresTecnicos dt_uru = new DirectorTecnico("Marcelo Bielsa", 19550725, 20230101);
         Seleccion selUru = new Seleccion("AUF", "urukit.png", "urualt.png", false, 11, grupoD, uruguay);
         selUru.agregarDirectoresTecnicos(dt_uru);
         uruguay.setSeleccion(selUru);
