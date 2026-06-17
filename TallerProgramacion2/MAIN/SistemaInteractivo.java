@@ -708,7 +708,7 @@ public class SistemaInteractivo {
             System.err.println("Error: " + e.getMessage());
         }
     }
-
+    //cambios
     /**
      * Solicita los datos de un arbitro y su rol, valida que el rol y el arbitro
      * no esten duplicados en el partido, y registra el arbitraje.
