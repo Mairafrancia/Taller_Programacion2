@@ -63,6 +63,7 @@ public class OrganizacionDeportiva {
 
         // Asignamos la fase y el estadio al partido
         partido.setFase(fase);
+        fase.agregarPartido(partido);
         partido.setEstadio(estadio);
 
         // Consistencia bidireccional con Estadio: agregamos el partido a la lista del estadio
