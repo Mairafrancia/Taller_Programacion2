@@ -228,27 +228,29 @@ public class SistemaInteractivo {
     // -------------------------------------------------------------------------
 
     /**
-     * Solicita los datos de una nueva sede al usuario, valida que la ciudad
-     * no este duplicada y la registra en el mundial mediante
-     * {@link GestionInfraestructura#registrarSede(Mundial, Sede, Pais)}.
-     */
-    private void registrarSede() {
-        String nombrePais  = leerNombre("Nombre del Pais: ",
-                                        "El nombre del pais solo puede contener letras.");
-        String bandera     = leerArchivoImagen("Bandera (ej: arg.png): ",
-                                        "Formato invalido. Use nombre.extension (ej: arg.png, ireland.jpg).");
-        String ciudad      = leerNombre("Ciudad: ",
-                                        "La ciudad solo puede contener letras.");
-        String clima       = leerNombre("Clima: ",
-                                        "El clima solo puede contener letras.");
-        String zonaHoraria = leerZonaHoraria("Zona horaria (ej. GMT-3): ",
-                                              "Formato invalido. Use GMT+N o GMT-N (ej: GMT-3, GMT+1).");
+ * Solicita los datos de una nueva sede al usuario, valida que la ciudad
+ * no este duplicada y la registra en el mundial mediante
+ * {@link GestionInfraestructura#registrarSede(Mundial, Sede, Pais)}.
+ */
+private void registrarSede() {
+        // Pedimos la ciudad primero para validar el duplicado cuanto antes
+        String ciudad = leerNombre("Ciudad: ", "La ciudad solo puede contener letras.");
+
         for (Sede s : mundial.getSedes()) {
             if (s != null && s.getCiudad() != null && s.getCiudad().equalsIgnoreCase(ciudad)) {
                 System.out.println("Error: ya existe una sede registrada para la ciudad de " + ciudad + ".");
                 return;
             }
         }
+
+        String nombrePais  = leerNombre("Nombre del Pais: ",
+                                        "El nombre del pais solo puede contener letras.");
+        String bandera     = leerArchivoImagen("Bandera (ej: arg.png): ",
+                                        "Formato invalido. Use nombre.extension (ej: arg.png, ireland.jpg).");
+        String clima       = leerNombre("Clima: ",
+                                        "El clima solo puede contener letras.");
+        String zonaHoraria = leerZonaHoraria("Zona horaria (ej. GMT-3): ",
+                                            "Formato invalido. Use GMT+N o GMT-N (ej: GMT-3, GMT+1).");
         try {
             Pais pais = new Pais();
             pais.setNombre(nombrePais);
