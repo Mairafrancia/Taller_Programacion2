@@ -2,6 +2,8 @@ package CLASES;
 
 import java.util.ArrayList;
 
+import EXCEPCIONES.PeriodoInvalidoException;
+
 /**
  * Representa la entidad principal de un torneo mundial de fútbol.
  * Actúa como clase contenedora que gestiona el año, la mascota, el período
@@ -110,7 +112,10 @@ public class Mundial {
      * Establece la fecha de inicio del mundial.
      * @param fechaDesde La fecha de inicio a asignar.
      */
-    public void setFechaDesde(int fechaDesde) {
+    public void setFechaDesde(int fechaDesde) throws PeriodoInvalidoException{
+        if (fechaDesde > this.fechaHasta) {
+        throw new PeriodoInvalidoException("La fecha de inicializacion no puede ser mayor a la de finalizacion.");
+    }
         this.fechaDesde = fechaDesde;
     }
 
@@ -126,7 +131,10 @@ public class Mundial {
      * Establece la fecha de finalización del mundial.
      * @param fechaHasta La fecha de finalización a asignar.
      */
-    public void setFechaHasta(int fechaHasta) {
+    public void setFechaHasta(int fechaHasta) throws PeriodoInvalidoException{
+        if (fechaHasta < this.fechaDesde) {
+            throw new PeriodoInvalidoException("La fecha de finalización no puede ser anterior a la de inicio.");
+        }
         this.fechaHasta = fechaHasta;
     }
 
@@ -139,27 +147,11 @@ public class Mundial {
     }
 
     /**
-     * Reemplaza la lista completa de sedes del mundial.
-     * @param sedes La nueva lista de sedes.
-     */
-    public void setSedes(ArrayList<Sede> sedes) {
-        this.sedes = sedes;
-    }
-
-    /**
      * Retorna la lista de fases del torneo.
      * @return Lista con las fases de la competición.
      */
     public ArrayList<Fase> getFases() { 
         return fases; 
-    }
-
-    /**
-     * Reemplaza la lista completa de fases del mundial.
-     * @param fases La nueva lista de fases.
-     */
-    public void setFases(ArrayList<Fase> fases) { 
-        this.fases = fases; 
     }
 
     /**
