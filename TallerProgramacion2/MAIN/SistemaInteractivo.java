@@ -1,5 +1,11 @@
 package MAIN;
-import CLASES.*; import GESTION1.*; import GESTION2.*; import EXCEPCIONES.*; import java.util.ArrayList;import java.util.Scanner;
+
+import CLASES.*;
+import GESTION1.*;
+import GESTION2.*;
+import EXCEPCIONES.*;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * Clase principal de interaccion con el usuario para el sistema de gestion
@@ -7,8 +13,10 @@ import CLASES.*; import GESTION1.*; import GESTION2.*; import EXCEPCIONES.*; imp
  * cubren la gestion de infraestructura, delegaciones, organizacion deportiva,
  * registro de eventos y generacion de reportes.
  *
- * <p>Al iniciarse, carga automaticamente los datos del torneo mediante
- * {@link CargadorDatos} e instancia todos los modulos de gestion y reporte.</p>
+ * <p>
+ * Al iniciarse, carga automaticamente los datos del torneo mediante
+ * {@link CargadorDatos} e instancia todos los modulos de gestion y reporte.
+ * </p>
  *
  * @author Florencia Benitez
  * @author Agustina Barreto
@@ -26,7 +34,9 @@ public class SistemaInteractivo {
     /** Modulo de gestion de infraestructura (sedes y estadios). */
     private GestionInfraestructura gi;
 
-    /** Modulo de administracion de delegaciones (selecciones, jugadores, tecnicos). */
+    /**
+     * Modulo de administracion de delegaciones (selecciones, jugadores, tecnicos).
+     */
     private AdministracionDelegaciones ad;
 
     /** Modulo de organizacion deportiva (grupos, partidos, arbitrajes). */
@@ -96,22 +106,22 @@ public class SistemaInteractivo {
      */
     private void mostrarMenuPrincipal() {
         System.out.print("\n+------------------------------------------------------------+\n"
-            + "| SISTEMA DE GESTION DEL TORNEO MUNDIAL 2026                |\n"
-            + "+------------------------------------------------------------+\n"
-            + "| 1. Gestionar infraestructura                               |\n"
-            + "| 2. Administrar delegaciones                                |\n"
-            + "| 3. Organizar partidos                                      |\n"
-            + "| 4. Registrar eventos de campo                              |\n"
-            + "| 5. Tabla de posiciones por grupo                           |\n"
-            + "| 6. Tabla de resultados por seleccion                       |\n"
-            + "| 7. Ranking de goleadores                                   |\n"
-            + "| 8. Informe disciplinario                                   |\n"
-            + "| 9. Ficha tecnica de partido                                |\n"
-            + "|10. Estadisticas de sedes                                   |\n"
-            + "|11. Ver informacion del Mundial                             |\n"
-            + "| 0. Salir                                                   |\n"
-            + "+------------------------------------------------------------+\n"
-            + "Seleccione una opcion: ");
+                + "| SISTEMA DE GESTION DEL TORNEO MUNDIAL 2026                |\n"
+                + "+------------------------------------------------------------+\n"
+                + "| 1. Gestionar infraestructura                               |\n"
+                + "| 2. Administrar delegaciones                                |\n"
+                + "| 3. Organizar partidos                                      |\n"
+                + "| 4. Registrar eventos de campo                              |\n"
+                + "| 5. Tabla de posiciones por grupo                           |\n"
+                + "| 6. Tabla de resultados por seleccion                       |\n"
+                + "| 7. Ranking de goleadores                                   |\n"
+                + "| 8. Informe disciplinario                                   |\n"
+                + "| 9. Ficha tecnica de partido                                |\n"
+                + "|10. Estadisticas de sedes                                   |\n"
+                + "|11. Ver informacion del Mundial                             |\n"
+                + "| 0. Salir                                                   |\n"
+                + "+------------------------------------------------------------+\n"
+                + "Seleccione una opcion: ");
     }
 
     /**
@@ -124,19 +134,43 @@ public class SistemaInteractivo {
     private boolean procesarMenuPrincipal(int opcion) {
         try {
             switch (opcion) {
-                case 1:  menuInfraestructura(); break;
-                case 2:  menuDelegaciones(); break;
-                case 3:  menuOrganizacionDeportiva(); break;
-                case 4:  menuRegistroEventos(); break;
-                case 5:  reporteTablaPosiciones(); break;
-                case 6:  reporteTablaResultados(); break;
-                case 7:  reporteRankingGoleadores(); break;
-                case 8:  reporteInformeDisciplinario(); break;
-                case 9:  reporteFichaTecnica(); break;
-                case 10: reporteEstadisticasSedes(); break;
-                case 11: mostrarInfoMundial(); break;
-                case 0:  return true;
-                default: System.out.println("Opcion no valida.");
+                case 1:
+                    menuInfraestructura();
+                    break;
+                case 2:
+                    menuDelegaciones();
+                    break;
+                case 3:
+                    menuOrganizacionDeportiva();
+                    break;
+                case 4:
+                    menuRegistroEventos();
+                    break;
+                case 5:
+                    reporteTablaPosiciones();
+                    break;
+                case 6:
+                    reporteTablaResultados();
+                    break;
+                case 7:
+                    reporteRankingGoleadores();
+                    break;
+                case 8:
+                    reporteInformeDisciplinario();
+                    break;
+                case 9:
+                    reporteFichaTecnica();
+                    break;
+                case 10:
+                    reporteEstadisticasSedes();
+                    break;
+                case 11:
+                    mostrarInfoMundial();
+                    break;
+                case 0:
+                    return true;
+                default:
+                    System.out.println("Opcion no valida.");
             }
         } catch (Exception e) {
             System.err.println("Error: " + e.getMessage());
@@ -155,13 +189,21 @@ public class SistemaInteractivo {
     private void menuInfraestructura() {
         while (true) {
             System.out.print("\n| GESTION DE INFRAESTRUCTURA |\n"
-                + "1. Registrar Nueva Sede\n2. Registrar Estadio en Sede\n3. Ver Sedes Registradas\n0. Volver\nOpcion: ");
+                    + "1. Registrar Nueva Sede\n2. Registrar Estadio en Sede\n3. Ver Sedes Registradas\n0. Volver\nOpcion: ");
             switch (leerOpcion()) {
-                case 1: registrarSede(); break;
-                case 2: registrarEstadio(); break;
-                case 3: verSedes(); break;
-                case 0: return;
-                default: System.out.println("Opcion no valida.");
+                case 1:
+                    registrarSede();
+                    break;
+                case 2:
+                    registrarEstadio();
+                    break;
+                case 3:
+                    verSedes();
+                    break;
+                case 0:
+                    return;
+                default:
+                    System.out.println("Opcion no valida.");
             }
         }
     }
@@ -173,16 +215,28 @@ public class SistemaInteractivo {
     private void menuDelegaciones() {
         while (true) {
             System.out.print("\n| ADMINISTRACION DELEGACIONES |\n"
-                + "1. Registrar Seleccion\n2. Registrar Jugador\n3. Registrar Director Tecnico\n"
-                + "4. Registrar Cuerpo Tecnico\n5. Ver Selecciones\n0. Volver\nOpcion: ");
+                    + "1. Registrar Seleccion\n2. Registrar Jugador\n3. Registrar Director Tecnico\n"
+                    + "4. Registrar Cuerpo Tecnico\n5. Ver Selecciones\n0. Volver\nOpcion: ");
             switch (leerOpcion()) {
-                case 1: registrarSeleccion(); break;
-                case 2: registrarJugador(); break;
-                case 3: registrarDirectorTecnico(); break;
-                case 4: registrarCuerpoTecnico(); break;
-                case 5: verSelecciones(); break;
-                case 0: return;
-                default: System.out.println("Opcion no valida.");
+                case 1:
+                    registrarSeleccion();
+                    break;
+                case 2:
+                    registrarJugador();
+                    break;
+                case 3:
+                    registrarDirectorTecnico();
+                    break;
+                case 4:
+                    registrarCuerpoTecnico();
+                    break;
+                case 5:
+                    verSelecciones();
+                    break;
+                case 0:
+                    return;
+                default:
+                    System.out.println("Opcion no valida.");
             }
         }
     }
@@ -194,14 +248,24 @@ public class SistemaInteractivo {
     private void menuOrganizacionDeportiva() {
         while (true) {
             System.out.print("\n| ORGANIZACION DEPORTIVA |\n"
-                + "1. Registrar Grupo\n2. Planificar Partido\n3. Asignar Equipos a Partido\n4. Registrar Arbitraje\n0. Volver\nOpcion: ");
+                    + "1. Registrar Grupo\n2. Planificar Partido\n3. Asignar Equipos a Partido\n4. Registrar Arbitraje\n0. Volver\nOpcion: ");
             switch (leerOpcion()) {
-                case 1: registrarGrupo(); break;
-                case 2: planificarPartido(); break;
-                case 3: asignarEquiposAPartido(); break;
-                case 4: registrarArbitraje(); break;
-                case 0: return;
-                default: System.out.println("Opcion no valida.");
+                case 1:
+                    registrarGrupo();
+                    break;
+                case 2:
+                    planificarPartido();
+                    break;
+                case 3:
+                    asignarEquiposAPartido();
+                    break;
+                case 4:
+                    registrarArbitraje();
+                    break;
+                case 0:
+                    return;
+                default:
+                    System.out.println("Opcion no valida.");
             }
         }
     }
@@ -213,12 +277,18 @@ public class SistemaInteractivo {
     private void menuRegistroEventos() {
         while (true) {
             System.out.print("\n| REGISTRO DE EVENTOS |\n"
-                + "1. Registrar Evento\n2. Ver Eventos de un Partido\n0. Volver\nOpcion: ");
+                    + "1. Registrar Evento\n2. Ver Eventos de un Partido\n0. Volver\nOpcion: ");
             switch (leerOpcion()) {
-                case 1: registrarEvento(); break;
-                case 2: verEventosPartido(); break;
-                case 0: return;
-                default: System.out.println("Opcion no valida.");
+                case 1:
+                    registrarEvento();
+                    break;
+                case 2:
+                    verEventosPartido();
+                    break;
+                case 0:
+                    return;
+                default:
+                    System.out.println("Opcion no valida.");
             }
         }
     }
@@ -228,11 +298,11 @@ public class SistemaInteractivo {
     // -------------------------------------------------------------------------
 
     /**
- * Solicita los datos de una nueva sede al usuario, valida que la ciudad
- * no este duplicada y la registra en el mundial mediante
- * {@link GestionInfraestructura#registrarSede(Mundial, Sede, Pais)}.
- */
-private void registrarSede() {
+     * Solicita los datos de una nueva sede al usuario, valida que la ciudad
+     * no este duplicada y la registra en el mundial mediante
+     * {@link GestionInfraestructura#registrarSede(Mundial, Sede, Pais)}.
+     */
+    private void registrarSede() {
         // Pedimos la ciudad primero para validar el duplicado cuanto antes
         String ciudad = leerNombre("Ciudad: ", "La ciudad solo puede contener letras.");
 
@@ -243,14 +313,14 @@ private void registrarSede() {
             }
         }
 
-        String nombrePais  = leerNombre("Nombre del Pais: ",
-                                        "El nombre del pais solo puede contener letras.");
-        String bandera     = leerArchivoImagen("Bandera (ej: arg.png): ",
-                                        "Formato invalido. Use nombre.extension (ej: arg.png, ireland.jpg).");
-        String clima       = leerNombre("Clima: ",
-                                        "El clima solo puede contener letras.");
+        String nombrePais = leerNombre("Nombre del Pais: ",
+                "El nombre del pais solo puede contener letras.");
+        String bandera = leerArchivoImagen("Bandera (ej: arg.png): ",
+                "Formato invalido. Use nombre.extension (ej: arg.png, ireland.jpg).");
+        String clima = leerNombre("Clima: ",
+                "El clima solo puede contener letras.");
         String zonaHoraria = leerZonaHoraria("Zona horaria (ej. GMT-3): ",
-                                            "Formato invalido. Use GMT+N o GMT-N (ej: GMT-3, GMT+1).");
+                "Formato invalido. Use GMT+N o GMT-N (ej: GMT-3, GMT+1).");
         try {
             Pais pais = new Pais();
             pais.setNombre(nombrePais);
@@ -274,14 +344,18 @@ private void registrarSede() {
      */
     private void registrarEstadio() {
         ArrayList<Sede> sedes = mundial.getSedes();
-        if (sedes == null || sedes.isEmpty()) { System.out.println("No hay sedes registradas."); return; }
+        if (sedes == null || sedes.isEmpty()) {
+            System.out.println("No hay sedes registradas.");
+            return;
+        }
 
-        String nombre   = leerNombre("Nombre del Estadio: ",
-                                     "El nombre solo puede contener letras.");
-        int capacidad   = leerEnteroValido("Capacidad: ", "La capacidad debe ser mayor a 0.", v -> v > 0);
+        String nombre = leerNombre("Nombre del Estadio: ",
+                "El nombre solo puede contener letras.");
+        int capacidad = leerEnteroValido("Capacidad: ", "La capacidad debe ser mayor a 0.", v -> v > 0);
 
         System.out.println("Sedes disponibles:");
-        for (int i = 0; i < sedes.size(); i++) System.out.println((i + 1) + ". " + sedes.get(i).getCiudad());
+        for (int i = 0; i < sedes.size(); i++)
+            System.out.println((i + 1) + ". " + sedes.get(i).getCiudad());
         int index = leerEnteroValido("Seleccione sede: ", "Opcion invalida.", v -> v >= 1 && v <= sedes.size()) - 1;
 
         try {
@@ -299,7 +373,10 @@ private void registrarSede() {
      */
     private void verSedes() {
         ArrayList<Sede> sedes = mundial.getSedes();
-        if (sedes == null || sedes.isEmpty()) { System.out.println("No hay sedes registradas."); return; }
+        if (sedes == null || sedes.isEmpty()) {
+            System.out.println("No hay sedes registradas.");
+            return;
+        }
         System.out.println("\nSedes:");
         for (Sede sede : sedes) {
             System.out.println("- " + sede.getCiudad() + " (" + sede.getZonaHoraria() + ")");
@@ -319,19 +396,21 @@ private void registrarSede() {
      */
     private void registrarSeleccion() {
         Grupo grupo = seleccionarGrupo("Seleccione el grupo:");
-        if (grupo == null) return;
+        if (grupo == null)
+            return;
         Pais pais = seleccionarPais("Seleccione el pais:");
-        if (pais == null) return;
+        if (pais == null)
+            return;
         if (pais.getSeleccion() != null) {
             System.out.println("Error: " + pais.getNombre() + " ya tiene una seleccion registrada ("
-                + pais.getSeleccion().getNombreFederacion() + "). Un pais solo puede tener una seleccion.");
+                    + pais.getSeleccion().getNombreFederacion() + "). Un pais solo puede tener una seleccion.");
             return;
         }
         String nombre = leerNombre("Nombre de la federacion: ",
-                                   "El nombre solo puede contener letras.");
+                "El nombre solo puede contener letras.");
         int ranking = leerEnteroValido("Ranking FIFA: ",
-                                       "El ranking debe ser mayor a 0.",
-                                       v -> v > 0);
+                "El ranking debe ser mayor a 0.",
+                v -> v > 0);
         Seleccion sel = new Seleccion();
         sel.setNombreFederacion(nombre);
         sel.setRankingFIFA(ranking);
@@ -343,33 +422,35 @@ private void registrarSede() {
         }
     }
 
-    
     /**
      * Solicita los datos de un nuevo jugador y lo registra en la seleccion
-     * seleccionada mediante {@link AdministracionDelegaciones#registrarJugador(Seleccion, Jugador)}.
+     * seleccionada mediante
+     * {@link AdministracionDelegaciones#registrarJugador(Seleccion, Jugador)}.
      */
     private void registrarJugador() {
         Seleccion seleccion = seleccionarSeleccion("Seleccione la seleccion:");
-        if (seleccion == null) return;
-        
+        if (seleccion == null)
+            return;
+
         String nombre = leerNombre("Nombre del jugador: ",
-                                   "El nombre solo puede contener letras.");
+                "El nombre solo puede contener letras.");
         int dorsal;
         while (true) {
             // 1. Valida el rango (1 a 26) empleando tu predicado funcional
-            dorsal = leerEnteroValido("Dorsal: ", "El dorsal debe ser mayor a 0 y menor o igual a 26.", v -> v >= 1 && v <= 26);
-            
+            dorsal = leerEnteroValido("Dorsal: ", "El dorsal debe ser mayor a 0 y menor o igual a 26.",
+                    v -> v >= 1 && v <= 26);
+
             // 2. Valida si ya existe dentro de la selección seleccionada
             boolean duplicado = false;
             for (Jugador j : seleccion.getJugadores()) {
                 if (j != null && j.getDorsal() == dorsal) {
                     System.out.println("Error: el dorsal " + dorsal + " ya esta asignado a "
-                        + j.getNombre() + " en " + seleccion.getNombreFederacion() + ". Intente nuevamente.");
+                            + j.getNombre() + " en " + seleccion.getNombreFederacion() + ". Intente nuevamente.");
                     duplicado = true;
                     break; // Corta el "for" actual para regresar al inicio del "while"
                 }
             }
-            
+
             if (!duplicado) {
                 break; // El dorsal es válido en rango y no está duplicado. Rompe el "while".
             }
@@ -383,22 +464,23 @@ private void registrarSede() {
 
         while (true) {
             fecha = leerFecha("Fecha nacimiento (YYYYMMDD): ");
-            
+
             if (fecha > FECHA_FUTURA_LIMITE) {
                 System.out.println("Error: La fecha de nacimiento no puede ser una fecha futura.");
             } else if (fecha > FECHA_MAX_PERMITIDA) {
-                System.out.println("Error: El jugador debe tener al menos 18 años (nacido en " + ANIO_LIMITE_18 + " o antes).");
+                System.out.println(
+                        "Error: El jugador debe tener al menos 18 años (nacido en " + ANIO_LIMITE_18 + " o antes).");
             } else {
                 break; // Fecha válida, salimos del bucle
             }
         }
         // --------------------------------------------------
- 
+
         Jugador jugador = new Jugador();
         jugador.setNombre(nombre);
         jugador.setDorsal(dorsal);
         jugador.setFecNacimiento(fecha); // Usa la fecha ya validada arriba
-        
+
         try {
             ad.registrarJugador(seleccion, jugador);
             System.out.println("Jugador registrado: " + nombre);
@@ -406,19 +488,20 @@ private void registrarSede() {
             System.err.println("Error: " + e.getMessage());
         }
     }
-    
 
     /**
      * Solicita los datos de un director tecnico y lo registra en la seleccion
-     * seleccionada mediante {@link AdministracionDelegaciones#registrarDirectorTecnico(Seleccion, DirectoresTecnicos)}.
+     * seleccionada mediante
+     * {@link AdministracionDelegaciones#registrarDirectorTecnico(Seleccion, DirectoresTecnicos)}.
      */
     private void registrarDirectorTecnico() {
         Seleccion seleccion = seleccionarSeleccion("Seleccione la seleccion:");
-        if (seleccion == null) return;
-        
+        if (seleccion == null)
+            return;
+
         String nombre = leerNombre("Nombre DT: ",
-                                   "El nombre solo puede contener letras.");
-        
+                "El nombre solo puede contener letras.");
+
         // --- CONTROL DE FECHA PARA EL DT ---
         final int ANIO_LIMITE_18 = 2008; // En 2026, los de 2008 cumplen 18
         final int FECHA_MAX_PERMITIDA = (ANIO_LIMITE_18 * 10000) + 1231; // 20081231
@@ -427,11 +510,12 @@ private void registrarSede() {
 
         while (true) {
             fechaNac = leerFecha("Fecha de nacimiento (YYYYMMDD): ");
-            
+
             if (fechaNac > FECHA_FUTURA_LIMITE) {
                 System.out.println("Error: La fecha de nacimiento no puede ser una fecha futura.");
             } else if (fechaNac > FECHA_MAX_PERMITIDA) {
-                System.out.println("Error: El director técnico debe tener al menos 18 años (nacido en " + ANIO_LIMITE_18 + " o antes).");
+                System.out.println("Error: El director técnico debe tener al menos 18 años (nacido en " + ANIO_LIMITE_18
+                        + " o antes).");
             } else {
                 break; // Fecha válida, salimos del bucle
             }
@@ -439,7 +523,7 @@ private void registrarSede() {
         // ------------------------------------
 
         DirectoresTecnicos dt = new DirectoresTecnicos(nombre, fechaNac, 20000101);
-        
+
         try {
             ad.registrarDirectorTecnico(seleccion, dt);
             System.out.println("Director tecnico registrado: " + nombre);
@@ -447,6 +531,7 @@ private void registrarSede() {
             System.err.println("Error: " + e.getMessage());
         }
     }
+
     /**
      * Solicita los datos de un integrante del cuerpo tecnico y lo registra
      * en la seleccion seleccionada mediante
@@ -454,10 +539,11 @@ private void registrarSede() {
      */
     private void registrarCuerpoTecnico() {
         Seleccion seleccion = seleccionarSeleccion("Seleccione la seleccion:");
-        if (seleccion == null) return;
-        
+        if (seleccion == null)
+            return;
+
         String nombre = leerNombre("Nombre integrante: ",
-                                   "El nombre solo puede contener letras.");
+                "El nombre solo puede contener letras.");
 
         // --- CONTROL DE FECHA PARA EL CUERPO TÉCNICO ---
         final int ANIO_LIMITE_18 = 2008; // En 2026, los de 2008 cumplen 18
@@ -467,11 +553,12 @@ private void registrarSede() {
 
         while (true) {
             fechaNac = leerFecha("Fecha de nacimiento (YYYYMMDD): ");
-            
+
             if (fechaNac > FECHA_FUTURA_LIMITE) {
                 System.out.println("Error: La fecha de nacimiento no puede ser una fecha futura.");
             } else if (fechaNac > FECHA_MAX_PERMITIDA) {
-                System.out.println("Error: El integrante del cuerpo técnico debe tener al menos 18 años (nacido en " + ANIO_LIMITE_18 + " o antes).");
+                System.out.println("Error: El integrante del cuerpo técnico debe tener al menos 18 años (nacido en "
+                        + ANIO_LIMITE_18 + " o antes).");
             } else {
                 break; // Fecha válida, salimos del bucle
             }
@@ -498,25 +585,31 @@ private void registrarSede() {
             ct.setNombre(nombre);
             ct.setRol(rolElegido);
             ct.setFecNacimiento(fechaNac); // Asignamos la fecha ya validada
-            
+
             ad.registrarCuerpoTecnico(seleccion, ct);
             System.out.println("Integrante creado: " + nombre);
         } catch (TorneoException e) {
             System.err.println("Error: " + e.getMessage());
         }
     }
+
     /**
-     * Muestra todas las selecciones registradas con su pais, grupo y cantidad de jugadores.
+     * Muestra todas las selecciones registradas con su pais, grupo y cantidad de
+     * jugadores.
      */
     private void verSelecciones() {
         ArrayList<Seleccion> selecciones = obtenerTodasLasSelecciones();
-        if (selecciones.isEmpty()) { System.out.println("No hay selecciones registradas."); return; }
+        if (selecciones.isEmpty()) {
+            System.out.println("No hay selecciones registradas.");
+            return;
+        }
         System.out.println("\nSelecciones:");
         for (Seleccion sel : selecciones) {
             String pais = sel.getPais() != null ? sel.getPais().getNombre() : "Sin pais";
             String grupo = sel.getGrupo() != null ? sel.getGrupo().getIdentificador() : "Sin grupo";
             int jugadores = sel.getJugadores() != null ? sel.getJugadores().size() : 0;
-            System.out.println("- " + sel.getNombreFederacion() + " | Pais: " + pais + " | Grupo: " + grupo + " | Jugadores: " + jugadores);
+            System.out.println("- " + sel.getNombreFederacion() + " | Pais: " + pais + " | Grupo: " + grupo
+                    + " | Jugadores: " + jugadores);
         }
     }
 
@@ -530,8 +623,9 @@ private void registrarSede() {
      */
     private void registrarGrupo() {
         Fase fase = seleccionarFase("Seleccione la fase:");
-        if (fase == null) return;
-        String id   = leerNombre("Id grupo (ej: A, B): ", "El id del grupo solo puede contener letras.");
+        if (fase == null)
+            return;
+        String id = leerNombre("Id grupo (ej: A, B): ", "El id del grupo solo puede contener letras.");
         String desc = leerNombre("Descripcion: ", "La descripcion solo puede contener letras.");
         Grupo grupo = new Grupo(id, desc, fase);
         try {
@@ -543,23 +637,26 @@ private void registrarSede() {
     }
 
     /**
-     * Solicita los datos de un nuevo partido, valida que no exista otro con la misma
+     * Solicita los datos de un nuevo partido, valida que no exista otro con la
+     * misma
      * fecha, horario y estadio, y lo planifica mediante
      * {@link OrganizacionDeportiva#planificarPartido(Partido, Fase, Estadio)}.
      */
     private void planificarPartido() {
         Fase fase = seleccionarFase("Seleccione la fase:");
-        if (fase == null) return;
+        if (fase == null)
+            return;
         Estadio estadio = seleccionarEstadio("Seleccione el estadio:");
-        if (estadio == null) return;
-        int fecha   = leerFecha("Fecha (YYYYMMDD): ");
+        if (estadio == null)
+            return;
+        int fecha = leerFecha("Fecha (YYYYMMDD): ");
         int horario = leerEnteroValido("Horario (HHMM, ej: 2000): ",
-                                       "Horario invalido. Use formato HHMM entre 0000 y 2359.",
-                                       v -> v >= 0 && v <= 2359);
+                "Horario invalido. Use formato HHMM entre 0000 y 2359.",
+                v -> v >= 0 && v <= 2359);
         for (Partido p : obtenerTodosLosPartidos()) {
             if (p != null && p.getFecha() == fecha && p.getHorario() == horario && p.getEstadio() == estadio) {
                 System.out.println("Error: ya existe un partido en " + estadio.getNombre()
-                    + " el " + fecha + " a las " + horario + ".");
+                        + " el " + fecha + " a las " + horario + ".");
                 return;
             }
         }
@@ -577,19 +674,26 @@ private void registrarSede() {
 
     /**
      * Permite seleccionar un partido y asignarle las selecciones local y visitante
-     * mediante {@link OrganizacionDeportiva#asignarEquiposAPartido(Partido, Participacion, Participacion)}.
+     * mediante
+     * {@link OrganizacionDeportiva#asignarEquiposAPartido(Partido, Participacion, Participacion)}.
      */
     private void asignarEquiposAPartido() {
         Partido partido = seleccionarPartido("Seleccione el partido:");
-        if (partido == null) return;
+        if (partido == null)
+            return;
         ArrayList<Seleccion> selecciones = obtenerTodasLasSelecciones();
-        if (selecciones.size() < 2) { System.out.println("Se necesitan al menos dos selecciones."); return; }
+        if (selecciones.size() < 2) {
+            System.out.println("Se necesitan al menos dos selecciones.");
+            return;
+        }
         System.out.println("Seleccione local:");
         Seleccion local = seleccionarSeleccionDeLista(selecciones);
-        if (local == null) return;
+        if (local == null)
+            return;
         System.out.println("Seleccione visitante:");
         Seleccion visitante = seleccionarSeleccionDeLista(selecciones, local);
-        if (visitante == null) return;
+        if (visitante == null)
+            return;
         Participacion pLocal = new Participacion();
         pLocal.setEsLocal(true);
         pLocal.setSeleccion(local);
@@ -598,7 +702,8 @@ private void registrarSede() {
         pVisitante.setSeleccion(visitante);
         try {
             od.asignarEquiposAPartido(partido, pLocal, pVisitante);
-            System.out.println("Equipos asignados: " + local.getNombreFederacion() + " vs " + visitante.getNombreFederacion());
+            System.out.println(
+                    "Equipos asignados: " + local.getNombreFederacion() + " vs " + visitante.getNombreFederacion());
         } catch (TorneoException e) {
             System.err.println("Error: " + e.getMessage());
         }
@@ -610,11 +715,12 @@ private void registrarSede() {
      */
     private void registrarArbitraje() {
         Partido partido = seleccionarPartido("Seleccione el partido:");
-        if (partido == null) return;
-        
+        if (partido == null)
+            return;
+
         String nombre = leerNombre("Nombre del arbitro: ",
-                                   "El nombre solo puede contener letras.");
-        
+                "El nombre solo puede contener letras.");
+
         // --- CONTROL DE FECHA PARA EL ÁRBITRO ---
         final int ANIO_LIMITE_18 = 2008; // En 2026, los de 2008 cumplen 18
         final int FECHA_MAX_PERMITIDA = (ANIO_LIMITE_18 * 10000) + 1231; // 20081231
@@ -623,11 +729,12 @@ private void registrarSede() {
 
         while (true) {
             fecNacimiento = leerFecha("Fecha nacimiento (YYYYMMDD): ");
-            
+
             if (fecNacimiento > FECHA_FUTURA_LIMITE) {
                 System.out.println("Error: La fecha de nacimiento no puede ser una fecha futura.");
             } else if (fecNacimiento > FECHA_MAX_PERMITIDA) {
-                System.out.println("Error: El árbitro debe tener al menos 18 años (nacido en " + ANIO_LIMITE_18 + " o antes).");
+                System.out.println(
+                        "Error: El árbitro debe tener al menos 18 años (nacido en " + ANIO_LIMITE_18 + " o antes).");
             } else {
                 break; // Fecha válida, salimos del bucle
             }
@@ -635,11 +742,12 @@ private void registrarSede() {
         // ----------------------------------------
 
         int anios = leerEnteroValido("Anos de experiencia: ",
-                                     "Los anos deben ser entre 0 y 50.",
-                                     v -> v >= 0 && v <= 50);
-        
+                "Los anos deben ser entre 0 y 50.",
+                v -> v >= 0 && v <= 50);
+
         Pais paisArbitro = seleccionarPais("Seleccione el pais del arbitro:");
-        if (paisArbitro == null) return;
+        if (paisArbitro == null)
+            return;
 
         CategoriaArbitro rolElegido = null;
         while (rolElegido == null) {
@@ -669,13 +777,14 @@ private void registrarSede() {
                 return;
             }
         }
-        
+
         try {
             Arbitro arbitro = new Arbitro(nombre, fecNacimiento, anios, paisArbitro);
             Arbitraje arbitraje = new Arbitraje(rolElegido, partido, arbitro);
             partido.agregarArbitraje(arbitraje);
             arbitro.agregarArbitraje(arbitraje);
-            System.out.println("Arbitraje registrado: " + nombre + " (" + paisArbitro.getNombre() + ") como " + rolElegido);
+            System.out.println(
+                    "Arbitraje registrado: " + nombre + " (" + paisArbitro.getNombre() + ") como " + rolElegido);
             if (!partido.tieneEquipoArbitralValido())
                 System.out.println("Nota: El partido aun no tiene equipo arbitral completo.");
         } catch (Exception e) {
@@ -694,9 +803,11 @@ private void registrarSede() {
      */
     private void registrarEvento() {
         Partido partido = seleccionarPartido("Seleccione el partido:");
-        if (partido == null) return;
+        if (partido == null)
+            return;
         Jugador jugador = seleccionarJugadorDePartido(partido);
-        if (jugador == null) return;
+        if (jugador == null)
+            return;
 
         TipoEvento tipoElegido = null;
         while (tipoElegido == null) {
@@ -715,16 +826,16 @@ private void registrarSede() {
         }
 
         int minuto = leerEnteroValido("Minuto (1-120): ",
-                                      "El minuto debe estar entre 1 y 120.",
-                                      v -> v >= 1 && v <= 120);
+                "El minuto debe estar entre 1 y 120.",
+                v -> v >= 1 && v <= 120);
 
         for (Evento e : partido.getEventos()) {
             if (e != null && e.getJugador() == jugador
                     && e.getTipo() == tipoElegido
                     && e.getMinuto() == minuto) {
-                    System.out.println("Error: ya existe un evento " + tipoElegido
+                System.out.println("Error: ya existe un evento " + tipoElegido
                         + " para " + jugador.getNombre() + " en el minuto " + minuto + ".");
-                    return;
+                return;
             }
         }
         try {
@@ -741,9 +852,11 @@ private void registrarSede() {
      */
     private void verEventosPartido() {
         Partido partido = seleccionarPartido("Seleccione el partido:");
-        if (partido == null) return;
+        if (partido == null)
+            return;
         if (partido.getEventos() == null || partido.getEventos().isEmpty()) {
-            System.out.println("No hay eventos registrados."); return;
+            System.out.println("No hay eventos registrados.");
+            return;
         }
         System.out.println("Eventos:");
         for (Evento e : partido.getEventos())
@@ -762,28 +875,41 @@ private void registrarSede() {
      * @param msgVacio Mensaje a mostrar si la lista no tiene datos.
      */
     private void imprimirLista(ArrayList<String> lista, String msgVacio) {
-        if (lista == null || lista.isEmpty()) { System.out.println(msgVacio); return; }
-        for (String l : lista) System.out.println(l);
+        if (lista == null || lista.isEmpty()) {
+            System.out.println(msgVacio);
+            return;
+        }
+        for (String l : lista)
+            System.out.println(l);
     }
 
     /** Solicita un grupo y muestra su tabla de posiciones. */
     private void reporteTablaPosiciones() {
         Grupo grupo = seleccionarGrupo("Seleccione el grupo:");
-        if (grupo == null) return;
+        if (grupo == null)
+            return;
         imprimirLista(tablaPosiciones.obtenerTablaPosiciones(grupo), "No hay datos para esta tabla.");
     }
 
-    /** Solicita una seleccion y muestra su tabla de resultados con instancia maxima alcanzada. */
+    /**
+     * Solicita una seleccion y muestra su tabla de resultados con instancia maxima
+     * alcanzada.
+     */
     private void reporteTablaResultados() {
         Seleccion seleccion = seleccionarSeleccion("Seleccione la seleccion:");
-        if (seleccion == null) return;
+        if (seleccion == null)
+            return;
         imprimirLista(tablaResultados.obtenerResultados(seleccion), "No hay resultados para esta seleccion.");
     }
 
-    /** Solicita una seleccion y muestra el ranking de sus goleadores ordenado de mayor a menor. */
+    /**
+     * Solicita una seleccion y muestra el ranking de sus goleadores ordenado de
+     * mayor a menor.
+     */
     private void reporteRankingGoleadores() {
         Seleccion seleccion = seleccionarSeleccion("Seleccione la seleccion:");
-        if (seleccion == null) return;
+        if (seleccion == null)
+            return;
         imprimirLista(rankingGoles.rankingPorSeleccion(seleccion), "No hay goleadores registrados.");
     }
 
@@ -796,13 +922,16 @@ private void registrarSede() {
                 "Opcion no valida.", v -> v == 1 || v == 2);
         if (opcion == 1) {
             Seleccion seleccion = seleccionarSeleccion("Seleccione la seleccion:");
-            if (seleccion == null) return;
+            if (seleccion == null)
+                return;
             imprimirLista(informeCards.informePorSeleccion(seleccion), "No hay datos disciplinarios.");
         } else {
             Seleccion seleccion = seleccionarSeleccion("Seleccione la seleccion del jugador:");
-            if (seleccion == null) return;
+            if (seleccion == null)
+                return;
             Jugador jugador = seleccionarJugador(seleccion);
-            if (jugador == null) return;
+            if (jugador == null)
+                return;
             imprimirLista(informeCards.informePorJugador(jugador), "No hay datos disciplinarios.");
         }
     }
@@ -810,7 +939,8 @@ private void registrarSede() {
     /** Solicita un partido y muestra su ficha tecnica completa. */
     private void reporteFichaTecnica() {
         Partido partido = seleccionarPartido("Seleccione el partido:");
-        if (partido == null) return;
+        if (partido == null)
+            return;
         imprimirLista(fichaTecnica.obtenerFicha(partido), "No hay ficha tecnica disponible.");
     }
 
@@ -823,8 +953,10 @@ private void registrarSede() {
                 "Opcion no valida.", v -> v == 1 || v == 2);
         if (opcion == 1) {
             Estadio estadio = seleccionarEstadio("Seleccione el estadio:");
-            if (estadio == null) return;
-            System.out.println("Partidos en " + estadio.getNombre() + ": " + estadisticasSedes.partidosPorEstadio(estadio));
+            if (estadio == null)
+                return;
+            System.out.println(
+                    "Partidos en " + estadio.getNombre() + ": " + estadisticasSedes.partidosPorEstadio(estadio));
         } else {
             String ciudad = leerNombre("Ciudad: ", "La ciudad solo puede contener letras.");
             System.out.println("Partidos en " + ciudad + ": " + estadisticasSedes.partidosPorCiudad(mundial, ciudad));
@@ -833,8 +965,10 @@ private void registrarSede() {
 
     /** Muestra el anio, mascota y cantidad de sedes del mundial. */
     private void mostrarInfoMundial() {
-        System.out.println("\nInformacion del Mundial: \n" + "Año: " + mundial.getAnio() + "\n" + "Mascota: " + mundial.getMascota());
-        if (mundial.getSedes() != null) System.out.println("Sedes registradas: " + mundial.getSedes().size());
+        System.out.println("\nInformacion del Mundial: \n" + "Año: " + mundial.getAnio() + "\n" + "Mascota: "
+                + mundial.getMascota());
+        if (mundial.getSedes() != null)
+            System.out.println("Sedes registradas: " + mundial.getSedes().size());
     }
 
     // -------------------------------------------------------------------------
@@ -849,9 +983,13 @@ private void registrarSede() {
      */
     private Pais seleccionarPais(String prompt) {
         ArrayList<Pais> paises = obtenerTodosLosPaises();
-        if (paises.isEmpty()) { System.out.println("No hay paises disponibles."); return null; }
+        if (paises.isEmpty()) {
+            System.out.println("No hay paises disponibles.");
+            return null;
+        }
         System.out.println(prompt);
-        for (int i = 0; i < paises.size(); i++) System.out.println((i + 1) + ". " + paises.get(i).getNombre());
+        for (int i = 0; i < paises.size(); i++)
+            System.out.println((i + 1) + ". " + paises.get(i).getNombre());
         int opcion = leerEnteroValido("Opcion: ", "Opcion no valida.", v -> v >= 1 && v <= paises.size()) - 1;
         return paises.get(opcion);
     }
@@ -864,7 +1002,10 @@ private void registrarSede() {
      */
     private Seleccion seleccionarSeleccion(String prompt) {
         ArrayList<Seleccion> selecciones = obtenerTodasLasSelecciones();
-        if (selecciones.isEmpty()) { System.out.println("No hay selecciones registradas."); return null; }
+        if (selecciones.isEmpty()) {
+            System.out.println("No hay selecciones registradas.");
+            return null;
+        }
         System.out.println(prompt);
         for (int i = 0; i < selecciones.size(); i++) {
             Seleccion sel = selecciones.get(i);
@@ -902,7 +1043,9 @@ private void registrarSede() {
      */
     private Seleccion seleccionarSeleccionDeLista(ArrayList<Seleccion> selecciones, Seleccion excluir) {
         ArrayList<Seleccion> copia = new ArrayList<>();
-        for (Seleccion sel : selecciones) if (sel != excluir) copia.add(sel);
+        for (Seleccion sel : selecciones)
+            if (sel != excluir)
+                copia.add(sel);
         return seleccionarSeleccionDeLista(copia);
     }
 
@@ -914,10 +1057,14 @@ private void registrarSede() {
      */
     private Grupo seleccionarGrupo(String prompt) {
         ArrayList<Grupo> grupos = obtenerTodosLosGrupos();
-        if (grupos.isEmpty()) { System.out.println("No hay grupos registrados."); return null; }
+        if (grupos.isEmpty()) {
+            System.out.println("No hay grupos registrados.");
+            return null;
+        }
         System.out.println(prompt);
         for (int i = 0; i < grupos.size(); i++)
-            System.out.println((i + 1) + ". " + grupos.get(i).getIdentificador() + " - " + grupos.get(i).getDescripcion());
+            System.out.println(
+                    (i + 1) + ". " + grupos.get(i).getIdentificador() + " - " + grupos.get(i).getDescripcion());
         int opcion = leerEnteroValido("Opcion: ", "Opcion no valida.", v -> v >= 1 && v <= grupos.size()) - 1;
         return grupos.get(opcion);
     }
@@ -929,9 +1076,13 @@ private void registrarSede() {
      * @return La fase elegida, o null si no hay fases.
      */
     private Fase seleccionarFase(String prompt) {
-        if (fases == null || fases.isEmpty()) { System.out.println("No hay fases registradas."); return null; }
+        if (fases == null || fases.isEmpty()) {
+            System.out.println("No hay fases registradas.");
+            return null;
+        }
         System.out.println(prompt);
-        for (int i = 0; i < fases.size(); i++) System.out.println((i + 1) + ". " + fases.get(i).getNombre());
+        for (int i = 0; i < fases.size(); i++)
+            System.out.println((i + 1) + ". " + fases.get(i).getNombre());
         int opcion = leerEnteroValido("Opcion: ", "Opcion no valida.", v -> v >= 1 && v <= fases.size()) - 1;
         return fases.get(opcion);
     }
@@ -944,7 +1095,10 @@ private void registrarSede() {
      */
     private Estadio seleccionarEstadio(String prompt) {
         ArrayList<Estadio> estadios = obtenerTodosLosEstadios();
-        if (estadios.isEmpty()) { System.out.println("No hay estadios registrados."); return null; }
+        if (estadios.isEmpty()) {
+            System.out.println("No hay estadios registrados.");
+            return null;
+        }
         System.out.println(prompt);
         for (int i = 0; i < estadios.size(); i++) {
             Estadio e = estadios.get(i);
@@ -963,7 +1117,10 @@ private void registrarSede() {
      */
     private Partido seleccionarPartido(String prompt) {
         ArrayList<Partido> partidos = obtenerTodosLosPartidos();
-        if (partidos.isEmpty()) { System.out.println("No hay partidos registrados."); return null; }
+        if (partidos.isEmpty()) {
+            System.out.println("No hay partidos registrados.");
+            return null;
+        }
         System.out.println(prompt);
         for (int i = 0; i < partidos.size(); i++) {
             Partido p = partidos.get(i);
@@ -982,14 +1139,16 @@ private void registrarSede() {
      */
     private Jugador seleccionarJugador(Seleccion seleccion) {
         if (seleccion == null || seleccion.getJugadores() == null || seleccion.getJugadores().isEmpty()) {
-            System.out.println("No hay jugadores en esta seleccion."); return null;
+            System.out.println("No hay jugadores en esta seleccion.");
+            return null;
         }
         System.out.println("Seleccione jugador:");
         for (int i = 0; i < seleccion.getJugadores().size(); i++) {
             Jugador j = seleccion.getJugadores().get(i);
             System.out.println((i + 1) + ". " + j.getNombre() + " (" + j.getDorsal() + ")");
         }
-        int opcion = leerEnteroValido("Opcion: ", "Opcion no valida.", v -> v >= 1 && v <= seleccion.getJugadores().size()) - 1;
+        int opcion = leerEnteroValido("Opcion: ", "Opcion no valida.",
+                v -> v >= 1 && v <= seleccion.getJugadores().size()) - 1;
         return seleccion.getJugadores().get(opcion);
     }
 
@@ -1002,13 +1161,17 @@ private void registrarSede() {
      */
     private Jugador seleccionarJugadorDePartido(Partido partido) {
         if (partido == null || partido.getParticipaciones() == null) {
-            System.out.println("El partido no tiene participaciones."); return null;
+            System.out.println("El partido no tiene participaciones.");
+            return null;
         }
         ArrayList<Jugador> jugadores = new ArrayList<>();
         for (Participacion p : partido.getParticipaciones())
             if (p != null && p.getSeleccion() != null && p.getSeleccion().getJugadores() != null)
                 jugadores.addAll(p.getSeleccion().getJugadores());
-        if (jugadores.isEmpty()) { System.out.println("No hay jugadores para este partido."); return null; }
+        if (jugadores.isEmpty()) {
+            System.out.println("No hay jugadores para este partido.");
+            return null;
+        }
         System.out.println("Seleccione jugador:");
         for (int i = 0; i < jugadores.size(); i++) {
             Jugador j = jugadores.get(i);
@@ -1036,8 +1199,12 @@ private void registrarSede() {
                     Pais pais = s.getPais();
                     boolean existe = false;
                     for (Pais p : paises)
-                        if (p.getNombre() != null && p.getNombre().equalsIgnoreCase(pais.getNombre())) { existe = true; break; }
-                    if (!existe) paises.add(pais);
+                        if (p.getNombre() != null && p.getNombre().equalsIgnoreCase(pais.getNombre())) {
+                            existe = true;
+                            break;
+                        }
+                    if (!existe)
+                        paises.add(pais);
                 }
             }
         }
@@ -1057,7 +1224,8 @@ private void registrarSede() {
                 for (Grupo grupo : fase.getGrupos()) {
                     if (grupo != null && grupo.getSelecciones() != null) {
                         for (Seleccion sel : grupo.getSelecciones())
-                            if (sel != null && !selecciones.contains(sel)) selecciones.add(sel);
+                            if (sel != null && !selecciones.contains(sel))
+                                selecciones.add(sel);
                     }
                 }
             }
@@ -1079,7 +1247,8 @@ private void registrarSede() {
         for (Fase fase : fases)
             if (fase != null && fase.getGrupos() != null)
                 for (Grupo grupo : fase.getGrupos())
-                    if (grupo != null && !grupos.contains(grupo)) grupos.add(grupo);
+                    if (grupo != null && !grupos.contains(grupo))
+                        grupos.add(grupo);
         return grupos;
     }
 
@@ -1095,7 +1264,8 @@ private void registrarSede() {
             for (Sede s : mundial.getSedes())
                 if (s != null && s.getEstadios() != null)
                     for (Estadio e : s.getEstadios())
-                        if (e != null && !estadios.contains(e)) estadios.add(e);
+                        if (e != null && !estadios.contains(e))
+                            estadios.add(e);
         return estadios;
     }
 
@@ -1110,7 +1280,8 @@ private void registrarSede() {
         for (Fase fase : fases)
             if (fase != null && fase.getPartidos() != null)
                 for (Partido p : fase.getPartidos())
-                    if (p != null && !partidos.contains(p)) partidos.add(p);
+                    if (p != null && !partidos.contains(p))
+                        partidos.add(p);
         return partidos;
     }
 
@@ -1124,8 +1295,11 @@ private void registrarSede() {
      * @return El entero leido, o -1 si la entrada no es un numero valido.
      */
     private int leerOpcion() {
-        try { return Integer.parseInt(scanner.nextLine().trim()); }
-        catch (NumberFormatException e) { return -1; }
+        try {
+            return Integer.parseInt(scanner.nextLine().trim());
+        } catch (NumberFormatException e) {
+            return -1;
+        }
     }
 
     /**
@@ -1153,7 +1327,8 @@ private void registrarSede() {
      * Reintenta hasta recibir un valor valido.
      *
      * @param prompt       Texto a mostrar al usuario.
-     * @param mensajeError Mensaje a mostrar si el valor contiene caracteres invalidos.
+     * @param mensajeError Mensaje a mostrar si el valor contiene caracteres
+     *                     invalidos.
      * @return El nombre valido ingresado.
      */
     private String leerNombre(String prompt, String mensajeError) {
@@ -1167,7 +1342,8 @@ private void registrarSede() {
     }
 
     /**
-     * Solicita una zona horaria por consola con formato {@code GMT+N} o {@code GMT-N}.
+     * Solicita una zona horaria por consola con formato {@code GMT+N} o
+     * {@code GMT-N}.
      * Reintenta hasta recibir un valor valido.
      *
      * @param prompt       Texto a mostrar al usuario.
@@ -1178,14 +1354,16 @@ private void registrarSede() {
         while (true) {
             System.out.print(prompt);
             String texto = scanner.nextLine().trim().toUpperCase();
-            if (texto.matches("GMT[+-]\\d{1,2}")) return texto;
+            if (texto.matches("GMT[+-]\\d{1,2}"))
+                return texto;
             System.out.println("Error: " + mensajeError + " Intente nuevamente.");
         }
     }
 
     /**
      * Solicita una fecha en formato {@code YYYYMMDD} validando que el mes
-     * este entre 01-12 y el dia entre 01-31. Reintenta hasta recibir un valor valido.
+     * este entre 01-12 y el dia entre 01-31. Reintenta hasta recibir un valor
+     * valido.
      *
      * @param prompt Texto a mostrar al usuario.
      * @return La fecha valida como entero en formato YYYYMMDD.
@@ -1208,9 +1386,9 @@ private void registrarSede() {
      * Solicita un numero entero por consola y valida que cumpla la condicion
      * provista. Reintenta hasta recibir un valor valido.
      *
-     * @param prompt     Texto a mostrar al usuario.
+     * @param prompt       Texto a mostrar al usuario.
      * @param mensajeError Mensaje a mostrar si el valor no cumple la condicion.
-     * @param condicion  Predicado que debe cumplir el valor ingresado.
+     * @param condicion    Predicado que debe cumplir el valor ingresado.
      * @return El entero valido ingresado.
      */
     private int leerEnteroValido(String prompt, String mensajeError, java.util.function.IntPredicate condicion) {
@@ -1219,7 +1397,8 @@ private void registrarSede() {
             String entrada = scanner.nextLine().trim();
             try {
                 int valor = Integer.parseInt(entrada);
-                if (condicion.test(valor)) return valor;
+                if (condicion.test(valor))
+                    return valor;
                 System.out.println("Error: " + mensajeError + " Intente nuevamente.");
             } catch (NumberFormatException e) {
                 System.out.println("Entrada no valida. " + mensajeError + " Intente nuevamente.");

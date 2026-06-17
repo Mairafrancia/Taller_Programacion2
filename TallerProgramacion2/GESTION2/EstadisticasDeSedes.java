@@ -3,9 +3,10 @@ package GESTION2;
 import CLASES.*;
 
 /**
- * Proporciona métodos estadísticos y de consulta sobre las sedes, estadios
- * y la distribución de los partidos disputados en el torneo mundial.
- * * @author Florencia Benitez
+ * Proporciona métodos estadísticos y de consulta sobre sedes, estadios
+ * y la distribución de los partidos disputados en un torneo mundial.
+ *
+ * @author Florencia Benitez
  * @author Agustina Barreto
  * @author Francia Maira
  * @author Gabriela Yañez
@@ -14,8 +15,9 @@ public class EstadisticasDeSedes {
 
     /**
      * Devuelve la cantidad de partidos jugados en un estadio específico.
-     * * @param estadio El objeto Estadio sobre el cual se realiza la consulta.
-     * @return Cantidad total de partidos registrados en el estadio, o -1 si el estadio provisto es null.
+     *
+     * @param estadio El objeto {@link Estadio} sobre el cual se realiza la consulta.
+     * @return Cantidad total de partidos registrados en el estadio, o -1 si el estadio provisto es {@code null}.
      */
     public int partidosPorEstadio(Estadio estadio) {
         if (estadio == null) {
@@ -27,7 +29,8 @@ public class EstadisticasDeSedes {
     /**
      * Devuelve la cantidad de partidos jugados en todos los estadios
      * de una ciudad específica, recorriendo las sedes del mundial.
-     * * @param mundial El objeto Mundial que contiene el registro global de sedes.
+     *
+     * @param mundial El objeto {@link Mundial} que contiene el registro global de sedes.
      * @param ciudad El nombre de la ciudad por la cual filtrar los encuentros.
      * @return El total acumulado de partidos jugados en esa ciudad, o -1 si el mundial o la ciudad son inválidos/nulos.
      */
