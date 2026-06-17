@@ -343,31 +343,62 @@ private void registrarSede() {
         }
     }
 
+    
     /**
      * Solicita los datos de un nuevo jugador y lo registra en la seleccion
      * seleccionada mediante {@link AdministracionDelegaciones#registrarJugador(Seleccion, Jugador)}.
      */
-     private void registrarJugador() {
+    private void registrarJugador() {
         Seleccion seleccion = seleccionarSeleccion("Seleccione la seleccion:");
         if (seleccion == null) return;
+        
         String nombre = leerNombre("Nombre del jugador: ",
                                    "El nombre solo puede contener letras.");
-        int dorsal = leerEnteroValido("Dorsal: ", "El dorsal debe ser mayor a 0.", v -> v > 0);
- 
-        // Validar dorsal duplicado dentro de la misma selección
-        for (Jugador j : seleccion.getJugadores()) {
-            if (j != null && j.getDorsal() == dorsal) {
-                System.out.println("Error: el dorsal " + dorsal + " ya esta asignado a "
-                    + j.getNombre() + " en " + seleccion.getNombreFederacion() + ".");
-                return;
+        int dorsal;
+        while (true) {
+            // 1. Valida el rango (1 a 26) empleando tu predicado funcional
+            dorsal = leerEnteroValido("Dorsal: ", "El dorsal debe ser mayor a 0 y menor o igual a 26.", v -> v >= 1 && v <= 26);
+            
+            // 2. Valida si ya existe dentro de la selección seleccionada
+            boolean duplicado = false;
+            for (Jugador j : seleccion.getJugadores()) {
+                if (j != null && j.getDorsal() == dorsal) {
+                    System.out.println("Error: el dorsal " + dorsal + " ya esta asignado a "
+                        + j.getNombre() + " en " + seleccion.getNombreFederacion() + ". Intente nuevamente.");
+                    duplicado = true;
+                    break; // Corta el "for" actual para regresar al inicio del "while"
+                }
+            }
+            
+            if (!duplicado) {
+                break; // El dorsal es válido en rango y no está duplicado. Rompe el "while".
             }
         }
+
+        // --- CONTROL DE FECHA CON CONSTANTE ---
+        final int ANIO_LIMITE_18 = 2008; // En 2026, los de 2008 cumplen 18
+        final int FECHA_MAX_PERMITIDA = (ANIO_LIMITE_18 * 10000) + 1231; // 20081231
+        final int FECHA_FUTURA_LIMITE = 20261231; // Límite para evitar fechas del futuro
+        int fecha;
+
+        while (true) {
+            fecha = leerFecha("Fecha nacimiento (YYYYMMDD): ");
+            
+            if (fecha > FECHA_FUTURA_LIMITE) {
+                System.out.println("Error: La fecha de nacimiento no puede ser una fecha futura.");
+            } else if (fecha > FECHA_MAX_PERMITIDA) {
+                System.out.println("Error: El jugador debe tener al menos 18 años (nacido en " + ANIO_LIMITE_18 + " o antes).");
+            } else {
+                break; // Fecha válida, salimos del bucle
+            }
+        }
+        // --------------------------------------------------
  
-        int fecha  = leerFecha("Fecha nacimiento (YYYYMMDD): ");
         Jugador jugador = new Jugador();
         jugador.setNombre(nombre);
         jugador.setDorsal(dorsal);
-        jugador.setFecNacimiento(fecha);
+        jugador.setFecNacimiento(fecha); // Usa la fecha ya validada arriba
+        
         try {
             ad.registrarJugador(seleccion, jugador);
             System.out.println("Jugador registrado: " + nombre);
@@ -375,7 +406,7 @@ private void registrarSede() {
             System.err.println("Error: " + e.getMessage());
         }
     }
- 
+    
 
     /**
      * Solicita los datos de un director tecnico y lo registra en la seleccion
@@ -384,10 +415,31 @@ private void registrarSede() {
     private void registrarDirectorTecnico() {
         Seleccion seleccion = seleccionarSeleccion("Seleccione la seleccion:");
         if (seleccion == null) return;
+        
         String nombre = leerNombre("Nombre DT: ",
                                    "El nombre solo puede contener letras.");
-        int fechaNac = leerFecha("Fecha de nacimiento (YYYYMMDD): ");
+        
+        // --- CONTROL DE FECHA PARA EL DT ---
+        final int ANIO_LIMITE_18 = 2008; // En 2026, los de 2008 cumplen 18
+        final int FECHA_MAX_PERMITIDA = (ANIO_LIMITE_18 * 10000) + 1231; // 20081231
+        final int FECHA_FUTURA_LIMITE = 20261231; // Límite para evitar fechas del futuro
+        int fechaNac;
+
+        while (true) {
+            fechaNac = leerFecha("Fecha de nacimiento (YYYYMMDD): ");
+            
+            if (fechaNac > FECHA_FUTURA_LIMITE) {
+                System.out.println("Error: La fecha de nacimiento no puede ser una fecha futura.");
+            } else if (fechaNac > FECHA_MAX_PERMITIDA) {
+                System.out.println("Error: El director técnico debe tener al menos 18 años (nacido en " + ANIO_LIMITE_18 + " o antes).");
+            } else {
+                break; // Fecha válida, salimos del bucle
+            }
+        }
+        // ------------------------------------
+
         DirectoresTecnicos dt = new DirectoresTecnicos(nombre, fechaNac, 20000101);
+        
         try {
             ad.registrarDirectorTecnico(seleccion, dt);
             System.out.println("Director tecnico registrado: " + nombre);
@@ -395,7 +447,6 @@ private void registrarSede() {
             System.err.println("Error: " + e.getMessage());
         }
     }
-
     /**
      * Solicita los datos de un integrante del cuerpo tecnico y lo registra
      * en la seleccion seleccionada mediante
@@ -404,8 +455,28 @@ private void registrarSede() {
     private void registrarCuerpoTecnico() {
         Seleccion seleccion = seleccionarSeleccion("Seleccione la seleccion:");
         if (seleccion == null) return;
+        
         String nombre = leerNombre("Nombre integrante: ",
                                    "El nombre solo puede contener letras.");
+
+        // --- CONTROL DE FECHA PARA EL CUERPO TÉCNICO ---
+        final int ANIO_LIMITE_18 = 2008; // En 2026, los de 2008 cumplen 18
+        final int FECHA_MAX_PERMITIDA = (ANIO_LIMITE_18 * 10000) + 1231; // 20081231
+        final int FECHA_FUTURA_LIMITE = 20261231; // Límite para evitar fechas del futuro
+        int fechaNac;
+
+        while (true) {
+            fechaNac = leerFecha("Fecha de nacimiento (YYYYMMDD): ");
+            
+            if (fechaNac > FECHA_FUTURA_LIMITE) {
+                System.out.println("Error: La fecha de nacimiento no puede ser una fecha futura.");
+            } else if (fechaNac > FECHA_MAX_PERMITIDA) {
+                System.out.println("Error: El integrante del cuerpo técnico debe tener al menos 18 años (nacido en " + ANIO_LIMITE_18 + " o antes).");
+            } else {
+                break; // Fecha válida, salimos del bucle
+            }
+        }
+        // -----------------------------------------------
 
         Rol rolElegido = null;
         while (rolElegido == null) {
@@ -426,13 +497,14 @@ private void registrarSede() {
             CuerpoTecnico ct = new CuerpoTecnico();
             ct.setNombre(nombre);
             ct.setRol(rolElegido);
+            ct.setFecNacimiento(fechaNac); // Asignamos la fecha ya validada
+            
             ad.registrarCuerpoTecnico(seleccion, ct);
             System.out.println("Integrante creado: " + nombre);
         } catch (TorneoException e) {
             System.err.println("Error: " + e.getMessage());
         }
     }
-
     /**
      * Muestra todas las selecciones registradas con su pais, grupo y cantidad de jugadores.
      */
@@ -539,12 +611,33 @@ private void registrarSede() {
     private void registrarArbitraje() {
         Partido partido = seleccionarPartido("Seleccione el partido:");
         if (partido == null) return;
+        
         String nombre = leerNombre("Nombre del arbitro: ",
                                    "El nombre solo puede contener letras.");
-        int fecNacimiento = leerFecha("Fecha nacimiento (YYYYMMDD): ");
+        
+        // --- CONTROL DE FECHA PARA EL ÁRBITRO ---
+        final int ANIO_LIMITE_18 = 2008; // En 2026, los de 2008 cumplen 18
+        final int FECHA_MAX_PERMITIDA = (ANIO_LIMITE_18 * 10000) + 1231; // 20081231
+        final int FECHA_FUTURA_LIMITE = 20261231; // Límite para evitar fechas del futuro
+        int fecNacimiento;
+
+        while (true) {
+            fecNacimiento = leerFecha("Fecha nacimiento (YYYYMMDD): ");
+            
+            if (fecNacimiento > FECHA_FUTURA_LIMITE) {
+                System.out.println("Error: La fecha de nacimiento no puede ser una fecha futura.");
+            } else if (fecNacimiento > FECHA_MAX_PERMITIDA) {
+                System.out.println("Error: El árbitro debe tener al menos 18 años (nacido en " + ANIO_LIMITE_18 + " o antes).");
+            } else {
+                break; // Fecha válida, salimos del bucle
+            }
+        }
+        // ----------------------------------------
+
         int anios = leerEnteroValido("Anos de experiencia: ",
                                      "Los anos deben ser entre 0 y 50.",
                                      v -> v >= 0 && v <= 50);
+        
         Pais paisArbitro = seleccionarPais("Seleccione el pais del arbitro:");
         if (paisArbitro == null) return;
 
@@ -576,6 +669,7 @@ private void registrarSede() {
                 return;
             }
         }
+        
         try {
             Arbitro arbitro = new Arbitro(nombre, fecNacimiento, anios, paisArbitro);
             Arbitraje arbitraje = new Arbitraje(rolElegido, partido, arbitro);
