@@ -347,12 +347,22 @@ private void registrarSede() {
      * Solicita los datos de un nuevo jugador y lo registra en la seleccion
      * seleccionada mediante {@link AdministracionDelegaciones#registrarJugador(Seleccion, Jugador)}.
      */
-    private void registrarJugador() {
+     private void registrarJugador() {
         Seleccion seleccion = seleccionarSeleccion("Seleccione la seleccion:");
         if (seleccion == null) return;
         String nombre = leerNombre("Nombre del jugador: ",
                                    "El nombre solo puede contener letras.");
         int dorsal = leerEnteroValido("Dorsal: ", "El dorsal debe ser mayor a 0.", v -> v > 0);
+ 
+        // Validar dorsal duplicado dentro de la misma selección
+        for (Jugador j : seleccion.getJugadores()) {
+            if (j != null && j.getDorsal() == dorsal) {
+                System.out.println("Error: el dorsal " + dorsal + " ya esta asignado a "
+                    + j.getNombre() + " en " + seleccion.getNombreFederacion() + ".");
+                return;
+            }
+        }
+ 
         int fecha  = leerFecha("Fecha nacimiento (YYYYMMDD): ");
         Jugador jugador = new Jugador();
         jugador.setNombre(nombre);
@@ -365,6 +375,7 @@ private void registrarSede() {
             System.err.println("Error: " + e.getMessage());
         }
     }
+ 
 
     /**
      * Solicita los datos de un director tecnico y lo registra en la seleccion
