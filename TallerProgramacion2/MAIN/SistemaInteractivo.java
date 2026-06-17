@@ -1,21 +1,65 @@
 package MAIN;
 import CLASES.*; import GESTION1.*; import GESTION2.*; import EXCEPCIONES.*; import java.util.ArrayList;import java.util.Scanner;
 
+/**
+ * Clase principal de interaccion con el usuario para el sistema de gestion
+ * del Torneo Mundial 2026. Provee un menu de consola con 11 opciones que
+ * cubren la gestion de infraestructura, delegaciones, organizacion deportiva,
+ * registro de eventos y generacion de reportes.
+ *
+ * <p>Al iniciarse, carga automaticamente los datos del torneo mediante
+ * {@link CargadorDatos} e instancia todos los modulos de gestion y reporte.</p>
+ *
+ * @author Florencia Benitez
+ * @author Agustina Barreto
+ * @author Francia Maira
+ * @author Gabriela Yañez
+ */
 public class SistemaInteractivo {
+
+    /** Scanner para leer la entrada del usuario por consola. */
     private Scanner scanner;
+
+    /** Objeto principal del torneo que contiene todas las entidades. */
     private Mundial mundial;
+
+    /** Modulo de gestion de infraestructura (sedes y estadios). */
     private GestionInfraestructura gi;
+
+    /** Modulo de administracion de delegaciones (selecciones, jugadores, tecnicos). */
     private AdministracionDelegaciones ad;
+
+    /** Modulo de organizacion deportiva (grupos, partidos, arbitrajes). */
     private OrganizacionDeportiva od;
+
+    /** Modulo de registro de eventos de campo. */
     private RegistrosEventosCampos rec;
+
+    /** Reporte: tabla de posiciones por grupo. */
     private TablaDePosicionesPorGrupo tablaPosiciones;
+
+    /** Reporte: tabla de resultados por seleccion. */
     private TablaDeResultadosPorSeleccion tablaResultados;
+
+    /** Reporte: ranking de goleadores por seleccion. */
     private RankingDeGoleadores rankingGoles;
+
+    /** Reporte: informe disciplinario por seleccion o jugador. */
     private InformeDisciplinario informeCards;
+
+    /** Reporte: ficha tecnica de un partido. */
     private FichaTecnicaDeUnPartido fichaTecnica;
+
+    /** Reporte: estadisticas de partidos por estadio o ciudad. */
     private EstadisticasDeSedes estadisticasSedes;
+
+    /** Lista de fases del torneo, obtenida del mundial al iniciar. */
     private ArrayList<Fase> fases;
 
+    /**
+     * Constructor. Inicializa todos los modulos del sistema y carga
+     * los datos del torneo mediante {@link CargadorDatos#cargar()}.
+     */
     public SistemaInteractivo() {
         this.scanner = new Scanner(System.in);
         this.mundial = CargadorDatos.cargar();
@@ -32,6 +76,10 @@ public class SistemaInteractivo {
         this.fases = mundial.getFases();
     }
 
+    /**
+     * Inicia el bucle principal del sistema. Muestra el menu principal
+     * y procesa la opcion del usuario hasta que se elige salir.
+     */
     public void iniciar() {
         boolean salir = false;
         while (!salir) {
@@ -43,6 +91,9 @@ public class SistemaInteractivo {
         scanner.close();
     }
 
+    /**
+     * Imprime el menu principal del sistema por consola.
+     */
     private void mostrarMenuPrincipal() {
         System.out.print("\n+------------------------------------------------------------+\n"
             + "| SISTEMA DE GESTION DEL TORNEO MUNDIAL 2026                |\n"
@@ -63,6 +114,13 @@ public class SistemaInteractivo {
             + "Seleccione una opcion: ");
     }
 
+    /**
+     * Procesa la opcion seleccionada en el menu principal y delega
+     * al submenu o reporte correspondiente.
+     *
+     * @param opcion La opcion ingresada por el usuario.
+     * @return True si el usuario eligio salir, false en caso contrario.
+     */
     private boolean procesarMenuPrincipal(int opcion) {
         try {
             switch (opcion) {
@@ -90,6 +148,10 @@ public class SistemaInteractivo {
     // MENUS
     // -------------------------------------------------------------------------
 
+    /**
+     * Muestra y gestiona el submenu de infraestructura en bucle
+     * hasta que el usuario elige volver.
+     */
     private void menuInfraestructura() {
         while (true) {
             System.out.print("\n| GESTION DE INFRAESTRUCTURA |\n"
@@ -104,6 +166,10 @@ public class SistemaInteractivo {
         }
     }
 
+    /**
+     * Muestra y gestiona el submenu de delegaciones en bucle
+     * hasta que el usuario elige volver.
+     */
     private void menuDelegaciones() {
         while (true) {
             System.out.print("\n| ADMINISTRACION DELEGACIONES |\n"
@@ -121,6 +187,10 @@ public class SistemaInteractivo {
         }
     }
 
+    /**
+     * Muestra y gestiona el submenu de organizacion deportiva en bucle
+     * hasta que el usuario elige volver.
+     */
     private void menuOrganizacionDeportiva() {
         while (true) {
             System.out.print("\n| ORGANIZACION DEPORTIVA |\n"
@@ -136,6 +206,10 @@ public class SistemaInteractivo {
         }
     }
 
+    /**
+     * Muestra y gestiona el submenu de registro de eventos en bucle
+     * hasta que el usuario elige volver.
+     */
     private void menuRegistroEventos() {
         while (true) {
             System.out.print("\n| REGISTRO DE EVENTOS |\n"
@@ -153,6 +227,11 @@ public class SistemaInteractivo {
     // INFRAESTRUCTURA
     // -------------------------------------------------------------------------
 
+    /**
+     * Solicita los datos de una nueva sede al usuario, valida que la ciudad
+     * no este duplicada y la registra en el mundial mediante
+     * {@link GestionInfraestructura#registrarSede(Mundial, Sede, Pais)}.
+     */
     private void registrarSede() {
         String nombrePais  = leerNombre("Nombre del Pais: ",
                                         "El nombre del pais solo puede contener letras.");
@@ -186,6 +265,11 @@ public class SistemaInteractivo {
         }
     }
 
+    /**
+     * Solicita los datos de un nuevo estadio, permite seleccionar la sede
+     * y lo registra mediante
+     * {@link GestionInfraestructura#registrarEstadioEnSede(Sede, Estadio, int)}.
+     */
     private void registrarEstadio() {
         ArrayList<Sede> sedes = mundial.getSedes();
         if (sedes == null || sedes.isEmpty()) { System.out.println("No hay sedes registradas."); return; }
@@ -208,6 +292,9 @@ public class SistemaInteractivo {
         }
     }
 
+    /**
+     * Muestra todas las sedes registradas con sus estadios y capacidades.
+     */
     private void verSedes() {
         ArrayList<Sede> sedes = mundial.getSedes();
         if (sedes == null || sedes.isEmpty()) { System.out.println("No hay sedes registradas."); return; }
@@ -224,6 +311,10 @@ public class SistemaInteractivo {
     // DELEGACIONES
     // -------------------------------------------------------------------------
 
+    /**
+     * Solicita los datos de una nueva seleccion, valida que el pais no tenga
+     * ya una seleccion registrada y la vincula al grupo y pais seleccionados.
+     */
     private void registrarSeleccion() {
         Grupo grupo = seleccionarGrupo("Seleccione el grupo:");
         if (grupo == null) return;
@@ -250,6 +341,10 @@ public class SistemaInteractivo {
         }
     }
 
+    /**
+     * Solicita los datos de un nuevo jugador y lo registra en la seleccion
+     * seleccionada mediante {@link AdministracionDelegaciones#registrarJugador(Seleccion, Jugador)}.
+     */
     private void registrarJugador() {
         Seleccion seleccion = seleccionarSeleccion("Seleccione la seleccion:");
         if (seleccion == null) return;
@@ -269,6 +364,10 @@ public class SistemaInteractivo {
         }
     }
 
+    /**
+     * Solicita los datos de un director tecnico y lo registra en la seleccion
+     * seleccionada mediante {@link AdministracionDelegaciones#registrarDirectorTecnico(Seleccion, DirectoresTecnicos)}.
+     */
     private void registrarDirectorTecnico() {
         Seleccion seleccion = seleccionarSeleccion("Seleccione la seleccion:");
         if (seleccion == null) return;
@@ -284,6 +383,11 @@ public class SistemaInteractivo {
         }
     }
 
+    /**
+     * Solicita los datos de un integrante del cuerpo tecnico y lo registra
+     * en la seleccion seleccionada mediante
+     * {@link AdministracionDelegaciones#registrarCuerpoTecnico(Seleccion, CuerpoTecnico)}.
+     */
     private void registrarCuerpoTecnico() {
         Seleccion seleccion = seleccionarSeleccion("Seleccione la seleccion:");
         if (seleccion == null) return;
@@ -316,6 +420,9 @@ public class SistemaInteractivo {
         }
     }
 
+    /**
+     * Muestra todas las selecciones registradas con su pais, grupo y cantidad de jugadores.
+     */
     private void verSelecciones() {
         ArrayList<Seleccion> selecciones = obtenerTodasLasSelecciones();
         if (selecciones.isEmpty()) { System.out.println("No hay selecciones registradas."); return; }
@@ -332,6 +439,10 @@ public class SistemaInteractivo {
     // ORGANIZACION DEPORTIVA
     // -------------------------------------------------------------------------
 
+    /**
+     * Solicita los datos de un nuevo grupo y lo registra en la fase seleccionada
+     * mediante {@link OrganizacionDeportiva#registrarGrupoEnFase(Fase, Grupo)}.
+     */
     private void registrarGrupo() {
         Fase fase = seleccionarFase("Seleccione la fase:");
         if (fase == null) return;
@@ -346,6 +457,11 @@ public class SistemaInteractivo {
         }
     }
 
+    /**
+     * Solicita los datos de un nuevo partido, valida que no exista otro con la misma
+     * fecha, horario y estadio, y lo planifica mediante
+     * {@link OrganizacionDeportiva#planificarPartido(Partido, Fase, Estadio)}.
+     */
     private void planificarPartido() {
         Fase fase = seleccionarFase("Seleccione la fase:");
         if (fase == null) return;
@@ -355,7 +471,6 @@ public class SistemaInteractivo {
         int horario = leerEnteroValido("Horario (HHMM, ej: 2000): ",
                                        "Horario invalido. Use formato HHMM entre 0000 y 2359.",
                                        v -> v >= 0 && v <= 2359);
-        // Validar partido duplicado: misma fecha, horario y estadio
         for (Partido p : obtenerTodosLosPartidos()) {
             if (p != null && p.getFecha() == fecha && p.getHorario() == horario && p.getEstadio() == estadio) {
                 System.out.println("Error: ya existe un partido en " + estadio.getNombre()
@@ -375,6 +490,10 @@ public class SistemaInteractivo {
         }
     }
 
+    /**
+     * Permite seleccionar un partido y asignarle las selecciones local y visitante
+     * mediante {@link OrganizacionDeportiva#asignarEquiposAPartido(Partido, Participacion, Participacion)}.
+     */
     private void asignarEquiposAPartido() {
         Partido partido = seleccionarPartido("Seleccione el partido:");
         if (partido == null) return;
@@ -400,6 +519,10 @@ public class SistemaInteractivo {
         }
     }
 
+    /**
+     * Solicita los datos de un arbitro y su rol, valida que el rol y el arbitro
+     * no esten duplicados en el partido, y registra el arbitraje.
+     */
     private void registrarArbitraje() {
         Partido partido = seleccionarPartido("Seleccione el partido:");
         if (partido == null) return;
@@ -427,7 +550,6 @@ public class SistemaInteractivo {
             }
         }
 
-        // Validar rol duplicado en el mismo partido
         for (Arbitraje a : partido.getArbitrajes()) {
             if (a != null && a.getRol() == rolElegido) {
                 System.out.println("Error: el rol " + rolElegido + " ya esta asignado en este partido.");
@@ -458,6 +580,11 @@ public class SistemaInteractivo {
     // REGISTRO DE EVENTOS
     // -------------------------------------------------------------------------
 
+    /**
+     * Permite seleccionar un partido y un jugador, solicita el tipo de evento
+     * y el minuto, y lo registra mediante
+     * {@link RegistrosEventosCampos#registrarEventoDeCampo(Partido, Jugador, Evento)}.
+     */
     private void registrarEvento() {
         Partido partido = seleccionarPartido("Seleccione el partido:");
         if (partido == null) return;
@@ -484,6 +611,15 @@ public class SistemaInteractivo {
                                       "El minuto debe estar entre 1 y 120.",
                                       v -> v >= 1 && v <= 120);
 
+        for (Evento e : partido.getEventos()) {
+            if (e != null && e.getJugador() == jugador
+                    && e.getTipo() == tipoElegido
+                    && e.getMinuto() == minuto) {
+                    System.out.println("Error: ya existe un evento " + tipoElegido
+                        + " para " + jugador.getNombre() + " en el minuto " + minuto + ".");
+                    return;
+            }
+        }
         try {
             Evento evento = new Evento(tipoElegido, minuto, jugador);
             rec.registrarEventoDeCampo(partido, jugador, evento);
@@ -493,6 +629,9 @@ public class SistemaInteractivo {
         }
     }
 
+    /**
+     * Muestra todos los eventos registrados en un partido seleccionado.
+     */
     private void verEventosPartido() {
         Partido partido = seleccionarPartido("Seleccione el partido:");
         if (partido == null) return;
@@ -508,29 +647,43 @@ public class SistemaInteractivo {
     // REPORTES
     // -------------------------------------------------------------------------
 
+    /**
+     * Imprime cada elemento de una lista de strings. Si la lista es nula o vacia,
+     * muestra el mensaje de vacio provisto.
+     *
+     * @param lista    Lista de lineas a imprimir.
+     * @param msgVacio Mensaje a mostrar si la lista no tiene datos.
+     */
     private void imprimirLista(ArrayList<String> lista, String msgVacio) {
         if (lista == null || lista.isEmpty()) { System.out.println(msgVacio); return; }
         for (String l : lista) System.out.println(l);
     }
 
+    /** Solicita un grupo y muestra su tabla de posiciones. */
     private void reporteTablaPosiciones() {
         Grupo grupo = seleccionarGrupo("Seleccione el grupo:");
         if (grupo == null) return;
         imprimirLista(tablaPosiciones.obtenerTablaPosiciones(grupo), "No hay datos para esta tabla.");
     }
 
+    /** Solicita una seleccion y muestra su tabla de resultados con instancia maxima alcanzada. */
     private void reporteTablaResultados() {
         Seleccion seleccion = seleccionarSeleccion("Seleccione la seleccion:");
         if (seleccion == null) return;
         imprimirLista(tablaResultados.obtenerResultados(seleccion), "No hay resultados para esta seleccion.");
     }
 
+    /** Solicita una seleccion y muestra el ranking de sus goleadores ordenado de mayor a menor. */
     private void reporteRankingGoleadores() {
         Seleccion seleccion = seleccionarSeleccion("Seleccione la seleccion:");
         if (seleccion == null) return;
         imprimirLista(rankingGoles.rankingPorSeleccion(seleccion), "No hay goleadores registrados.");
     }
 
+    /**
+     * Solicita si el informe es por seleccion o por jugador y muestra
+     * el conteo de tarjetas amarillas, rojas y dobles amarillas.
+     */
     private void reporteInformeDisciplinario() {
         int opcion = leerEnteroValido("\n1. Por seleccion\n2. Por jugador\nOpcion: ",
                 "Opcion no valida.", v -> v == 1 || v == 2);
@@ -547,12 +700,17 @@ public class SistemaInteractivo {
         }
     }
 
+    /** Solicita un partido y muestra su ficha tecnica completa. */
     private void reporteFichaTecnica() {
         Partido partido = seleccionarPartido("Seleccione el partido:");
         if (partido == null) return;
         imprimirLista(fichaTecnica.obtenerFicha(partido), "No hay ficha tecnica disponible.");
     }
 
+    /**
+     * Solicita si la consulta es por estadio o por ciudad y muestra
+     * la cantidad de partidos correspondiente.
+     */
     private void reporteEstadisticasSedes() {
         int opcion = leerEnteroValido("\n1. Por estadio\n2. Por ciudad\nOpcion: ",
                 "Opcion no valida.", v -> v == 1 || v == 2);
@@ -566,6 +724,7 @@ public class SistemaInteractivo {
         }
     }
 
+    /** Muestra el anio, mascota y cantidad de sedes del mundial. */
     private void mostrarInfoMundial() {
         System.out.println("\nInformacion del Mundial: \n" + "Año: " + mundial.getAnio() + "\n" + "Mascota: " + mundial.getMascota());
         if (mundial.getSedes() != null) System.out.println("Sedes registradas: " + mundial.getSedes().size());
@@ -575,6 +734,12 @@ public class SistemaInteractivo {
     // SELECTORES AUXILIARES
     // -------------------------------------------------------------------------
 
+    /**
+     * Muestra la lista de paises disponibles y retorna el seleccionado.
+     *
+     * @param prompt Texto a mostrar antes de la lista.
+     * @return El pais seleccionado, o null si no hay paises.
+     */
     private Pais seleccionarPais(String prompt) {
         ArrayList<Pais> paises = obtenerTodosLosPaises();
         if (paises.isEmpty()) { System.out.println("No hay paises disponibles."); return null; }
@@ -584,6 +749,12 @@ public class SistemaInteractivo {
         return paises.get(opcion);
     }
 
+    /**
+     * Muestra la lista de selecciones registradas y retorna la seleccionada.
+     *
+     * @param prompt Texto a mostrar antes de la lista.
+     * @return La seleccion elegida, o null si no hay selecciones.
+     */
     private Seleccion seleccionarSeleccion(String prompt) {
         ArrayList<Seleccion> selecciones = obtenerTodasLasSelecciones();
         if (selecciones.isEmpty()) { System.out.println("No hay selecciones registradas."); return null; }
@@ -597,6 +768,12 @@ public class SistemaInteractivo {
         return selecciones.get(opcion);
     }
 
+    /**
+     * Muestra una lista de selecciones provista y retorna la elegida.
+     *
+     * @param selecciones Lista de selecciones a mostrar.
+     * @return La seleccion elegida.
+     */
     private Seleccion seleccionarSeleccionDeLista(ArrayList<Seleccion> selecciones) {
         for (int i = 0; i < selecciones.size(); i++) {
             Seleccion sel = selecciones.get(i);
@@ -607,12 +784,27 @@ public class SistemaInteractivo {
         return selecciones.get(opcion);
     }
 
+    /**
+     * Igual que {@link #seleccionarSeleccionDeLista(ArrayList)} pero excluye
+     * una seleccion especifica de la lista (usada para evitar seleccionar
+     * la misma seleccion como local y visitante).
+     *
+     * @param selecciones Lista original de selecciones.
+     * @param excluir     Seleccion a excluir de la lista.
+     * @return La seleccion elegida.
+     */
     private Seleccion seleccionarSeleccionDeLista(ArrayList<Seleccion> selecciones, Seleccion excluir) {
         ArrayList<Seleccion> copia = new ArrayList<>();
         for (Seleccion sel : selecciones) if (sel != excluir) copia.add(sel);
         return seleccionarSeleccionDeLista(copia);
     }
 
+    /**
+     * Muestra la lista de grupos registrados y retorna el seleccionado.
+     *
+     * @param prompt Texto a mostrar antes de la lista.
+     * @return El grupo elegido, o null si no hay grupos.
+     */
     private Grupo seleccionarGrupo(String prompt) {
         ArrayList<Grupo> grupos = obtenerTodosLosGrupos();
         if (grupos.isEmpty()) { System.out.println("No hay grupos registrados."); return null; }
@@ -623,6 +815,12 @@ public class SistemaInteractivo {
         return grupos.get(opcion);
     }
 
+    /**
+     * Muestra la lista de fases del torneo y retorna la seleccionada.
+     *
+     * @param prompt Texto a mostrar antes de la lista.
+     * @return La fase elegida, o null si no hay fases.
+     */
     private Fase seleccionarFase(String prompt) {
         if (fases == null || fases.isEmpty()) { System.out.println("No hay fases registradas."); return null; }
         System.out.println(prompt);
@@ -631,6 +829,12 @@ public class SistemaInteractivo {
         return fases.get(opcion);
     }
 
+    /**
+     * Muestra la lista de estadios registrados y retorna el seleccionado.
+     *
+     * @param prompt Texto a mostrar antes de la lista.
+     * @return El estadio elegido, o null si no hay estadios.
+     */
     private Estadio seleccionarEstadio(String prompt) {
         ArrayList<Estadio> estadios = obtenerTodosLosEstadios();
         if (estadios.isEmpty()) { System.out.println("No hay estadios registrados."); return null; }
@@ -644,6 +848,12 @@ public class SistemaInteractivo {
         return estadios.get(opcion);
     }
 
+    /**
+     * Muestra la lista de partidos registrados y retorna el seleccionado.
+     *
+     * @param prompt Texto a mostrar antes de la lista.
+     * @return El partido elegido, o null si no hay partidos.
+     */
     private Partido seleccionarPartido(String prompt) {
         ArrayList<Partido> partidos = obtenerTodosLosPartidos();
         if (partidos.isEmpty()) { System.out.println("No hay partidos registrados."); return null; }
@@ -657,6 +867,12 @@ public class SistemaInteractivo {
         return partidos.get(opcion);
     }
 
+    /**
+     * Muestra la lista de jugadores de una seleccion y retorna el seleccionado.
+     *
+     * @param seleccion La seleccion de la que se listan los jugadores.
+     * @return El jugador elegido, o null si no hay jugadores.
+     */
     private Jugador seleccionarJugador(Seleccion seleccion) {
         if (seleccion == null || seleccion.getJugadores() == null || seleccion.getJugadores().isEmpty()) {
             System.out.println("No hay jugadores en esta seleccion."); return null;
@@ -670,6 +886,13 @@ public class SistemaInteractivo {
         return seleccion.getJugadores().get(opcion);
     }
 
+    /**
+     * Reune todos los jugadores de ambas selecciones de un partido
+     * y permite seleccionar uno.
+     *
+     * @param partido El partido del que se obtienen los jugadores.
+     * @return El jugador elegido, o null si el partido no tiene jugadores.
+     */
     private Jugador seleccionarJugadorDePartido(Partido partido) {
         if (partido == null || partido.getParticipaciones() == null) {
             System.out.println("El partido no tiene participaciones."); return null;
@@ -692,6 +915,12 @@ public class SistemaInteractivo {
     // OBTENER LISTAS GLOBALES
     // -------------------------------------------------------------------------
 
+    /**
+     * Recorre las sedes del mundial y retorna una lista sin duplicados
+     * de todos los paises registrados.
+     *
+     * @return Lista de paises unicos del mundial.
+     */
     private ArrayList<Pais> obtenerTodosLosPaises() {
         ArrayList<Pais> paises = new ArrayList<>();
         if (mundial.getSedes() != null) {
@@ -708,6 +937,12 @@ public class SistemaInteractivo {
         return paises;
     }
 
+    /**
+     * Recorre todas las fases y grupos del torneo y retorna una lista sin
+     * duplicados de todas las selecciones registradas.
+     *
+     * @return Lista de selecciones unicas del torneo.
+     */
     private ArrayList<Seleccion> obtenerTodasLasSelecciones() {
         ArrayList<Seleccion> selecciones = new ArrayList<>();
         for (Fase fase : fases) {
@@ -726,6 +961,12 @@ public class SistemaInteractivo {
         return selecciones;
     }
 
+    /**
+     * Recorre todas las fases y retorna una lista sin duplicados de todos
+     * los grupos registrados en el torneo.
+     *
+     * @return Lista de grupos unicos del torneo.
+     */
     private ArrayList<Grupo> obtenerTodosLosGrupos() {
         ArrayList<Grupo> grupos = new ArrayList<>();
         for (Fase fase : fases)
@@ -735,6 +976,12 @@ public class SistemaInteractivo {
         return grupos;
     }
 
+    /**
+     * Recorre todas las sedes del mundial y retorna una lista sin duplicados
+     * de todos los estadios registrados.
+     *
+     * @return Lista de estadios unicos del torneo.
+     */
     private ArrayList<Estadio> obtenerTodosLosEstadios() {
         ArrayList<Estadio> estadios = new ArrayList<>();
         if (mundial.getSedes() != null)
@@ -745,6 +992,12 @@ public class SistemaInteractivo {
         return estadios;
     }
 
+    /**
+     * Recorre todas las fases del torneo y retorna una lista sin duplicados
+     * de todos los partidos registrados.
+     *
+     * @return Lista de partidos unicos del torneo.
+     */
     private ArrayList<Partido> obtenerTodosLosPartidos() {
         ArrayList<Partido> partidos = new ArrayList<>();
         for (Fase fase : fases)
@@ -758,11 +1011,25 @@ public class SistemaInteractivo {
     // UTILIDADES
     // -------------------------------------------------------------------------
 
+    /**
+     * Lee una linea de consola e intenta parsearla como entero.
+     *
+     * @return El entero leido, o -1 si la entrada no es un numero valido.
+     */
     private int leerOpcion() {
         try { return Integer.parseInt(scanner.nextLine().trim()); }
         catch (NumberFormatException e) { return -1; }
     }
 
+    /**
+     * Solicita un nombre de archivo de imagen por consola, validando que tenga
+     * el formato {@code nombre.extension} con extension de imagen conocida.
+     * Reintenta hasta recibir un valor valido.
+     *
+     * @param prompt       Texto a mostrar al usuario.
+     * @param mensajeError Mensaje a mostrar si el formato es invalido.
+     * @return El nombre de archivo valido ingresado.
+     */
     private String leerArchivoImagen(String prompt, String mensajeError) {
         while (true) {
             System.out.print(prompt);
@@ -773,6 +1040,15 @@ public class SistemaInteractivo {
         }
     }
 
+    /**
+     * Solicita un nombre por consola aceptando solo letras, espacios, guiones
+     * y apostrofes (incluyendo caracteres acentuados y enie).
+     * Reintenta hasta recibir un valor valido.
+     *
+     * @param prompt       Texto a mostrar al usuario.
+     * @param mensajeError Mensaje a mostrar si el valor contiene caracteres invalidos.
+     * @return El nombre valido ingresado.
+     */
     private String leerNombre(String prompt, String mensajeError) {
         while (true) {
             System.out.print(prompt);
@@ -783,6 +1059,14 @@ public class SistemaInteractivo {
         }
     }
 
+    /**
+     * Solicita una zona horaria por consola con formato {@code GMT+N} o {@code GMT-N}.
+     * Reintenta hasta recibir un valor valido.
+     *
+     * @param prompt       Texto a mostrar al usuario.
+     * @param mensajeError Mensaje a mostrar si el formato es invalido.
+     * @return La zona horaria valida ingresada.
+     */
     private String leerZonaHoraria(String prompt, String mensajeError) {
         while (true) {
             System.out.print(prompt);
@@ -792,6 +1076,13 @@ public class SistemaInteractivo {
         }
     }
 
+    /**
+     * Solicita una fecha en formato {@code YYYYMMDD} validando que el mes
+     * este entre 01-12 y el dia entre 01-31. Reintenta hasta recibir un valor valido.
+     *
+     * @param prompt Texto a mostrar al usuario.
+     * @return La fecha valida como entero en formato YYYYMMDD.
+     */
     private int leerFecha(String prompt) {
         while (true) {
             System.out.print(prompt);
@@ -806,6 +1097,15 @@ public class SistemaInteractivo {
         }
     }
 
+    /**
+     * Solicita un numero entero por consola y valida que cumpla la condicion
+     * provista. Reintenta hasta recibir un valor valido.
+     *
+     * @param prompt     Texto a mostrar al usuario.
+     * @param mensajeError Mensaje a mostrar si el valor no cumple la condicion.
+     * @param condicion  Predicado que debe cumplir el valor ingresado.
+     * @return El entero valido ingresado.
+     */
     private int leerEnteroValido(String prompt, String mensajeError, java.util.function.IntPredicate condicion) {
         while (true) {
             System.out.print(prompt);

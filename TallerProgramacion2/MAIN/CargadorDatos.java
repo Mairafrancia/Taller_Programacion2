@@ -5,8 +5,39 @@ import EXCEPCIONES.JugadorDuplicadoException;
 import EXCEPCIONES.ValoresNulosException;
 import GESTION1.AdministracionDelegaciones;
 
+/**
+ * Clase utilitaria encargada de precargar todos los datos iniciales del torneo Mundial 2026.
+ * <p>
+ * Crea y vincula entre sí todos los objetos del modelo: países, sedes, estadios, fases,
+ * grupos, árbitros, selecciones, cuerpos técnicos, jugadores, partidos, participaciones
+ * y eventos. Al finalizar, devuelve un objeto {@link Mundial} completamente inicializado
+ * y listo para ser usado por el {@link SistemaInteractivo}.
+ * </p>
+ * <p>
+ * La carga abarca:
+ * <ul>
+ *   <li>16 países participantes con sus respectivas sedes y estadios.</li>
+ *   <li>6 fases del torneo: Grupos, Octavos, Cuartos, Semifinal, Tercer Puesto y Final.</li>
+ *   <li>4 grupos (A, B, C, D) con 4 selecciones cada uno.</li>
+ *   <li>7 árbitros internacionales.</li>
+ *   <li>16 selecciones con directores técnicos, cuerpos técnicos y jugadores.</li>
+ *   <li>33 partidos con árbitros, participaciones y eventos (goles y tarjetas).</li>
+ * </ul>
+ * </p>
+ */
 public class CargadorDatos {
 
+    /**
+     * Carga y devuelve el objeto {@link Mundial} con todos los datos precargados del torneo.
+     * <p>
+     * Este método es el punto de entrada principal de la clase. Construye toda la estructura
+     * del torneo de forma secuencial: primero los países y sedes, luego los estadios, las
+     * fases, los grupos, los árbitros, las delegaciones (por grupo) y finalmente los partidos
+     * de cada fase con sus eventos asociados.
+     * </p>
+     *
+     * @return Un objeto {@link Mundial} completamente inicializado con todos los datos del torneo 2026.
+     */
     public static Mundial cargar() {
 
         Mundial mundial = new Mundial(2026, "Migo", 20260611, 20260719);
@@ -30,28 +61,28 @@ public class CargadorDatos {
         Pais senegal    = new Pais("Senegal",    "sen.png", null);
         Pais japon      = new Pais("Japon",      "jpn.png", null);
         Pais marruecos  = new Pais("Marruecos",  "mar.png", null);
-        // Polonia: solo para árbitro, sin sede en el mundial
+        // Polonia: país del árbitro Szymon Marciniak; no tiene sede en el torneo.
         Pais polonia    = new Pais("Polonia",    "pol.png", null);
 
         // =====================================================================
-        // SEDES — todos los países participantes tienen sede
+        // SEDES — cada país participante tiene una sede asociada
         // =====================================================================
-        Sede sede1  = new Sede("Buenos Aires",    25.0f, "Templado", "GMT-3", argentina);
-        Sede sede2  = new Sede("Rio de Janeiro",  30.0f, "Tropical", "GMT-3", brasil);
-        Sede sede3  = new Sede("Montevideo",      22.0f, "Templado", "GMT-3", uruguay);
-        Sede sede4  = new Sede("Bogota",          18.0f, "Frio",     "GMT-5", colombia);
-        Sede sede5  = new Sede("Paris",           15.0f, "Frio",     "GMT+1", francia);
-        Sede sede6  = new Sede("Berlin",          12.0f, "Frio",     "GMT+1", alemania);
-        Sede sede7  = new Sede("Madrid",          18.0f, "Templado", "GMT+1", espania);
-        Sede sede8  = new Sede("Ciudad de Mexico",20.0f, "Templado", "GMT-6", mexico);
-        Sede sede9  = new Sede("Lisboa",          19.0f, "Templado", "GMT+0", portugal);
-        Sede sede10 = new Sede("Roma",            22.0f, "Templado", "GMT+1", italia);
-        Sede sede11 = new Sede("Londres",         14.0f, "Nublado",  "GMT+0", inglaterra);
-        Sede sede12 = new Sede("Amsterdam",       13.0f, "Nublado",  "GMT+1", holanda);
-        Sede sede13 = new Sede("Zagreb",          17.0f, "Templado", "GMT+1", croatia);
-        Sede sede14 = new Sede("Dakar",           28.0f, "Tropical", "GMT+0", senegal);
-        Sede sede15 = new Sede("Tokio",           22.0f, "Templado", "GMT+9", japon);
-        Sede sede16 = new Sede("Casablanca",      24.0f, "Templado", "GMT+1", marruecos);
+        Sede sede1  = new Sede("Buenos Aires",     25.0f, "Templado", "GMT-3", argentina);
+        Sede sede2  = new Sede("Rio de Janeiro",   30.0f, "Tropical", "GMT-3", brasil);
+        Sede sede3  = new Sede("Montevideo",       22.0f, "Templado", "GMT-3", uruguay);
+        Sede sede4  = new Sede("Bogota",           18.0f, "Frio",     "GMT-5", colombia);
+        Sede sede5  = new Sede("Paris",            15.0f, "Frio",     "GMT+1", francia);
+        Sede sede6  = new Sede("Berlin",           12.0f, "Frio",     "GMT+1", alemania);
+        Sede sede7  = new Sede("Madrid",           18.0f, "Templado", "GMT+1", espania);
+        Sede sede8  = new Sede("Ciudad de Mexico", 20.0f, "Templado", "GMT-6", mexico);
+        Sede sede9  = new Sede("Lisboa",           19.0f, "Templado", "GMT+0", portugal);
+        Sede sede10 = new Sede("Roma",             22.0f, "Templado", "GMT+1", italia);
+        Sede sede11 = new Sede("Londres",          14.0f, "Nublado",  "GMT+0", inglaterra);
+        Sede sede12 = new Sede("Amsterdam",        13.0f, "Nublado",  "GMT+1", holanda);
+        Sede sede13 = new Sede("Zagreb",           17.0f, "Templado", "GMT+1", croatia);
+        Sede sede14 = new Sede("Dakar",            28.0f, "Tropical", "GMT+0", senegal);
+        Sede sede15 = new Sede("Tokio",            22.0f, "Templado", "GMT+9", japon);
+        Sede sede16 = new Sede("Casablanca",       24.0f, "Templado", "GMT+1", marruecos);
 
         Pais[] todosPaises = {argentina, brasil, uruguay, colombia, francia, alemania,
                                espania, mexico, portugal, italia, inglaterra,
@@ -66,23 +97,23 @@ public class CargadorDatos {
         }
 
         // =====================================================================
-        // ESTADIOS
+        // ESTADIOS — uno por sede
         // =====================================================================
-        Estadio estadio1  = new Estadio("Monumental",           84567, sede1);
-        Estadio estadio2  = new Estadio("Maracana",             78000, sede2);
-        Estadio estadio3  = new Estadio("Centenario",           60000, sede3);
-        Estadio estadio4  = new Estadio("El Campin",            45000, sede4);
-        Estadio estadio5  = new Estadio("Stade de France",      80698, sede5);
-        Estadio estadio6  = new Estadio("Olympiastadion",       74475, sede6);
-        Estadio estadio7  = new Estadio("Santiago Bernabeu",    81044, sede7);
-        Estadio estadio8  = new Estadio("Estadio Azteca",       87523, sede8);
-        Estadio estadio9  = new Estadio("Estadio da Luz",       64642, sede9);
-        Estadio estadio10 = new Estadio("Estadio Olimpico",     70634, sede10);
-        Estadio estadio11 = new Estadio("Wembley",              90000, sede11);
-        Estadio estadio12 = new Estadio("Johan Cruyff Arena",   54990, sede12);
-        Estadio estadio13 = new Estadio("Estadio Maksimir",     35123, sede13);
-        Estadio estadio14 = new Estadio("Estadio Leopold Sedar",60000, sede14);
-        Estadio estadio15 = new Estadio("Estadio Nacional",     68000, sede15);
+        Estadio estadio1  = new Estadio("Monumental",                84567, sede1);
+        Estadio estadio2  = new Estadio("Maracana",                  78000, sede2);
+        Estadio estadio3  = new Estadio("Centenario",                60000, sede3);
+        Estadio estadio4  = new Estadio("El Campin",                 45000, sede4);
+        Estadio estadio5  = new Estadio("Stade de France",           80698, sede5);
+        Estadio estadio6  = new Estadio("Olympiastadion",            74475, sede6);
+        Estadio estadio7  = new Estadio("Santiago Bernabeu",         81044, sede7);
+        Estadio estadio8  = new Estadio("Estadio Azteca",            87523, sede8);
+        Estadio estadio9  = new Estadio("Estadio da Luz",            64642, sede9);
+        Estadio estadio10 = new Estadio("Estadio Olimpico",          70634, sede10);
+        Estadio estadio11 = new Estadio("Wembley",                   90000, sede11);
+        Estadio estadio12 = new Estadio("Johan Cruyff Arena",        54990, sede12);
+        Estadio estadio13 = new Estadio("Estadio Maksimir",          35123, sede13);
+        Estadio estadio14 = new Estadio("Estadio Leopold Sedar",     60000, sede14);
+        Estadio estadio15 = new Estadio("Estadio Nacional",          68000, sede15);
         Estadio estadio16 = new Estadio("Grand Stade de Casablanca", 93000, sede16);
 
         sede1.agregarEstadio(estadio1);   sede2.agregarEstadio(estadio2);
@@ -95,7 +126,9 @@ public class CargadorDatos {
         sede15.agregarEstadio(estadio15); sede16.agregarEstadio(estadio16);
 
         // =====================================================================
-        // FASES
+        // FASES del torneo en orden ascendente de instancia
+        // IMPORTANTE: el orden en NombreFase determina la instancia máxima
+        // alcanzada mediante ordinal() en TablaDeResultadosPorSeleccion.
         // =====================================================================
         Fase faseGrupos  = new Fase(); faseGrupos.setNombre(NombreFase.GRUPOS);
         Fase faseOctavos = new Fase(); faseOctavos.setNombre(NombreFase.OCTAVOS_DE_FINAL);
@@ -112,7 +145,7 @@ public class CargadorDatos {
         mundial.agregarFase(faseFinal);
 
         // =====================================================================
-        // GRUPOS
+        // GRUPOS de la fase de grupos
         // =====================================================================
         Grupo grupoA = new Grupo("A", "Grupo A", faseGrupos);
         Grupo grupoB = new Grupo("B", "Grupo B", faseGrupos);
@@ -125,7 +158,7 @@ public class CargadorDatos {
         faseGrupos.agregarGrupo(grupoD);
 
         // =====================================================================
-        // ÁRBITROS
+        // ÁRBITROS internacionales del torneo
         // =====================================================================
         Arbitro arbitro1 = new Arbitro("Roberto Tobar",    19750310, 15, colombia);
         Arbitro arbitro2 = new Arbitro("Clement Turpin",   19820118, 12, francia);
@@ -136,7 +169,8 @@ public class CargadorDatos {
         Arbitro arbitro7 = new Arbitro("Raphael Claus",    19800312,  9, brasil);
 
         // =====================================================================
-        // DELEGACIONES
+        // DELEGACIONES — se usa AdministracionDelegaciones para registrar jugadores
+        // con control de duplicados a nivel global del torneo.
         // =====================================================================
         AdministracionDelegaciones ad = new AdministracionDelegaciones();
 
@@ -188,7 +222,7 @@ public class CargadorDatos {
         Jugador casemiro = new Jugador("Casemiro",        19920223,  5, null, 0, 0, null);
         Jugador raphinha = new Jugador("Raphinha",        19960614, 17, null, 0, 0, null);
         Jugador militao  = new Jugador("Eder Militao",    19980118,  3, null, 0, 0, null);
-        Jugador paqueta  = new Jugador("Lucas Paqueta",   19970827, 20, null, 0, 0, null); // dorsal 20, no 10
+        Jugador paqueta  = new Jugador("Lucas Paqueta",   19970827, 20, null, 0, 0, null);
         Jugador endrick  = new Jugador("Endrick",         20060721,  9, null, 0, 0, null);
 
         for (Jugador j : new Jugador[]{vinicius, rodrygo, neymar, casemiro, raphinha, militao, paqueta, endrick})
@@ -201,12 +235,12 @@ public class CargadorDatos {
         mexico.setSeleccion(selMex);
         grupoA.agregarSeleccion(selMex);
 
-        Jugador lozano     = new Jugador("Hirving Lozano",    19950730, 22, null, 0, 0, null);
-        Jugador chicharito = new Jugador("Javier Hernandez",  19840601, 14, null, 0, 0, null);
-        Jugador guardado   = new Jugador("Andres Guardado",   19860928,  8, null, 0, 0, null);
-        Jugador ochoa      = new Jugador("Guillermo Ochoa",   19850713,  1, null, 0, 0, null);
-        Jugador alvarez    = new Jugador("Edson Alvarez",     19971024,  6, null, 0, 0, null);
-        Jugador corona     = new Jugador("Jesus Corona",      19930106, 23, null, 0, 0, null);
+        Jugador lozano     = new Jugador("Hirving Lozano",   19950730, 22, null, 0, 0, null);
+        Jugador chicharito = new Jugador("Javier Hernandez", 19840601, 14, null, 0, 0, null);
+        Jugador guardado   = new Jugador("Andres Guardado",  19860928,  8, null, 0, 0, null);
+        Jugador ochoa      = new Jugador("Guillermo Ochoa",  19850713,  1, null, 0, 0, null);
+        Jugador alvarez    = new Jugador("Edson Alvarez",    19971024,  6, null, 0, 0, null);
+        Jugador corona     = new Jugador("Jesus Corona",     19930106, 23, null, 0, 0, null);
 
         for (Jugador j : new Jugador[]{lozano, chicharito, guardado, ochoa, alvarez, corona})
             registrarJugador(ad, selMex, j);
@@ -341,12 +375,12 @@ public class CargadorDatos {
         italia.setSeleccion(selIta);
         grupoC.agregarSeleccion(selIta);
 
-        Jugador chiesa      = new Jugador("Federico Chiesa",        19970325, 14, null, 0, 0, null);
-        Jugador barella     = new Jugador("Nicolo Barella",         19971107, 18, null, 0, 0, null);
-        Jugador verratti    = new Jugador("Marco Verratti",         19920105,  6, null, 0, 0, null);
-        Jugador donnarumma  = new Jugador("Gianluigi Donnarumma",   19990225,  1, null, 0, 0, null);
-        Jugador bonucci     = new Jugador("Leonardo Bonucci",       19870101, 19, null, 0, 0, null);
-        Jugador immobile    = new Jugador("Ciro Immobile",          19900220, 17, null, 0, 0, null);
+        Jugador chiesa     = new Jugador("Federico Chiesa",      19970325, 14, null, 0, 0, null);
+        Jugador barella    = new Jugador("Nicolo Barella",       19971107, 18, null, 0, 0, null);
+        Jugador verratti   = new Jugador("Marco Verratti",       19920105,  6, null, 0, 0, null);
+        Jugador donnarumma = new Jugador("Gianluigi Donnarumma", 19990225,  1, null, 0, 0, null);
+        Jugador bonucci    = new Jugador("Leonardo Bonucci",     19870101, 19, null, 0, 0, null);
+        Jugador immobile   = new Jugador("Ciro Immobile",        19900220, 17, null, 0, 0, null);
 
         for (Jugador j : new Jugador[]{chiesa, barella, verratti, donnarumma, bonucci, immobile})
             registrarJugador(ad, selIta, j);
@@ -358,11 +392,11 @@ public class CargadorDatos {
         croatia.setSeleccion(selCro);
         grupoC.agregarSeleccion(selCro);
 
-        Jugador modric    = new Jugador("Luka Modric",    19850909, 10, null, 0, 0, null);
-        Jugador kovacic   = new Jugador("Mateo Kovacic",  19940606,  8, null, 0, 0, null);
-        Jugador perisic   = new Jugador("Ivan Perisic",   19890202,  4, null, 0, 0, null);
-        Jugador gvardiol  = new Jugador("Josko Gvardiol", 20020123, 24, null, 0, 0, null);
-        Jugador livakovic = new Jugador("Dominik Livakovic", 19950109, 1, null, 0, 0, null);
+        Jugador modric    = new Jugador("Luka Modric",      19850909, 10, null, 0, 0, null);
+        Jugador kovacic   = new Jugador("Mateo Kovacic",    19940606,  8, null, 0, 0, null);
+        Jugador perisic   = new Jugador("Ivan Perisic",     19890202,  4, null, 0, 0, null);
+        Jugador gvardiol  = new Jugador("Josko Gvardiol",   20020123, 24, null, 0, 0, null);
+        Jugador livakovic = new Jugador("Dominik Livakovic",19950109,  1, null, 0, 0, null);
 
         for (Jugador j : new Jugador[]{modric, kovacic, perisic, gvardiol, livakovic})
             registrarJugador(ad, selCro, j);
@@ -461,6 +495,8 @@ public class CargadorDatos {
 
         // =====================================================================
         // PARTIDOS — GRUPO A
+        // Cada bloque crea el partido, asigna árbitro, participaciones y eventos.
+        // Convención de resultados: los goles cargados determinan el marcador final.
         // =====================================================================
 
         // ARG vs BRA — Argentina gana 2-1
@@ -674,7 +710,7 @@ public class CargadorDatos {
         agregarEvento(gC5, rodri, TipoEvento.GOL,              58);
         agregarEvento(gC5, kubo,  TipoEvento.TARJETA_AMARILLA, 70);
 
-        // ITA vs CRO — Empate 0-0
+        // ITA vs CRO — Empate 0-0 (sin goles, Italia avanza por diferencia)
         Partido gC6 = new Partido(20260625, 2000, 0, 0, estadio10, faseGrupos);
         estadio10.agregarPartido(gC6); faseGrupos.agregarPartido(gC6);
         agregarArbitraje(gC6, CategoriaArbitro.PRINCIPAL, arbitro4);
@@ -722,10 +758,10 @@ public class CargadorDatos {
         Participacion gD3V = new Participacion(false, gD3, selCol);
         selEng.agregarParticipacion(gD3L); selCol.agregarParticipacion(gD3V);
         gD3.asignarParticipacionesSinExcepcion(gD3L, gD3V);
-        agregarEvento(gD3, saka,       TipoEvento.GOL,          22);
-        agregarEvento(gD3, kane,       TipoEvento.GOL,          58);
-        agregarEvento(gD3, foden,      TipoEvento.GOL,          79);
-        agregarEvento(gD3, cuadrado,   TipoEvento.TARJETA_ROJA, 65);
+        agregarEvento(gD3, saka,     TipoEvento.GOL,          22);
+        agregarEvento(gD3, kane,     TipoEvento.GOL,          58);
+        agregarEvento(gD3, foden,    TipoEvento.GOL,          79);
+        agregarEvento(gD3, cuadrado, TipoEvento.TARJETA_ROJA, 65);
 
         // NED vs URU — Empate 1-1
         Partido gD4 = new Partido(20260622, 1800, 0, 0, estadio12, faseGrupos);
@@ -774,8 +810,8 @@ public class CargadorDatos {
         Participacion oct1V = new Participacion(false, oct1, selPor);
         selArg.agregarParticipacion(oct1L); selPor.agregarParticipacion(oct1V);
         oct1.asignarParticipacionesSinExcepcion(oct1L, oct1V);
-        agregarEvento(oct1, messi,  TipoEvento.GOL, 30);
-        agregarEvento(oct1, depaul, TipoEvento.GOL, 78);
+        agregarEvento(oct1, messi,   TipoEvento.GOL, 30);
+        agregarEvento(oct1, depaul,  TipoEvento.GOL, 78);
         agregarEvento(oct1, ronaldo, TipoEvento.GOL, 90);
 
         // FRA vs BRA — Francia gana 1-0
@@ -845,7 +881,7 @@ public class CargadorDatos {
         agregarEvento(cuar2, trippier, TipoEvento.TARJETA_AMARILLA, 75);
 
         // =====================================================================
-        // SEMIFINAL: ARG vs ESP
+        // SEMIFINAL: ARG vs ESP — Argentina gana 2-1
         // =====================================================================
         Partido semi1 = new Partido(20260709, 2000, 0, 0, estadio1, faseSemi);
         estadio1.agregarPartido(semi1); faseSemi.agregarPartido(semi1);
@@ -860,7 +896,7 @@ public class CargadorDatos {
         agregarEvento(semi1, rodri,  TipoEvento.TARJETA_AMARILLA, 60);
 
         // =====================================================================
-        // TERCER PUESTO: FRA vs ENG
+        // TERCER PUESTO: FRA vs ENG — Francia gana 2-1
         // =====================================================================
         Partido tercero = new Partido(20260712, 1800, 0, 0, estadio5, faseTercero);
         estadio5.agregarPartido(tercero); faseTercero.agregarPartido(tercero);
@@ -875,7 +911,7 @@ public class CargadorDatos {
         agregarEvento(tercero, theo,      TipoEvento.TARJETA_AMARILLA, 88);
 
         // =====================================================================
-        // FINAL: ARG vs ESP
+        // FINAL: ARG vs ESP — Argentina campeón 2-1
         // =====================================================================
         Partido final1 = new Partido(20260719, 2000, 0, 0, estadio1, faseFinal);
         estadio1.agregarPartido(final1); faseFinal.agregarPartido(final1);
@@ -896,6 +932,15 @@ public class CargadorDatos {
     // HELPERS PRIVADOS
     // =========================================================================
 
+    /**
+     * Registra un jugador en una selección usando {@link AdministracionDelegaciones}.
+     * Captura y muestra por consola las excepciones de jugador duplicado o datos nulos,
+     * sin interrumpir la carga del resto de los datos.
+     *
+     * @param ad       Instancia de {@link AdministracionDelegaciones} que gestiona el registro.
+     * @param seleccion La selección a la que se integrará el jugador.
+     * @param jugador  El jugador a registrar.
+     */
     private static void registrarJugador(AdministracionDelegaciones ad,
                                           Seleccion seleccion, Jugador jugador) {
         try {
@@ -907,6 +952,14 @@ public class CargadorDatos {
         }
     }
 
+    /**
+     * Crea un {@link Arbitraje} y lo asigna al partido indicado.
+     * Captura y muestra por consola cualquier excepción sin interrumpir la carga.
+     *
+     * @param partido   El partido al que se asigna el arbitraje.
+     * @param categoria La categoría del árbitro según {@link CategoriaArbitro}.
+     * @param arbitro   El árbitro que officiará el partido.
+     */
     private static void agregarArbitraje(Partido partido,
                                           CategoriaArbitro categoria, Arbitro arbitro) {
         try {
@@ -917,6 +970,15 @@ public class CargadorDatos {
         }
     }
 
+    /**
+     * Crea un {@link Evento} y lo registra tanto en el partido como en el jugador,
+     * manteniendo la consistencia bidireccional de la asociación.
+     *
+     * @param partido El partido donde ocurre el evento.
+     * @param jugador El jugador protagonista del evento.
+     * @param tipo    El tipo de evento según {@link TipoEvento}.
+     * @param minuto  El minuto del partido en que ocurrió el evento.
+     */
     private static void agregarEvento(Partido partido, Jugador jugador,
                                        TipoEvento tipo, int minuto) {
         Evento evento = new Evento(tipo, minuto, jugador);
