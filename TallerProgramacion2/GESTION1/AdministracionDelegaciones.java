@@ -100,14 +100,14 @@ public class AdministracionDelegaciones {
      * @throws ValoresNulosException si selección o director es null.
      * @throws ElementoDuplicadoException si el director ya está registrado.
      */
-    public void registrarDirectorTecnico(Seleccion seleccion, DirectoresTecnicos dt) 
+    public void registrarDirectorTecnico(Seleccion seleccion, DirectorTecnico dt) 
             throws ValoresNulosException, ElementoDuplicadoException {
         if (seleccion == null || dt == null) {
             throw new ValoresNulosException("seleccion o director tecnico");
         }
 
         if (seleccion.getDirectoresTecnicos() != null) {
-            for (DirectoresTecnicos existente : seleccion.getDirectoresTecnicos()) {
+            for (DirectorTecnico existente : seleccion.getDirectoresTecnicos()) {
                 if (existente != null && existente.getNombre() != null && dt.getNombre() != null
                         && existente.getNombre().equalsIgnoreCase(dt.getNombre())
                         && existente.getFecNacimiento() == dt.getFecNacimiento()) {

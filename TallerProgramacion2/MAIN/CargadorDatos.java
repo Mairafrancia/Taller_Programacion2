@@ -205,7 +205,7 @@ public class CargadorDatos {
         // =====================================================================
 
         // --- ARGENTINA ---
-        DirectoresTecnicos dt_arg = new DirectoresTecnicos("Lionel Scaloni", 19780516, 20180101);
+        DirectorTecnico dt_arg = new DirectorTecnico("Lionel Scaloni", 19780516, 20180101);
         Seleccion selArg = new Seleccion("AFA", "argkit.png", "argalt.png", true, 1, grupoA, argentina);
         selArg.agregarDirectoresTecnicos(dt_arg);
         argentina.setSeleccion(selArg);
@@ -237,7 +237,7 @@ public class CargadorDatos {
             registrarJugador(ad, selArg, j);
 
         // --- BRASIL ---
-        DirectoresTecnicos dt_bra = new DirectoresTecnicos("Carlo Ancelotti", 19590610, 20240101);
+        DirectorTecnico dt_bra = new DirectorTecnico("Carlo Ancelotti", 19590610, 20240101);
         Seleccion selBra = new Seleccion("CBF", "brakit.png", "braalt.png", false, 3, grupoA, brasil);
         selBra.agregarDirectoresTecnicos(dt_bra);
         brasil.setSeleccion(selBra);
@@ -265,7 +265,7 @@ public class CargadorDatos {
             registrarJugador(ad, selBra, j);
 
         // --- MEXICO ---
-        DirectoresTecnicos dt_mex = new DirectoresTecnicos("Javier Aguirre", 19580101, 20230101);
+        DirectorTecnico dt_mex = new DirectorTecnico("Javier Aguirre", 19580101, 20230101);
         Seleccion selMex = new Seleccion("FMF", "mexkit.png", "mexalt.png", false, 15, grupoA, mexico);
         selMex.agregarDirectoresTecnicos(dt_mex);
         mexico.setSeleccion(selMex);
@@ -282,7 +282,7 @@ public class CargadorDatos {
             registrarJugador(ad, selMex, j);
 
         // --- SENEGAL ---
-        DirectoresTecnicos dt_sen = new DirectoresTecnicos("Aliou Cisse", 19760824, 20150101);
+        DirectorTecnico dt_sen = new DirectorTecnico("Aliou Cisse", 19760824, 20150101);
         Seleccion selSen = new Seleccion("FSF", "senkit.png", "senalt.png", false, 20, grupoA, senegal);
         selSen.agregarDirectoresTecnicos(dt_sen);
         senegal.setSeleccion(selSen);
@@ -302,7 +302,7 @@ public class CargadorDatos {
         // =====================================================================
 
         // --- FRANCIA ---
-        DirectoresTecnicos dt_fra = new DirectoresTecnicos("Didier Deschamps", 19681015, 20120101);
+        DirectorTecnico dt_fra = new DirectorTecnico("Didier Deschamps", 19681015, 20120101);
         Seleccion selFra = new Seleccion("FFF", "frakit.png", "fraalt.png", true, 2, grupoB, francia);
         selFra.agregarDirectoresTecnicos(dt_fra);
         francia.setSeleccion(selFra);
@@ -329,7 +329,7 @@ public class CargadorDatos {
             registrarJugador(ad, selFra, j);
 
         // --- ALEMANIA ---
-        DirectoresTecnicos dt_ger = new DirectoresTecnicos("Julian Nagelsmann", 19870723, 20230101);
+        DirectorTecnico dt_ger = new DirectorTecnico("Julian Nagelsmann", 19870723, 20230101);
         Seleccion selAle = new Seleccion("DFB", "gerkit.png", "geralt.png", false, 4, grupoB, alemania);
         selAle.agregarDirectoresTecnicos(dt_ger);
         alemania.setSeleccion(selAle);
@@ -347,7 +347,7 @@ public class CargadorDatos {
             registrarJugador(ad, selAle, j);
 
         // --- PORTUGAL ---
-        DirectoresTecnicos dt_por = new DirectoresTecnicos("Roberto Martinez", 19730213, 20230101);
+        DirectorTecnico dt_por = new DirectorTecnico("Roberto Martinez", 19730213, 20230101);
         Seleccion selPor = new Seleccion("FPF", "porkit.png", "poralt.png", false, 6, grupoB, portugal);
         selPor.agregarDirectoresTecnicos(dt_por);
         portugal.setSeleccion(selPor);
@@ -364,7 +364,7 @@ public class CargadorDatos {
             registrarJugador(ad, selPor, j);
 
         // --- MARRUECOS ---
-        DirectoresTecnicos dt_mar = new DirectoresTecnicos("Walid Regragui", 19750811, 20220101);
+        DirectorTecnico dt_mar = new DirectorTecnico("Walid Regragui", 19750811, 20220101);
         Seleccion selMar = new Seleccion("FRMF", "markit.png", "maralt.png", false, 13, grupoB, marruecos);
         selMar.agregarDirectoresTecnicos(dt_mar);
         marruecos.setSeleccion(selMar);
@@ -384,7 +384,7 @@ public class CargadorDatos {
         // =====================================================================
 
         // --- ESPAÑA ---
-        DirectoresTecnicos dt_esp = new DirectoresTecnicos("Luis de la Fuente", 19661225, 20220101);
+        DirectorTecnico dt_esp = new DirectorTecnico("Luis de la Fuente", 19661225, 20220101);
         Seleccion selEsp = new Seleccion("RFEF", "espkit.png", "espalt.png", true, 5, grupoC, espania);
         selEsp.agregarDirectoresTecnicos(dt_esp);
         espania.setSeleccion(selEsp);
@@ -415,7 +415,7 @@ public class CargadorDatos {
             registrarJugador(ad, selEsp, j);
 
         // --- ITALIA ---
-        DirectoresTecnicos dt_ita = new DirectoresTecnicos("Luciano Spalletti", 19590307, 20230101);
+        DirectorTecnico dt_ita = new DirectorTecnico("Luciano Spalletti", 19590307, 20230101);
         Seleccion selIta = new Seleccion("FIGC", "itakit.png", "itaalt.png", false, 9, grupoC, italia);
         selIta.agregarDirectoresTecnicos(dt_ita);
         italia.setSeleccion(selIta);
@@ -432,7 +432,7 @@ public class CargadorDatos {
             registrarJugador(ad, selIta, j);
 
         // --- CROACIA ---
-        DirectoresTecnicos dt_cro = new DirectoresTecnicos("Zlatko Dalic", 19661026, 20170101);
+        DirectorTecnico dt_cro = new DirectorTecnico("Zlatko Dalic", 19661026, 20170101);
         Seleccion selCro = new Seleccion("HNS", "crokit.png", "croalt.png", false, 10, grupoC, croatia);
         selCro.agregarDirectoresTecnicos(dt_cro);
         croatia.setSeleccion(selCro);
@@ -448,7 +448,7 @@ public class CargadorDatos {
             registrarJugador(ad, selCro, j);
 
         // --- JAPON ---
-        DirectoresTecnicos dt_jpn = new DirectoresTecnicos("Hajime Moriyasu", 19680823, 20180101);
+        DirectorTecnico dt_jpn = new DirectorTecnico("Hajime Moriyasu", 19680823, 20180101);
         Seleccion selJpn = new Seleccion("JFA", "jpnkit.png", "jpnalt.png", false, 18, grupoC, japon);
         selJpn.agregarDirectoresTecnicos(dt_jpn);
         japon.setSeleccion(selJpn);
@@ -468,7 +468,7 @@ public class CargadorDatos {
         // =====================================================================
 
         // --- INGLATERRA ---
-        DirectoresTecnicos dt_eng = new DirectoresTecnicos("Gareth Southgate", 19700903, 20160101);
+        DirectorTecnico dt_eng = new DirectorTecnico("Gareth Southgate", 19700903, 20160101);
         Seleccion selEng = new Seleccion("FA", "engkit.png", "engalt.png", true, 7, grupoD, inglaterra);
         selEng.agregarDirectoresTecnicos(dt_eng);
         inglaterra.setSeleccion(selEng);
@@ -495,7 +495,7 @@ public class CargadorDatos {
             registrarJugador(ad, selEng, j);
 
         // --- HOLANDA ---
-        DirectoresTecnicos dt_ned = new DirectoresTecnicos("Ronald Koeman", 19630323, 20230101);
+        DirectorTecnico dt_ned = new DirectorTecnico("Ronald Koeman", 19630323, 20230101);
         Seleccion selNed = new Seleccion("KNVB", "nedkit.png", "nedalt.png", false, 8, grupoD, holanda);
         selNed.agregarDirectoresTecnicos(dt_ned);
         holanda.setSeleccion(selNed);
@@ -511,7 +511,7 @@ public class CargadorDatos {
             registrarJugador(ad, selNed, j);
 
         // --- COLOMBIA ---
-        DirectoresTecnicos dt_col = new DirectoresTecnicos("Nestor Lorenzo", 19660227, 20220101);
+        DirectorTecnico dt_col = new DirectorTecnico("Nestor Lorenzo", 19660227, 20220101);
         Seleccion selCol = new Seleccion("FCF", "colkit.png", "colalt.png", false, 12, grupoD, colombia);
         selCol.agregarDirectoresTecnicos(dt_col);
         colombia.setSeleccion(selCol);
@@ -527,7 +527,7 @@ public class CargadorDatos {
             registrarJugador(ad, selCol, j);
 
         // --- URUGUAY ---
-        DirectoresTecnicos dt_uru = new DirectoresTecnicos("Marcelo Bielsa", 19550725, 20230101);
+        DirectorTecnico dt_uru = new DirectorTecnico("Marcelo Bielsa", 19550725, 20230101);
         Seleccion selUru = new Seleccion("AUF", "urukit.png", "urualt.png", false, 11, grupoD, uruguay);
         selUru.agregarDirectoresTecnicos(dt_uru);
         uruguay.setSeleccion(selUru);

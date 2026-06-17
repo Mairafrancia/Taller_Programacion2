@@ -7,6 +7,7 @@ import java.util.ArrayList;
  * del torneo mundial. Contiene informacion sobre la federacion, camisetas,
  * ranking FIFA, y las listas de jugadores, directores tecnicos, cuerpo
  * tecnico y participaciones en partidos.
+ * 
  * @author Florencia Benitez
  * @author Agustina Barreto
  * @author Francia Maira
@@ -39,7 +40,7 @@ public class Seleccion {
     private ArrayList<Jugador> jugadores;
 
     /** Lista de directores tecnicos de la seleccion. */
-    private ArrayList<DirectoresTecnicos> directoresTecnicos;
+    private ArrayList<DirectorTecnico> directoresTecnicos;
 
     /** Lista de integrantes del cuerpo tecnico (preparadores, medicos, etc.). */
     private ArrayList<CuerpoTecnico> cuerposTecnicos;
@@ -75,7 +76,7 @@ public class Seleccion {
      * @param pais               Pais al que representa la seleccion.
      */
     public Seleccion(String nombreFederacion, String camisetaPrincipal, String camisetaSecundaria,
-                     boolean cabezaGrupo, int rankingFIFA, Grupo grupo, Pais pais) {
+            boolean cabezaGrupo, int rankingFIFA, Grupo grupo, Pais pais) {
         this.nombreFederacion = nombreFederacion;
         this.camisetaPrincipal = camisetaPrincipal;
         this.camisetaSecundaria = camisetaSecundaria;
@@ -90,70 +91,95 @@ public class Seleccion {
     }
 
     /** @return El nombre de la federacion. */
-    public String getNombreFederacion() { return nombreFederacion; }
+    public String getNombreFederacion() {
+        return nombreFederacion;
+    }
 
     /** @param nombreFederacion El nombre de la federacion a asignar. */
-    public void setNombreFederacion(String nombreFederacion) { this.nombreFederacion = nombreFederacion; }
+    public void setNombreFederacion(String nombreFederacion) {
+        this.nombreFederacion = nombreFederacion;
+    }
 
     /** @return El identificador de la camiseta principal. */
-    public String getCamisetaPrincipal() { return camisetaPrincipal; }
+    public String getCamisetaPrincipal() {
+        return camisetaPrincipal;
+    }
 
     /** @param camisetaPrincipal El identificador a asignar. */
-    public void setCamisetaPrincipal(String camisetaPrincipal) { this.camisetaPrincipal = camisetaPrincipal; }
+    public void setCamisetaPrincipal(String camisetaPrincipal) {
+        this.camisetaPrincipal = camisetaPrincipal;
+    }
 
     /** @return El identificador de la camiseta secundaria. */
-    public String getCamisetaSecundaria() { return camisetaSecundaria; }
+    public String getCamisetaSecundaria() {
+        return camisetaSecundaria;
+    }
 
     /** @param camisetaSecundaria El identificador a asignar. */
-    public void setCamisetaSecundaria(String camisetaSecundaria) { this.camisetaSecundaria = camisetaSecundaria; }
+    public void setCamisetaSecundaria(String camisetaSecundaria) {
+        this.camisetaSecundaria = camisetaSecundaria;
+    }
 
     /** @return True si la seleccion es cabeza de grupo. */
-    public boolean isCabezaGrupo() { return cabezaGrupo; }
+    public boolean isCabezaGrupo() {
+        return cabezaGrupo;
+    }
 
     /** @param cabezaGrupo True si es cabeza de grupo. */
-    public void setCabezaGrupo(boolean cabezaGrupo) { this.cabezaGrupo = cabezaGrupo; }
+    public void setCabezaGrupo(boolean cabezaGrupo) {
+        this.cabezaGrupo = cabezaGrupo;
+    }
 
     /** @return La posicion en el ranking FIFA. */
-    public int getRankingFIFA() { return rankingFIFA; }
+    public int getRankingFIFA() {
+        return rankingFIFA;
+    }
 
     /** @param rankingFIFA La posicion en el ranking a asignar. */
-    public void setRankingFIFA(int rankingFIFA) { this.rankingFIFA = rankingFIFA; }
+    public void setRankingFIFA(int rankingFIFA) {
+        this.rankingFIFA = rankingFIFA;
+    }
 
     /** @return El grupo asignado a la seleccion. */
-    public Grupo getGrupo() { return grupo; }
+    public Grupo getGrupo() {
+        return grupo;
+    }
 
     /** @param grupo El grupo a asignar. */
-    public void setGrupo(Grupo grupo) { this.grupo = grupo; }
+    public void setGrupo(Grupo grupo) {
+        this.grupo = grupo;
+    }
 
     /** @return El pais que representa la seleccion. */
-    public Pais getPais() { return pais; }
+    public Pais getPais() {
+        return pais;
+    }
 
     /** @param pais El pais a asignar. */
-    public void setPais(Pais pais) { this.pais = pais; }
+    public void setPais(Pais pais) {
+        this.pais = pais;
+    }
 
     /** @return La lista de jugadores del plantel. */
-    public ArrayList<Jugador> getJugadores() { return jugadores; }
-
-    /** @param jugadores La nueva lista de jugadores. */
-    public void setJugadores(ArrayList<Jugador> jugadores) { this.jugadores = jugadores; }
+    public ArrayList<Jugador> getJugadores() {
+        return jugadores;
+    }
 
     /** @return La lista de directores tecnicos. */
-    public ArrayList<DirectoresTecnicos> getDirectoresTecnicos() { return directoresTecnicos; }
-
-    /** @param directoresTecnicos La nueva lista de directores tecnicos. */
-    public void setDirectoresTecnicos(ArrayList<DirectoresTecnicos> directoresTecnicos) { this.directoresTecnicos = directoresTecnicos; }
+    public ArrayList<DirectorTecnico> getDirectoresTecnicos() {
+        return directoresTecnicos;
+    }
 
     /** @return La lista del cuerpo tecnico. */
-    public ArrayList<CuerpoTecnico> getCuerposTecnicos() { return cuerposTecnicos; }
-
-    /** @param cuerposTecnicos La nueva lista del cuerpo tecnico. */
-    public void setCuerposTecnicos(ArrayList<CuerpoTecnico> cuerposTecnicos) { this.cuerposTecnicos = cuerposTecnicos; }
+    public ArrayList<CuerpoTecnico> getCuerposTecnicos() {
+        return cuerposTecnicos;
+    }
 
     /** @return La lista de participaciones en partidos. */
-    public ArrayList<Participacion> getParticipaciones() { return participaciones; }
+    public ArrayList<Participacion> getParticipaciones() {
+        return participaciones;
+    }
 
-    /** @param participaciones La nueva lista de participaciones. */
-    public void setParticipaciones(ArrayList<Participacion> participaciones) { this.participaciones = participaciones; }
 
     /**
      * Agrega un jugador al plantel de la seleccion.
@@ -162,7 +188,8 @@ public class Seleccion {
      * @param jugador El jugador a incorporar.
      */
     public void agregarJugador(Jugador jugador) {
-        if (jugador != null) this.jugadores.add(jugador);
+        if (jugador != null)
+            this.jugadores.add(jugador);
     }
 
     /**
@@ -172,7 +199,8 @@ public class Seleccion {
      * @param cuerpoTecnico El integrante a incorporar.
      */
     public void agregarCuerpoTecnico(CuerpoTecnico cuerpoTecnico) {
-        if (cuerpoTecnico != null) this.cuerposTecnicos.add(cuerpoTecnico);
+        if (cuerpoTecnico != null)
+            this.cuerposTecnicos.add(cuerpoTecnico);
     }
 
     /**
@@ -182,7 +210,8 @@ public class Seleccion {
      * @param participacion La participacion a incorporar.
      */
     public void agregarParticipacion(Participacion participacion) {
-        if (participacion != null) this.participaciones.add(participacion);
+        if (participacion != null)
+            this.participaciones.add(participacion);
     }
 
     /**
@@ -191,7 +220,8 @@ public class Seleccion {
      *
      * @param directorTecnico El director tecnico a incorporar.
      */
-    public void agregarDirectoresTecnicos(DirectoresTecnicos directorTecnico) {
-        if (directorTecnico != null) this.directoresTecnicos.add(directorTecnico);
+    public void agregarDirectoresTecnicos(DirectorTecnico directorTecnico) {
+        if (directorTecnico != null)
+            this.directoresTecnicos.add(directorTecnico);
     }
 }

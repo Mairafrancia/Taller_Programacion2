@@ -492,7 +492,7 @@ public class SistemaInteractivo {
     /**
      * Solicita los datos de un director tecnico y lo registra en la seleccion
      * seleccionada mediante
-     * {@link AdministracionDelegaciones#registrarDirectorTecnico(Seleccion, DirectoresTecnicos)}.
+     * {@link AdministracionDelegaciones#registrarDirectorTecnico(Seleccion, DirectorTecnico)}.
      */
     private void registrarDirectorTecnico() {
         Seleccion seleccion = seleccionarSeleccion("Seleccione la seleccion:");
@@ -522,7 +522,7 @@ public class SistemaInteractivo {
         }
         // ------------------------------------
 
-        DirectoresTecnicos dt = new DirectoresTecnicos(nombre, fechaNac, 20000101);
+        DirectorTecnico dt = new DirectorTecnico(nombre, fechaNac, 20000101);
 
         try {
             ad.registrarDirectorTecnico(seleccion, dt);
