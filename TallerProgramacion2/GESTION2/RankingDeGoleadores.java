@@ -27,10 +27,8 @@ public class RankingDeGoleadores {
         if (seleccion == null) {
             return null;
         }
-
         // Creamos una copia de la lista original para proteger los datos de la Selección
         ArrayList<Jugador> jugadores = new ArrayList<>(seleccion.getJugadores());
-
         // NOTA DE DISEÑO (Complejidad y Consistencia):
         // Se optó por mantener las llamadas a contarGoles() dentro del Comparator debido a que 
         // el tamaño del plantel es acotado y constante (N <= 26 jugadores). A diferencia de la 

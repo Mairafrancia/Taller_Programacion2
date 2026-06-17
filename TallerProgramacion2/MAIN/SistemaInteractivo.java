@@ -751,7 +751,7 @@ public class SistemaInteractivo {
 
         CategoriaArbitro rolElegido = null;
         while (rolElegido == null) {
-            System.out.print("Rol (PRINCIPAL, ASISTENTE1, ASISTENTE2, CUARTOARBITRO, VARPRINCIPAL, VARASISTENTE): ");
+            System.out.print("Rol (PRINCIPAL, ASISTENTE_1, ASISTENTE_2, CUARTO_ARBITRO, VAR_PRINCIPAL, VAR_ASISTENTE): ");
             String rol = scanner.nextLine().trim().toUpperCase();
             if (rol.isEmpty()) {
                 System.out.println("Error: el rol no puede estar vacio. Intente nuevamente.");
