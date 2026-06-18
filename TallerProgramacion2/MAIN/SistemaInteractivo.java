@@ -426,8 +426,8 @@ public class SistemaInteractivo {
         String nombre = leerNombre("Nombre de la federacion: ",
                 "El nombre solo puede contener letras.");
         int ranking = leerEnteroValido("Ranking FIFA: ",
-                "El ranking debe ser mayor a 0.",
-                v -> v > 0);
+                "El ranking debe estar entre 1 y 210.",
+                v -> v >= 1 && v <= 210);
         Seleccion sel = new Seleccion();
         sel.setNombreFederacion(nombre);
         sel.setRankingFIFA(ranking);
