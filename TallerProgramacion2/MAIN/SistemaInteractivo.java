@@ -69,6 +69,11 @@ public class SistemaInteractivo {
     /**
      * Constructor. Inicializa todos los modulos del sistema y carga
      * los datos del torneo mediante {@link CargadorDatos#cargar()}.
+     * La carga se realiza dentro de un bloque try-catch para manejar
+     * las excepciones checked {@link EXCEPCIONES.PeriodoInvalidoException}
+     * y {@link EXCEPCIONES.MinutoInvalidoException} que puede lanzar el cargador.
+     * En caso de error, {@code mundial} queda en null y se imprime el mensaje
+     * de error por consola.
      */
     public SistemaInteractivo() {
         this.scanner = new Scanner(System.in);
