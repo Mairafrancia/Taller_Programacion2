@@ -402,12 +402,19 @@ public class SistemaInteractivo {
 
     /**
      * Solicita los datos de una nueva seleccion, valida que el pais no tenga
-     * ya una seleccion registrada y la vincula al grupo y pais seleccionados.
+     * ya una seleccion registrada, que el grupo no este completo,
+     * y la vincula al grupo y pais seleccionados.
      */
     private void registrarSeleccion() {
         Grupo grupo = seleccionarGrupo("Seleccione el grupo:");
         if (grupo == null)
             return;
+        
+        if (grupo.getSelecciones().size() >= 4) {
+            System.out.println("Error: el grupo " + grupo.getIdentificador() + " ya tiene 4 selecciones. No se pueden agregar mas.");
+            return;
+        }
+        
         Pais pais = seleccionarPais("Seleccione el pais:");
         if (pais == null)
             return;
