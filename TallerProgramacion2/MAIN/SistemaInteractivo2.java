@@ -23,7 +23,7 @@ import java.util.Scanner;
  * @author Francia Maira
  * @author Gabriela Yañez
  */
-public class SistemaInteractivo {
+public class SistemaInteractivo2 {
 
     /** Scanner para leer la entrada del usuario por consola. */
     private Scanner scanner;
@@ -75,7 +75,7 @@ public class SistemaInteractivo {
      * En caso de error, {@code mundial} queda en null y se imprime el mensaje
      * de error por consola.
      */
-    public SistemaInteractivo() {
+    public SistemaInteractivo2() {
         this.scanner = new Scanner(System.in);
         try {
             this.mundial = CargadorDatos.cargar();
@@ -103,9 +103,9 @@ public class SistemaInteractivo {
     public void iniciar() {
         boolean salir = false;
         while (!salir) {
-            mostrarMenuPrincipal();
+            mostrarMenuPrincipal2();
             int opcion = leerOpcion();
-            salir = procesarMenuPrincipal(opcion);
+            salir = procesarMenuPrincipal2(opcion);
         }
         System.out.println("\n>>> Gracias por usar el sistema. Hasta luego!");
         scanner.close();
@@ -114,21 +114,13 @@ public class SistemaInteractivo {
     /**
      * Imprime el menu principal del sistema por consola.
      */
-    private void mostrarMenuPrincipal() {
+    private void mostrarMenuPrincipal2() {
         System.out.print("\n+------------------------------------------------------------+\n"
-                + "| SISTEMA DE GESTION DEL TORNEO MUNDIAL 2026                |\n"
+                + "| SISTEMA DE GESTION DEL TORNEO MUNDIAL 2026                 |\n"
                 + "+------------------------------------------------------------+\n"
-                + "| 1. Gestionar infraestructura                               |\n"
-                + "| 2. Administrar delegaciones                                |\n"
-                + "| 3. Organizar partidos                                      |\n"
-                + "| 4. Registrar eventos de campo                              |\n"
-                + "| 5. Tabla de posiciones por grupo                           |\n"
-                + "| 6. Tabla de resultados por seleccion                       |\n"
-                + "| 7. Ranking de goleadores                                   |\n"
-                + "| 8. Informe disciplinario                                   |\n"
-                + "| 9. Ficha tecnica de partido                                |\n"
-                + "|10. Estadisticas de sedes                                   |\n"
-                + "|11. Ver informacion del Mundial                             |\n"
+                + "| 1. OPERACIONES DE CARGA Y MODIFICACION                     |\n"
+                + "| 2. GENERACION DE INFORMES                                  |\n"
+                + "|                                                            |\n"
                 + "| 0. Salir                                                   |\n"
                 + "+------------------------------------------------------------+\n"
                 + "Seleccione una opcion: ");
@@ -141,41 +133,14 @@ public class SistemaInteractivo {
      * @param opcion La opcion ingresada por el usuario.
      * @return True si el usuario eligio salir, false en caso contrario.
      */
-    private boolean procesarMenuPrincipal(int opcion) {
+    private boolean procesarMenuPrincipal2(int opcion) {
         try {
             switch (opcion) {
                 case 1:
-                    menuInfraestructura();
+                    ejecutarSubmenuCargas();
                     break;
                 case 2:
-                    menuDelegaciones();
-                    break;
-                case 3:
-                    menuOrganizacionDeportiva();
-                    break;
-                case 4:
-                    menuRegistroEventos();
-                    break;
-                case 5:
-                    reporteTablaPosiciones();
-                    break;
-                case 6:
-                    reporteTablaResultados();
-                    break;
-                case 7:
-                    reporteRankingGoleadores();
-                    break;
-                case 8:
-                    reporteInformeDisciplinario();
-                    break;
-                case 9:
-                    reporteFichaTecnica();
-                    break;
-                case 10:
-                    reporteEstadisticasSedes();
-                    break;
-                case 11:
-                    mostrarInfoMundial();
+                    ejecutarSubmenuInformes();
                     break;
                 case 0:
                     return true;
@@ -189,109 +154,169 @@ public class SistemaInteractivo {
     }
 
     // -------------------------------------------------------------------------
-    // MENUS
+    // SUBMENÚ: CARGAS Y MODIFICACIONES
+    // -------------------------------------------------------------------------
+
+    private void mostrarSubmenuCargas() {
+        System.out.print("\n+------------------------------------------------------------+\n"
+                + "| >>> OPERACIONES DE CARGA Y MODIFICACION                    |\n"
+                + "+------------------------------------------------------------+\n"
+                + "| 1. Gestionar infraestructura                               |\n"
+                + "| 2. Administrar delegaciones                                |\n"
+                + "| 3. Organizar partidos                                      |\n"
+                + "| 4. Registrar eventos de campo                              |\n"
+                + "|                                                            |\n"
+                + "| 0. Volver al Menú Principal                                |\n"
+                + "+------------------------------------------------------------+\n"
+                + "Seleccione una opcion: ");
+    }
+
+    private void ejecutarSubmenuCargas() {
+        int opcion = -1;
+        do {
+            mostrarSubmenuCargas();
+            opcion = leerOpcion(); 
+            
+            switch (opcion) {
+                case 1: menuInfraestructura(); break;
+                case 2: menuDelegaciones(); break;
+                case 3: menuOrganizacionDeportiva(); break;
+                case 4: menuRegistroEventos(); break;
+                case 0: System.out.println("Regresando..."); break;
+                default: System.out.println("Opcion no valida.");
+            }
+        } while (opcion != 0);
+    }
+
+    // -------------------------------------------------------------------------
+    // SUBMENÚ: INFORMES
+    // -------------------------------------------------------------------------
+
+    private void mostrarSubmenuInformes() {
+        System.out.print("\n+------------------------------------------------------------+\n"
+                + "| >>> GENERACION DE INFORMES Y REGISTROS                     |\n"
+                + "+------------------------------------------------------------+\n"
+                + "| 1. Tabla de posiciones por grupo                           |\n"
+                + "| 2. Tabla de resultados por seleccion                       |\n"
+                + "| 3. Ranking de goleadores                                   |\n"
+                + "| 4. Informe disciplinario                                   |\n"
+                + "| 5. Ficha tecnica de partido                                |\n"
+                + "| 6. Estadisticas de sedes                                   |\n"
+                + "| 7. Ver informacion del Mundial                             |\n"
+                + "|                                                            |\n"
+                + "| 0. Volver al Menú Principal                                |\n"
+                + "+------------------------------------------------------------+\n"
+                + "Seleccione una opcion: ");
+    }
+
+    private void ejecutarSubmenuInformes() {
+        int opcion = -1;
+        do {
+            mostrarSubmenuInformes();
+            opcion = leerOpcion();
+            
+            switch (opcion) {
+                case 1: reporteTablaPosiciones(); break;
+                case 2: reporteTablaResultados(); break;
+                case 3: reporteRankingGoleadores(); break;
+                case 4: reporteInformeDisciplinario(); break;
+                case 5: reporteFichaTecnica(); break;
+                case 6: reporteEstadisticasSedes(); break;
+                case 7: mostrarInfoMundial(); break;
+                case 0: System.out.println("Regresando..."); break;
+                default: System.out.println("Opcion no valida.");
+            }
+        } while (opcion != 0);
+    }
+
+    // -------------------------------------------------------------------------
+    // MENUS INTERNOS (GESTIÓN)
     // -------------------------------------------------------------------------
 
     /**
-     * Muestra y gestiona el submenu de infraestructura en bucle
-     * hasta que el usuario elige volver.
+     * Muestra y gestiona el submenu de infraestructura en bucle.
      */
     private void menuInfraestructura() {
         while (true) {
             System.out.print("\n| GESTION DE INFRAESTRUCTURA |\n"
-                    + "1. Registrar Nueva Sede\n2. Registrar Estadio en Sede\n3. Ver Sedes Registradas\n0. Volver\nOpcion: ");
+                    + "1. Registrar Nueva Sede\n"
+                    + "2. Registrar Estadio en Sede\n"
+                    + "3. Ver Sedes Registradas\n"
+                    + "0. Volver\n"
+                    + "Opcion: ");
             switch (leerOpcion()) {
-                case 1:
-                    registrarSede();
-                    break;
-                case 2:
-                    registrarEstadio();
-                    break;
-                case 3:
-                    verSedes();
-                    break;
-                case 0:
-                    return;
-                default:
-                    System.out.println("Opcion no valida.");
+                case 1: registrarSede(); break;
+                case 2: registrarEstadio(); break;
+                case 3: verSedes(); break;
+                case 0: return;
+                default: System.out.println("Opcion no valida.");
             }
         }
     }
 
     /**
-     * Muestra y gestiona el submenu de delegaciones en bucle
-     * hasta que el usuario elige volver.
+     * Muestra y gestiona el submenu de delegaciones en bucle.
      */
     private void menuDelegaciones() {
         while (true) {
             System.out.print("\n| ADMINISTRACION DELEGACIONES |\n"
-                    + "1. Registrar Seleccion\n2. Registrar Jugador\n3. Registrar Director Tecnico\n"
-                    + "4. Registrar Cuerpo Tecnico\n5. Ver Selecciones\n0. Volver\nOpcion: ");
+                    + "1. Registrar Seleccion\n"
+                    + "2. Registrar Jugador\n"
+                    + "3. Registrar Director Tecnico\n"
+                    + "4. Registrar Cuerpo Tecnico\n"
+                    + "5. Ver Selecciones\n"
+                    + "0. Volver\n"
+                    + "Opcion: ");
             switch (leerOpcion()) {
-                case 1:
-                    registrarSeleccion();
-                    break;
-                case 2:
-                    registrarJugador();
-                    break;
-                case 3:
-                    registrarDirectorTecnico();
-                    break;
-                case 4:
-                    registrarCuerpoTecnico();
-                    break;
-                case 5:
-                    verSelecciones();
-                    break;
-                case 0:
-                    return;
-                default:
-                    System.out.println("Opcion no valida.");
+                case 1: registrarSeleccion(); break;
+                case 2: registrarJugador(); break;
+                case 3: registrarDirectorTecnico(); break;
+                case 4: registrarCuerpoTecnico(); break;
+                case 5: verSelecciones(); break;
+                case 0: return;
+                default: System.out.println("Opcion no valida.");
             }
         }
     }
 
     /**
-     * Muestra y gestiona el submenu de organizacion deportiva en bucle
-     * hasta que el usuario elige volver. El orden de las opciones respeta
-     * el flujo correcto del sistema: primero se registra el arbitraje y
-     * luego se asignan los equipos, ya que un partido debe tener arbitraje
-     * valido antes de poder asignarle los equipos participantes.
+     * Muestra y gestiona el submenu de organizacion deportiva en bucle.
      */
     private void menuOrganizacionDeportiva() {
-    while (true) {
-        System.out.print("\n| ORGANIZACION DEPORTIVA |\n"
-            + "1. Registrar Grupo\n2. Planificar Partido\n3. Registrar Arbitraje\n4. Asignar Equipos a Partido\n0. Volver\nOpcion: ");
-        switch (leerOpcion()) {
-            case 1: registrarGrupo(); break;
-            case 2: planificarPartido(); break;
-            case 3: registrarArbitraje(); break;
-            case 4: asignarEquiposAPartido(); break;
-            case 0: return;
-            default: System.out.println("Opcion no valida.");
+        while (true) {
+            System.out.print("\n| ORGANIZACION DEPORTIVA |\n"
+                    + "1. Registrar Grupo\n"
+                    + "2. Planificar Partido\n"
+                    + "3. Registrar Arbitraje\n"
+                    + "4. Asignar Equipos a Partido\n"
+                    + "0. Volver\n"
+                    + "Opcion: ");
+            switch (leerOpcion()) {
+                case 1: registrarGrupo(); break;
+                case 2: planificarPartido(); break;
+                case 3: registrarArbitraje(); break;
+                case 4: asignarEquiposAPartido(); break;
+                case 0: return;
+                default: System.out.println("Opcion no valida.");
+            }
         }
     }
-}
 
     /**
-     * Muestra y gestiona el submenu de registro de eventos en bucle
-     * hasta que el usuario elige volver.
+     * Muestra y gestiona el submenu de registro de eventos en bucle.
      */
     private void menuRegistroEventos() {
         while (true) {
             System.out.print("\n| REGISTRO DE EVENTOS |\n"
-                    + "1. Registrar Evento\n2. Ver Eventos de un Partido\n0. Volver\nOpcion: ");
+                    + "1. Registrar Evento\n"
+                    + "2. Ver Eventos de un Partido\n"
+                    + "0. Volver\n"
+                    + "Opcion: ");
             switch (leerOpcion()) {
-                case 1:
-                    registrarEvento();
-                    break;
-                case 2:
-                    verEventosPartido();
-                    break;
-                case 0:
-                    return;
-                default:
-                    System.out.println("Opcion no valida.");
+                case 1: registrarEvento(); break;
+                case 2: verEventosPartido(); break;
+                case 0: return;
+                default: System.out.println("Opcion no valida.");
             }
         }
     }
