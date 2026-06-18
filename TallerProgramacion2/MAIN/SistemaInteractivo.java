@@ -72,7 +72,12 @@ public class SistemaInteractivo {
      */
     public SistemaInteractivo() {
         this.scanner = new Scanner(System.in);
-        this.mundial = CargadorDatos.cargar();
+        try {
+            this.mundial = CargadorDatos.cargar();
+        } catch (PeriodoInvalidoException | MinutoInvalidoException e) {
+            System.err.println("Error al cargar los datos del torneo: " + e.getMessage());
+            this.mundial = null;
+        }
         this.gi = new GestionInfraestructura();
         this.ad = new AdministracionDelegaciones();
         this.od = new OrganizacionDeportiva();

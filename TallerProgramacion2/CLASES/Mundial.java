@@ -1,5 +1,5 @@
 package CLASES;
-
+import EXCEPCIONES.PeriodoInvalidoException;
 import java.util.ArrayList;
 
 //import EXCEPCIONES.PeriodoInvalidoException;
@@ -50,20 +50,31 @@ public class Mundial {
     }
 
     /**
-     * Constructor con parámetros.
-     * Inicializa las listas de sedes y fases vacías para separar la lógica de creación 
-     * de la lógica de asignación progresiva de elementos al mundial.
-     *
-     * @param anio       Año de celebración del mundial.
-     * @param mascota    Nombre de la mascota oficial.
-     * @param fechaDesde Fecha de inicio del torneo.
-     * @param fechaHasta Fecha de finalización del torneo.
+     * Constructor para crear un Mundial con sus fechas validadas.
+     * @param anio El año del mundial.
+     * @param mascota La mascota oficial.
+     * @param fechaDesde Fecha de inicio.
+     * @param fechaHasta Fecha de finalización.
+     * @throws PeriodoInvalidoException Si las fechas se cruzan o no son válidas.
      */
-    public Mundial(int anio, String mascota, int fechaDesde, int fechaHasta) {
+    public Mundial(int anio, String mascota, int fechaDesde, int fechaHasta) throws PeriodoInvalidoException {
+        // 1. Validar rangos mínimos primero (opcional, pero recomendado)
+        if (fechaDesde < 2026 || fechaHasta < 2026) {
+            throw new PeriodoInvalidoException("Las fechas del mundial no pueden ser menores al año 2026.");
+        }
+
+        // 2. Validar la consistencia entre ambas fechas recibidas
+        if (fechaDesde > fechaHasta) {
+            throw new PeriodoInvalidoException("La fecha de inicio (" + fechaDesde + ") no puede ser mayor a la de finalización (" + fechaHasta + ").");
+        }
+
+        // 3. Si todo está bien, se asignan los atributos
         this.anio = anio;
         this.mascota = mascota;
         this.fechaDesde = fechaDesde;
         this.fechaHasta = fechaHasta;
+        
+        // Inicialización de colecciones
         this.sedes = new ArrayList<>(); 
         this.fases = new ArrayList<>();
     }
@@ -112,11 +123,11 @@ public class Mundial {
      * Establece la fecha de inicio del mundial.
      * @param fechaDesde La fecha de inicio a asignar.
      */
-    public void setFechaDesde(int fechaDesde) //throws PeriodoInvalidoException
-    {
-    //     if (fechaDesde > this.fechaHasta) {
-    //     throw new PeriodoInvalidoException("La fecha de inicializacion no puede ser mayor a la de finalizacion.");
-    // }
+    public void setFechaDesde(int fechaDesde) throws PeriodoInvalidoException{
+        // Validamos solo si la fecha hasta ya fue asignada (asumiendo que 0 significa "no asignada")
+        if (this.fechaHasta != 0 && fechaDesde > this.fechaHasta) {
+            throw new PeriodoInvalidoException("La fecha de inicio no puede ser mayor a la de finalización.");
+        }
         this.fechaDesde = fechaDesde;
     }
 
@@ -131,12 +142,19 @@ public class Mundial {
     /**
      * Establece la fecha de finalización del mundial.
      * @param fechaHasta La fecha de finalización a asignar.
+     * @throws PeriodoInvalidoException Si el año es menor a 2026 o si es anterior a la fecha de inicio.
      */
-    public void setFechaHasta(int fechaHasta) //throws PeriodoInvalidoException
-    {
-        // if (fechaHasta < this.fechaDesde) {
-        //     throw new PeriodoInvalidoException("La fecha de finalización no puede ser anterior a la de inicio.");
-        // }
+    public void setFechaHasta(int fechaHasta) throws PeriodoInvalidoException {
+        // 1. Validación de año mínimo
+        if (fechaHasta < 2026) { 
+            throw new PeriodoInvalidoException("La fecha de finalización (" + fechaHasta + ") no es válida para este torneo.");
+        }
+
+        // 2. Validación de consistencia
+        if (this.fechaDesde != 0 && fechaHasta < this.fechaDesde) {
+            throw new PeriodoInvalidoException("La fecha de finalización no puede ser anterior a la de inicio.");
+        }
+
         this.fechaHasta = fechaHasta;
     }
 

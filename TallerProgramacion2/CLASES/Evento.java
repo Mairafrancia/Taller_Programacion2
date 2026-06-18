@@ -1,5 +1,7 @@
 package CLASES;
 
+import EXCEPCIONES.MinutoInvalidoException;
+
 /**
  * Representa un evento ocurrido durante un partido de futbol.
  * Un evento es cualquier accion relevante dentro del campo de juego,
@@ -36,8 +38,12 @@ public class Evento {
      * @param tipo    El tipo de evento ocurrido.
      * @param minuto  El minuto del partido en que ocurrio el evento.
      * @param jugador El jugador involucrado en el evento.
+     * @throws MinutoInvalidoException Si el minuto es menor a 1 o mayor a 130.
      */
-    public Evento(TipoEvento tipo, int minuto, Jugador jugador) {
+    public Evento(TipoEvento tipo, int minuto, Jugador jugador) throws MinutoInvalidoException {
+        if (minuto < 1 || minuto > 130) {
+            throw new MinutoInvalidoException("El minuto " + minuto + " no es válido. Debe estar entre 1 y 130.");
+        }
         this.tipo = tipo;
         this.minuto = minuto;
         this.jugador = jugador;
@@ -70,8 +76,12 @@ public class Evento {
     /**
      * Establece el minuto en que ocurrio el evento.
      * @param minuto El minuto a asignar.
+     * @throws MinutoInvalidoException Si el minuto es menor a 1 o mayor a 130.
      */
-    public void setMinuto(int minuto) {
+    public void setMinuto(int minuto) throws MinutoInvalidoException {
+        if (minuto < 1 || minuto > 130) {
+            throw new MinutoInvalidoException("El minuto " + minuto + " no es válido. Debe estar entre 1 y 130.");
+        }
         this.minuto = minuto;
     }
 

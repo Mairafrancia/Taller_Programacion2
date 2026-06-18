@@ -2,6 +2,8 @@ package MAIN;
 
 import CLASES.*;
 import EXCEPCIONES.JugadorDuplicadoException;
+import EXCEPCIONES.*;
+import EXCEPCIONES.PeriodoInvalidoException;
 import EXCEPCIONES.ValoresNulosException;
 import GESTION1.AdministracionDelegaciones;
 
@@ -50,8 +52,7 @@ public class CargadorDatos {
      * @return Un objeto {@link Mundial} completamente inicializado con todos los
      *         datos del torneo 2026.
      */
-    public static Mundial cargar() {
-
+    public static Mundial cargar() throws PeriodoInvalidoException,  MinutoInvalidoException{
         Mundial mundial = new Mundial(2026, "Migo", 20260611, 20260719);
 
         // =====================================================================
@@ -1099,7 +1100,7 @@ public class CargadorDatos {
      * @param minuto  El minuto del partido en que ocurrió el evento.
      */
     private static void agregarEvento(Partido partido, Jugador jugador,
-            TipoEvento tipo, int minuto) {
+            TipoEvento tipo, int minuto) throws MinutoInvalidoException {
         Evento evento = new Evento(tipo, minuto, jugador);
         partido.getEventos().add(evento);
         jugador.agregarEvento(evento);
