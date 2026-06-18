@@ -1,5 +1,7 @@
 package GESTION2;
 
+import java.util.ArrayList;
+
 import CLASES.*;
 
 /**
@@ -53,5 +55,66 @@ public class EstadisticasDeSedes {
             }
         }
         return totalPartidos; //dsp de revisar todas las sedes devolvemos el total acumulado
+    }
+
+    /**
+     * Devuelve el detalle de los partidos jugados en un estadio específico,
+     * incluyendo fecha, horario, equipos participantes y resultado final.
+     *
+     * @param estadio El objeto Estadio sobre el cual se realiza la consulta.
+     * @return Lista de Strings con el detalle de cada partido, o null si el estadio es null.
+     */
+    public ArrayList<String> detallePorEstadio(Estadio estadio) {
+        if (estadio == null) {
+            return null;
+        }
+        ArrayList<String> detalle = new ArrayList<>();
+        for (Partido p : estadio.getPartidos()) {
+            if (p == null) continue;
+            String local = "?";
+            String visitante = "?";
+            int golesLocal = 0;
+            int golesVisitante = 0;
+            if (p.getParticipacionLocal() != null) {
+                local = p.getParticipacionLocal().getSeleccion().getNombreFederacion();
+                golesLocal = p.getParticipacionLocal().cantidadGoles();
+            }
+            if (p.getParticipacionVisitante() != null) {
+                visitante = p.getParticipacionVisitante().getSeleccion().getNombreFederacion();
+                golesVisitante = p.getParticipacionVisitante().cantidadGoles();
+            }
+            detalle.add("  " + p.getFecha() + " " + p.getHorario() + " - " 
+                + local + " vs " + visitante 
+                + " - Resultado: " + golesLocal + "-" + golesVisitante);
+        }
+        return detalle;
+    }
+
+    /**
+     * Devuelve el detalle de los partidos jugados en todos los estadios
+     * de una ciudad específica, incluyendo fecha, horario, equipos y resultado.
+     *
+     * @param mundial El objeto Mundial que contiene el registro global de sedes.
+     * @param ciudad El nombre de la ciudad por la cual filtrar los encuentros.
+     * @return Lista de Strings con el detalle de cada partido, o null si los parametros son invalidos.
+     */
+    public ArrayList<String> detallePorCiudad(Mundial mundial, String ciudad) {
+        if (mundial == null || ciudad == null || ciudad.isEmpty()) {
+            return null;
+        }
+        ArrayList<String> detalle = new ArrayList<>();
+        for (Sede sede : mundial.getSedes()) {
+            if (sede == null || sede.getCiudad() == null) continue;
+            if (sede.getCiudad().equalsIgnoreCase(ciudad)) {
+                for (Estadio e : sede.getEstadios()) {
+                    if (e == null) continue;
+                    ArrayList<String> detalleEstadio = detallePorEstadio(e);
+                    if (detalleEstadio != null) {
+                        detalle.addAll(detalleEstadio);
+                    }
+                }
+            }
+        }
+        return detalle;
     }
 }

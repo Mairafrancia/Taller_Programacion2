@@ -1002,7 +1002,7 @@ public class SistemaInteractivo2 {
 
     /**
      * Solicita si la consulta es por estadio o por ciudad y muestra
-     * la cantidad de partidos correspondiente.
+     * la cantidad de partidos con fecha, horario, equipos y resultado.
      */
     private void reporteEstadisticasSedes() {
         int opcion = leerEnteroValido("\n1. Por estadio\n2. Por ciudad\nOpcion: ",
@@ -1011,13 +1011,28 @@ public class SistemaInteractivo2 {
             Estadio estadio = seleccionarEstadio("Seleccione el estadio:");
             if (estadio == null)
                 return;
-            System.out.println(
-                    "Partidos en " + estadio.getNombre() + ": " + estadisticasSedes.partidosPorEstadio(estadio));
+            System.out.println("Partidos en " + estadio.getNombre() + ": " 
+                + estadisticasSedes.partidosPorEstadio(estadio));
+            ArrayList<String> detalle = estadisticasSedes.detallePorEstadio(estadio);
+            if (detalle != null) {
+                for (String linea : detalle) {
+                    System.out.println(linea);
+                }
+            }
         } else {
-            String ciudad = leerNombre("Ciudad: ", "La ciudad solo puede contener letras.");
-            System.out.println("Partidos en " + ciudad + ": " + estadisticasSedes.partidosPorCiudad(mundial, ciudad));
+                String ciudad = seleccionarCiudad("Seleccione la ciudad:");
+                if (ciudad == null)
+                    return;
+                System.out.println("Partidos en " + ciudad + ": " 
+                    + estadisticasSedes.partidosPorCiudad(mundial, ciudad));
+                ArrayList<String> detalle = estadisticasSedes.detallePorCiudad(mundial, ciudad);
+                if (detalle != null) {
+                    for (String linea : detalle) {
+                        System.out.println(linea);
+                    }
+                }
+            }
         }
-    }
 
     /** Muestra el anio, mascota y cantidad de sedes del mundial. */
     private void mostrarInfoMundial() {
@@ -1235,6 +1250,33 @@ public class SistemaInteractivo2 {
         }
         int opcion = leerEnteroValido("Opcion: ", "Opcion no valida.", v -> v >= 1 && v <= jugadores.size()) - 1;
         return jugadores.get(opcion);
+    }
+
+    /**
+     * Muestra las ciudades disponibles extraidas de las sedes registradas
+     * y permite al usuario seleccionar una.
+     *
+     * @return El nombre de la ciudad seleccionada, o null si no hay ciudades registradas.
+     */
+    private String seleccionarCiudad(String mensaje) {
+        System.out.println(mensaje);
+        ArrayList<String> ciudades = new ArrayList<>();
+        for (Sede sede : mundial.getSedes()) {
+            if (sede != null && sede.getCiudad() != null 
+                && !ciudades.contains(sede.getCiudad())) {
+                ciudades.add(sede.getCiudad());
+            }
+        }
+        if (ciudades.isEmpty()) {
+            System.out.println("No hay ciudades registradas.");
+            return null;
+        }
+        for (int i = 0; i < ciudades.size(); i++) {
+            System.out.println((i + 1) + ". " + ciudades.get(i));
+        }
+        int opcion = leerEnteroValido("Opcion: ", "Opcion no valida.", 
+            v -> v >= 1 && v <= ciudades.size());
+        return ciudades.get(opcion - 1);
     }
 
     // -------------------------------------------------------------------------
