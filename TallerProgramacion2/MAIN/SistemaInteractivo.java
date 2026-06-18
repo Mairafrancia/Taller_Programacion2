@@ -618,8 +618,8 @@ public class SistemaInteractivo {
             String pais = sel.getPais() != null ? sel.getPais().getNombre() : "Sin pais";
             String grupo = sel.getGrupo() != null ? sel.getGrupo().getIdentificador() : "Sin grupo";
             int jugadores = sel.getJugadores() != null ? sel.getJugadores().size() : 0;
-            System.out.println("- " + sel.getNombreFederacion() + " | Pais: " + pais + " | Grupo: " + grupo
-                    + " | Jugadores: " + jugadores);
+            System.out.println("Nombre Federacion: " + sel.getNombreFederacion() + " | Pais: " + pais + " | Grupo: " + grupo
+                    + " | Jugadores: " + jugadores );
         }
     }
 
