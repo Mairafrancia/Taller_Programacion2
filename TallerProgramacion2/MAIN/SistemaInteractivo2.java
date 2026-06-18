@@ -178,12 +178,12 @@ public class SistemaInteractivo2 {
             opcion = leerOpcion(); 
             
             switch (opcion) {
-                case 1: menuInfraestructura(); break;
-                case 2: menuDelegaciones(); break;
-                case 3: menuOrganizacionDeportiva(); break;
-                case 4: menuRegistroEventos(); break;
-                case 0: System.out.println("Regresando..."); break;
-                default: System.out.println("Opcion no valida.");
+                case 1: menuInfraestructura(); esperarEnter(); break;
+                case 2: menuDelegaciones(); esperarEnter(); break;
+                case 3: menuOrganizacionDeportiva(); esperarEnter(); break;
+                case 4: menuRegistroEventos(); esperarEnter(); esperarEnter(); break;
+                case 0: System.out.println("Regresando..."); esperarEnter();break;
+                default: System.out.println("Opcion no valida."); esperarEnter();
             }
         } while (opcion != 0);
     }
@@ -216,15 +216,15 @@ public class SistemaInteractivo2 {
             opcion = leerOpcion();
             
             switch (opcion) {
-                case 1: reporteTablaPosiciones(); break;
-                case 2: reporteTablaResultados(); break;
-                case 3: reporteRankingGoleadores(); break;
-                case 4: reporteInformeDisciplinario(); break;
-                case 5: reporteFichaTecnica(); break;
-                case 6: reporteEstadisticasSedes(); break;
-                case 7: mostrarInfoMundial(); break;
-                case 0: System.out.println("Regresando..."); break;
-                default: System.out.println("Opcion no valida.");
+                case 1: reporteTablaPosiciones(); esperarEnter(); break;
+                case 2: reporteTablaResultados(); esperarEnter();break;
+                case 3: reporteRankingGoleadores(); esperarEnter(); break;
+                case 4: reporteInformeDisciplinario(); esperarEnter(); break;
+                case 5: reporteFichaTecnica(); esperarEnter(); break;
+                case 6: reporteEstadisticasSedes(); esperarEnter(); break;
+                case 7: mostrarInfoMundial(); esperarEnter(); break;
+                case 0: System.out.println("Regresando..."); esperarEnter(); break;
+                default: System.out.println("Opcion no valida."); esperarEnter();
             }
         } while (opcion != 0);
     }
@@ -924,6 +924,7 @@ public class SistemaInteractivo2 {
         Grupo grupo = seleccionarGrupo("Seleccione el grupo:");
         if (grupo == null)
             return;
+        System.out.println("GRUPO : " + grupo.getDescripcion());
         imprimirLista(tablaPosiciones.obtenerTablaPosiciones(grupo), "No hay datos para esta tabla.");
     }
 
@@ -1440,5 +1441,11 @@ public class SistemaInteractivo2 {
                 System.out.println("Entrada no valida. " + mensajeError + " Intente nuevamente.");
             }
         }
+    }
+    // Pausa la terminal hasta que el usuario presiona ENTER para limpiar el flujo visual. 
+    private void esperarEnter() {
+        System.out.println("\n🔹 Presione ENTER para continuar y volver al menú...");
+        // Consumir cualquier salto de línea residual y esperar el ENTER real
+        this.scanner.nextLine(); 
     }
 }
