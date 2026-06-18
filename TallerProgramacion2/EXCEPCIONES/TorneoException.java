@@ -1,8 +1,13 @@
 package EXCEPCIONES;
 
 /**
- * Excepción base para todas las excepciones del sistema de gestión del Torneo Mundial.
- * Proporciona una base común para el manejo robusto de errores específicos del dominio.
+ * Excepción base **
+ * Clase base de todas las excepciones del sistema de gestion del Mundial.
+ * Las excepciones especificas del dominio (jugador duplicado, valores nulos,
+ * participacion invalida, etc.) heredan de esta clase para permitir
+ * capturarlas todas juntas con un unico catch(TorneoException) o
+ * individualmente segun el error que se quiera manejar.
+ 
  * @author Florencia Benitez
  * @author Agustina Barreto
  * @author Francia Maira
