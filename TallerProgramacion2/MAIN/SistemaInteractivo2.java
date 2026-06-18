@@ -941,14 +941,32 @@ public class SistemaInteractivo2 {
     }
 
     /**
-     * Solicita una seleccion y muestra el ranking de sus goleadores ordenado de
-     * mayor a menor.
+     * Muestra el ranking global de los máximos goleadores de todo el torneo,
+     * ordenado de mayor a menor. Recolecta todas las selecciones recorriendo
+     * la estructura del mundial (fases -> grupos -> selecciones) y delega
+     * el calculo y ordenamiento a {@link RankingDeGoleadores#obtenerRankingGlobal(ArrayList)}.
+     * Se evitan duplicados para no contar dos veces a selecciones que avanzaron
+     * a fases eliminatorias.
      */
     private void reporteRankingGoleadores() {
-        Seleccion seleccion = seleccionarSeleccion("Seleccione la seleccion:");
-        if (seleccion == null)
-            return;
-        imprimirLista(rankingGoles.rankingPorSeleccion(seleccion), "No hay goleadores registrados.");
+        System.out.println("\n| >>> RANKING GLOBAL DE GOLEADORES DEL MUNDIAL |\n");
+        
+        // Recolectamos todas las selecciones recorriendo fases -> grupos -> selecciones
+        ArrayList<Seleccion> todasLasSelecciones = new ArrayList<>();
+        for (Fase fase : mundial.getFases()) {
+            for (Grupo grupo : fase.getGrupos()) {
+                for (Seleccion sel : grupo.getSelecciones()) {
+                    if (!todasLasSelecciones.contains(sel)) {
+                        todasLasSelecciones.add(sel);
+                    }
+                }
+            }
+        }
+        
+        // Llamamos al nuevo método global
+        ArrayList<String> reporte = rankingGoles.obtenerRankingGlobal(todasLasSelecciones);
+        
+        imprimirLista(reporte, "No hay goles registrados en el torneo todavia.");
     }
 
     /**
