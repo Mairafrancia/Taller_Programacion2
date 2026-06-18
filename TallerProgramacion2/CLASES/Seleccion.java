@@ -40,7 +40,7 @@ public class Seleccion {
     private ArrayList<Jugador> jugadores;
 
     /** Lista de directores tecnicos de la seleccion. */
-    private ArrayList<DirectorTecnico> directoresTecnicos;
+    private ArrayList<DirectoresTecnicos> directoresTecnicos;
 
     /** Lista de integrantes del cuerpo tecnico (preparadores, medicos, etc.). */
     private ArrayList<CuerpoTecnico> cuerposTecnicos;
@@ -166,7 +166,7 @@ public class Seleccion {
     }
 
     /** @return La lista de directores tecnicos. */
-    public ArrayList<DirectorTecnico> getDirectoresTecnicos() {
+    public ArrayList<DirectoresTecnicos> getDirectoresTecnicos() {
         return directoresTecnicos;
     }
 
@@ -220,8 +220,8 @@ public class Seleccion {
      *
      * @param directorTecnico El director tecnico a incorporar.
      */
-    public void agregarDirectoresTecnicos(DirectorTecnico directorTecnico) {
-        if (directorTecnico != null)
-            this.directoresTecnicos.add(directorTecnico);
+    public void agregarDirectoresTecnicos(DirectoresTecnicos directoresTecnicos) {
+        if (directoresTecnicos != null)
+            this.directoresTecnicos.add(directoresTecnicos);
     }
 }

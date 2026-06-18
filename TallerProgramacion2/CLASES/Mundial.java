@@ -2,7 +2,7 @@ package CLASES;
 
 import java.util.ArrayList;
 
-import EXCEPCIONES.PeriodoInvalidoException;
+//import EXCEPCIONES.PeriodoInvalidoException;
 
 /**
  * Representa la entidad principal de un torneo mundial de fútbol.
@@ -112,10 +112,11 @@ public class Mundial {
      * Establece la fecha de inicio del mundial.
      * @param fechaDesde La fecha de inicio a asignar.
      */
-    public void setFechaDesde(int fechaDesde) throws PeriodoInvalidoException{
-        if (fechaDesde > this.fechaHasta) {
-        throw new PeriodoInvalidoException("La fecha de inicializacion no puede ser mayor a la de finalizacion.");
-    }
+    public void setFechaDesde(int fechaDesde) //throws PeriodoInvalidoException
+    {
+    //     if (fechaDesde > this.fechaHasta) {
+    //     throw new PeriodoInvalidoException("La fecha de inicializacion no puede ser mayor a la de finalizacion.");
+    // }
         this.fechaDesde = fechaDesde;
     }
 
@@ -131,10 +132,11 @@ public class Mundial {
      * Establece la fecha de finalización del mundial.
      * @param fechaHasta La fecha de finalización a asignar.
      */
-    public void setFechaHasta(int fechaHasta) throws PeriodoInvalidoException{
-        if (fechaHasta < this.fechaDesde) {
-            throw new PeriodoInvalidoException("La fecha de finalización no puede ser anterior a la de inicio.");
-        }
+    public void setFechaHasta(int fechaHasta) //throws PeriodoInvalidoException
+    {
+        // if (fechaHasta < this.fechaDesde) {
+        //     throw new PeriodoInvalidoException("La fecha de finalización no puede ser anterior a la de inicio.");
+        // }
         this.fechaHasta = fechaHasta;
     }
 
