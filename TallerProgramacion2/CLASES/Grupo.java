@@ -74,16 +74,23 @@ public class Grupo {
     /** @param selecciones La nueva lista de selecciones. */
     public void setSelecciones(ArrayList<Seleccion> selecciones) { this.selecciones = selecciones; }
 
-    /**
+        /**
      * Agrega una seleccion al grupo.
-     * No agrega si la seleccion es null.
+     * No realiza la accion si el objeto es null o si el grupo ya tiene 4 selecciones,
+     * ya que el formato del torneo establece exactamente 4 equipos por grupo.
      *
-     * @param seleccion La seleccion a incorporar.
+     * @param seleccion La seleccion a agregar.
      */
     public void agregarSeleccion(Seleccion seleccion) {
-        if (seleccion != null) {
-            this.selecciones.add(seleccion);
+        if (seleccion == null) {
+            System.out.println("Error: la seleccion no puede ser null.");
+            return;
         }
+        if (this.selecciones.size() >= 4) {
+            System.out.println("Error: el grupo " + this.identificador + " ya tiene 4 selecciones. No se pueden agregar mas.");
+            return;
+        }
+        this.selecciones.add(seleccion);
     }
 
     /**
