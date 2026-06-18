@@ -1,10 +1,7 @@
 package MAIN;
 
 import CLASES.*;
-import EXCEPCIONES.JugadorDuplicadoException;
 import EXCEPCIONES.*;
-import EXCEPCIONES.PeriodoInvalidoException;
-import EXCEPCIONES.ValoresNulosException;
 import GESTION1.AdministracionDelegaciones;
 
 /**
@@ -234,6 +231,8 @@ public class CargadorDatos {
         Jugador molina = new Jugador("Nahuel Molina", 19980406, 26, null, 0, 0, null);
         Jugador emiliano = new Jugador("Emiliano Martinez", 19920902, 1, null, 0, 0, null);
 
+        // Se usa un array anónimo para registrar todos los jugadores de la selección en una sola línea 
+        // en vez de llamar al método individualmente por cada jugador
         for (Jugador j : new Jugador[] { messi, diMaria, martinez, romero, dybala, depaul, molina, emiliano })
             registrarJugador(ad, selArg, j);
 
@@ -262,6 +261,8 @@ public class CargadorDatos {
         Jugador paqueta = new Jugador("Lucas Paqueta", 19970827, 20, null, 0, 0, null);
         Jugador endrick = new Jugador("Endrick", 20060721, 9, null, 0, 0, null);
 
+        // Se usa un array anónimo para registrar todos los jugadores de la selección en una sola línea 
+        // en vez de llamar al método individualmente por cada jugador
         for (Jugador j : new Jugador[] { vinicius, rodrygo, neymar, casemiro, raphinha, militao, paqueta, endrick })
             registrarJugador(ad, selBra, j);
 
@@ -295,6 +296,8 @@ public class CargadorDatos {
         Jugador mendy = new Jugador("Edouard Mendy", 19920301, 1, null, 0, 0, null);
         Jugador dia = new Jugador("Boulaye Dia", 19961116, 11, null, 0, 0, null);
 
+        // Se usa un array anónimo para registrar todos los jugadores de la selección en una sola línea 
+        // en vez de llamar al método individualmente por cada jugador
         for (Jugador j : new Jugador[] { mane, diallo, gueye, mendy, dia })
             registrarJugador(ad, selSen, j);
 
@@ -325,7 +328,8 @@ public class CargadorDatos {
         Jugador maignan = new Jugador("Mike Maignan", 19950726, 1, null, 0, 0, null);
         Jugador theo = new Jugador("Theo Hernandez", 19971006, 22, null, 0, 0, null);
         Jugador camavinga = new Jugador("Eduardo Camavinga", 20030110, 29, null, 0, 0, null);
-
+        // Se usa un array anónimo para registrar todos los jugadores de la selección en una sola línea 
+        // en vez de llamar al método individualmente por cada jugador
         for (Jugador j : new Jugador[] { mbappe, griezmann, tchouameni, kante, maignan, theo, camavinga })
             registrarJugador(ad, selFra, j);
 
@@ -344,6 +348,8 @@ public class CargadorDatos {
         Jugador rudiger = new Jugador("Antonio Rudiger", 19930303, 2, null, 0, 0, null);
         Jugador musiala = new Jugador("Jamal Musiala", 20030226, 14, null, 0, 0, null);
 
+        // Se usa un array anónimo para registrar todos los jugadores de la selección en una sola línea 
+        // en vez de llamar al método individualmente por cada jugador
         for (Jugador j : new Jugador[] { mueller, sane, kroos, gnabry, ter, rudiger, musiala })
             registrarJugador(ad, selAle, j);
 
@@ -376,7 +382,8 @@ public class CargadorDatos {
         Jugador hakimi = new Jugador("Achraf Hakimi", 19981104, 2, null, 0, 0, null);
         Jugador amrabat = new Jugador("Sofyan Amrabat", 19960821, 4, null, 0, 0, null);
         Jugador bounou = new Jugador("Yassine Bounou", 19910405, 1, null, 0, 0, null);
-
+        // Se usa un array anónimo para registrar todos los jugadores de la selección en una sola línea 
+        // en vez de llamar al método individualmente por cada jugador
         for (Jugador j : new Jugador[] { ziyech, ennesyri, hakimi, amrabat, bounou })
             registrarJugador(ad, selMar, j);
 
@@ -411,7 +418,8 @@ public class CargadorDatos {
         Jugador carvajal = new Jugador("Dani Carvajal", 19920111, 2, null, 0, 0, null);
         Jugador olmo = new Jugador("Dani Olmo", 19980507, 10, null, 0, 0, null);
         Jugador simon = new Jugador("Unai Simon", 19970604, 1, null, 0, 0, null);
-
+        // Se usa un array anónimo para registrar todos los jugadores de la selección en una sola línea 
+        // en vez de llamar al método individualmente por cada jugador
         for (Jugador j : new Jugador[] { yamal, morata, pedri, rodri, carvajal, olmo, simon })
             registrarJugador(ad, selEsp, j);
 
@@ -428,7 +436,8 @@ public class CargadorDatos {
         Jugador donnarumma = new Jugador("Gianluigi Donnarumma", 19990225, 1, null, 0, 0, null);
         Jugador bonucci = new Jugador("Leonardo Bonucci", 19870101, 19, null, 0, 0, null);
         Jugador immobile = new Jugador("Ciro Immobile", 19900220, 17, null, 0, 0, null);
-
+        // Se usa un array anónimo para registrar todos los jugadores de la selección en una sola línea 
+        // en vez de llamar al método individualmente por cada jugador
         for (Jugador j : new Jugador[] { chiesa, barella, verratti, donnarumma, bonucci, immobile })
             registrarJugador(ad, selIta, j);
 
@@ -444,7 +453,8 @@ public class CargadorDatos {
         Jugador perisic = new Jugador("Ivan Perisic", 19890202, 4, null, 0, 0, null);
         Jugador gvardiol = new Jugador("Josko Gvardiol", 20020123, 24, null, 0, 0, null);
         Jugador livakovic = new Jugador("Dominik Livakovic", 19950109, 1, null, 0, 0, null);
-
+        // Se usa un array anónimo para registrar todos los jugadores de la selección en una sola línea 
+        // en vez de llamar al método individualmente por cada jugador
         for (Jugador j : new Jugador[] { modric, kovacic, perisic, gvardiol, livakovic })
             registrarJugador(ad, selCro, j);
 
@@ -460,7 +470,8 @@ public class CargadorDatos {
         Jugador minamino = new Jugador("Takumi Minamino", 19950116, 10, null, 0, 0, null);
         Jugador tanaka = new Jugador("Ao Tanaka", 19981112, 8, null, 0, 0, null);
         Jugador gonda = new Jugador("Shuichi Gonda", 19890301, 1, null, 0, 0, null);
-
+        // Se usa un array anónimo para registrar todos los jugadores de la selección en una sola línea 
+        // en vez de llamar al método individualmente por cada jugador
         for (Jugador j : new Jugador[] { kubo, doan, minamino, tanaka, gonda })
             registrarJugador(ad, selJpn, j);
 
