@@ -253,32 +253,25 @@ public class SistemaInteractivo {
 
     /**
      * Muestra y gestiona el submenu de organizacion deportiva en bucle
-     * hasta que el usuario elige volver.
+     * hasta que el usuario elige volver. El orden de las opciones respeta
+     * el flujo correcto del sistema: primero se registra el arbitraje y
+     * luego se asignan los equipos, ya que un partido debe tener arbitraje
+     * valido antes de poder asignarle los equipos participantes.
      */
     private void menuOrganizacionDeportiva() {
-        while (true) {
-            System.out.print("\n| ORGANIZACION DEPORTIVA |\n"
-                    + "1. Registrar Grupo\n2. Planificar Partido\n3. Asignar Equipos a Partido\n4. Registrar Arbitraje\n0. Volver\nOpcion: ");
-            switch (leerOpcion()) {
-                case 1:
-                    registrarGrupo();
-                    break;
-                case 2:
-                    planificarPartido();
-                    break;
-                case 3:
-                    asignarEquiposAPartido();
-                    break;
-                case 4:
-                    registrarArbitraje();
-                    break;
-                case 0:
-                    return;
-                default:
-                    System.out.println("Opcion no valida.");
-            }
+    while (true) {
+        System.out.print("\n| ORGANIZACION DEPORTIVA |\n"
+            + "1. Registrar Grupo\n2. Planificar Partido\n3. Registrar Arbitraje\n4. Asignar Equipos a Partido\n0. Volver\nOpcion: ");
+        switch (leerOpcion()) {
+            case 1: registrarGrupo(); break;
+            case 2: planificarPartido(); break;
+            case 3: registrarArbitraje(); break;
+            case 4: asignarEquiposAPartido(); break;
+            case 0: return;
+            default: System.out.println("Opcion no valida.");
         }
     }
+}
 
     /**
      * Muestra y gestiona el submenu de registro de eventos en bucle
