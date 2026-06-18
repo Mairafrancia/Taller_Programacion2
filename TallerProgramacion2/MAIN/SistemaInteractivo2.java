@@ -433,6 +433,7 @@ public class SistemaInteractivo2 {
             return;
         }
         
+        
         Pais pais = seleccionarPais("Seleccione el pais:");
         if (pais == null)
             return;
@@ -924,7 +925,7 @@ public class SistemaInteractivo2 {
         Grupo grupo = seleccionarGrupo("Seleccione el grupo:");
         if (grupo == null)
             return;
-        System.out.println("GRUPO : " + grupo.getDescripcion());
+        System.out.println("GRUPO : " + grupo.getDescripcion() + "| Cantidad de selecciones en este grupo: " + grupo.getSelecciones().size() );
         imprimirLista(tablaPosiciones.obtenerTablaPosiciones(grupo), "No hay datos para esta tabla.");
     }
 
@@ -1101,7 +1102,7 @@ public class SistemaInteractivo2 {
         System.out.println(prompt);
         for (int i = 0; i < grupos.size(); i++)
             System.out.println(
-                    (i + 1) + ". " + grupos.get(i).getIdentificador() + " - " + grupos.get(i).getDescripcion());
+                    (i + 1) + ". " + grupos.get(i).getIdentificador() + " - " + grupos.get(i).getDescripcion() + " Cantidad de Selecciones " + grupos.size());
         int opcion = leerEnteroValido("Opcion: ", "Opcion no valida.", v -> v >= 1 && v <= grupos.size()) - 1;
         return grupos.get(opcion);
     }
