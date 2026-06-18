@@ -24,6 +24,7 @@ public class RankingDeGoleadores {
      * @return Lista de Strings con posición, nombre y goles, o null si es nula.
      */
     public ArrayList<String> rankingPorSeleccion(Seleccion seleccion) {
+        //control de seguridad 
         if (seleccion == null) {
             return null;
         }
@@ -43,14 +44,16 @@ public class RankingDeGoleadores {
                 return Integer.compare(b.contarGoles(), a.contarGoles());
             }
         });
-
+        // Generación del reporte de texto para el ranking
         ArrayList<String> ranking = new ArrayList<>();
-        int posicion = 1;
+        int posicion = 1; //va a servir para llevar el nr de puesto
+        // Recorremos la lista clonada que ya se encuentra ordenada por goles
         for (Jugador j : jugadores) {
+            // Filtro de exclusión: solo entran al reporte los jugadores con al menos un gol anotado
             if (j != null && j.contarGoles() > 0) {
                 ranking.add(posicion + ". " + j.getNombre()
                         + " - " + j.contarGoles() + " goles");
-                posicion++;
+                posicion++; // Incrementa el contador de puesto en la tabla
             }
         }
 

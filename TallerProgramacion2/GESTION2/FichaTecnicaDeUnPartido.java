@@ -21,10 +21,11 @@ public class FichaTecnicaDeUnPartido {
      * @return Lista de Strings con el detalle completo, o null si el partido es nulo.
      */
     public ArrayList<String> obtenerFicha(Partido partido) {
+        //validamos
         if (partido == null) {
             return null;
         }
-
+        // Extracción de las participaciones de ambos equipos
         Participacion local = partido.getParticipacionLocal();
         Participacion visitante = partido.getParticipacionVisitante();
 
@@ -34,6 +35,7 @@ public class FichaTecnicaDeUnPartido {
         ficha.add("=== FICHA TÉCNICA DE PARTIDO ===");
         ficha.add("Fecha: " + partido.getFecha());
         ficha.add("Horario: " + partido.getHorario());
+        // Muestra el estadio solo si el dato está disponible
         if (partido.getEstadio() != null) {
             ficha.add("Estadio: " + partido.getEstadio().getNombre());
         }
@@ -43,6 +45,8 @@ public class FichaTecnicaDeUnPartido {
             int golesLocal = local.cantidadGoles();
             int golesVisitante = visitante.cantidadGoles();
             
+            // Operadores ternarios: asignan un nombre genérico 
+            // si la federación no está registrada
             String nombreLocal = (local.getSeleccion() != null) ? local.getSeleccion().getNombreFederacion() : "Local";
             String nombreVisitante = (visitante.getSeleccion() != null) ? visitante.getSeleccion().getNombreFederacion() : "Visitante";
             
@@ -55,6 +59,7 @@ public class FichaTecnicaDeUnPartido {
         ficha.add("--- Alineación Local ---");
         if (local != null && local.getSeleccion() != null) {
             ficha.add("Selección: " + local.getSeleccion().getNombreFederacion());
+            // Lista los jugadores del equipo local con formato " Dorsal - Nombre"
             for (Jugador j : local.getSeleccion().getJugadores()) {
                 if (j != null) {
                     ficha.add("  " + j.getDorsal() + " - " + j.getNombre());
@@ -68,6 +73,7 @@ public class FichaTecnicaDeUnPartido {
         ficha.add("--- Alineación Visitante ---");
         if (visitante != null && visitante.getSeleccion() != null) {
             ficha.add("Selección: " + visitante.getSeleccion().getNombreFederacion());
+            // Lista los jugadores del equipo visitante con formato " Dorsal - Nombre"
             for (Jugador j : visitante.getSeleccion().getJugadores()) {
                 if (j != null) {
                     ficha.add("  " + j.getDorsal() + " - " + j.getNombre());
@@ -82,8 +88,10 @@ public class FichaTecnicaDeUnPartido {
         if (partido.getEventos() == null || partido.getEventos().isEmpty()) {
             ficha.add("Sin eventos registrados");
         } else {
+            // Imprime la cronología de eventos registrados en el partido
             for (Evento e : partido.getEventos()) {
                 if (e != null) {
+                    // Si el evento no tiene un jugador asociado (ej. evento administrativo), muestra "Desconocido"
                     String jugadorNombre = (e.getJugador() != null) ? e.getJugador().getNombre() : "Desconocido";
                     ficha.add("  Min " + e.getMinuto() + " - " + e.getTipo() + " - " + jugadorNombre);
                 }

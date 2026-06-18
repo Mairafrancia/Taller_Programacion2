@@ -63,7 +63,7 @@ public class TablaDePosicionesPorGrupo {
         // Copia defensiva de las selecciones del grupo
         ArrayList<Seleccion> selecciones = new ArrayList<>(grupo.getSelecciones());
 
-        // Lista de posiciones que luego ordenaremos
+        // Lista temporal donde guardaremos las fichas estadísticas de cada equipo
         ArrayList<Posicion> posiciones = new ArrayList<>();
 
         // Calculamos las estadísticas por selección
@@ -71,51 +71,65 @@ public class TablaDePosicionesPorGrupo {
             Posicion posicionEquipo = new Posicion();
             posicionEquipo.seleccion = seleccion;
 
+            // Analiza el histórico de partidos en los que participó este equipo
             for (Participacion participacion : seleccion.getParticipaciones()) {
                 Partido partido = participacion.getPartido();
+                // Filtro 1: El partido debe existir y corresponder a la misma fase (ej: Fase de Grupos)
                 if (partido == null || partido.getFase() != grupo.getFase()) {
                     continue; // Solo partidos de la misma fase del grupo
                 }
 
+                // Identifica la contraparte del partido según la condición (local/visitante) del equipo actual
                 Participacion participacionRival = participacion.isEsLocal() ? partido.getParticipacionVisitante() : partido.getParticipacionLocal();
+                //El rival debe existir y pertenecer formalmente a este mismo grupo
                 if (participacionRival == null || !grupo.getSelecciones().contains(participacionRival.getSeleccion())) {
                     continue; // Ignorar si el rival no pertenece al mismo grupo
                 }
-
+                // Extracción de los goles anotados y recibidos en el encuentro
                 int golesFavorPartido = participacion.cantidadGoles();
                 int golesContraPartido = participacionRival.cantidadGoles();
 
+                // Acumulación general de partidos y goles
                 posicionEquipo.partidosJugados++;
                 posicionEquipo.golesFavor += golesFavorPartido;
                 posicionEquipo.golesContra += golesContraPartido;
 
+                // Reglas de asignación de puntos deportivos (Reglamento FIFA)
                 if (golesFavorPartido > golesContraPartido) {
                     posicionEquipo.partidosGanados++;
-                    posicionEquipo.puntos += 3;
+                    posicionEquipo.puntos += 3; //victoria +3 puntos
                 } else if (golesFavorPartido == golesContraPartido) {
                     posicionEquipo.partidosEmpatados++;
-                    posicionEquipo.puntos += 1;
+                    posicionEquipo.puntos += 1; //empate +1 punto
                 } else {
-                    posicionEquipo.partidosPerdidos++;
+                    posicionEquipo.partidosPerdidos++; //derrota 0 puntos
                 }
             }
-
+            // Agrega el formulario estadístico completo a la lista general
             posiciones.add(posicionEquipo);
         }
 
         // Ordenar la tabla por puntos, luego diferencia de goles y goles a favor
         Collections.sort(posiciones, new Comparator<Posicion>() {
             @Override
-            public int compare(Posicion posicionA, Posicion posicionB) {
+            public int compare(Posicion posicionA, Posicion posicionB) { 
+               // Criterio 1: Mayor cantidad de Puntos Totales
                 if (posicionA.puntos != posicionB.puntos) return Integer.compare(posicionB.puntos, posicionA.puntos);
+                
+                // Criterio 2: Mejor Diferencia de Goles
                 if (posicionA.getDiferenciaGoles() != posicionB.getDiferenciaGoles()) return Integer.compare(posicionB.getDiferenciaGoles(), posicionA.getDiferenciaGoles());
+                
+                // Criterio 3: Mayor cantidad de Goles a Favor
                 if (posicionA.golesFavor != posicionB.golesFavor) return Integer.compare(posicionB.golesFavor, posicionA.golesFavor);
+                
+                // Criterio 4: Desempate por orden alfabético de la federación (A-Z)
                 String nombreA = posicionA.seleccion.getNombreFederacion() != null ? posicionA.seleccion.getNombreFederacion() : "";
                 String nombreB = posicionB.seleccion.getNombreFederacion() != null ? posicionB.seleccion.getNombreFederacion() : "";
-                return nombreA.compareToIgnoreCase(nombreB); // desempate alfabético
+                return nombreA.compareToIgnoreCase(nombreB); 
             }
         });
 
+        //Formatear los datos ordenados en un reporte de líneas de texto
         ArrayList<String> tabla = new ArrayList<>();
         for (int i = 0; i < posiciones.size(); i++) {
             Posicion posicionEquipo = posiciones.get(i);
