@@ -744,48 +744,85 @@ public class SistemaInteractivo2 {
             System.err.println("Error: " + e.getMessage());
         }
     }
-    //cambios
-    //cambiosx2
+    
     /**
      * Solicita los datos de un arbitro y su rol, valida que el rol y el arbitro
      * no esten duplicados en el partido, y registra el arbitraje.
+     * Permite elegir un arbitro precargado o ingresar uno nuevo.
      */
     private void registrarArbitraje() {
         Partido partido = seleccionarPartido("Seleccione el partido:");
         if (partido == null)
             return;
 
-        String nombre = leerNombre("Nombre del arbitro: ",
-                "El nombre solo puede contener letras.");
+        Arbitro arbitro = null;
 
-        // --- CONTROL DE FECHA PARA EL ÁRBITRO ---
-        final int ANIO_LIMITE_18 = 2008; // En 2026, los de 2008 cumplen 18
-        final int FECHA_MAX_PERMITIDA = (ANIO_LIMITE_18 * 10000) + 1231; // 20081231
-        final int FECHA_FUTURA_LIMITE = 20261231; // Límite para evitar fechas del futuro
-        int fecNacimiento;
-
-        while (true) {
-            fecNacimiento = leerFecha("Fecha nacimiento (YYYYMMDD): ");
-
-            if (fecNacimiento > FECHA_FUTURA_LIMITE) {
-                System.out.println("Error: La fecha de nacimiento no puede ser una fecha futura.");
-            } else if (fecNacimiento > FECHA_MAX_PERMITIDA) {
-                System.out.println(
-                        "Error: El árbitro debe tener al menos 18 años (nacido en " + ANIO_LIMITE_18 + " o antes).");
-            } else {
-                break; // Fecha válida, salimos del bucle
+        // Recolectamos todos los arbitros precargados desde los paises
+        ArrayList<Arbitro> arbitrosPrecargados = new ArrayList<>();
+        for (Sede sede : mundial.getSedes()) {
+            if (sede.getPais() != null && sede.getPais().getArbitros() != null) {
+                for (Arbitro a : sede.getPais().getArbitros()) {
+                    if (a != null && !arbitrosPrecargados.contains(a)) {
+                        arbitrosPrecargados.add(a);
+                    }
+                }
             }
         }
-        // ----------------------------------------
 
-        int anios = leerEnteroValido("Anos de experiencia: ",
-                "Los anos deben ser entre 0 y 50.",
-                v -> v >= 0 && v <= 50);
+        int opcionArbitro = leerEnteroValido(
+            "\n1. Elegir arbitro precargado\n2. Ingresar nuevo arbitro\nOpcion: ",
+            "Opcion no valida.", v -> v == 1 || v == 2);
 
-        Pais paisArbitro = seleccionarPais("Seleccione el pais del arbitro:");
-        if (paisArbitro == null)
-            return;
+        if (opcionArbitro == 1) {
+            if (arbitrosPrecargados.isEmpty()) {
+                System.out.println("No hay arbitros precargados. Ingrese uno nuevo.");
+                opcionArbitro = 2;
+            } else {
+                System.out.println("Seleccione el arbitro:");
+                for (int i = 0; i < arbitrosPrecargados.size(); i++) {
+                    Arbitro a = arbitrosPrecargados.get(i);
+                    System.out.println((i + 1) + ". " + a.getNombre() 
+                        + " (" + a.getPais().getNombre() + ") - " 
+                        + a.getAniosExperiencia() + " años de experiencia");
+                }
+                int opcion = leerEnteroValido("Opcion: ", "Opcion no valida.",
+                    v -> v >= 1 && v <= arbitrosPrecargados.size());
+                arbitro = arbitrosPrecargados.get(opcion - 1);
+            }
+        }
 
+        if (opcionArbitro == 2) {
+            String nombre = leerNombre("Nombre del arbitro: ",
+                    "El nombre solo puede contener letras.");
+
+            final int ANIO_LIMITE_18 = 2008;
+            final int FECHA_MAX_PERMITIDA = (ANIO_LIMITE_18 * 10000) + 1231;
+            final int FECHA_FUTURA_LIMITE = 20261231;
+            int fecNacimiento;
+
+            while (true) {
+                fecNacimiento = leerFecha("Fecha nacimiento (YYYYMMDD): ");
+                if (fecNacimiento > FECHA_FUTURA_LIMITE) {
+                    System.out.println("Error: La fecha de nacimiento no puede ser una fecha futura.");
+                } else if (fecNacimiento > FECHA_MAX_PERMITIDA) {
+                    System.out.println("Error: El árbitro debe tener al menos 18 años (nacido en " + ANIO_LIMITE_18 + " o antes).");
+                } else {
+                    break;
+                }
+            }
+
+            int anios = leerEnteroValido("Anos de experiencia: ",
+                    "Los anos deben ser entre 0 y 50.",
+                    v -> v >= 0 && v <= 50);
+
+            Pais paisArbitro = seleccionarPais("Seleccione el pais del arbitro:");
+            if (paisArbitro == null)
+                return;
+
+            arbitro = new Arbitro(nombre, fecNacimiento, anios, paisArbitro);
+        }
+
+        // Seleccion del rol
         CategoriaArbitro rolElegido = null;
         while (rolElegido == null) {
             System.out.print("Rol (PRINCIPAL, ASISTENTE_1, ASISTENTE_2, CUARTO_ARBITRO, VAR_PRINCIPAL, VAR_ASISTENTE): ");
@@ -801,6 +838,7 @@ public class SistemaInteractivo2 {
             }
         }
 
+        // Validaciones de duplicados
         for (Arbitraje a : partido.getArbitrajes()) {
             if (a != null && a.getRol() == rolElegido) {
                 System.out.println("Error: el rol " + rolElegido + " ya esta asignado en este partido.");
@@ -808,20 +846,19 @@ public class SistemaInteractivo2 {
             }
             if (a != null && a.getArbitro() != null
                     && a.getArbitro().getNombre() != null
-                    && a.getArbitro().getNombre().equalsIgnoreCase(nombre)
-                    && a.getArbitro().getFecNacimiento() == fecNacimiento) {
-                System.out.println("Error: el arbitro " + nombre + " ya esta asignado a este partido.");
+                    && a.getArbitro().getNombre().equalsIgnoreCase(arbitro.getNombre())
+                    && a.getArbitro().getFecNacimiento() == arbitro.getFecNacimiento()) {
+                System.out.println("Error: el arbitro " + arbitro.getNombre() + " ya esta asignado a este partido.");
                 return;
             }
         }
 
         try {
-            Arbitro arbitro = new Arbitro(nombre, fecNacimiento, anios, paisArbitro);
             Arbitraje arbitraje = new Arbitraje(rolElegido, partido, arbitro);
             partido.agregarArbitraje(arbitraje);
             arbitro.agregarArbitraje(arbitraje);
-            System.out.println(
-                    "Arbitraje registrado: " + nombre + " (" + paisArbitro.getNombre() + ") como " + rolElegido);
+            System.out.println("Arbitraje registrado: " + arbitro.getNombre() 
+                + " (" + arbitro.getPais().getNombre() + ") como " + rolElegido);
             if (!partido.tieneEquipoArbitralValido())
                 System.out.println("Nota: El partido aun no tiene equipo arbitral completo.");
         } catch (Exception e) {

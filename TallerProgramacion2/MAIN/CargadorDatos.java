@@ -184,13 +184,13 @@ public class CargadorDatos {
         // =====================================================================
         // ÁRBITROS internacionales del torneo
         // =====================================================================
-        Arbitro arbitro1 = new Arbitro("Roberto Tobar", 19750310, 15, colombia);
-        Arbitro arbitro2 = new Arbitro("Clement Turpin", 19820118, 12, francia);
-        Arbitro arbitro3 = new Arbitro("Felix Brych", 19750808, 18, alemania);
-        Arbitro arbitro4 = new Arbitro("Daniele Orsato", 19750205, 20, italia);
-        Arbitro arbitro5 = new Arbitro("Szymon Marciniak", 19810117, 10, polonia);
-        Arbitro arbitro6 = new Arbitro("Anthony Taylor", 19790920, 14, inglaterra);
-        Arbitro arbitro7 = new Arbitro("Raphael Claus", 19800312, 9, brasil);
+        Arbitro arbitro1 = new Arbitro("Roberto Tobar", 19750310, 15, colombia); colombia.agregarArbitro(arbitro1);
+        Arbitro arbitro2 = new Arbitro("Clement Turpin", 19820118, 12, francia); francia.agregarArbitro(arbitro2);
+        Arbitro arbitro3 = new Arbitro("Felix Brych", 19750808, 18, alemania); alemania.agregarArbitro(arbitro3);
+        Arbitro arbitro4 = new Arbitro("Daniele Orsato", 19750205, 20, italia); italia.agregarArbitro(arbitro4);
+        Arbitro arbitro5 = new Arbitro("Szymon Marciniak", 19810117, 10, polonia); polonia.agregarArbitro(arbitro5);
+        Arbitro arbitro6 = new Arbitro("Anthony Taylor", 19790920, 14, inglaterra); inglaterra.agregarArbitro(arbitro6);
+        Arbitro arbitro7 = new Arbitro("Raphael Claus", 19800312, 9, brasil); brasil.agregarArbitro(arbitro7);
 
         // =====================================================================
         // DELEGACIONES — se usa AdministracionDelegaciones para registrar jugadores
