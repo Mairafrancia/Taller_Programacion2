@@ -654,18 +654,28 @@ public class SistemaInteractivo2 {
     // -------------------------------------------------------------------------
 
     /**
-     * Solicita los datos de un nuevo grupo y lo registra en la fase seleccionada
-     * mediante {@link OrganizacionDeportiva#registrarGrupoEnFase(Fase, Grupo)}.
+     * Solicita los datos de un nuevo grupo y lo registra automaticamente en la
+     * fase de GRUPOS, ya que conceptualmente un Grupo solo tiene sentido en esa
+     * fase. Las fases eliminatorias (octavos, cuartos, semifinal, etc.) se
+     * organizan mediante Partido y Participacion, no mediante Grupo.
      */
     private void registrarGrupo() {
-        Fase fase = seleccionarFase("Seleccione la fase:");
-        if (fase == null)
+        Fase faseGrupos = null;
+        for (Fase f : mundial.getFases()) {
+            if (f.getNombre() == NombreFase.GRUPOS) {
+                faseGrupos = f;
+                break;
+            }
+        }
+        if (faseGrupos == null) {
+            System.out.println("Error: no se encontro la fase de GRUPOS en el mundial.");
             return;
+        }
         String id = leerNombre("Id grupo (ej: A, B): ", "El id del grupo solo puede contener letras.");
         String desc = leerNombre("Descripcion: ", "La descripcion solo puede contener letras.");
-        Grupo grupo = new Grupo(id, desc, fase);
+        Grupo grupo = new Grupo(id, desc, faseGrupos);
         try {
-            od.registrarGrupoEnFase(fase, grupo);
+            od.registrarGrupoEnFase(faseGrupos, grupo);
             System.out.println("Grupo registrado: " + id);
         } catch (TorneoException e) {
             System.err.println("Error: " + e.getMessage());
