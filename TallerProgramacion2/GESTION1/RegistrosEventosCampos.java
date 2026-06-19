@@ -20,12 +20,11 @@ public class RegistrosEventosCampos {
      * * @param partido El Partido en el cual sucede el evento.
      * @param jugador El Jugador que cometió o protagonizó el evento.
      * @param nuevoEvento El objeto Evento (ya creado con su minuto y tipo).
-     * @throws ValoresNulosException si alguno de los parámetros es null o las listas de eventos no existen.
+     * @throws ValoresNulosException si alguno de los parámetros es null.
      * @throws JugadorNoParticipaEnPartidoException si el jugador no participa en el partido.
      */
     public void registrarEventoDeCampo(Partido partido, Jugador jugador, Evento nuevoEvento) 
             throws ValoresNulosException, JugadorNoParticipaEnPartidoException {
-        // Validamos que ningún componente clave sea nulo
         if (partido == null || nuevoEvento == null || jugador == null) {
             throw new ValoresNulosException("partido, jugador o evento");
         }
@@ -35,21 +34,14 @@ public class RegistrosEventosCampos {
             throw new JugadorNoParticipaEnPartidoException(jugador.getNombre());
         }
 
-        // Vinculamos el jugador al evento (El evento guarda internamente quién lo hizo)
+        // Vinculamos el jugador al evento
         nuevoEvento.setJugador(jugador);
 
-        // Registramos el evento en el Partido (lanza excepciones si hay problemas)
-        if (partido.getEventos() != null) {
-            partido.getEventos().add(nuevoEvento);  
-        } else {
-            throw new ValoresNulosException("lista de eventos del partido");
-        }
+        // Usamos partido.agregarEvento() para pasar por su validación interna
+        // (no accedemos directo a la lista, así evitamos duplicar lógica)
+        partido.agregarEvento(nuevoEvento);
 
-        // Registramos el evento en el Jugador
-        if (jugador.getEventos() != null) {
-            jugador.agregarEvento(nuevoEvento);
-        } else {
-            throw new ValoresNulosException("lista de eventos del jugador");
-        }
+        // Consistencia bidireccional: el jugador también registra el evento
+        jugador.agregarEvento(nuevoEvento);
     }
 }

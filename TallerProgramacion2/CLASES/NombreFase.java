@@ -1,9 +1,13 @@
 package CLASES;
 
 /**
- * Representa las distintas fases o etapas del torneo mundial.
- * * NOTA IMPORTANTE: No alterar el orden de las constantes, ya que el ordinal() 
- * se utiliza en la lógica del sistema para determinar la instancia máxima alcanzada.
+ * Representa las distintas fases o etapas del torneo mundial,
+ * según el diagrama de clases de la consigna.
+ *
+ * IMPORTANTE: No alterar el orden de las constantes. El ordinal()
+ * se usa en TablaDeResultadosPorSeleccion para determinar la instancia
+ * máxima alcanzada por una selección (mayor ordinal = fase más avanzada).
+ *
  * @author Florencia Benitez
  * @author Agustina Barreto
  * @author Francia Maira
@@ -14,17 +18,17 @@ public enum NombreFase {
     /** Fase inicial de grupos (Ordinal 0). */
     GRUPOS,
 
-    /** Fase de octavos de final (Ordinal 1). */
-    OCTAVOS_DE_FINAL,
+    /** Fase de dieciséisavos de final (Ordinal 1). */
+    DIECISEISAVOS,
 
-    /** Fase de cuartos de final (Ordinal 2). */
-    CUARTOS_DE_FINAL,
+    /** Fase de octavos de final (Ordinal 2). */
+    OCTAVOS,
 
-    /** Fase de semifinales (Ordinal 3). */
+    /** Fase de cuartos de final (Ordinal 3). */
+    CUARTOS,
+
+    /** Fase de semifinales (Ordinal 4). */
     SEMIFINAL,
-
-    /** Partido por el tercer puesto del torneo (Ordinal 4). */
-    TERCER_PUESTO,
 
     /** Partido final para definir al campeón (Ordinal 5). */
     FINAL;

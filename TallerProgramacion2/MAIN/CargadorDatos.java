@@ -150,22 +150,22 @@ public class CargadorDatos {
         // =====================================================================
         Fase faseGrupos = new Fase();
         faseGrupos.setNombre(NombreFase.GRUPOS);
+        Fase faseDieciseisavos = new Fase();
+        faseDieciseisavos.setNombre(NombreFase.DIECISEISAVOS);
         Fase faseOctavos = new Fase();
-        faseOctavos.setNombre(NombreFase.OCTAVOS_DE_FINAL);
+        faseOctavos.setNombre(NombreFase.OCTAVOS);
         Fase faseCuartos = new Fase();
-        faseCuartos.setNombre(NombreFase.CUARTOS_DE_FINAL);
+        faseCuartos.setNombre(NombreFase.CUARTOS);
         Fase faseSemi = new Fase();
         faseSemi.setNombre(NombreFase.SEMIFINAL);
-        Fase faseTercero = new Fase();
-        faseTercero.setNombre(NombreFase.TERCER_PUESTO);
         Fase faseFinal = new Fase();
         faseFinal.setNombre(NombreFase.FINAL);
 
         mundial.agregarFase(faseGrupos);
+        mundial.agregarFase(faseDieciseisavos);
         mundial.agregarFase(faseOctavos);
         mundial.agregarFase(faseCuartos);
         mundial.agregarFase(faseSemi);
-        mundial.agregarFase(faseTercero);
         mundial.agregarFase(faseFinal);
 
         // =====================================================================
@@ -1022,9 +1022,9 @@ public class CargadorDatos {
         // =====================================================================
         // TERCER PUESTO: FRA vs ENG — Francia gana 2-1
         // =====================================================================
-        Partido tercero = new Partido(20260712, 1800, 0, 0, estadio5, faseTercero);
+        Partido tercero = new Partido(20260712, 1800, 0, 0, estadio5, faseSemi);
         estadio5.agregarPartido(tercero);
-        faseTercero.agregarPartido(tercero);
+        faseSemi.agregarPartido(tercero);
         agregarArbitraje(tercero, CategoriaArbitro.PRINCIPAL, arbitro1);
         Participacion terL = new Participacion(true, tercero, selFra);
         Participacion terV = new Participacion(false, tercero, selEng);

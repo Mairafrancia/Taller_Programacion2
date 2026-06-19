@@ -49,7 +49,8 @@ public class Jugador extends Persona {
      * @param posicion       Posicion en la que juega.
      * @param peso           Peso en kilogramos.
      * @param altura         Altura en metros.
-     * @param eventos        Lista inicial de eventos (puede ser null; se inicializa vacia).
+     * @param eventos        Lista inicial de eventos. Si es null se inicializa vacia;
+     *                       si no es null, se usa la lista provista.
      */
     public Jugador(String nombre, int fecNacimiento, int dorsal, Posicion posicion,
                    float peso, float altura, ArrayList<Evento> eventos) {
@@ -58,88 +59,23 @@ public class Jugador extends Persona {
         this.posicion = posicion;
         this.peso = peso;
         this.altura = altura;
-        this.eventos = new ArrayList<>();
+        this.eventos = (eventos != null) ? eventos : new ArrayList<>();
     }
 
-    /**
-     * Retorna el numero de dorsal del jugador.
-     * @return El dorsal.
-     */
-    public int getDorsal() {
-        return dorsal;
-    }
+    public int getDorsal() { return dorsal; }
+    public void setDorsal(int dorsal) { this.dorsal = dorsal; }
 
-    /**
-     * Establece el numero de dorsal del jugador.
-     * @param dorsal El dorsal a asignar.
-     */
-    public void setDorsal(int dorsal) {
-        this.dorsal = dorsal;
-    }
+    public Posicion getPosicion() { return posicion; }
+    public void setPosicion(Posicion posicion) { this.posicion = posicion; }
 
-    /**
-     * Retorna la posicion del jugador.
-     * @return La posicion.
-     */
-    public Posicion getPosicion() {
-        return posicion;
-    }
+    public float getPeso() { return peso; }
+    public void setPeso(float peso) { this.peso = peso; }
 
-    /**
-     * Establece la posicion del jugador.
-     * @param posicion La posicion a asignar.
-     */
-    public void setPosicion(Posicion posicion) {
-        this.posicion = posicion;
-    }
+    public float getAltura() { return altura; }
+    public void setAltura(float altura) { this.altura = altura; }
 
-    /**
-     * Retorna el peso del jugador en kilogramos.
-     * @return El peso.
-     */
-    public float getPeso() {
-        return peso;
-    }
-
-    /**
-     * Establece el peso del jugador en kilogramos.
-     * @param peso El peso a asignar.
-     */
-    public void setPeso(float peso) {
-        this.peso = peso;
-    }
-
-    /**
-     * Retorna la altura del jugador en metros.
-     * @return La altura.
-     */
-    public float getAltura() {
-        return altura;
-    }
-
-    /**
-     * Establece la altura del jugador en metros.
-     * @param altura La altura a asignar.
-     */
-    public void setAltura(float altura) {
-        this.altura = altura;
-    }
-
-    /**
-     * Retorna la lista de eventos en los que participo el jugador.
-     * @return La lista de eventos.
-     */
-    public ArrayList<Evento> getEventos() {
-        return eventos;
-    }
-
-    /**
-     * Reemplaza la lista completa de eventos del jugador.
-     * @param eventos La nueva lista de eventos.
-     */
-    public void setEventos(ArrayList<Evento> eventos) {
-        this.eventos = eventos;
-    }
+    public ArrayList<Evento> getEventos() { return eventos; }
+    public void setEventos(ArrayList<Evento> eventos) { this.eventos = eventos; }
 
     /**
      * Agrega un evento a la lista del jugador.
