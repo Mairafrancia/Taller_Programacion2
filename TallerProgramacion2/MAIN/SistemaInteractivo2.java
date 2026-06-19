@@ -181,8 +181,8 @@ public class SistemaInteractivo2 {
                 case 1: menuInfraestructura(); esperarEnter(); break;
                 case 2: menuDelegaciones(); esperarEnter(); break;
                 case 3: menuOrganizacionDeportiva(); esperarEnter(); break;
-                case 4: menuRegistroEventos(); esperarEnter(); esperarEnter(); break;
-                case 0: System.out.println("Regresando..."); esperarEnter();break;
+                case 4: menuRegistroEventos(); esperarEnter(); break;
+                case 0: System.out.println("Regresando..."); esperarEnter(); break;
                 default: System.out.println("Opcion no valida."); esperarEnter();
             }
         } while (opcion != 0);
