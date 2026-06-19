@@ -1172,7 +1172,8 @@ public class SistemaInteractivo2 {
         System.out.println(prompt);
         for (int i = 0; i < grupos.size(); i++)
             System.out.println(
-                    (i + 1) + ". " + grupos.get(i).getIdentificador() + " - " + grupos.get(i).getDescripcion() + " Cantidad de Selecciones " + grupos.size());
+                    (i + 1) + ". " + grupos.get(i).getIdentificador() + " - " + grupos.get(i).getDescripcion() 
+                    + " Cantidad de Selecciones " + grupos.get(i).getSelecciones().size());
         int opcion = leerEnteroValido("Opcion: ", "Opcion no valida.", v -> v >= 1 && v <= grupos.size()) - 1;
         return grupos.get(opcion);
     }
