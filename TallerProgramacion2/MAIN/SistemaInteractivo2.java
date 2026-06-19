@@ -924,8 +924,8 @@ public class SistemaInteractivo2 {
             }
         }
 
-        int minuto = leerEnteroValido("Minuto (1-120): ",
-                "El minuto debe estar entre 1 y 120.",
+        int minuto = leerEnteroValido("Minuto (1-130): ",
+                "El minuto debe estar entre 1 y 130.",
                 v -> v >= 1 && v <= 130);
 
         for (Evento e : partido.getEventos()) {
