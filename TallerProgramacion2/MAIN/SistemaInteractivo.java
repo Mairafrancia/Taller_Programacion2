@@ -72,16 +72,18 @@ public class SistemaInteractivo {
      * La carga se realiza dentro de un bloque try-catch para manejar
      * las excepciones checked {@link EXCEPCIONES.PeriodoInvalidoException}
      * y {@link EXCEPCIONES.MinutoInvalidoException} que puede lanzar el cargador.
-     * En caso de error, {@code mundial} queda en null y se imprime el mensaje
-     * de error por consola.
+     * Si la carga falla, el sistema no puede continuar de forma segura,
+     * por lo que se imprime el error y se cierra la aplicacion mediante
+     * {@code System.exit(1)} en vez de continuar con el mundial en null.
      */
-    public SistemaInteractivo() {
+   public SistemaInteractivo() {
         this.scanner = new Scanner(System.in);
         try {
             this.mundial = CargadorDatos.cargar();
         } catch (PeriodoInvalidoException | MinutoInvalidoException e) {
-            System.err.println("Error al cargar los datos del torneo: " + e.getMessage());
-            this.mundial = null;
+            System.err.println("Error fatal al cargar los datos del torneo: " + e.getMessage());
+            System.err.println("El sistema no puede iniciar sin los datos del Mundial. Cerrando aplicacion.");
+            System.exit(1); //termina el programa con codigo de error 1
         }
         this.gi = new GestionInfraestructura();
         this.ad = new AdministracionDelegaciones();
@@ -1460,7 +1462,7 @@ public class SistemaInteractivo {
         while (true) {
             System.out.print(mensaje);
             String texto = scanner.nextLine().trim();
-            if (!texto.isEmpty() && texto.matches("[a-zA-Z0-9_\\-]+\\.(png|jpg|jpeg|gif|bmp|svg)"))
+            if (!texto.isEmpty() && texto.matches("[\\p{L}\\s\\-']+"))
                 return texto;
             System.out.println("Error: " + mensajeError + " Intente nuevamente.");
         }
