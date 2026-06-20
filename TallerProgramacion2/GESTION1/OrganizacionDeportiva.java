@@ -43,16 +43,28 @@ public class OrganizacionDeportiva {
 
     /**
      * Planifica un Partido asignándole su Fase de competencia y el Estadio donde se jugará.
+     * Valida que no exista otro partido ya planificado en el mismo estadio,
+     * fecha y horario para evitar superposiciones.
      *
      * @param partido El Partido que se está planificando.
      * @param fase    La Fase a la que corresponde el encuentro.
      * @param estadio El Estadio donde se disputará.
      * @throws ValoresNulosException si alguno de los parámetros es null.
+     * @throws ElementoDuplicadoException si ya existe un partido en el mismo
+     *                                    estadio, fecha y horario.
      */
     public void planificarPartido(Partido partido, Fase fase, Estadio estadio) 
-            throws ValoresNulosException {
+            throws ValoresNulosException, ElementoDuplicadoException {
         if (partido == null || fase == null || estadio == null) {
             throw new ValoresNulosException("partido, fase o estadio");
+        }
+        if (estadio.getPartidos() != null) {
+            for (Partido p : estadio.getPartidos()) {
+                if (p != null && p.getFecha() == partido.getFecha() && p.getHorario() == partido.getHorario()) {
+                    throw new ElementoDuplicadoException(
+                        "Partido en " + estadio.getNombre() + " el " + partido.getFecha() + " a las " + partido.getHorario());
+                }
+            }
         }
         partido.setFase(fase);
         fase.agregarPartido(partido);
@@ -61,7 +73,6 @@ public class OrganizacionDeportiva {
             estadio.agregarPartido(partido);
         }
     }
-
     /**
      * Establece los dos equipos (Participaciones) que se enfrentarán en un Partido ya planificado.
      * Requiere que el partido tenga un equipo arbitral válido asignado previamente.
