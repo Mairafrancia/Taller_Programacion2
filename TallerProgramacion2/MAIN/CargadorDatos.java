@@ -228,15 +228,14 @@ public class CargadorDatos {
         selArg.agregarCuerpoTecnico(ct_arg2);
         selArg.agregarCuerpoTecnico(ct_arg3);
 
-        Jugador messi = new Jugador("Lionel Messi", 19870624, 10, null, 0, 0, null);
-        Jugador diMaria = new Jugador("Angel Di Maria", 19880214, 11, null, 0, 0, null);
-        Jugador martinez = new Jugador("Lautaro Martinez", 19971022, 22, null, 0, 0, null);
-        Jugador romero = new Jugador("Cristian Romero", 19980327, 2, null, 0, 0, null);
-        Jugador dybala = new Jugador("Paulo Dybala", 19931115, 21, null, 0, 0, null);
-        Jugador depaul = new Jugador("Rodrigo De Paul", 19940524, 7, null, 0, 0, null);
-        Jugador molina = new Jugador("Nahuel Molina", 19980406, 26, null, 0, 0, null);
-        Jugador emiliano = new Jugador("Emiliano Martinez", 19920902, 1, null, 0, 0, null);
-
+        Jugador messi = new Jugador("Lionel Messi", 19870624, 10, Posicion.DELANTERO, 72f, 1.70f, null);
+        Jugador diMaria = new Jugador("Angel Di Maria", 19880214, 11, Posicion.DELANTERO, 73f, 1.80f, null);
+        Jugador martinez = new Jugador("Lautaro Martinez", 19971022, 22, Posicion.DELANTERO, 81f, 1.74f, null);
+        Jugador romero = new Jugador("Cristian Romero", 19980327, 2, Posicion.DEFENSOR, 78f, 1.85f, null);
+        Jugador dybala = new Jugador("Paulo Dybala", 19931115, 21, Posicion.MEDIOCAMPISTA, 75f, 1.77f, null);
+        Jugador depaul = new Jugador("Rodrigo De Paul", 19940524, 7, Posicion.MEDIOCAMPISTA, 70f, 1.80f, null);
+        Jugador molina = new Jugador("Nahuel Molina", 19980406, 26, Posicion.DEFENSOR, 73f, 1.75f, null);
+        Jugador emiliano = new Jugador("Emiliano Martinez", 19920902, 1, Posicion.ARQUERO, 88f, 1.95f, null);
         // Se usa un array anónimo para registrar todos los jugadores de la selección en una sola línea 
         // en vez de llamar al método individualmente por cada jugador
         for (Jugador j : new Jugador[] { messi, diMaria, martinez, romero, dybala, depaul, molina, emiliano })
@@ -258,15 +257,14 @@ public class CargadorDatos {
         selBra.agregarCuerpoTecnico(ct_bra1);
         selBra.agregarCuerpoTecnico(ct_bra2);
 
-        Jugador vinicius = new Jugador("Vinicius Junior", 20000712, 7, null, 0, 0, null);
-        Jugador rodrygo = new Jugador("Rodrygo", 20010109, 11, null, 0, 0, null);
-        Jugador neymar = new Jugador("Neymar", 19920205, 10, null, 0, 0, null);
-        Jugador casemiro = new Jugador("Casemiro", 19920223, 5, null, 0, 0, null);
-        Jugador raphinha = new Jugador("Raphinha", 19960614, 17, null, 0, 0, null);
-        Jugador militao = new Jugador("Eder Militao", 19980118, 3, null, 0, 0, null);
-        Jugador paqueta = new Jugador("Lucas Paqueta", 19970827, 20, null, 0, 0, null);
-        Jugador endrick = new Jugador("Endrick", 20060721, 9, null, 0, 0, null);
-
+        Jugador vinicius = new Jugador("Vinicius Junior", 20000712, 7, Posicion.DELANTERO, 73f, 1.76f, null);
+        Jugador rodrygo = new Jugador("Rodrygo", 20010109, 11, Posicion.DELANTERO, 64f, 1.74f, null);
+        Jugador neymar = new Jugador("Neymar", 19920205, 10, Posicion.DELANTERO, 68f, 1.75f, null);
+        Jugador casemiro = new Jugador("Casemiro", 19920223, 5, Posicion.MEDIOCAMPISTA, 84f, 1.85f, null);
+        Jugador raphinha = new Jugador("Raphinha", 19960614, 17, Posicion.DELANTERO, 68f, 1.76f, null);
+        Jugador militao = new Jugador("Eder Militao", 19980118, 3, Posicion.DEFENSOR, 78f, 1.86f, null);
+        Jugador paqueta = new Jugador("Lucas Paqueta", 19970827, 20, Posicion.MEDIOCAMPISTA, 72f, 1.80f, null);
+        Jugador endrick = new Jugador("Endrick", 20060721, 9, Posicion.DELANTERO, 66f, 1.73f, null);
         // Se usa un array anónimo para registrar todos los jugadores de la selección en una sola línea 
         // en vez de llamar al método individualmente por cada jugador
         for (Jugador j : new Jugador[] { vinicius, rodrygo, neymar, casemiro, raphinha, militao, paqueta, endrick })
@@ -279,12 +277,13 @@ public class CargadorDatos {
         mexico.setSeleccion(selMex);
         grupoA.agregarSeleccion(selMex);
 
-        Jugador lozano = new Jugador("Hirving Lozano", 19950730, 22, null, 0, 0, null);
-        Jugador chicharito = new Jugador("Javier Hernandez", 19840601, 14, null, 0, 0, null);
-        Jugador guardado = new Jugador("Andres Guardado", 19860928, 8, null, 0, 0, null);
-        Jugador ochoa = new Jugador("Guillermo Ochoa", 19850713, 1, null, 0, 0, null);
-        Jugador alvarez = new Jugador("Edson Alvarez", 19971024, 6, null, 0, 0, null);
-        Jugador corona = new Jugador("Jesus Corona", 19930106, 23, null, 0, 0, null);
+       // --- SELECCIÓN DE MÉXICO (Completada según image_83badc.png) ---
+        Jugador lozano = new Jugador("Hirving Lozano", 19950730, 22, Posicion.DELANTERO, 70f, 1.75f, null);
+        Jugador chicharito = new Jugador("Javier Hernandez", 19880601, 14, Posicion.DELANTERO, 73f, 1.75f, null); // Nota: se corrigió año a 1988
+        Jugador guardado = new Jugador("Andres Guardado", 19860928, 8, Posicion.MEDIOCAMPISTA, 67f, 1.69f, null);
+        Jugador ochoa = new Jugador("Guillermo Ochoa", 19850713, 1, Posicion.ARQUERO, 78f, 1.83f, null);
+        Jugador alvarez = new Jugador("Edson Alvarez", 19971024, 6, Posicion.MEDIOCAMPISTA, 73f, 1.87f, null);
+        Jugador corona = new Jugador("Jesus Corona", 19930106, 23, Posicion.DELANTERO, 62f, 1.73f, null);
 
         for (Jugador j : new Jugador[] { lozano, chicharito, guardado, ochoa, alvarez, corona })
             registrarJugador(ad, selMex, j);
@@ -296,11 +295,12 @@ public class CargadorDatos {
         senegal.setSeleccion(selSen);
         grupoA.agregarSeleccion(selSen);
 
-        Jugador mane = new Jugador("Sadio Mane", 19920410, 10, null, 0, 0, null);
-        Jugador diallo = new Jugador("Abdou Diallo", 19960404, 5, null, 0, 0, null);
-        Jugador gueye = new Jugador("Idrissa Gueye", 19891126, 6, null, 0, 0, null);
-        Jugador mendy = new Jugador("Edouard Mendy", 19920301, 1, null, 0, 0, null);
-        Jugador dia = new Jugador("Boulaye Dia", 19961116, 11, null, 0, 0, null);
+        // --- SELECCIÓN DE SENEGAL (Completada según image_83badc.png) ---
+        Jugador mane = new Jugador("Sadio Mane", 19920410, 10, Posicion.DELANTERO, 69f, 1.74f, null);
+        Jugador diallo = new Jugador("Abdou Diallo", 19960404, 5, Posicion.DEFENSOR, 79f, 1.87f, null);
+        Jugador gueye = new Jugador("Idrissa Gueye", 19891126, 6, Posicion.MEDIOCAMPISTA, 66f, 1.74f, null);
+        Jugador mendy = new Jugador("Edouard Mendy", 19920301, 1, Posicion.ARQUERO, 86f, 1.94f, null);
+        Jugador dia = new Jugador("Boulaye Dia", 19961116, 11, Posicion.DELANTERO, 75f, 1.80f, null);
 
         // Se usa un array anónimo para registrar todos los jugadores de la selección en una sola línea 
         // en vez de llamar al método individualmente por cada jugador

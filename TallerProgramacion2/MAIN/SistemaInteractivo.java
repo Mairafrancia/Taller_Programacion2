@@ -474,30 +474,27 @@ public class SistemaInteractivo {
                 "El nombre solo puede contener letras.");
         int dorsal;
         while (true) {
-            // 1. Valida el rango (1 a 26) empleando tu predicado funcional
             dorsal = leerEnteroValido("Dorsal: ", "El dorsal debe ser mayor a 0 y menor o igual a 26.",
                     v -> v >= 1 && v <= 26);
 
-            // 2. Valida si ya existe dentro de la selección seleccionada
             boolean duplicado = false;
             for (Jugador j : seleccion.getJugadores()) {
                 if (j != null && j.getDorsal() == dorsal) {
                     System.out.println("Error: el dorsal " + dorsal + " ya esta asignado a "
                             + j.getNombre() + " en " + seleccion.getNombreFederacion() + ". Intente nuevamente.");
                     duplicado = true;
-                    break; // Corta el "for" actual para regresar al inicio del "while"
+                    break;
                 }
             }
 
             if (!duplicado) {
-                break; // El dorsal es válido en rango y no está duplicado. Rompe el "while".
+                break;
             }
         }
 
-        // --- CONTROL DE FECHA CON CONSTANTE ---
-        final int ANIO_LIMITE_18 = 2008; // En 2026, los de 2008 cumplen 18
-        final int FECHA_MAX_PERMITIDA = (ANIO_LIMITE_18 * 10000) + 1231; // 20081231
-        final int FECHA_FUTURA_LIMITE = 20261231; // Límite para evitar fechas del futuro
+        final int ANIO_LIMITE_18 = 2008;
+        final int FECHA_MAX_PERMITIDA = (ANIO_LIMITE_18 * 10000) + 1231;
+        final int FECHA_FUTURA_LIMITE = 20261231;
         int fecha;
 
         while (true) {
@@ -509,15 +506,31 @@ public class SistemaInteractivo {
                 System.out.println(
                         "Error: El jugador debe tener al menos 18 años (nacido en " + ANIO_LIMITE_18 + " o antes).");
             } else {
-                break; // Fecha válida, salimos del bucle
+                break;
             }
         }
-        // --------------------------------------------------
 
-        Jugador jugador = new Jugador();
-        jugador.setNombre(nombre);
-        jugador.setDorsal(dorsal);
-        jugador.setFecNacimiento(fecha); // Usa la fecha ya validada arriba
+        Posicion posicionElegida = null;
+        while (posicionElegida == null) {
+            System.out.print("Posicion (ARQUERO, DEFENSOR, MEDIOCAMPISTA, DELANTERO): ");
+            String pos = scanner.nextLine().trim().toUpperCase();
+            if (pos.isEmpty()) {
+                System.out.println("Error: la posicion no puede estar vacia. Intente nuevamente.");
+                continue;
+            }
+            try {
+                posicionElegida = Posicion.valueOf(pos);
+            } catch (IllegalArgumentException e) {
+                System.out.println("Posicion no valida. Intente nuevamente.");
+            }
+        }
+
+        float peso = leerFloatValido("Peso (kg): ", "El peso debe estar entre 40 y 120 kg.",
+                v -> v >= 40 && v <= 120);
+        float altura = leerFloatValido("Altura (m, ej: 1.78): ", "La altura debe estar entre 1.50 y 2.20 m.",
+                v -> v >= 1.50f && v <= 2.20f);
+
+        Jugador jugador = new Jugador(nombre, fecha, dorsal, posicionElegida, peso, altura, null);
 
         try {
             ad.registrarJugador(seleccion, jugador);
@@ -1488,6 +1501,30 @@ public class SistemaInteractivo {
             if (!texto.isEmpty() && texto.matches("[\\p{L}\\s\\-']+"))
                 return texto;
             System.out.println("Error: " + mensajeError + " Intente nuevamente.");
+        }
+    }
+
+    /**
+     * Solicita un numero decimal por consola, validando que cumpla la
+     * condicion indicada. Reintenta hasta recibir un valor valido.
+     *
+     * @param mensaje      Texto a mostrar al usuario.
+     * @param mensajeError Mensaje a mostrar si el valor no cumple la condicion.
+     * @param condicion    Predicado que determina si el valor es valido.
+     * @return El valor decimal validado.
+     */
+    private float leerFloatValido(String mensaje, String mensajeError, java.util.function.DoublePredicate condicion) {
+        while (true) {
+            System.out.print(mensaje);
+            String entrada = scanner.nextLine().trim();
+            try {
+                float valor = Float.parseFloat(entrada);
+                if (condicion.test(valor))
+                    return valor;
+                System.out.println("Error: " + mensajeError + " Intente nuevamente.");
+            } catch (NumberFormatException e) {
+                System.out.println("Entrada no valida. " + mensajeError + " Intente nuevamente.");
+            }
         }
     }
 
