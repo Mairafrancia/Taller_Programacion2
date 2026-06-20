@@ -8,7 +8,7 @@ import EXCEPCIONES.*;
 /**
  * Gestionar los Países participantes, sus Selecciones, 
  * cuerpos técnicos y la lista de Jugadores del torneo mundial.
- * * @author Florencia Benitez
+ * @author Florencia Benitez
  * @author Agustina Barreto
  * @author Francia Maira
  * @author Gabriela Yañez
@@ -18,7 +18,7 @@ public class AdministracionDelegaciones {
     /**
      * Vincula una Selección a su correspondiente País y la asigna a un Grupo.
      * Asegura la consistencia bidireccional entre País y Selección.
-     * * @param pais El objeto Pais participante.
+     * @param pais El objeto Pais participante.
      * @param seleccion La Seleccion nacional que representa al país.
      * @param grupo El Grupo de la primera fase donde jugará la selección.
      * @throws ValoresNulosException si alguno de los parámetros es null.
@@ -48,14 +48,11 @@ public class AdministracionDelegaciones {
             }
         }
 
-        // Relación bidireccional entre País y Selección
         pais.setSeleccion(seleccion);
         seleccion.setPais(pais);
 
-        // Asignar la selección a un grupo (Relación * a 1)
         seleccion.setGrupo(grupo);
 
-        // Agregamos la selección a la lista interna del grupo si no estaba
         if (grupo.getSelecciones() != null && !grupo.getSelecciones().contains(seleccion)) {
             grupo.agregarSeleccion(seleccion);
         }
@@ -67,7 +64,7 @@ public class AdministracionDelegaciones {
     /**
      * Añade un Jugador a la lista de una Selección, controlando que no esté
      * asignado a otra delegación del torneo.
-     * * @param seleccion La Selección a la que se integrará el jugador.
+     * @param seleccion La Selección a la que se integrará el jugador.
      * @param nuevoJugador El objeto Jugador que se desea registrar.
      * @throws ValoresNulosException si selección o jugador es null.
      * @throws JugadorDuplicadoException si el jugador ya está asignado a otra selección.
@@ -78,7 +75,6 @@ public class AdministracionDelegaciones {
             throw new ValoresNulosException("seleccion o nuevoJugador");
         }
 
-        // Recorremos y comparamos a mano para evitar use de contains
         for (Jugador j : jugadoresAsignadosGlobal) {
             if (j.getNombre() != null && j.getNombre().equalsIgnoreCase(nuevoJugador.getNombre()) &&
                     j.getFecNacimiento() == nuevoJugador.getFecNacimiento()) {
@@ -86,7 +82,6 @@ public class AdministracionDelegaciones {
             }
         }
 
-        // Si el for terminó y no encontró a nadie igual, recién ahí lo agregamos
         if (seleccion.getJugadores() != null) {
             seleccion.agregarJugador(nuevoJugador);
             jugadoresAsignadosGlobal.add(nuevoJugador);
@@ -95,7 +90,7 @@ public class AdministracionDelegaciones {
 
     /**
      * Registra un Director Técnico en la lista de una Selección.
-     * * @param seleccion La Selección a la que se asignará el DT.
+     * @param seleccion La Selección a la que se asignará el DT.
      * @param dt El objeto DirectorTecnico correspondiente.
      * @throws ValoresNulosException si selección o director es null.
      * @throws ElementoDuplicadoException si el director ya está registrado.
@@ -120,7 +115,7 @@ public class AdministracionDelegaciones {
 
     /**
      * Registra un miembro del Cuerpo Técnico en una Selección.
-     * * @param seleccion La Selección donde cumplirá funciones el integrante.
+     * @param seleccion La Selección donde cumplirá funciones el integrante.
      * @param integrante El miembro del CuerpoTecnico a incorporar.
      * @throws ValoresNulosException si selección o integrante es null.
      * @throws ElementoDuplicadoException si el integrante ya está registrado.

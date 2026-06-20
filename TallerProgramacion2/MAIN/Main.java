@@ -3,7 +3,7 @@ package MAIN;
 /**
  * Punto de entrada principal del proyecto.
  * Inicia la ejecución del sistema interactivo de gestión del Torneo Mundial.
- * * @author Florencia Benitez
+ * @author Florencia Benitez
  * @author Agustina Barreto
  * @author Francia Maira
  * @author Gabriela Yañez

@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * Se encarga de procesar y consolidar la información sobre las sanciones y el 
  * comportamiento disciplinario (tarjetas) tanto a nivel individual de jugadores 
  * como colectivo por selecciones.
- * * @author Florencia Benitez
+ * @author Florencia Benitez
  * @author Agustina Barreto
  * @author Francia Maira
  * @author Gabriela Yañez

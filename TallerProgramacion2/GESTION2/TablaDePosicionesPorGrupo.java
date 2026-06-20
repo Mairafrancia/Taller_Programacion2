@@ -8,7 +8,7 @@ import java.util.Comparator;
 /**
  * Procesa los resultados de las participaciones cruzadas de los equipos en un mismo grupo
  * para confeccionar y ordenar la tabla de posiciones oficial bajo criterios FIFA estándar.
- * * @author Florencia Benitez
+ * @author Florencia Benitez
  * @author Agustina Barreto
  * @author Francia Maira
  * @author Gabriela Yañez

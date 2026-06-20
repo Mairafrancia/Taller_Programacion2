@@ -7,7 +7,7 @@ import EXCEPCIONES.*;
  * Gestiona la organización deportiva de los encuentros del torneo mundial.
  * Se encarga de la distribución de grupos en fases, la planificación de partidos 
  * en estadios y la correcta asignación de equipos (participaciones) competidoras.
- * * @author Florencia Benitez
+ * @author Florencia Benitez
  * @author Agustina Barreto
  * @author Francia Maira
  * @author Gabriela Yañez
@@ -64,14 +64,7 @@ public class OrganizacionDeportiva {
 
     /**
      * Establece los dos equipos (Participaciones) que se enfrentarán en un Partido ya planificado.
-     *
-     * REQUERIMIENTO: según la consigna, un Partido debe tener asignado un equipo de
-     * Arbitraje válido antes de poder asignarle los equipos participantes.
-     *
-     * FIX aplicado: se agregó EquipoArbitralInvalidoException a la firma del método,
-     * que antes estaba ausente aunque la excepción sí se lanzaba internamente.
-     * También se corrigió la firma para no declarar ArbitrajeInvalidoException,
-     * que no corresponde a este nivel de validación.
+     * Requiere que el partido tenga un equipo arbitral válido asignado previamente.
      *
      * @param partido   El Partido donde se jugarán las participaciones.
      * @param local     La Participación del equipo local.
