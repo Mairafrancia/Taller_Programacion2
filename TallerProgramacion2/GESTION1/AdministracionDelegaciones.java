@@ -35,6 +35,10 @@ public class AdministracionDelegaciones {
         if (pais.getSeleccion() != null) {
             throw new SeleccionYaRegistradaException(pais.getSeleccion().getNombreFederacion());
         }
+        if (grupo.getSelecciones() != null && grupo.getSelecciones().size() >= 4) {
+            throw new SeleccionYaRegistradaException(
+                "El grupo " + grupo.getIdentificador() + " ya tiene 4 selecciones registradas.");
+        }
         if (grupo.getSelecciones() != null) {
             for (Seleccion s : grupo.getSelecciones()) {
                 if (s != null) {
