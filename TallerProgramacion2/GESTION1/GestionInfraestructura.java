@@ -23,14 +23,17 @@ public class GestionInfraestructura {
      * @throws ElementoDuplicadoException si la sede ya existe en el mundial.
      */
     public void registrarSede(Mundial mundial, Sede nuevaSede, Pais pais)
-            throws ValoresNulosException, ElementoDuplicadoException {
+        throws ValoresNulosException, ElementoDuplicadoException {
 
         if (mundial == null || nuevaSede == null || pais == null) {
             throw new ValoresNulosException("mundial, nuevaSede o pais");
         }
 
-        if (mundial.getSedes().contains(nuevaSede)) {
-            throw new ElementoDuplicadoException("Sede " + nuevaSede.getCiudad());
+        for (Sede s : mundial.getSedes()) {
+            if (s != null && s.getCiudad() != null && nuevaSede.getCiudad() != null
+                    && s.getCiudad().equalsIgnoreCase(nuevaSede.getCiudad())) {
+                throw new ElementoDuplicadoException("Sede " + nuevaSede.getCiudad());
+            }
         }
 
         nuevaSede.setPais(pais);
@@ -51,13 +54,18 @@ public class GestionInfraestructura {
      * @throws IllegalArgumentException si la capacidad no es válida (menor o igual a 0).
      */
     public void registrarEstadioEnSede(Sede sede, Estadio nuevoEstadio, int capacidad) 
-            throws ValoresNulosException, ElementoDuplicadoException {
+        throws ValoresNulosException, ElementoDuplicadoException {
         if (sede == null || nuevoEstadio == null) {
             throw new ValoresNulosException("sede o nuevoEstadio");
         }
 
-        if (sede.getEstadios() != null && sede.getEstadios().contains(nuevoEstadio)) {
-            throw new ElementoDuplicadoException("Estadio " + nuevoEstadio.getNombre());
+        if (sede.getEstadios() != null) {
+            for (Estadio e : sede.getEstadios()) {
+                if (e != null && e.getNombre() != null && nuevoEstadio.getNombre() != null
+                        && e.getNombre().equalsIgnoreCase(nuevoEstadio.getNombre())) {
+                    throw new ElementoDuplicadoException("Estadio " + nuevoEstadio.getNombre());
+                }
+            }
         }
 
         if (capacidad <= 0) {
