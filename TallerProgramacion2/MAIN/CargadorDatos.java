@@ -32,6 +32,10 @@ import GESTION1.AdministracionDelegaciones;
  * tarjetas).</li>
  * </ul>
  * </p>
+ * @author Florencia Benitez
+ * @author Agustina Barreto
+ * @author Francia Maira
+ * @author Gabriela Yañez
  */
 public class CargadorDatos {
 
