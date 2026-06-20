@@ -405,23 +405,13 @@ public class SistemaInteractivo2 {
             System.out.println("No hay sedes registradas.");
             return;
         }
-        // Encabezado simple para delimitar el reporte
-        System.out.println("\n--- INFRAESTRUCTURA: SEDES Y ESTADIOS ---");
-        
+        System.out.println("\nSedes:");
         for (Sede sede : sedes) {
-            // Destacamos la sede principal con una flecha clara
-            System.out.println("\n > Sede: " + sede.getCiudad() + " | Zona Horaria: " + sede.getZonaHoraria());
-            
-            if (sede.getEstadios() != null && !sede.getEstadios().isEmpty()) {
-                for (Estadio e : sede.getEstadios()) {
-                    // Los estadios se muestran abajo con una sangría para que se entienda que pertenecen a esa sede
-                    System.out.println("   [Estadio] " + e.getNombre() + " - Capacidad: " + e.getCapacidad() + " espectadores");
-                }
-            } else {
-                System.out.println("   (No hay estadios registrados en esta sede)");
-            }
+            System.out.println("- " + sede.getCiudad() + " (" + sede.getZonaHoraria() + ")");
+            if (sede.getEstadios() != null)
+                for (Estadio e : sede.getEstadios())
+                    System.out.println("   * " + e.getNombre() + " - Capacidad: " + e.getCapacidad());
         }
-        System.out.println("\n-----------------------------------------");
     }
 
     // -------------------------------------------------------------------------
@@ -649,19 +639,14 @@ public class SistemaInteractivo2 {
             System.out.println("No hay selecciones registradas.");
             return;
         }
-        
-        // Un encabezado simple para abrir la lista
-        System.out.println("\n--- SELECCIONES REGISTRADAS ---");
-        
+        System.out.println("\nSelecciones:");
         for (Seleccion sel : selecciones) {
             String pais = sel.getPais() != null ? sel.getPais().getNombre() : "Sin pais";
             String grupo = sel.getGrupo() != null ? sel.getGrupo().getIdentificador() : "Sin grupo";
             int jugadores = sel.getJugadores() != null ? sel.getJugadores().size() : 0;
-            
-            // Simplificamos las etiquetas quitando repeticiones innecesarias
-            System.out.println(" * " + sel.getNombreFederacion() + " | País: " + pais + " | Grupo: " + grupo + " | Jugadores: " + jugadores);
+            System.out.println("Nombre Federacion: " + sel.getNombreFederacion() + " | Pais: " + pais + " | Grupo: " + grupo
+                    + " | Jugadores: " + jugadores );
         }
-        System.out.println("--------------------------------");
     }
 
     // -------------------------------------------------------------------------
@@ -726,7 +711,6 @@ public class SistemaInteractivo2 {
         partido.setHorario(horario);
         try {
             od.planificarPartido(partido, fase, estadio);
-            fase.agregarPartido(partido);
             System.out.println("Partido planificado en " + estadio.getNombre());
         } catch (TorneoException e) {
             System.err.println("Error: " + e.getMessage());
@@ -953,20 +937,13 @@ public class SistemaInteractivo2 {
         Partido partido = seleccionarPartido("Seleccione el partido:");
         if (partido == null)
             return;
-        
         if (partido.getEventos() == null || partido.getEventos().isEmpty()) {
-            System.out.println("No hay eventos registrados para este partido.");
+            System.out.println("No hay eventos registrados.");
             return;
         }
-        
-        // Un encabezado simple y directo
-        System.out.println("\n--- EVENTOS DEL PARTIDO ---");
-        
-        for (Evento e : partido.getEventos()) {
-            // Cambiamos el formato para que se lea como una línea de tiempo clara: Minuto -> Tipo -> Jugador
-            System.out.println(" Minuto " + e.getMinuto() + "' | " + e.getTipo() + " | Jugador: " + e.getJugador().getNombre());
-        }
-        System.out.println("---------------------------");
+        System.out.println("Eventos:");
+        for (Evento e : partido.getEventos())
+            System.out.println("- " + e.getTipo() + " minuto " + e.getMinuto() + " | " + e.getJugador().getNombre());
     }
 
     // -------------------------------------------------------------------------
@@ -994,15 +971,7 @@ public class SistemaInteractivo2 {
         Grupo grupo = seleccionarGrupo("Seleccione el grupo:");
         if (grupo == null)
             return;
-        
-        // Encabezado enmarcado y ordenado para la tabla de posiciones
-        System.out.println("\n==============================================================");
-        System.out.println(" TABLA DE POSICIONES - GRUPO " + grupo.getIdentificador().toUpperCase());
-        System.out.println("--------------------------------------------------------------");
-        System.out.println(" Detalle: " + grupo.getDescripcion());
-        System.out.println(" Selecciones registradas: " + grupo.getSelecciones().size());
-        System.out.println("==============================================================");
-        
+        System.out.println("GRUPO : " + grupo.getDescripcion() + "| Cantidad de selecciones en este grupo: " + grupo.getSelecciones().size() );
         imprimirLista(tablaPosiciones.obtenerTablaPosiciones(grupo), "No hay datos para esta tabla.");
     }
 
@@ -1014,12 +983,6 @@ public class SistemaInteractivo2 {
         Seleccion seleccion = seleccionarSeleccion("Seleccione la seleccion:");
         if (seleccion == null)
             return;
-        
-        // Encabezado enmarcado y limpio para presentar los resultados de la selección
-        System.out.println("\n==============================================================");
-        System.out.println(" TABLA DE RESULTADOS: " + seleccion.getNombreFederacion().toUpperCase());
-        System.out.println("==============================================================");
-        
         imprimirLista(tablaResultados.obtenerResultados(seleccion), "No hay resultados para esta seleccion.");
     }
 
@@ -1032,10 +995,7 @@ public class SistemaInteractivo2 {
      * a fases eliminatorias.
      */
     private void reporteRankingGoleadores() {
-        // Encabezado enmarcado de 60 caracteres de ancho para mantener la consistencia
-        System.out.println("\n+------------------------------------------------------------+");
-        System.out.println("|         RANKING GLOBAL DE GOLEADORES DEL MUNDIAL           |");
-        System.out.println("+------------------------------------------------------------+");
+        System.out.println("\n| >>> RANKING GLOBAL DE GOLEADORES DEL MUNDIAL |\n");
         
         // Recolectamos todas las selecciones recorriendo fases -> grupos -> selecciones
         ArrayList<Seleccion> todasLasSelecciones = new ArrayList<>();
@@ -1052,10 +1012,6 @@ public class SistemaInteractivo2 {
         // Llamamos al nuevo método global
         ArrayList<String> reporte = rankingGoles.obtenerRankingGlobal(todasLasSelecciones);
         
-        // Un separador sutil antes de que actúe el método de impresión
-        System.out.println(" Pos. | Jugador (Selección)                        | Goles   ");
-        System.out.println("------+--------------------------------------------+---------");
-        
         imprimirLista(reporte, "No hay goles registrados en el torneo todavia.");
     }
 
@@ -1064,27 +1020,12 @@ public class SistemaInteractivo2 {
      * el conteo de tarjetas amarillas, rojas y dobles amarillas.
      */
     private void reporteInformeDisciplinario() {
-        // Menú con un diseño limpio y enmarcado para mantener la consistencia visual
-        System.out.println("\n+------------------------------------------------------------+");
-        System.out.println("|                INFORME DISCIPLINARIO                       |");
-        System.out.println("+------------------------------------------------------------+");
-        System.out.println("| 1. Reporte por Selección                                   |");
-        System.out.println("| 2. Reporte por Jugador                                     |");
-        System.out.println("+------------------------------------------------------------+");
-
-        int opcion = leerEnteroValido("Seleccione una opción: ",
+        int opcion = leerEnteroValido("\n1. Por seleccion\n2. Por jugador\nOpcion: ",
                 "Opcion no valida.", v -> v == 1 || v == 2);
-        
         if (opcion == 1) {
             Seleccion seleccion = seleccionarSeleccion("Seleccione la seleccion:");
             if (seleccion == null)
                 return;
-            
-            // Encabezado decorativo previo a la salida de los datos
-            System.out.println("\n==============================================================");
-            System.out.println(" REPORTE DISCIPLINARIO: " + seleccion.getNombreFederacion().toUpperCase());
-            System.out.println("==============================================================");
-            
             imprimirLista(informeCards.informePorSeleccion(seleccion), "No hay datos disciplinarios.");
         } else {
             Seleccion seleccion = seleccionarSeleccion("Seleccione la seleccion del jugador:");
@@ -1093,12 +1034,6 @@ public class SistemaInteractivo2 {
             Jugador jugador = seleccionarJugador(seleccion);
             if (jugador == null)
                 return;
-            
-            // Encabezado decorativo previo a la salida de los datos
-            System.out.println("\n==============================================================");
-            System.out.println(" REPORTE DISCIPLINARIO: " + jugador.getNombre().toUpperCase() + " (" + seleccion.getNombreFederacion() + ")");
-            System.out.println("==============================================================");
-            
             imprimirLista(informeCards.informePorJugador(jugador), "No hay datos disciplinarios.");
         }
     }
@@ -1108,15 +1043,7 @@ public class SistemaInteractivo2 {
         Partido partido = seleccionarPartido("Seleccione el partido:");
         if (partido == null)
             return;
-        
-        // Encabezado simple y destacado para la presentación de la ficha
-        System.out.println("\n==============================================================");
-        System.out.println("               FICHA TÉCNICA DEL PARTIDO                      ");
-        System.out.println("==============================================================");
-        
         imprimirLista(fichaTecnica.obtenerFicha(partido), "No hay ficha tecnica disponible.");
-        
-        System.out.println("==============================================================");
     }
 
     /**
@@ -1124,67 +1051,41 @@ public class SistemaInteractivo2 {
      * la cantidad de partidos con fecha, horario, equipos y resultado.
      */
     private void reporteEstadisticasSedes() {
-        // Submenú simple y ordenado con guiones
-        System.out.println("\n--- ESTADÍSTICAS DE SEDES ---");
-        System.out.println(" 1. Reporte por Estadio");
-        System.out.println(" 2. Reporte por Ciudad");
-        System.out.println("-----------------------------");
-
-        int opcion = leerEnteroValido("Seleccione una opción: ",
+        int opcion = leerEnteroValido("\n1. Por estadio\n2. Por ciudad\nOpcion: ",
                 "Opcion no valida.", v -> v == 1 || v == 2);
-        
         if (opcion == 1) {
             Estadio estadio = seleccionarEstadio("Seleccione el estadio:");
             if (estadio == null)
                 return;
-            
-            // Encabezado prolijo para la opción por Estadio
-            System.out.println("\n==============================================================");
-            System.out.println(" ESTADÍSTICAS DE ESTADIO: " + estadio.getNombre().toUpperCase());
-            System.out.println(" Cantidad de partidos disputados: " + estadisticasSedes.partidosPorEstadio(estadio));
-            System.out.println("==============================================================");
-            
+            System.out.println("Partidos en " + estadio.getNombre() + ": " 
+                + estadisticasSedes.partidosPorEstadio(estadio));
             ArrayList<String> detalle = estadisticasSedes.detallePorEstadio(estadio);
             if (detalle != null) {
                 for (String linea : detalle) {
                     System.out.println(linea);
                 }
             }
-            System.out.println("==============================================================");
         } else {
-            String ciudad = seleccionarCiudad("Seleccione la ciudad:");
-            if (ciudad == null)
-                return;
-            
-            // Encabezado prolijo para la opción por Ciudad
-            System.out.println("\n==============================================================");
-            System.out.println(" ESTADÍSTICAS DE CIUDAD: " + ciudad.toUpperCase());
-            System.out.println(" Cantidad de partidos disputados: " + estadisticasSedes.partidosPorCiudad(mundial, ciudad));
-            System.out.println("==============================================================");
-            
-            ArrayList<String> detalle = estadisticasSedes.detallePorCiudad(mundial, ciudad);
-            if (detalle != null) {
-                for (String linea : detalle) {
-                    System.out.println(linea);
+                String ciudad = seleccionarCiudad("Seleccione la ciudad:");
+                if (ciudad == null)
+                    return;
+                System.out.println("Partidos en " + ciudad + ": " 
+                    + estadisticasSedes.partidosPorCiudad(mundial, ciudad));
+                ArrayList<String> detalle = estadisticasSedes.detallePorCiudad(mundial, ciudad);
+                if (detalle != null) {
+                    for (String linea : detalle) {
+                        System.out.println(linea);
+                    }
                 }
             }
-            System.out.println("==============================================================");
         }
-    }
 
     /** Muestra el anio, mascota y cantidad de sedes del mundial. */
     private void mostrarInfoMundial() {
-        // Encabezado simple para identificar el bloque de datos
-        System.out.println("\n--- DATOS GENERALES DEL TORNEO ---");
-        System.out.println(" * Año de disputa: " + mundial.getAnio());
-        System.out.println(" * Mascota Oficial: " + mundial.getMascota());
-        
-        if (mundial.getSedes() != null) {
-            System.out.println(" * Sedes registradas: " + mundial.getSedes().size());
-        } else {
-            System.out.println(" * Sedes registradas: 0");
-        }
-        System.out.println("----------------------------------");
+        System.out.println("\nInformacion del Mundial: \n" + "Año: " + mundial.getAnio() + "\n" + "Mascota: "
+                + mundial.getMascota());
+        if (mundial.getSedes() != null)
+            System.out.println("Sedes registradas: " + mundial.getSedes().size());
     }
 
     // -------------------------------------------------------------------------
