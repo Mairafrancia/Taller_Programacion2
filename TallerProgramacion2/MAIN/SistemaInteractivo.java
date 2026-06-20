@@ -23,7 +23,7 @@ import java.util.Scanner;
  * @author Francia Maira
  * @author Gabriela Yañez
  */
-public class SistemaInteractivo2 {
+public class SistemaInteractivo {
 
     /** Scanner para leer la entrada del usuario por consola. */
     private Scanner scanner;
@@ -75,7 +75,7 @@ public class SistemaInteractivo2 {
      * En caso de error, {@code mundial} queda en null y se imprime el mensaje
      * de error por consola.
      */
-    public SistemaInteractivo2() {
+    public SistemaInteractivo() {
         this.scanner = new Scanner(System.in);
         try {
             this.mundial = CargadorDatos.cargar();
@@ -1095,16 +1095,16 @@ public class SistemaInteractivo2 {
     /**
      * Muestra la lista de paises disponibles y retorna el seleccionado.
      *
-     * @param prompt Texto a mostrar antes de la lista.
+     * @param mensaje  Texto a mostrar antes de la lista.
      * @return El pais seleccionado, o null si no hay paises.
      */
-    private Pais seleccionarPais(String prompt) {
+    private Pais seleccionarPais(String mensaje ) {
         ArrayList<Pais> paises = obtenerTodosLosPaises();
         if (paises.isEmpty()) {
             System.out.println("No hay paises disponibles.");
             return null;
         }
-        System.out.println(prompt);
+        System.out.println(mensaje );
         for (int i = 0; i < paises.size(); i++)
             System.out.println((i + 1) + ". " + paises.get(i).getNombre());
         int opcion = leerEnteroValido("Opcion: ", "Opcion no valida.", v -> v >= 1 && v <= paises.size()) - 1;
@@ -1114,16 +1114,16 @@ public class SistemaInteractivo2 {
     /**
      * Muestra la lista de selecciones registradas y retorna la seleccionada.
      *
-     * @param prompt Texto a mostrar antes de la lista.
+     * @param mensaje Texto a mostrar antes de la lista.
      * @return La seleccion elegida, o null si no hay selecciones.
      */
-    private Seleccion seleccionarSeleccion(String prompt) {
+    private Seleccion seleccionarSeleccion(String mensaje ) {
         ArrayList<Seleccion> selecciones = obtenerTodasLasSelecciones();
         if (selecciones.isEmpty()) {
             System.out.println("No hay selecciones registradas.");
             return null;
         }
-        System.out.println(prompt);
+        System.out.println(mensaje );
         for (int i = 0; i < selecciones.size(); i++) {
             Seleccion sel = selecciones.get(i);
             String pais = sel.getPais() != null ? sel.getPais().getNombre() : "Sin pais";
@@ -1169,16 +1169,16 @@ public class SistemaInteractivo2 {
     /**
      * Muestra la lista de grupos registrados y retorna el seleccionado.
      *
-     * @param prompt Texto a mostrar antes de la lista.
+     * @param mensaje  Texto a mostrar antes de la lista.
      * @return El grupo elegido, o null si no hay grupos.
      */
-    private Grupo seleccionarGrupo(String prompt) {
+    private Grupo seleccionarGrupo(String mensaje ) {
         ArrayList<Grupo> grupos = obtenerTodosLosGrupos();
         if (grupos.isEmpty()) {
             System.out.println("No hay grupos registrados.");
             return null;
         }
-        System.out.println(prompt);
+        System.out.println(mensaje );
         for (int i = 0; i < grupos.size(); i++)
             System.out.println(
                     (i + 1) + ". " + grupos.get(i).getIdentificador() + " - " + grupos.get(i).getDescripcion() 
@@ -1190,15 +1190,15 @@ public class SistemaInteractivo2 {
     /**
      * Muestra la lista de fases del torneo y retorna la seleccionada.
      *
-     * @param prompt Texto a mostrar antes de la lista.
+     * @param mensaje  Texto a mostrar antes de la lista.
      * @return La fase elegida, o null si no hay fases.
      */
-    private Fase seleccionarFase(String prompt) {
+    private Fase seleccionarFase(String mensaje ) {
         if (fases == null || fases.isEmpty()) {
             System.out.println("No hay fases registradas.");
             return null;
         }
-        System.out.println(prompt);
+        System.out.println(mensaje);
         for (int i = 0; i < fases.size(); i++)
             System.out.println((i + 1) + ". " + fases.get(i).getNombre());
         int opcion = leerEnteroValido("Opcion: ", "Opcion no valida.", v -> v >= 1 && v <= fases.size()) - 1;
@@ -1208,16 +1208,16 @@ public class SistemaInteractivo2 {
     /**
      * Muestra la lista de estadios registrados y retorna el seleccionado.
      *
-     * @param prompt Texto a mostrar antes de la lista.
+     * @param mensaje Texto a mostrar antes de la lista.
      * @return El estadio elegido, o null si no hay estadios.
      */
-    private Estadio seleccionarEstadio(String prompt) {
+    private Estadio seleccionarEstadio(String mensaje) {
         ArrayList<Estadio> estadios = obtenerTodosLosEstadios();
         if (estadios.isEmpty()) {
             System.out.println("No hay estadios registrados.");
             return null;
         }
-        System.out.println(prompt);
+        System.out.println(mensaje);
         for (int i = 0; i < estadios.size(); i++) {
             Estadio e = estadios.get(i);
             String ciudad = e.getSede() != null ? e.getSede().getCiudad() : "Sin sede";
@@ -1230,16 +1230,16 @@ public class SistemaInteractivo2 {
     /**
      * Muestra la lista de partidos registrados y retorna el seleccionado.
      *
-     * @param prompt Texto a mostrar antes de la lista.
+     * @param mensaje Texto a mostrar antes de la lista.
      * @return El partido elegido, o null si no hay partidos.
      */
-    private Partido seleccionarPartido(String prompt) {
+    private Partido seleccionarPartido(String mensaje) {
         ArrayList<Partido> partidos = obtenerTodosLosPartidos();
         if (partidos.isEmpty()) {
             System.out.println("No hay partidos registrados.");
             return null;
         }
-        System.out.println(prompt);
+        System.out.println(mensaje);
         for (int i = 0; i < partidos.size(); i++) {
             Partido p = partidos.get(i);
             String estadio = p.getEstadio() != null ? p.getEstadio().getNombre() : "Sin estadio";
@@ -1452,13 +1452,13 @@ public class SistemaInteractivo2 {
      * el formato {@code nombre.extension} con extension de imagen conocida.
      * Reintenta hasta recibir un valor valido.
      *
-     * @param prompt       Texto a mostrar al usuario.
+     * @param mensaje       Texto a mostrar al usuario.
      * @param mensajeError Mensaje a mostrar si el formato es invalido.
      * @return El nombre de archivo valido ingresado.
      */
-    private String leerArchivoImagen(String prompt, String mensajeError) {
+    private String leerArchivoImagen(String mensaje, String mensajeError) {
         while (true) {
-            System.out.print(prompt);
+            System.out.print(mensaje);
             String texto = scanner.nextLine().trim();
             if (!texto.isEmpty() && texto.matches("[a-zA-Z0-9_\\-]+\\.(png|jpg|jpeg|gif|bmp|svg)"))
                 return texto;
@@ -1471,14 +1471,14 @@ public class SistemaInteractivo2 {
      * y apostrofes (incluyendo caracteres acentuados y enie).
      * Reintenta hasta recibir un valor valido.
      *
-     * @param prompt       Texto a mostrar al usuario.
+     * @param mensaje      Texto a mostrar al usuario.
      * @param mensajeError Mensaje a mostrar si el valor contiene caracteres
      *                     invalidos.
      * @return El nombre valido ingresado.
      */
-    private String leerNombre(String prompt, String mensajeError) {
+    private String leerNombre(String mensaje, String mensajeError) {
         while (true) {
-            System.out.print(prompt);
+            System.out.print(mensaje);
             String texto = scanner.nextLine().trim();
             if (!texto.isEmpty() && texto.matches("[a-zA-ZáéíóúÁÉÍÓÚüÜñÑàèìòùâêîôûäëïöü\\s\\-']+"))
                 return texto;
@@ -1491,13 +1491,13 @@ public class SistemaInteractivo2 {
      * {@code GMT-N}.
      * Reintenta hasta recibir un valor valido.
      *
-     * @param prompt       Texto a mostrar al usuario.
+     * @param mensaje       Texto a mostrar al usuario.
      * @param mensajeError Mensaje a mostrar si el formato es invalido.
      * @return La zona horaria valida ingresada.
      */
-    private String leerZonaHoraria(String prompt, String mensajeError) {
+    private String leerZonaHoraria(String mensaje, String mensajeError) {
         while (true) {
-            System.out.print(prompt);
+            System.out.print(mensaje);
             String texto = scanner.nextLine().trim().toUpperCase();
             if (texto.matches("GMT[+-]\\d{1,2}"))
                 return texto;
@@ -1510,12 +1510,12 @@ public class SistemaInteractivo2 {
      * este entre 01-12 y el dia entre 01-31. Reintenta hasta recibir un valor
      * valido.
      *
-     * @param prompt Texto a mostrar al usuario.
+     * @param mensaje Texto a mostrar al usuario.
      * @return La fecha valida como entero en formato YYYYMMDD.
      */
-    private int leerFecha(String prompt) {
+    private int leerFecha(String mensaje) {
         while (true) {
-            System.out.print(prompt);
+            System.out.print(mensaje);
             String entrada = scanner.nextLine().trim();
             if (entrada.matches("\\d{8}")) {
                 int mes = Integer.parseInt(entrada.substring(4, 6));
@@ -1531,14 +1531,14 @@ public class SistemaInteractivo2 {
      * Solicita un numero entero por consola y valida que cumpla la condicion
      * provista. Reintenta hasta recibir un valor valido.
      *
-     * @param prompt       Texto a mostrar al usuario.
+     * @param mensaje      Texto a mostrar al usuario.
      * @param mensajeError Mensaje a mostrar si el valor no cumple la condicion.
      * @param condicion    Predicado que debe cumplir el valor ingresado.
      * @return El entero valido ingresado.
      */
-    private int leerEnteroValido(String prompt, String mensajeError, java.util.function.IntPredicate condicion) {
+    private int leerEnteroValido(String mensaje, String mensajeError, java.util.function.IntPredicate condicion) {
         while (true) {
-            System.out.print(prompt);
+            System.out.print(mensaje);
             String entrada = scanner.nextLine().trim();
             try {
                 int valor = Integer.parseInt(entrada);
@@ -1552,7 +1552,7 @@ public class SistemaInteractivo2 {
     }
     // Pausa la terminal hasta que el usuario presiona ENTER para limpiar el flujo visual. 
     private void esperarEnter() {
-        System.out.println("\n🔹 Presione ENTER para continuar y volver al menú...");
+        System.out.println("\nPresione ENTER para continuar y volver al menú...");
         // Consumir cualquier salto de línea residual y esperar el ENTER real
         this.scanner.nextLine(); 
     }

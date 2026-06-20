@@ -10,7 +10,7 @@ package MAIN;
  */
 public class Main {
     public static void main(String[] args) {
-        SistemaInteractivo2 sistema = new SistemaInteractivo2();
+        SistemaInteractivo sistema = new SistemaInteractivo();
         sistema.iniciar();
     }
 }
