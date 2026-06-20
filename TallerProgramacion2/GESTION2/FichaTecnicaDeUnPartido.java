@@ -6,7 +6,7 @@ import java.util.ArrayList;
 /**
  * Se encarga de recopilar, estructurar y generar la información detallada de 
  * un encuentro específico para su posterior visualización o impresión.
- * * @author Florencia Benitez
+ * @author Florencia Benitez
  * @author Agustina Barreto
  * @author Francia Maira
  * @author Gabriela Yañez

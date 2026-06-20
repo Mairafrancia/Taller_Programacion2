@@ -71,10 +71,7 @@ public class Grupo {
     /** @return La lista de selecciones del grupo. */
     public ArrayList<Seleccion> getSelecciones() { return selecciones; }
 
-    /** @param selecciones La nueva lista de selecciones. */
-    public void setSelecciones(ArrayList<Seleccion> selecciones) { this.selecciones = selecciones; }
-
-        /**
+    /**
      * Agrega una seleccion al grupo.
      * No realiza la accion si el objeto es null o si el grupo ya tiene 4 selecciones,
      * ya que el formato del torneo establece exactamente 4 equipos por grupo.

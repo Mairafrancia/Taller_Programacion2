@@ -2,7 +2,6 @@ package CLASES;
 import EXCEPCIONES.PeriodoInvalidoException;
 import java.util.ArrayList;
 
-//import EXCEPCIONES.PeriodoInvalidoException;
 
 /**
  * Representa la entidad principal de un torneo mundial de fútbol.
@@ -58,23 +57,19 @@ public class Mundial {
      * @throws PeriodoInvalidoException Si las fechas se cruzan o no son válidas.
      */
     public Mundial(int anio, String mascota, int fechaDesde, int fechaHasta) throws PeriodoInvalidoException {
-        // 1. Validar rangos mínimos primero (opcional, pero recomendado)
         if (fechaDesde < 2026 || fechaHasta < 2026) {
             throw new PeriodoInvalidoException("Las fechas del mundial no pueden ser menores al año 2026.");
         }
 
-        // 2. Validar la consistencia entre ambas fechas recibidas
         if (fechaDesde > fechaHasta) {
             throw new PeriodoInvalidoException("La fecha de inicio (" + fechaDesde + ") no puede ser mayor a la de finalización (" + fechaHasta + ").");
         }
 
-        // 3. Si todo está bien, se asignan los atributos
         this.anio = anio;
         this.mascota = mascota;
         this.fechaDesde = fechaDesde;
         this.fechaHasta = fechaHasta;
         
-        // Inicialización de colecciones
         this.sedes = new ArrayList<>(); 
         this.fases = new ArrayList<>();
     }
@@ -124,7 +119,6 @@ public class Mundial {
      * @param fechaDesde La fecha de inicio a asignar.
      */
     public void setFechaDesde(int fechaDesde) throws PeriodoInvalidoException{
-        // Validamos solo si la fecha hasta ya fue asignada (asumiendo que 0 significa "no asignada")
         if (this.fechaHasta != 0 && fechaDesde > this.fechaHasta) {
             throw new PeriodoInvalidoException("La fecha de inicio no puede ser mayor a la de finalización.");
         }
@@ -145,12 +139,10 @@ public class Mundial {
      * @throws PeriodoInvalidoException Si el año es menor a 2026 o si es anterior a la fecha de inicio.
      */
     public void setFechaHasta(int fechaHasta) throws PeriodoInvalidoException {
-        // 1. Validación de año mínimo
         if (fechaHasta < 2026) { 
             throw new PeriodoInvalidoException("La fecha de finalización (" + fechaHasta + ") no es válida para este torneo.");
         }
 
-        // 2. Validación de consistencia
         if (this.fechaDesde != 0 && fechaHasta < this.fechaDesde) {
             throw new PeriodoInvalidoException("La fecha de finalización no puede ser anterior a la de inicio.");
         }
