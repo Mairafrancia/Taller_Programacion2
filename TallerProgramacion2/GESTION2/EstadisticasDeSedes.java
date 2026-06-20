@@ -76,11 +76,13 @@ public class EstadisticasDeSedes {
             int golesLocal = 0;
             int golesVisitante = 0;
             if (p.getParticipacionLocal() != null) {
-                local = p.getParticipacionLocal().getSeleccion().getNombreFederacion();
+                Seleccion selLocal = p.getParticipacionLocal().getSeleccion();
+                local = (selLocal != null) ? selLocal.getNombreFederacion() : "?";
                 golesLocal = p.getParticipacionLocal().cantidadGoles();
             }
             if (p.getParticipacionVisitante() != null) {
-                visitante = p.getParticipacionVisitante().getSeleccion().getNombreFederacion();
+                Seleccion selVisitante = p.getParticipacionVisitante().getSeleccion();
+                visitante = (selVisitante != null) ? selVisitante.getNombreFederacion() : "?";
                 golesVisitante = p.getParticipacionVisitante().cantidadGoles();
             }
             detalle.add("  " + p.getFecha() + " " + p.getHorario() + " - " 

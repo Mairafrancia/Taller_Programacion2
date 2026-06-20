@@ -1462,7 +1462,7 @@ public class SistemaInteractivo {
         while (true) {
             System.out.print(mensaje);
             String texto = scanner.nextLine().trim();
-            if (!texto.isEmpty() && texto.matches("[\\p{L}\\s\\-']+"))
+            if (!texto.isEmpty() && texto.matches("[\\w\\-]+\\.(png|jpg|jpeg|gif)"))
                 return texto;
             System.out.println("Error: " + mensajeError + " Intente nuevamente.");
         }
