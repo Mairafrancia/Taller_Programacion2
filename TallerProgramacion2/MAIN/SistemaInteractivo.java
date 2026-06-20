@@ -83,7 +83,7 @@ public class SistemaInteractivo {
         } catch (PeriodoInvalidoException | MinutoInvalidoException e) {
             System.err.println("Error fatal al cargar los datos del torneo: " + e.getMessage());
             System.err.println("El sistema no puede iniciar sin los datos del Mundial. Cerrando aplicacion.");
-            System.exit(1); //termina el programa con codigo de error 1
+            System.exit(1);
         }
         this.gi = new GestionInfraestructura();
         this.ad = new AdministracionDelegaciones();
@@ -831,6 +831,7 @@ public class SistemaInteractivo {
                 return;
 
             arbitro = new Arbitro(nombre, fecNacimiento, anios, paisArbitro);
+            paisArbitro.agregarArbitro(arbitro);
         }
 
         // Seleccion del rol
@@ -944,8 +945,10 @@ public class SistemaInteractivo {
             return;
         }
         System.out.println("Eventos:");
-        for (Evento e : partido.getEventos())
-            System.out.println("- " + e.getTipo() + " minuto " + e.getMinuto() + " | " + e.getJugador().getNombre());
+        for (Evento e : partido.getEventos()){
+            String nombreJ = (e.getJugador() != null) ? e.getJugador().getNombre() : "Desconocido";
+            System.out.println("- " + e.getTipo() + " minuto " + e.getMinuto() + " | " + nombreJ);
+        }
     }
 
     // -------------------------------------------------------------------------

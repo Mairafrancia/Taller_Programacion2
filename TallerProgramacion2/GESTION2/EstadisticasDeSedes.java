@@ -40,21 +40,21 @@ public class EstadisticasDeSedes {
         if (mundial == null || ciudad == null || ciudad.isEmpty()) {
             return -1;
         }
-        int totalPartidos = 0; //contador
-        for (Sede sede : mundial.getSedes()) { //recorremos 1 x 1 las sedes del mundial
-            if (sede == null || sede.getCiudad() == null) { //controlamos q no sea nula ni la sede ni la ciudad
-                continue; //se saltea a la prox
+        int totalPartidos = 0;
+        for (Sede sede : mundial.getSedes()) {
+            if (sede == null || sede.getCiudad() == null) {
+                continue;
             }
             // Mantenemos el ignoreCase que es clave para las búsquedas
-            if (sede.getCiudad().equalsIgnoreCase(ciudad)) { //Compara el nombre de la ciudad de la sede con la ciudad que busca el usuario
-                for (Estadio e : sede.getEstadios()) { //recorro todos los estadios de esa sede
-                    if (e != null && e.getPartidos() != null) { //control
-                        totalPartidos += e.getPartidos().size(); //al contador le incremento el tamaño de la lista de partidos
+            if (sede.getCiudad().equalsIgnoreCase(ciudad)) {
+                for (Estadio e : sede.getEstadios()) {
+                    if (e != null && e.getPartidos() != null) {
+                        totalPartidos += e.getPartidos().size();
                     }
                 }
             }
         }
-        return totalPartidos; //dsp de revisar todas las sedes devolvemos el total acumulado
+        return totalPartidos;
     }
 
     /**
