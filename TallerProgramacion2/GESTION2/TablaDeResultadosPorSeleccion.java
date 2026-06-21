@@ -55,6 +55,13 @@ public class TablaDeResultadosPorSeleccion {
             if (participacionRival == null) {
                 continue; // ignorar si falta el rival
             }
+             // Solo se computan los resultados deportivos (puntos, jugados, ganados, etc.)
+            // si el partido ya tiene al menos un evento registrado, indicando que se jugo.
+            // La instancia maxima alcanzada si se actualiza igual, ya que clasificar a una
+            // fase no depende de que el partido ya se haya disputado.
+            if (partido.getEventos() == null || partido.getEventos().isEmpty()) {
+                continue;
+            }
 
             int golesFavor = participacion.cantidadGoles();
             int golesContra = participacionRival.cantidadGoles();
