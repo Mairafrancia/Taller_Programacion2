@@ -40,17 +40,19 @@ public class FichaTecnicaDeUnPartido {
             ficha.add("Estadio: " + partido.getEstadio().getNombre());
         }
 
-        ficha.add("--- Resultado Final ---");
+       ficha.add("--- Resultado Final ---");
         if (local != null && visitante != null) {
-            int golesLocal = local.cantidadGoles();
-            int golesVisitante = visitante.cantidadGoles();
-            
-            // Operadores ternarios: asignan un nombre genérico 
-            // si la federación no está registrada
-            String nombreLocal = (local.getSeleccion() != null) ? local.getSeleccion().getNombreFederacion() : "Local";
-            String nombreVisitante = (visitante.getSeleccion() != null) ? visitante.getSeleccion().getNombreFederacion() : "Visitante";
-            
-            ficha.add(nombreLocal + " " + golesLocal + " - " + golesVisitante + " " + nombreVisitante);
+            if (partido.getEventos() == null || partido.getEventos().isEmpty()) {
+                ficha.add("Partido aun no disputado");
+            } else {
+                int golesLocal = local.cantidadGoles();
+                int golesVisitante = visitante.cantidadGoles();
+                
+                String nombreLocal = (local.getSeleccion() != null) ? local.getSeleccion().getNombreFederacion() : "Local";
+                String nombreVisitante = (visitante.getSeleccion() != null) ? visitante.getSeleccion().getNombreFederacion() : "Visitante";
+                
+                ficha.add(nombreLocal + " " + golesLocal + " - " + golesVisitante + " " + nombreVisitante);
+            }
         } else {
             ficha.add("Resultado no disponible");
         }
