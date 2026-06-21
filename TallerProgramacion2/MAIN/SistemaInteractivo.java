@@ -553,7 +553,6 @@ public class SistemaInteractivo {
         String nombre = leerNombre("Nombre DT: ",
                 "El nombre solo puede contener letras.");
 
-        // --- CONTROL DE FECHA PARA EL DT ---
         final int ANIO_LIMITE_18 = 2008; // En 2026, los de 2008 cumplen 18
         final int FECHA_MAX_PERMITIDA = (ANIO_LIMITE_18 * 10000) + 1231; // 20081231
         final int FECHA_FUTURA_LIMITE = 20261231; // Límite para evitar fechas del futuro
@@ -571,7 +570,6 @@ public class SistemaInteractivo {
                 break; // Fecha válida, salimos del bucle
             }
         }
-        // ------------------------------------
 
         DirectoresTecnicos dt = new DirectoresTecnicos(nombre, fechaNac, 20000101);
 
@@ -596,7 +594,6 @@ public class SistemaInteractivo {
         String nombre = leerNombre("Nombre integrante: ",
                 "El nombre solo puede contener letras.");
 
-        // --- CONTROL DE FECHA PARA EL CUERPO TÉCNICO ---
         final int ANIO_LIMITE_18 = 2008; // En 2026, los de 2008 cumplen 18
         final int FECHA_MAX_PERMITIDA = (ANIO_LIMITE_18 * 10000) + 1231; // 20081231
         final int FECHA_FUTURA_LIMITE = 20261231; // Límite para evitar fechas del futuro
@@ -614,7 +611,6 @@ public class SistemaInteractivo {
                 break; // Fecha válida, salimos del bucle
             }
         }
-        // -----------------------------------------------
 
         Rol rolElegido = null;
         while (rolElegido == null) {
@@ -781,7 +777,6 @@ public class SistemaInteractivo {
 
         Arbitro arbitro = null;
 
-        // Recolectamos todos los arbitros precargados desde los paises
         ArrayList<Arbitro> arbitrosPrecargados = new ArrayList<>();
         for (Sede sede : mundial.getSedes()) {
             if (sede.getPais() != null && sede.getPais().getArbitros() != null) {
@@ -847,7 +842,6 @@ public class SistemaInteractivo {
             paisArbitro.agregarArbitro(arbitro);
         }
 
-        // Seleccion del rol
         CategoriaArbitro rolElegido = null;
         while (rolElegido == null) {
             System.out.print("Rol (PRINCIPAL, ASISTENTE_1, ASISTENTE_2, CUARTO_ARBITRO, VAR_PRINCIPAL, VAR_ASISTENTE): ");
@@ -863,7 +857,6 @@ public class SistemaInteractivo {
             }
         }
 
-        // Validaciones de duplicados
         for (Arbitraje a : partido.getArbitrajes()) {
             if (a != null && a.getRol() == rolElegido) {
                 System.out.println("Error: el rol " + rolElegido + " ya esta asignado en este partido.");
@@ -1015,7 +1008,6 @@ public class SistemaInteractivo {
     private void reporteRankingGoleadores() {
         System.out.println("\n| >>> RANKING GLOBAL DE GOLEADORES DEL MUNDIAL |\n");
         
-        // Recolectamos todas las selecciones recorriendo fases -> grupos -> selecciones
         ArrayList<Seleccion> todasLasSelecciones = new ArrayList<>();
         for (Fase fase : mundial.getFases()) {
             for (Grupo grupo : fase.getGrupos()) {
@@ -1027,7 +1019,6 @@ public class SistemaInteractivo {
             }
         }
         
-        // Llamamos al nuevo método global
         ArrayList<String> reporte = rankingGoles.obtenerRankingGlobal(todasLasSelecciones);
         
         imprimirLista(reporte, "No hay goles registrados en el torneo todavia.");
@@ -1592,10 +1583,8 @@ public class SistemaInteractivo {
             }
         }
     }
-    // Pausa la terminal hasta que el usuario presiona ENTER para limpiar el flujo visual. 
     private void esperarEnter() {
         System.out.println("\nPresione ENTER para continuar y volver al menú...");
-        // Consumir cualquier salto de línea residual y esperar el ENTER real
         this.scanner.nextLine(); 
     }
 }

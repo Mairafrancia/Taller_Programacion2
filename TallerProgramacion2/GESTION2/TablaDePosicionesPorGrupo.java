@@ -72,7 +72,9 @@ public class TablaDePosicionesPorGrupo {
             posicionEquipo.seleccion = seleccion;
 
             // Analiza el histórico de partidos en los que participó este equipo
+            if (seleccion.getParticipaciones() == null) continue;
             for (Participacion participacion : seleccion.getParticipaciones()) {
+                if (participacion == null) continue;
                 Partido partido = participacion.getPartido();
                 // Filtro 1: El partido debe existir y corresponder a la misma fase (ej: Fase de Grupos)
                 if (partido == null || partido.getFase() != grupo.getFase()) {

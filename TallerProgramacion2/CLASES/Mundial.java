@@ -26,7 +26,8 @@ public class Mundial {
     /** Fecha de finalización del torneo (representada en formato numérico YYYYMMDD o similar). */
     private int fechaHasta;
 
-    /** * Lista de sedes asociadas al mundial. 
+    /**
+     * Lista de sedes asociadas al mundial. 
      * El mundial actúa como contenedor en una relación de agregación; 
      * la clase Sede no mantiene referencia inversa a Mundial.
      */
