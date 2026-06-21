@@ -25,7 +25,13 @@ public class EstadisticasDeSedes {
         if (estadio == null) {
             return -1;
         }
-        return estadio.getPartidos().size();
+        int contador = 0;
+        for (Partido p : estadio.getPartidos()) {
+            if (p != null && p.getEventos() != null && !p.getEventos().isEmpty()) {
+                contador++;
+            }
+        }
+        return contador;
     }
 
     /**
@@ -49,7 +55,13 @@ public class EstadisticasDeSedes {
             if (sede.getCiudad().equalsIgnoreCase(ciudad)) {
                 for (Estadio e : sede.getEstadios()) {
                     if (e != null && e.getPartidos() != null) {
-                        totalPartidos += e.getPartidos().size();
+                        if (e != null && e.getPartidos() != null) {
+                            for (Partido p : e.getPartidos()) {
+                                if (p != null && p.getEventos() != null && !p.getEventos().isEmpty()) {
+                                    totalPartidos++;
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -71,6 +83,7 @@ public class EstadisticasDeSedes {
         ArrayList<String> detalle = new ArrayList<>();
         for (Partido p : estadio.getPartidos()) {
             if (p == null) continue;
+            if (p.getEventos() == null || p.getEventos().isEmpty()) continue;
             String local = "?";
             String visitante = "?";
             int golesLocal = 0;
