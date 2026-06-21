@@ -35,7 +35,9 @@ public class TablaDeResultadosPorSeleccion {
         NombreFase instanciaMaxima = null; // fase más avanzada alcanzada
 
         // Recorrido de todos los partidos históricos en los que estuvo involucrado el equipo
+        if (seleccion.getParticipaciones() == null) return null;
         for (Participacion participacion : seleccion.getParticipaciones()) {
+            if (participacion == null) continue;
             Partido partido = participacion.getPartido();
             if (partido == null || partido.getFase() == null) {
                 continue; 
