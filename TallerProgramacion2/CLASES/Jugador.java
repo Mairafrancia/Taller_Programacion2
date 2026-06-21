@@ -62,19 +62,29 @@ public class Jugador extends Persona {
         this.eventos = (eventos != null) ? eventos : new ArrayList<>();
     }
 
+    /** @return El numero de dorsal del jugador. */
     public int getDorsal() { return dorsal; }
+    /** @param dorsal El dorsal a asignar. */
     public void setDorsal(int dorsal) { this.dorsal = dorsal; }
 
+    /** @return La posicion en la que juega el jugador. */
     public Posicion getPosicion() { return posicion; }
+    /** @param posicion La posicion a asignar. */
     public void setPosicion(Posicion posicion) { this.posicion = posicion; }
 
+    /** @return El peso del jugador en kilogramos. */
     public float getPeso() { return peso; }
+    /** @param peso El peso a asignar en kilogramos. */
     public void setPeso(float peso) { this.peso = peso; }
 
+    /** @return La altura del jugador en metros. */
     public float getAltura() { return altura; }
+    /** @param altura La altura a asignar en metros. */
     public void setAltura(float altura) { this.altura = altura; }
 
+    /** @return La lista de eventos del jugador en el torneo. */
     public ArrayList<Evento> getEventos() { return eventos; }
+    /** @param eventos La nueva lista de eventos. */
     public void setEventos(ArrayList<Evento> eventos) { this.eventos = eventos; }
 
     /**
