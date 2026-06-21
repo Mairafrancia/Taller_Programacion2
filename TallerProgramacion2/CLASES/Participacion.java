@@ -72,8 +72,10 @@ public class Participacion {
 
     /**
      * Cuenta la cantidad de goles convertidos por esta seleccion en el partido.
-     * Recorre los eventos del partido buscando eventos de tipo GOL cuyo jugador
-     * pertenezca al plantel de la seleccion, usando comparacion por referencia.
+     * Recorre los eventos del partido buscando eventos de tipo GOL o
+     * PENAL_CONVERTIDO cuyo jugador pertenezca al plantel de la seleccion,
+     * usando comparacion por referencia. Se incluyen los penales convertidos
+     * porque a efectos estadisticos tambien son goles validos.
      *
      * @return La cantidad de goles de la seleccion en el partido.
      */
@@ -81,7 +83,7 @@ public class Participacion {
         int goles = 0;
         if (this.partido != null && this.seleccion != null) {
             for (Evento e : this.partido.getEventos()) {
-                if (e != null && e.getTipo() == TipoEvento.GOL && e.getJugador() != null) {
+                if (e != null && (e.getTipo() == TipoEvento.GOL || e.getTipo() == TipoEvento.PENAL_CONVERTIDO) && e.getJugador() != null) {
                     for (Jugador j : this.seleccion.getJugadores()) {
                         if (j == e.getJugador()) {
                             goles++;
