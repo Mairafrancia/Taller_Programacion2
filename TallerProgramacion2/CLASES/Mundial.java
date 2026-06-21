@@ -119,12 +119,15 @@ public class Mundial {
      * @param fechaDesde La fecha de inicio a asignar.
      */
     public void setFechaDesde(int fechaDesde) throws PeriodoInvalidoException{
+        if (fechaDesde < 2026) {
+            throw new PeriodoInvalidoException("La fecha de inicio (" + fechaDesde + ") no puede ser menor al año 2026.");
+        }
+        // Validamos solo si la fecha hasta ya fue asignada (asumiendo que 0 significa "no asignada")
         if (this.fechaHasta != 0 && fechaDesde > this.fechaHasta) {
             throw new PeriodoInvalidoException("La fecha de inicio no puede ser mayor a la de finalización.");
         }
         this.fechaDesde = fechaDesde;
     }
-
     /**
      * Retorna la fecha de finalización del mundial.
      * @return La fecha de finalización.

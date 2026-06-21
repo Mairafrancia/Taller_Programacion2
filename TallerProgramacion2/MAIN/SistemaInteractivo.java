@@ -958,9 +958,9 @@ public class SistemaInteractivo {
             return;
         }
         System.out.println("Eventos:");
-        for (Evento e : partido.getEventos()){
-            String nombreJ = (e.getJugador() != null) ? e.getJugador().getNombre() : "Desconocido";
-            System.out.println("- " + e.getTipo() + " minuto " + e.getMinuto() + " | " + nombreJ);
+        for (Evento e : partido.getEventos()) {
+            String nombreJugador = (e.getJugador() != null) ? e.getJugador().getNombre() : "Jugador desconocido";
+            System.out.println("- " + e.getTipo() + " minuto " + e.getMinuto() + " | " + nombreJugador);
         }
     }
 
