@@ -85,6 +85,12 @@ public class TablaDePosicionesPorGrupo {
                 if (participacionRival == null || !grupo.getSelecciones().contains(participacionRival.getSeleccion())) {
                     continue; // Ignorar si el rival no pertenece al mismo grupo
                 }
+                // Solo se cuenta el partido si ya tiene al menos un evento registrado,
+                // lo que indica que efectivamente se jugo. Un partido planificado sin
+                // eventos cargados aun no se disputo y no debe sumar como empate 0-0.
+                if (partido.getEventos() == null || partido.getEventos().isEmpty()) {
+                    continue;
+                }
                 // Extracción de los goles anotados y recibidos en el encuentro
                 int golesFavorPartido = participacion.cantidadGoles();
                 int golesContraPartido = participacionRival.cantidadGoles();
