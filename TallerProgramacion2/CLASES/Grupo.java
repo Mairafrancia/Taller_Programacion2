@@ -121,6 +121,13 @@ public class Grupo {
                 continue;
             }
 
+            // Solo se cuenta el partido si ya tiene al menos un evento registrado,
+            // lo que indica que efectivamente se jugo. Un partido planificado sin
+            // eventos cargados aun no se disputo y no debe sumar como empate 0-0.
+            if (part.getEventos() == null || part.getEventos().isEmpty()) {
+                continue;
+            }
+
             int golesFavor  = p.cantidadGoles();
             int golesContra = rivalPart.cantidadGoles();
 
