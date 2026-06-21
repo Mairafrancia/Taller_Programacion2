@@ -90,18 +90,20 @@ public class Jugador extends Persona {
     }
 
     /**
-     * Cuenta la cantidad de goles convertidos por el jugador
-     * recorriendo su lista de eventos.
+     * Cuenta la cantidad de goles convertidos por el jugador recorriendo
+     * su lista de eventos. Se consideran goles tanto los de tipo GOL
+     * como los PENAL_CONVERTIDO, ya que ambos son goles validos a
+     * efectos estadisticos en el futbol real.
      *
-     * @return La cantidad de eventos de tipo GOL registrados.
+     * @return La cantidad total de goles convertidos por el jugador.
      */
     public int contarGoles() {
         int goles = 0;
         for (Evento e : this.eventos) {
-            if (e != null && e.getTipo() == TipoEvento.GOL) {
+            if (e != null && (e.getTipo() == TipoEvento.GOL || e.getTipo() == TipoEvento.PENAL_CONVERTIDO)) {
                 goles++;
             }
         }
         return goles;
     }
-}
+    }

@@ -1057,7 +1057,10 @@ public class CargadorDatos {
         agregarEvento(final1, messi, TipoEvento.GOL, 38);
         agregarEvento(final1, morata, TipoEvento.GOL, 67);
         agregarEvento(final1, dybala, TipoEvento.GOL, 99);
-        agregarEvento(final1, carvajal, TipoEvento.TARJETA_AMARILLA, 55);
+        agregarEvento(final1, depaul, TipoEvento.SUSTITUCION, 75);
+        agregarEvento(final1, olmo, TipoEvento.LESION, 40);
+        agregarEvento(final1, romero, TipoEvento.PENAL_COMETIDO, 95);
+        agregarEvento(final1, dybala, TipoEvento.PENAL_ERRADO, 96);
 
         return mundial;
     }
