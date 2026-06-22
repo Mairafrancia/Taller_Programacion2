@@ -25,14 +25,12 @@ public class TablaDeResultadosPorSeleccion {
         if (seleccion == null) {
             return null;
         }
-        // Inicialización de los acumuladores de estadísticas globales
         int puntosTotales = 0;
         int partidosJugados = 0;
         int partidosGanados = 0;
         int partidosEmpatados = 0;
         int partidosPerdidos = 0;
-        // Almacenará el Enum de la fase más lejana a la que llegó el equipo
-        NombreFase instanciaMaxima = null; // fase más avanzada alcanzada
+        NombreFase instanciaMaxima = null;
 
         // Recorrido de todos los partidos históricos en los que estuvo involucrado el equipo
         if (seleccion.getParticipaciones() == null) return null;
@@ -47,40 +45,32 @@ public class TablaDeResultadosPorSeleccion {
             if (faseActual == null) {
                 continue;
             }
-            // Comparación de jerarquía de fases usando su valor ordinal de Enum (ej: FINAL > CUARTOS)
             if (instanciaMaxima == null || faseActual.ordinal() > instanciaMaxima.ordinal()) {
                 instanciaMaxima = faseActual;
             }
 
-            // Identificación cruzada del rival
             Participacion participacionRival = participacion.isEsLocal() ? partido.getParticipacionVisitante(): partido.getParticipacionLocal();
             if (participacionRival == null) {
                 continue; // ignorar si falta el rival
             }
-             // Solo se computan los resultados deportivos (puntos, jugados, ganados, etc.)
-            // si el partido ya tiene al menos un evento registrado, indicando que se jugo.
-            // La instancia maxima alcanzada si se actualiza igual, ya que clasificar a una
-            // fase no depende de que el partido ya se haya disputado.
             if (partido.getEventos() == null || partido.getEventos().isEmpty()) {
                 continue;
             }
 
             int golesFavor = participacion.cantidadGoles();
             int golesContra = participacionRival.cantidadGoles();
-            // Computa los resultados deportivos del encuentro
             partidosJugados++;
             if (golesFavor > golesContra) {
                 partidosGanados++;
-                puntosTotales += 3; //ganado +3 puntos
+                puntosTotales += 3;
             } else if (golesFavor == golesContra) {
                 partidosEmpatados++;
-                puntosTotales += 1; //empato +1 punto
+                puntosTotales += 1;
             } else {
-                partidosPerdidos++; //perdio 0 puntos
+                partidosPerdidos++;
             }
         }
 
-        // Construcción estructurada del reporte impreso final
         ArrayList<String> resultado = new ArrayList<>();
         resultado.add("Selección: " + seleccion.getNombreFederacion());
         resultado.add("Puntos totales: " + puntosTotales);
@@ -88,7 +78,6 @@ public class TablaDeResultadosPorSeleccion {
         resultado.add("Ganados: " + partidosGanados);
         resultado.add("Empatados: " + partidosEmpatados);
         resultado.add("Perdidos: " + partidosPerdidos);
-        // Operador ternario: si no hay partidos jugados avisa, de lo contrario muestra el texto de la fase
         resultado.add("Instancia máxima alcanzada: "
                 + (instanciaMaxima != null ? instanciaMaxima.name() : "Sin partidos registrados"));
 
