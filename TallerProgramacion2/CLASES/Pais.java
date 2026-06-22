@@ -97,13 +97,7 @@ public class Pais {
         return sedes;
     }
 
-    /**
-     * Reemplaza la lista completa de sedes del pais.
-     * @param sedes La nueva lista de sedes.
-     */
-    public void setSedes(ArrayList<Sede> sedes) {
-        this.sedes = sedes;
-    }
+    
 
     /**
      * Retorna la seleccion nacional del pais.

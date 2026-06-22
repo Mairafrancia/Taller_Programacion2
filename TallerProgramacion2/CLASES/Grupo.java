@@ -113,9 +113,7 @@ public class Grupo {
                 continue;
             }
 
-            Participacion rivalPart = p.isEsLocal()
-                ? part.getParticipacionVisitante()
-                : part.getParticipacionLocal();
+            Participacion rivalPart = p.isEsLocal() ? part.getParticipacionVisitante() : part.getParticipacionLocal();
 
             if (rivalPart == null || !this.selecciones.contains(rivalPart.getSeleccion())) {
                 continue;

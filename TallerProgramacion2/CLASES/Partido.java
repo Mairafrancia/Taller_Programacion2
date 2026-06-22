@@ -128,8 +128,7 @@ public class Partido {
     /** @return La lista de eventos del partido. */
     public ArrayList<Evento> getEventos() { return eventos; }
 
-   
-    public void setEventos(ArrayList<Evento> eventos) { this.eventos = eventos; }
+
 
     /** @return La lista de arbitrajes del partido. */
     public ArrayList<Arbitraje> getArbitrajes() { return arbitrajes; }
