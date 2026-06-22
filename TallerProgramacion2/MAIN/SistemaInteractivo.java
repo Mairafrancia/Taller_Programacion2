@@ -951,6 +951,7 @@ public class SistemaInteractivo {
             return;
         }
         System.out.println("Eventos:");
+        partido.getEventos().sort((a, b) -> Integer.compare(a.getMinuto(), b.getMinuto()));
         for (Evento e : partido.getEventos()) {
             String nombreJugador = (e.getJugador() != null) ? e.getJugador().getNombre() : "Jugador desconocido";
             System.out.println("- " + e.getTipo() + " minuto " + e.getMinuto() + " | " + nombreJugador);
@@ -1132,6 +1133,7 @@ public class SistemaInteractivo {
             System.out.println("No hay selecciones registradas.");
             return null;
         }
+        selecciones.sort((a, b) -> a.getNombreFederacion().compareToIgnoreCase(b.getNombreFederacion()));
         System.out.println(mensaje );
         for (int i = 0; i < selecciones.size(); i++) {
             Seleccion sel = selecciones.get(i);
@@ -1237,7 +1239,8 @@ public class SistemaInteractivo {
     }
 
     /**
-     * Muestra la lista de partidos registrados y retorna el seleccionado.
+     * Muestra la lista de partidos registrados ordenados por fecha y horario
+     * de más antiguo a más reciente, y retorna el seleccionado.
      *
      * @param mensaje Texto a mostrar antes de la lista.
      * @return El partido elegido, o null si no hay partidos.
@@ -1248,6 +1251,10 @@ public class SistemaInteractivo {
             System.out.println("No hay partidos registrados.");
             return null;
         }
+        partidos.sort((a, b) -> {
+            if (a.getFecha() != b.getFecha()) return Integer.compare(a.getFecha(), b.getFecha());
+            return Integer.compare(a.getHorario(), b.getHorario());
+        });
         System.out.println(mensaje);
         for (int i = 0; i < partidos.size(); i++) {
             Partido p = partidos.get(i);
@@ -1269,14 +1276,16 @@ public class SistemaInteractivo {
             System.out.println("No hay jugadores en esta seleccion.");
             return null;
         }
+        ArrayList<Jugador> jugadoresOrdenados = new ArrayList<>(seleccion.getJugadores());
+        jugadoresOrdenados.sort((a, b) -> Integer.compare(a.getDorsal(), b.getDorsal()));
         System.out.println("Seleccione jugador:");
-        for (int i = 0; i < seleccion.getJugadores().size(); i++) {
-            Jugador j = seleccion.getJugadores().get(i);
+        for (int i = 0; i < jugadoresOrdenados.size(); i++) {
+            Jugador j = jugadoresOrdenados.get(i);
             System.out.println((i + 1) + ". " + j.getNombre() + " (" + j.getDorsal() + ")");
         }
         int opcion = leerEnteroValido("Opcion: ", "Opcion no valida.",
-                v -> v >= 1 && v <= seleccion.getJugadores().size()) - 1;
-        return seleccion.getJugadores().get(opcion);
+                v -> v >= 1 && v <= jugadoresOrdenados.size()) - 1;
+        return jugadoresOrdenados.get(opcion);
     }
 
     /**
@@ -1299,6 +1308,7 @@ public class SistemaInteractivo {
             System.out.println("No hay jugadores para este partido.");
             return null;
         }
+        jugadores.sort((a, b) -> Integer.compare(a.getDorsal(), b.getDorsal()));
         System.out.println("Seleccione jugador:");
         for (int i = 0; i < jugadores.size(); i++) {
             Jugador j = jugadores.get(i);
