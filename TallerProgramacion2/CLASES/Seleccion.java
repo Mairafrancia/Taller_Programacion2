@@ -218,7 +218,7 @@ public class Seleccion {
      * Agrega un director tecnico a la lista de la seleccion.
      * No agrega si el director es null.
      *
-     * @param directorTecnico El director tecnico a incorporar.
+     * @param directoresTecnicos El director tecnico a incorporar.
      */
     public void agregarDirectoresTecnicos(DirectoresTecnicos directoresTecnicos) {
         if (directoresTecnicos != null)
