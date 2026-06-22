@@ -342,6 +342,9 @@ public class SistemaInteractivo {
                 return;
             }
         }
+        float alturaNivelMar = leerFloatValido("Altura sobre el nivel del mar (metros): ",
+        "La altura debe ser un valor entre 0 y 5000 metros.",
+        v -> v >= 0 && v <= 5000);
 
         String nombrePais = leerNombre("Nombre del Pais: ",
                 "El nombre del pais solo puede contener letras.");
@@ -357,6 +360,7 @@ public class SistemaInteractivo {
             pais.setBandera(bandera);
             Sede sede = new Sede();
             sede.setCiudad(ciudad);
+            sede.setAlturaNivelMar(alturaNivelMar);
             sede.setClima(clima);
             sede.setZonaHoraria(zonaHoraria);
             gi.registrarSede(mundial, sede, pais);
@@ -409,7 +413,8 @@ public class SistemaInteractivo {
         }
         System.out.println("\nSedes:");
         for (Sede sede : sedes) {
-            System.out.println("- " + sede.getCiudad() + " (" + sede.getZonaHoraria() + ")");
+            System.out.println("- " + sede.getCiudad() + " (" + sede.getZonaHoraria() + ") - Altura: " 
+                + sede.getAlturaNivelMar() + " msnm");
             if (sede.getEstadios() != null)
                 for (Estadio e : sede.getEstadios())
                     System.out.println("   * " + e.getNombre() + " - Capacidad: " + e.getCapacidad());
@@ -1593,6 +1598,8 @@ public class SistemaInteractivo {
             }
         }
     }
+
+    
     private void esperarEnter() {
         System.out.println("\nPresione ENTER para continuar y volver al menú...");
         this.scanner.nextLine(); 
