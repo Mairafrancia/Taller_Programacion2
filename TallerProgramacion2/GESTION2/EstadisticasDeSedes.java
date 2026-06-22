@@ -51,7 +51,6 @@ public class EstadisticasDeSedes {
             if (sede == null || sede.getCiudad() == null) {
                 continue;
             }
-            // Mantenemos el ignoreCase que es clave para las búsquedas
             if (sede.getCiudad().equalsIgnoreCase(ciudad)) {
                 for (Estadio e : sede.getEstadios()) {
                     if (e != null && e.getPartidos() != null) {
