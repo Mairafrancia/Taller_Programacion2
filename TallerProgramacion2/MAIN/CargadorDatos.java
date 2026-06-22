@@ -7,16 +7,13 @@ import GESTION1.AdministracionDelegaciones;
 /**
  * Clase utilitaria encargada de precargar todos los datos iniciales del torneo
  * Mundial 2026.
- * <p>
+ *
  * Crea y vincula entre sí todos los objetos del modelo: países, sedes,
- * estadios, fases,
- * grupos, árbitros, selecciones, cuerpos técnicos, jugadores, partidos,
- * participaciones
- * y eventos. Al finalizar, devuelve un objeto {@link Mundial} completamente
- * inicializado
- * y listo para ser usado por el {@link SistemaInteractivo}.
- * </p>
- * <p>
+ * estadios, fases, grupos, árbitros, selecciones, cuerpos técnicos,
+ * jugadores, partidos, participaciones y eventos. Al finalizar, devuelve
+ * un objeto {@link Mundial} completamente inicializado y listo para ser
+ * usado por el {@link SistemaInteractivo}.
+ *
  * La carga abarca:
  * <ul>
  * <li>16 países participantes con sus respectivas sedes y estadios.</li>
@@ -31,7 +28,7 @@ import GESTION1.AdministracionDelegaciones;
  * <li>33 partidos con árbitros, participaciones y eventos (goles y
  * tarjetas).</li>
  * </ul>
- * </p>
+ *
  * @author Florencia Benitez
  * @author Agustina Barreto
  * @author Francia Maira
