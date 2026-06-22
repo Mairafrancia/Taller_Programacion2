@@ -535,7 +535,7 @@ public class SistemaInteractivo {
         float altura = leerFloatValido("Altura (m, ej: 1.78): ", "La altura debe estar entre 1.50 y 2.20 m.",
                 v -> v >= 1.50f && v <= 2.20f);
 
-        Jugador jugador = new Jugador(nombre, fecha, dorsal, posicionElegida, peso, altura, null);
+        Jugador jugador = new Jugador(nombre, fecha, dorsal, posicionElegida, peso, altura);
 
         try {
             ad.registrarJugador(seleccion, jugador);

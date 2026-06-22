@@ -94,8 +94,7 @@ public class Sede {
     /** @return La lista de estadios de la sede. */
     public ArrayList<Estadio> getEstadios() { return estadios; }
 
-    /** @param estadios La nueva lista de estadios. */
-    public void setEstadios(ArrayList<Estadio> estadios) { this.estadios = estadios; }
+  
 
     /**
      * Agrega un estadio a la lista de la sede.

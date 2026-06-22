@@ -113,14 +113,8 @@ public class Pais {
         return seleccion;
     }
 
-    /**
-     * Establece la seleccion nacional del pais.
-     * @param seleccion La seleccion a asignar.
-     */
-    public void setSeleccion(Seleccion seleccion) {
-        this.seleccion = seleccion;
-    }
-
+   
+    //
     /**
      * Retorna la lista de arbitros del pais.
      * @return La lista de arbitros.
@@ -129,13 +123,16 @@ public class Pais {
         return arbitros;
     }
 
-    /**
-     * Reemplaza la lista completa de arbitros del pais.
-     * @param arbitros La nueva lista de arbitros.
+    //
+    /** Establece el identificador de la bandera del pais.
+     * @param seleccion. Seleccion a asignar
      */
-    public void setArbitros(ArrayList<Arbitro> arbitros) {
-        this.arbitros = arbitros;
+    public void setSeleccion(Seleccion seleccion){
+        this.seleccion = seleccion;
     }
+
+
+
 
     /**
      * Agrega una sede a la lista del pais.

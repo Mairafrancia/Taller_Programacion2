@@ -70,8 +70,7 @@ public class Estadio {
     /** @return La lista de partidos disputados en este estadio. */
     public ArrayList<Partido> getPartidos() { return partidos; }
 
-    /** @param partidos La nueva lista de partidos. */
-    public void setPartidos(ArrayList<Partido> partidos) { this.partidos = partidos; }
+   
 
     /**
      * Agrega un partido a la lista del estadio y asegura la consistencia

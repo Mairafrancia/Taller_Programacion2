@@ -87,13 +87,7 @@ public class Arbitro extends Persona {
         return arbitrajes;
     }
 
-    /**
-     * Reemplaza la lista completa de arbitrajes del arbitro.
-     * @param arbitrajes La nueva lista de arbitrajes.
-     */
-    public void setArbitrajes(ArrayList<Arbitraje> arbitrajes) {
-        this.arbitrajes = arbitrajes;
-    }
+    
 
     /**
      * Agrega un arbitraje a la lista del arbitro.

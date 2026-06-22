@@ -128,14 +128,13 @@ public class Partido {
     /** @return La lista de eventos del partido. */
     public ArrayList<Evento> getEventos() { return eventos; }
 
-    /** @param eventos La nueva lista de eventos. */
+   
     public void setEventos(ArrayList<Evento> eventos) { this.eventos = eventos; }
 
     /** @return La lista de arbitrajes del partido. */
     public ArrayList<Arbitraje> getArbitrajes() { return arbitrajes; }
 
-    /** @param arbitrajes La nueva lista de arbitrajes. */
-    public void setArbitrajes(ArrayList<Arbitraje> arbitrajes) { this.arbitrajes = arbitrajes; }
+   
 
     /**
      * Registra un evento en el partido, validando que el jugador involucrado

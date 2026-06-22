@@ -225,14 +225,14 @@ public class CargadorDatos {
         selArg.agregarCuerpoTecnico(ct_arg2);
         selArg.agregarCuerpoTecnico(ct_arg3);
 
-        Jugador messi = new Jugador("Lionel Messi", 19870624, 10, Posicion.DELANTERO, 72f, 1.70f, null);
-        Jugador diMaria = new Jugador("Angel Di Maria", 19880214, 11, Posicion.DELANTERO, 73f, 1.80f, null);
-        Jugador martinez = new Jugador("Lautaro Martinez", 19971022, 22, Posicion.DELANTERO, 81f, 1.74f, null);
-        Jugador romero = new Jugador("Cristian Romero", 19980327, 2, Posicion.DEFENSOR, 78f, 1.85f, null);
-        Jugador dybala = new Jugador("Paulo Dybala", 19931115, 21, Posicion.MEDIOCAMPISTA, 75f, 1.77f, null);
-        Jugador depaul = new Jugador("Rodrigo De Paul", 19940524, 7, Posicion.MEDIOCAMPISTA, 70f, 1.80f, null);
-        Jugador molina = new Jugador("Nahuel Molina", 19980406, 26, Posicion.DEFENSOR, 73f, 1.75f, null);
-        Jugador emiliano = new Jugador("Emiliano Martinez", 19920902, 1, Posicion.ARQUERO, 88f, 1.95f, null);
+        Jugador messi = new Jugador("Lionel Messi", 19870624, 10, Posicion.DELANTERO, 72f, 1.70f);
+        Jugador diMaria = new Jugador("Angel Di Maria", 19880214, 11, Posicion.DELANTERO, 73f, 1.80f);
+        Jugador martinez = new Jugador("Lautaro Martinez", 19971022, 22, Posicion.DELANTERO, 81f, 1.74f);
+        Jugador romero = new Jugador("Cristian Romero", 19980327, 2, Posicion.DEFENSOR, 78f, 1.85f);
+        Jugador dybala = new Jugador("Paulo Dybala", 19931115, 21, Posicion.MEDIOCAMPISTA, 75f, 1.77f);
+        Jugador depaul = new Jugador("Rodrigo De Paul", 19940524, 7, Posicion.MEDIOCAMPISTA, 70f, 1.80f);
+        Jugador molina = new Jugador("Nahuel Molina", 19980406, 26, Posicion.DEFENSOR, 73f, 1.75f);
+        Jugador emiliano = new Jugador("Emiliano Martinez", 19920902, 1, Posicion.ARQUERO, 88f, 1.95f);
         // Se usa un array anónimo para registrar todos los jugadores de la selección en una sola línea 
         // en vez de llamar al método individualmente por cada jugador
         for (Jugador j : new Jugador[] { messi, diMaria, martinez, romero, dybala, depaul, molina, emiliano })
@@ -254,14 +254,14 @@ public class CargadorDatos {
         selBra.agregarCuerpoTecnico(ct_bra1);
         selBra.agregarCuerpoTecnico(ct_bra2);
 
-        Jugador vinicius = new Jugador("Vinicius Junior", 20000712, 7, Posicion.DELANTERO, 73f, 1.76f, null);
-        Jugador rodrygo = new Jugador("Rodrygo", 20010109, 11, Posicion.DELANTERO, 64f, 1.74f, null);
-        Jugador neymar = new Jugador("Neymar", 19920205, 10, Posicion.DELANTERO, 68f, 1.75f, null);
-        Jugador casemiro = new Jugador("Casemiro", 19920223, 5, Posicion.MEDIOCAMPISTA, 84f, 1.85f, null);
-        Jugador raphinha = new Jugador("Raphinha", 19960614, 17, Posicion.DELANTERO, 68f, 1.76f, null);
-        Jugador militao = new Jugador("Eder Militao", 19980118, 3, Posicion.DEFENSOR, 78f, 1.86f, null);
-        Jugador paqueta = new Jugador("Lucas Paqueta", 19970827, 20, Posicion.MEDIOCAMPISTA, 72f, 1.80f, null);
-        Jugador endrick = new Jugador("Endrick", 20060721, 9, Posicion.DELANTERO, 66f, 1.73f, null);
+        Jugador vinicius = new Jugador("Vinicius Junior", 20000712, 7, Posicion.DELANTERO, 73f, 1.76f);
+        Jugador rodrygo = new Jugador("Rodrygo", 20010109, 11, Posicion.DELANTERO, 64f, 1.74f);
+        Jugador neymar = new Jugador("Neymar", 19920205, 10, Posicion.DELANTERO, 68f, 1.75f);
+        Jugador casemiro = new Jugador("Casemiro", 19920223, 5, Posicion.MEDIOCAMPISTA, 84f, 1.85f);
+        Jugador raphinha = new Jugador("Raphinha", 19960614, 17, Posicion.DELANTERO, 68f, 1.76f);
+        Jugador militao = new Jugador("Eder Militao", 19980118, 3, Posicion.DEFENSOR, 78f, 1.86f);
+        Jugador paqueta = new Jugador("Lucas Paqueta", 19970827, 20, Posicion.MEDIOCAMPISTA, 72f, 1.80f);
+        Jugador endrick = new Jugador("Endrick", 20060721, 9, Posicion.DELANTERO, 66f, 1.73f);
         // Se usa un array anónimo para registrar todos los jugadores de la selección en una sola línea 
         // en vez de llamar al método individualmente por cada jugador
         for (Jugador j : new Jugador[] { vinicius, rodrygo, neymar, casemiro, raphinha, militao, paqueta, endrick })
@@ -275,12 +275,12 @@ public class CargadorDatos {
         grupoA.agregarSeleccion(selMex);
 
        // --- SELECCIÓN DE MÉXICO (Completada según image_83badc.png) ---
-        Jugador lozano = new Jugador("Hirving Lozano", 19950730, 22, Posicion.DELANTERO, 70f, 1.75f, null);
-        Jugador chicharito = new Jugador("Javier Hernandez", 19880601, 14, Posicion.DELANTERO, 73f, 1.75f, null); // Nota: se corrigió año a 1988
-        Jugador guardado = new Jugador("Andres Guardado", 19860928, 8, Posicion.MEDIOCAMPISTA, 67f, 1.69f, null);
-        Jugador ochoa = new Jugador("Guillermo Ochoa", 19850713, 1, Posicion.ARQUERO, 78f, 1.83f, null);
-        Jugador alvarez = new Jugador("Edson Alvarez", 19971024, 6, Posicion.MEDIOCAMPISTA, 73f, 1.87f, null);
-        Jugador corona = new Jugador("Jesus Corona", 19930106, 23, Posicion.DELANTERO, 62f, 1.73f, null);
+        Jugador lozano = new Jugador("Hirving Lozano", 19950730, 22, Posicion.DELANTERO, 70f, 1.75f);
+        Jugador chicharito = new Jugador("Javier Hernandez", 19880601, 14, Posicion.DELANTERO, 73f, 1.75f); // Nota: se corrigió año a 1988
+        Jugador guardado = new Jugador("Andres Guardado", 19860928, 8, Posicion.MEDIOCAMPISTA, 67f, 1.69f);
+        Jugador ochoa = new Jugador("Guillermo Ochoa", 19850713, 1, Posicion.ARQUERO, 78f, 1.83f);
+        Jugador alvarez = new Jugador("Edson Alvarez", 19971024, 6, Posicion.MEDIOCAMPISTA, 73f, 1.87f);
+        Jugador corona = new Jugador("Jesus Corona", 19930106, 23, Posicion.DELANTERO, 62f, 1.73f);
 
         for (Jugador j : new Jugador[] { lozano, chicharito, guardado, ochoa, alvarez, corona })
             registrarJugador(ad, selMex, j);
@@ -293,11 +293,11 @@ public class CargadorDatos {
         grupoA.agregarSeleccion(selSen);
 
         // --- SELECCIÓN DE SENEGAL (Completada según image_83badc.png) ---
-        Jugador mane = new Jugador("Sadio Mane", 19920410, 10, Posicion.DELANTERO, 69f, 1.74f, null);
-        Jugador diallo = new Jugador("Abdou Diallo", 19960404, 5, Posicion.DEFENSOR, 79f, 1.87f, null);
-        Jugador gueye = new Jugador("Idrissa Gueye", 19891126, 6, Posicion.MEDIOCAMPISTA, 66f, 1.74f, null);
-        Jugador mendy = new Jugador("Edouard Mendy", 19920301, 1, Posicion.ARQUERO, 86f, 1.94f, null);
-        Jugador dia = new Jugador("Boulaye Dia", 19961116, 11, Posicion.DELANTERO, 75f, 1.80f, null);
+        Jugador mane = new Jugador("Sadio Mane", 19920410, 10, Posicion.DELANTERO, 69f, 1.74f);
+        Jugador diallo = new Jugador("Abdou Diallo", 19960404, 5, Posicion.DEFENSOR, 79f, 1.87f);
+        Jugador gueye = new Jugador("Idrissa Gueye", 19891126, 6, Posicion.MEDIOCAMPISTA, 66f, 1.74f);
+        Jugador mendy = new Jugador("Edouard Mendy", 19920301, 1, Posicion.ARQUERO, 86f, 1.94f);
+        Jugador dia = new Jugador("Boulaye Dia", 19961116, 11, Posicion.DELANTERO, 75f, 1.80f);
 
         // Se usa un array anónimo para registrar todos los jugadores de la selección en una sola línea 
         // en vez de llamar al método individualmente por cada jugador
@@ -324,13 +324,13 @@ public class CargadorDatos {
         selFra.agregarCuerpoTecnico(ct_fra1);
         selFra.agregarCuerpoTecnico(ct_fra2);
 
-        Jugador mbappe = new Jugador("Kylian Mbappe", 19981220, 9, Posicion.DELANTERO, 73f, 1.78f, null);
-        Jugador griezmann = new Jugador("Antoine Griezmann", 19910321, 7, Posicion.DELANTERO, 71f, 1.76f, null);
-        Jugador tchouameni = new Jugador("Aurelien Tchouameni", 20000116, 8, Posicion.MEDIOCAMPISTA, 81f, 1.88f, null);
-        Jugador kante = new Jugador("NGolo Kante", 19910329, 13, Posicion.MEDIOCAMPISTA, 68f, 1.68f, null);
-        Jugador maignan = new Jugador("Mike Maignan", 19950726, 1, Posicion.ARQUERO, 89f, 1.91f, null);
-        Jugador theo = new Jugador("Theo Hernandez", 19971006, 22, Posicion.DEFENSOR, 81f, 1.84f, null);
-        Jugador camavinga = new Jugador("Eduardo Camavinga", 20030110, 29, Posicion.MEDIOCAMPISTA, 68f, 1.82f, null);
+        Jugador mbappe = new Jugador("Kylian Mbappe", 19981220, 9, Posicion.DELANTERO, 73f, 1.78f);
+        Jugador griezmann = new Jugador("Antoine Griezmann", 19910321, 7, Posicion.DELANTERO, 71f, 1.76f);
+        Jugador tchouameni = new Jugador("Aurelien Tchouameni", 20000116, 8, Posicion.MEDIOCAMPISTA, 81f, 1.88f);
+        Jugador kante = new Jugador("NGolo Kante", 19910329, 13, Posicion.MEDIOCAMPISTA, 68f, 1.68f);
+        Jugador maignan = new Jugador("Mike Maignan", 19950726, 1, Posicion.ARQUERO, 89f, 1.91f);
+        Jugador theo = new Jugador("Theo Hernandez", 19971006, 22, Posicion.DEFENSOR, 81f, 1.84f);
+        Jugador camavinga = new Jugador("Eduardo Camavinga", 20030110, 29, Posicion.MEDIOCAMPISTA, 68f, 1.82f);
         // Se usa un array anónimo para registrar todos los jugadores de la selección en una sola línea 
         // en vez de llamar al método individualmente por cada jugador
         for (Jugador j : new Jugador[] { mbappe, griezmann, tchouameni, kante, maignan, theo, camavinga })
@@ -343,13 +343,13 @@ public class CargadorDatos {
         alemania.setSeleccion(selAle);
         grupoB.agregarSeleccion(selAle);
 
-        Jugador mueller = new Jugador("Thomas Mueller", 19890913, 25, Posicion.DELANTERO, 76f, 1.85f, null); 
-        Jugador sane = new Jugador("Leroy Sane", 19960111, 19, Posicion.DELANTERO, 80f, 1.83f, null);
-        Jugador kroos = new Jugador("Toni Kroos", 19900104, 8, Posicion.MEDIOCAMPISTA, 76f, 1.83f, null);
-        Jugador gnabry = new Jugador("Serge Gnabry", 19950714, 10, Posicion.DELANTERO, 77f, 1.75f, null);
-        Jugador ter = new Jugador("Marc ter Stegen", 19920430, 1, Posicion.ARQUERO, 85f, 1.87f, null);
-        Jugador rudiger = new Jugador("Antonio Rudiger", 19930303, 2, Posicion.DEFENSOR, 85f, 1.90f, null);
-        Jugador musiala = new Jugador("Jamal Musiala", 20030226, 14, Posicion.MEDIOCAMPISTA, 70f, 1.84f, null);
+        Jugador mueller = new Jugador("Thomas Mueller", 19890913, 25, Posicion.DELANTERO, 76f, 1.85f); 
+        Jugador sane = new Jugador("Leroy Sane", 19960111, 19, Posicion.DELANTERO, 80f, 1.83f);
+        Jugador kroos = new Jugador("Toni Kroos", 19900104, 8, Posicion.MEDIOCAMPISTA, 76f, 1.83f);
+        Jugador gnabry = new Jugador("Serge Gnabry", 19950714, 10, Posicion.DELANTERO, 77f, 1.75f);
+        Jugador ter = new Jugador("Marc ter Stegen", 19920430, 1, Posicion.ARQUERO, 85f, 1.87f);
+        Jugador rudiger = new Jugador("Antonio Rudiger", 19930303, 2, Posicion.DEFENSOR, 85f, 1.90f);
+        Jugador musiala = new Jugador("Jamal Musiala", 20030226, 14, Posicion.MEDIOCAMPISTA, 70f, 1.84f);
 
         // Se usa un array anónimo para registrar todos los jugadores de la selección en una sola línea 
         // en vez de llamar al método individualmente por cada jugador
@@ -363,12 +363,12 @@ public class CargadorDatos {
         portugal.setSeleccion(selPor);
         grupoB.agregarSeleccion(selPor);
 
-        Jugador ronaldo = new Jugador("Cristiano Ronaldo", 19850205, 7, Posicion.DELANTERO, 85f, 1.87f, null);
-        Jugador felix = new Jugador("Joao Felix", 19991110, 11, Posicion.DELANTERO, 70f, 1.81f, null);
-        Jugador bernardo = new Jugador("Bernardo Silva", 19940810, 10, Posicion.MEDIOCAMPISTA, 64f, 1.73f, null);
-        Jugador cancelo = new Jugador("Joao Cancelo", 19940527, 2, Posicion.DEFENSOR, 74f, 1.82f, null);
-        Jugador dias = new Jugador("Ruben Dias", 19970514, 4, Posicion.DEFENSOR, 82f, 1.87f, null);
-        Jugador vitinha = new Jugador("Vitinha", 20000213, 8, Posicion.MEDIOCAMPISTA, 64f, 1.72f, null);
+        Jugador ronaldo = new Jugador("Cristiano Ronaldo", 19850205, 7, Posicion.DELANTERO, 85f, 1.87f);
+        Jugador felix = new Jugador("Joao Felix", 19991110, 11, Posicion.DELANTERO, 70f, 1.81f);
+        Jugador bernardo = new Jugador("Bernardo Silva", 19940810, 10, Posicion.MEDIOCAMPISTA, 64f, 1.73f);
+        Jugador cancelo = new Jugador("Joao Cancelo", 19940527, 2, Posicion.DEFENSOR, 74f, 1.82f);
+        Jugador dias = new Jugador("Ruben Dias", 19970514, 4, Posicion.DEFENSOR, 82f, 1.87f);
+        Jugador vitinha = new Jugador("Vitinha", 20000213, 8, Posicion.MEDIOCAMPISTA, 64f, 1.72f);
 
         for (Jugador j : new Jugador[] { ronaldo, felix, bernardo, cancelo, dias, vitinha })
             registrarJugador(ad, selPor, j);
@@ -380,11 +380,11 @@ public class CargadorDatos {
         marruecos.setSeleccion(selMar);
         grupoB.agregarSeleccion(selMar);
 
-        Jugador ziyech = new Jugador("Hakim Ziyech", 19930319, 22, Posicion.DELANTERO, 65f, 1.80f, null); 
-        Jugador ennesyri = new Jugador("Youssef En Nesyri", 19970601, 9, Posicion.DELANTERO, 78f, 1.88f, null); 
-        Jugador hakimi = new Jugador("Achraf Hakimi", 19981104, 2, Posicion.DEFENSOR, 73f, 1.81f, null);
-        Jugador amrabat = new Jugador("Sofyan Amrabat", 19960821, 4, Posicion.MEDIOCAMPISTA, 70f, 1.85f, null);
-        Jugador bounou = new Jugador("Yassine Bounou", 19910405, 1, Posicion.ARQUERO, 78f, 1.92f, null);
+        Jugador ziyech = new Jugador("Hakim Ziyech", 19930319, 22, Posicion.DELANTERO, 65f, 1.80f); 
+        Jugador ennesyri = new Jugador("Youssef En Nesyri", 19970601, 9, Posicion.DELANTERO, 78f, 1.88f); 
+        Jugador hakimi = new Jugador("Achraf Hakimi", 19981104, 2, Posicion.DEFENSOR, 73f, 1.81f);
+        Jugador amrabat = new Jugador("Sofyan Amrabat", 19960821, 4, Posicion.MEDIOCAMPISTA, 70f, 1.85f);
+        Jugador bounou = new Jugador("Yassine Bounou", 19910405, 1, Posicion.ARQUERO, 78f, 1.92f);
                 // Se usa un array anónimo para registrar todos los jugadores de la selección en una sola línea 
         // en vez de llamar al método individualmente por cada jugador
         for (Jugador j : new Jugador[] { ziyech, ennesyri, hakimi, amrabat, bounou })
@@ -414,13 +414,13 @@ public class CargadorDatos {
         selEsp.agregarCuerpoTecnico(ct_esp2);
         selEsp.agregarCuerpoTecnico(ct_esp3);
 
-        Jugador yamal = new Jugador("Lamine Yamal", 20070713, 22, Posicion.DELANTERO, 66f, 1.78f, null); // Nota: se corrigió día a 13
-        Jugador morata = new Jugador("Alvaro Morata", 19921023, 7, Posicion.DELANTERO, 85f, 1.89f, null); // Nota: se corrigió mes a 10
-        Jugador pedri = new Jugador("Pedri", 20021125, 8, Posicion.MEDIOCAMPISTA, 60f, 1.74f, null);
-        Jugador rodri = new Jugador("Rodri", 19960622, 16, Posicion.MEDIOCAMPISTA, 82f, 1.91f, null);
-        Jugador carvajal = new Jugador("Dani Carvajal", 19920111, 2, Posicion.DEFENSOR, 73f, 1.73f, null);
-        Jugador olmo = new Jugador("Dani Olmo", 19980507, 10, Posicion.MEDIOCAMPISTA, 72f, 1.79f, null);
-        Jugador simon = new Jugador("Unai Simon", 19970604, 1, Posicion.ARQUERO, 88f, 1.90f, null);
+        Jugador yamal = new Jugador("Lamine Yamal", 20070713, 22, Posicion.DELANTERO, 66f, 1.78f); 
+        Jugador morata = new Jugador("Alvaro Morata", 19921023, 7, Posicion.DELANTERO, 85f, 1.89f); 
+        Jugador pedri = new Jugador("Pedri", 20021125, 8, Posicion.MEDIOCAMPISTA, 60f, 1.74f);
+        Jugador rodri = new Jugador("Rodri", 19960622, 16, Posicion.MEDIOCAMPISTA, 82f, 1.91f);
+        Jugador carvajal = new Jugador("Dani Carvajal", 19920111, 2, Posicion.DEFENSOR, 73f, 1.73f);
+        Jugador olmo = new Jugador("Dani Olmo", 19980507, 10, Posicion.MEDIOCAMPISTA, 72f, 1.79f);
+        Jugador simon = new Jugador("Unai Simon", 19970604, 1, Posicion.ARQUERO, 88f, 1.90f);
         // Se usa un array anónimo para registrar todos los jugadores de la selección en una sola línea 
         // en vez de llamar al método individualmente por cada jugador
         for (Jugador j : new Jugador[] { yamal, morata, pedri, rodri, carvajal, olmo, simon })
@@ -433,12 +433,12 @@ public class CargadorDatos {
         italia.setSeleccion(selIta);
         grupoC.agregarSeleccion(selIta);
 
-        Jugador chiesa = new Jugador("Federico Chiesa", 19971025, 14, Posicion.DELANTERO, 70f, 1.75f, null); 
-        Jugador barella = new Jugador("Nicolo Barella", 19970207, 18, Posicion.MEDIOCAMPISTA, 68f, 1.72f, null); 
-        Jugador verratti = new Jugador("Marco Verratti", 19921105, 6, Posicion.MEDIOCAMPISTA, 60f, 1.65f, null); 
-        Jugador donnarumma = new Jugador("Gianluigi Donnarumma", 19990225, 1, Posicion.ARQUERO, 90f, 1.96f, null);
-        Jugador bonucci = new Jugador("Leonardo Bonucci", 19870501, 19, Posicion.DEFENSOR, 85f, 1.90f, null); 
-        Jugador immobile = new Jugador("Ciro Immobile", 19900220, 17, Posicion.DELANTERO, 85f, 1.85f, null);
+        Jugador chiesa = new Jugador("Federico Chiesa", 19971025, 14, Posicion.DELANTERO, 70f, 1.75f); 
+        Jugador barella = new Jugador("Nicolo Barella", 19970207, 18, Posicion.MEDIOCAMPISTA, 68f, 1.72f); 
+        Jugador verratti = new Jugador("Marco Verratti", 19921105, 6, Posicion.MEDIOCAMPISTA, 60f, 1.65f); 
+        Jugador donnarumma = new Jugador("Gianluigi Donnarumma", 19990225, 1, Posicion.ARQUERO, 90f, 1.96f);
+        Jugador bonucci = new Jugador("Leonardo Bonucci", 19870501, 19, Posicion.DEFENSOR, 85f, 1.90f); 
+        Jugador immobile = new Jugador("Ciro Immobile", 19900220, 17, Posicion.DELANTERO, 85f, 1.85f);
         // Se usa un array anónimo para registrar todos los jugadores de la selección en una sola línea 
         // en vez de llamar al método individualmente por cada jugador
         for (Jugador j : new Jugador[] { chiesa, barella, verratti, donnarumma, bonucci, immobile })
@@ -451,11 +451,11 @@ public class CargadorDatos {
         croatia.setSeleccion(selCro);
         grupoC.agregarSeleccion(selCro);
 
-        Jugador modric = new Jugador("Luka Modric", 19850909, 10, Posicion.MEDIOCAMPISTA, 66f, 1.72f, null);
-        Jugador kovacic = new Jugador("Mateo Kovacic", 19940506, 8, Posicion.MEDIOCAMPISTA, 78f, 1.78f, null); 
-        Jugador perisic = new Jugador("Ivan Perisic", 19890202, 4, Posicion.DELANTERO, 80f, 1.86f, null);
-        Jugador gvardiol = new Jugador("Josko Gvardiol", 20020123, 24, Posicion.DEFENSOR, 88f, 1.85f, null);
-        Jugador livakovic = new Jugador("Dominik Livakovic", 19950109, 1, Posicion.ARQUERO, 79f, 1.87f, null);
+        Jugador modric = new Jugador("Luka Modric", 19850909, 10, Posicion.MEDIOCAMPISTA, 66f, 1.72f);
+        Jugador kovacic = new Jugador("Mateo Kovacic", 19940506, 8, Posicion.MEDIOCAMPISTA, 78f, 1.78f); 
+        Jugador perisic = new Jugador("Ivan Perisic", 19890202, 4, Posicion.DELANTERO, 80f, 1.86f);
+        Jugador gvardiol = new Jugador("Josko Gvardiol", 20020123, 24, Posicion.DEFENSOR, 88f, 1.85f);
+        Jugador livakovic = new Jugador("Dominik Livakovic", 19950109, 1, Posicion.ARQUERO, 79f, 1.87f);
         // Se usa un array anónimo para registrar todos los jugadores de la selección en una sola línea 
         // en vez de llamar al método individualmente por cada jugador
         for (Jugador j : new Jugador[] { modric, kovacic, perisic, gvardiol, livakovic })
@@ -468,11 +468,11 @@ public class CargadorDatos {
         japon.setSeleccion(selJpn);
         grupoC.agregarSeleccion(selJpn);
 
-        Jugador kubo = new Jugador("Takefusa Kubo", 20010604, 11, Posicion.DELANTERO, 67f, 1.73f, null); 
-        Jugador doan = new Jugador("Ritsu Doan", 19980616, 21, Posicion.DELANTERO, 70f, 1.72f, null); 
-        Jugador minamino = new Jugador("Takumi Minamino", 19950116, 10, Posicion.DELANTERO, 68f, 1.74f, null);
-        Jugador tanaka = new Jugador("Ao Tanaka", 19980910, 8, Posicion.MEDIOCAMPISTA, 69f, 1.80f, null); 
-        Jugador gonda = new Jugador("Shuichi Gonda", 19890303, 1, Posicion.ARQUERO, 84f, 1.87f, null); 
+        Jugador kubo = new Jugador("Takefusa Kubo", 20010604, 11, Posicion.DELANTERO, 67f, 1.73f); 
+        Jugador doan = new Jugador("Ritsu Doan", 19980616, 21, Posicion.DELANTERO, 70f, 1.72f); 
+        Jugador minamino = new Jugador("Takumi Minamino", 19950116, 10, Posicion.DELANTERO, 68f, 1.74f);
+        Jugador tanaka = new Jugador("Ao Tanaka", 19980910, 8, Posicion.MEDIOCAMPISTA, 69f, 1.80f); 
+        Jugador gonda = new Jugador("Shuichi Gonda", 19890303, 1, Posicion.ARQUERO, 84f, 1.87f); 
         // Se usa un array anónimo para registrar todos los jugadores de la selección en una sola línea 
         // en vez de llamar al método individualmente por cada jugador
         for (Jugador j : new Jugador[] { kubo, doan, minamino, tanaka, gonda })
@@ -498,13 +498,13 @@ public class CargadorDatos {
         selEng.agregarCuerpoTecnico(ct_eng1);
         selEng.agregarCuerpoTecnico(ct_eng2);
 
-        Jugador bellingham = new Jugador("Jude Bellingham", 20030629, 10, Posicion.MEDIOCAMPISTA, 75f, 1.86f, null);
-        Jugador saka = new Jugador("Bukayo Saka", 20010905, 7, Posicion.DELANTERO, 65f, 1.78f, null);
-        Jugador kane = new Jugador("Harry Kane", 19930728, 9, Posicion.DELANTERO, 86f, 1.88f, null); 
-        Jugador trippier = new Jugador("Kieran Trippier", 19900919, 2, Posicion.DEFENSOR, 71f, 1.78f, null);
-        Jugador pickford = new Jugador("Jordan Pickford", 19940307, 1, Posicion.ARQUERO, 77f, 1.85f, null);
-        Jugador foden = new Jugador("Phil Foden", 20000528, 11, Posicion.MEDIOCAMPISTA, 70f, 1.71f, null);
-        Jugador rice = new Jugador("Declan Rice", 19990114, 4, Posicion.MEDIOCAMPISTA, 80f, 1.85f, null);
+        Jugador bellingham = new Jugador("Jude Bellingham", 20030629, 10, Posicion.MEDIOCAMPISTA, 75f, 1.86f);
+        Jugador saka = new Jugador("Bukayo Saka", 20010905, 7, Posicion.DELANTERO, 65f, 1.78f);
+        Jugador kane = new Jugador("Harry Kane", 19930728, 9, Posicion.DELANTERO, 86f, 1.88f); 
+        Jugador trippier = new Jugador("Kieran Trippier", 19900919, 2, Posicion.DEFENSOR, 71f, 1.78f);
+        Jugador pickford = new Jugador("Jordan Pickford", 19940307, 1, Posicion.ARQUERO, 77f, 1.85f);
+        Jugador foden = new Jugador("Phil Foden", 20000528, 11, Posicion.MEDIOCAMPISTA, 70f, 1.71f);
+        Jugador rice = new Jugador("Declan Rice", 19990114, 4, Posicion.MEDIOCAMPISTA, 80f, 1.85f);
 
         for (Jugador j : new Jugador[] { bellingham, saka, kane, trippier, pickford, foden, rice })
             registrarJugador(ad, selEng, j);
@@ -516,11 +516,11 @@ public class CargadorDatos {
         holanda.setSeleccion(selNed);
         grupoD.agregarSeleccion(selNed);
 
-        Jugador depay = new Jugador("Memphis Depay", 19940213, 9, Posicion.DELANTERO, 78f, 1.76f, null);
-        Jugador dumfries = new Jugador("Denzel Dumfries", 19960418, 2, Posicion.DEFENSOR, 80f, 1.88f, null);
-        Jugador deligt = new Jugador("Matthijs de Ligt", 19990812, 4, Posicion.DEFENSOR, 89f, 1.88f, null);
-        Jugador gakpo = new Jugador("Cody Gakpo", 19990507, 11, Posicion.DELANTERO, 76f, 1.93f, null);
-        Jugador flekken = new Jugador("Mark Flekken", 19930313, 1, Posicion.ARQUERO, 87f, 1.94f, null);
+        Jugador depay = new Jugador("Memphis Depay", 19940213, 9, Posicion.DELANTERO, 78f, 1.76f);
+        Jugador dumfries = new Jugador("Denzel Dumfries", 19960418, 2, Posicion.DEFENSOR, 80f, 1.88f);
+        Jugador deligt = new Jugador("Matthijs de Ligt", 19990812, 4, Posicion.DEFENSOR, 89f, 1.88f);
+        Jugador gakpo = new Jugador("Cody Gakpo", 19990507, 11, Posicion.DELANTERO, 76f, 1.93f);
+        Jugador flekken = new Jugador("Mark Flekken", 19930313, 1, Posicion.ARQUERO, 87f, 1.94f);
 
         for (Jugador j : new Jugador[] { depay, dumfries, deligt, gakpo, flekken })
             registrarJugador(ad, selNed, j);
@@ -532,11 +532,11 @@ public class CargadorDatos {
         colombia.setSeleccion(selCol);
         grupoD.agregarSeleccion(selCol);
 
-        Jugador james = new Jugador("James Rodriguez", 19910712, 10, Posicion.MEDIOCAMPISTA, 75f, 1.80f, null);
-        Jugador cuadrado = new Jugador("Juan Cuadrado", 19880526, 11, Posicion.DEFENSOR, 72f, 1.79f, null);
-        Jugador falcao = new Jugador("Radamel Falcao", 19860210, 9, Posicion.DELANTERO, 72f, 1.77f, null);
-        Jugador munoz = new Jugador("Daniel Munoz", 19960526, 2, Posicion.DEFENSOR, 76f, 1.81f, null); 
-        Jugador ospina = new Jugador("David Ospina", 19880831, 1, Posicion.ARQUERO, 80f, 1.83f, null);
+        Jugador james = new Jugador("James Rodriguez", 19910712, 10, Posicion.MEDIOCAMPISTA, 75f, 1.80f);
+        Jugador cuadrado = new Jugador("Juan Cuadrado", 19880526, 11, Posicion.DEFENSOR, 72f, 1.79f);
+        Jugador falcao = new Jugador("Radamel Falcao", 19860210, 9, Posicion.DELANTERO, 72f, 1.77f);
+        Jugador munoz = new Jugador("Daniel Munoz", 19960526, 2, Posicion.DEFENSOR, 76f, 1.81f); 
+        Jugador ospina = new Jugador("David Ospina", 19880831, 1, Posicion.ARQUERO, 80f, 1.83f);
 
         for (Jugador j : new Jugador[] { james, cuadrado, falcao, munoz, ospina })
             registrarJugador(ad, selCol, j);
@@ -548,12 +548,12 @@ public class CargadorDatos {
         uruguay.setSeleccion(selUru);
         grupoD.agregarSeleccion(selUru);
 
-        Jugador suarez = new Jugador("Luis Suarez", 19870124, 9, Posicion.DELANTERO, 83f, 1.82f, null);
-        Jugador cavani = new Jugador("Edinson Cavani", 19870214, 21, Posicion.DELANTERO, 78f, 1.84f, null);
-        Jugador valverde = new Jugador("Federico Valverde", 19980722, 8, Posicion.MEDIOCAMPISTA, 78f, 1.82f, null);
-        Jugador bentancur = new Jugador("Rodrigo Bentancur", 19970625, 6, Posicion.MEDIOCAMPISTA, 72f, 1.87f, null); 
-        Jugador araujo = new Jugador("Ronald Araujo", 19990307, 4, Posicion.DEFENSOR, 79f, 1.88f, null);
-        Jugador nunez = new Jugador("Darwin Nunez", 19990624, 11, Posicion.DELANTERO, 81f, 1.87f, null);
+        Jugador suarez = new Jugador("Luis Suarez", 19870124, 9, Posicion.DELANTERO, 83f, 1.82f);
+        Jugador cavani = new Jugador("Edinson Cavani", 19870214, 21, Posicion.DELANTERO, 78f, 1.84f);
+        Jugador valverde = new Jugador("Federico Valverde", 19980722, 8, Posicion.MEDIOCAMPISTA, 78f, 1.82f);
+        Jugador bentancur = new Jugador("Rodrigo Bentancur", 19970625, 6, Posicion.MEDIOCAMPISTA, 72f, 1.87f); 
+        Jugador araujo = new Jugador("Ronald Araujo", 19990307, 4, Posicion.DEFENSOR, 79f, 1.88f);
+        Jugador nunez = new Jugador("Darwin Nunez", 19990624, 11, Posicion.DELANTERO, 81f, 1.87f);
 
         for (Jugador j : new Jugador[] { suarez, cavani, valverde, bentancur, araujo, nunez })
             registrarJugador(ad, selUru, j);

@@ -49,17 +49,16 @@ public class Jugador extends Persona {
      * @param posicion       Posicion en la que juega.
      * @param peso           Peso en kilogramos.
      * @param altura         Altura en metros.
-     * @param eventos        Lista inicial de eventos. Si es null se inicializa vacia;
-     *                       si no es null, se usa la lista provista.
+     *                      
      */
     public Jugador(String nombre, int fecNacimiento, int dorsal, Posicion posicion,
-                   float peso, float altura, ArrayList<Evento> eventos) {
+                   float peso, float altura) {
         super(nombre, fecNacimiento);
         this.dorsal = dorsal;
         this.posicion = posicion;
         this.peso = peso;
         this.altura = altura;
-        this.eventos = (eventos != null) ? eventos : new ArrayList<>();
+        this.eventos =  new ArrayList<>();
     }
 
     /** @return El numero de dorsal del jugador. */
@@ -116,4 +115,4 @@ public class Jugador extends Persona {
         }
         return goles;
     }
-    }
+}

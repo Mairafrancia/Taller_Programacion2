@@ -54,15 +54,11 @@ public class Fase {
     /** @return La lista de grupos de la fase. */
     public ArrayList<Grupo> getGrupos() { return grupos; }
 
-    /** @param grupos La nueva lista de grupos. */
-    public void setGrupos(ArrayList<Grupo> grupos) { this.grupos = grupos; }
-
+   
     /** @return La lista de partidos de la fase. */
     public ArrayList<Partido> getPartidos() { return partidos; }
 
-    /** @param partidos La nueva lista de partidos. */
-    public void setPartidos(ArrayList<Partido> partidos) { this.partidos = partidos; }
-
+   
     /**
      * Agrega un grupo a la fase.
      * No agrega si el grupo es null.
