@@ -20,7 +20,7 @@ import GESTION1.AdministracionDelegaciones;
  * La carga abarca:
  * <ul>
  * <li>16 países participantes con sus respectivas sedes y estadios.</li>
-* <li>6 fases del torneo segun el enum NombreFase: Grupos, Dieciseisavos,
+ * <li>6 fases del torneo segun el enum NombreFase: Grupos, Dieciseisavos,
  * Octavos, Cuartos, Semifinal y Final. El partido por el tercer puesto
  * se carga dentro de la fase Semifinal, ya que el enum no contempla una
  * fase separada para esa instancia.</li>

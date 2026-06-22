@@ -3,8 +3,8 @@ package CLASES;
 /**
  * Representa las distintas fases o etapas del torneo mundial,
  * según el diagrama de clases de la consigna.
- *
- * @apiNote No alterar el orden de las constantes. El ordinal()
+ * <p>
+ * Nota importante: no alterar el orden de las constantes. El ordinal()
  * se usa en TablaDeResultadosPorSeleccion para determinar la instancia
  * maxima alcanzada por una seleccion (mayor ordinal = fase más avanzada).
  *
