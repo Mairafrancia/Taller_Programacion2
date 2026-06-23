@@ -54,11 +54,9 @@ public class EstadisticasDeSedes {
             if (sede.getCiudad().equalsIgnoreCase(ciudad)) {
                 for (Estadio e : sede.getEstadios()) {
                     if (e != null && e.getPartidos() != null) {
-                        if (e != null && e.getPartidos() != null) {
-                            for (Partido p : e.getPartidos()) {
-                                if (p != null && p.getEventos() != null && !p.getEventos().isEmpty()) {
-                                    totalPartidos++;
-                                }
+                        for (Partido p : e.getPartidos()) {
+                            if (p != null && p.getEventos() != null && !p.getEventos().isEmpty()) {
+                                totalPartidos++;
                             }
                         }
                     }
@@ -67,7 +65,6 @@ public class EstadisticasDeSedes {
         }
         return totalPartidos;
     }
-
     /**
      * Devuelve el detalle de los partidos jugados en un estadio específico,
      * incluyendo fecha, horario, equipos participantes y resultado final.

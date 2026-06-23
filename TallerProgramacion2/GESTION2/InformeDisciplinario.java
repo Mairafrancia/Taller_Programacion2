@@ -14,6 +14,8 @@ import java.util.ArrayList;
  */
 public class InformeDisciplinario {
 
+    // Indices del array de contadores devuelto por contarTarjetas(): nombran
+    // cada posicion para evitar usar numeros magicos (contadores[0], [1], [2]).
     private static final int AMARILLAS = 0;
     private static final int ROJAS     = 1;
     private static final int DOBLES    = 2;
@@ -27,7 +29,7 @@ public class InformeDisciplinario {
      * registrada, dado que la primera amonestación siempre queda en los eventos.
      *
      * @param eventos Lista de eventos deportivos a procesar.
-     * @return Array [amarillas, rojas, dobles] ya corregido.
+     * @return Array [amarillas, rojas, dobles] 
      */
     private int[] contarTarjetas(ArrayList<Evento> eventos) {
         int[] contadores = new int[3];

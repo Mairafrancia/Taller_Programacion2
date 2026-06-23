@@ -53,8 +53,8 @@ public class CargadorDatos {
      *         datos del torneo 2026.
      */
     public static Mundial cargar() throws PeriodoInvalidoException,  MinutoInvalidoException{
-        Mundial mundial = new Mundial(2026, "Migo", 20260611, 20260719);
 
+        Mundial mundial = new Mundial(2026, "Migo", 20260611, 20260719);
         // =====================================================================
         // PAÍSES
         // =====================================================================
@@ -1063,7 +1063,7 @@ public class CargadorDatos {
     }
 
     // =========================================================================
-    // HELPERS PRIVADOS
+    // Metodos aux internos
     // =========================================================================
 
     /**

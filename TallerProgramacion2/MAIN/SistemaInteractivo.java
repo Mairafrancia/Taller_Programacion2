@@ -9,9 +9,12 @@ import java.util.Scanner;
 
 /**
  * Clase principal de interaccion con el usuario para el sistema de gestion
- * del Torneo Mundial 2026. Provee un menu de consola con 11 opciones que
- * cubren la gestion de infraestructura, delegaciones, organizacion deportiva,
- * registro de eventos y generacion de reportes.
+ * del Torneo Mundial 2026. Provee un menu principal de consola con dos
+ * categorias: Operaciones de carga y modificacion (infraestructura,
+ * delegaciones, organizacion deportiva y registro de eventos) y
+ * Generacion de informes (tabla de posiciones, resultados, ranking de
+ * goleadores, informe disciplinario, ficha tecnica, estadisticas de
+ * sedes e informacion general del mundial).
  *
  * <p>
  * Al iniciarse, carga automaticamente los datos del torneo mediante
@@ -105,9 +108,9 @@ public class SistemaInteractivo {
     public void iniciar() {
         boolean salir = false;
         while (!salir) {
-            mostrarMenuPrincipal2();
+            mostrarMenuPrincipal();
             int opcion = leerOpcion();
-            salir = procesarMenuPrincipal2(opcion);
+            salir = procesarMenuPrincipal(opcion);
         }
         System.out.println("\n>>> Gracias por usar el sistema. Hasta luego!");
         scanner.close();
@@ -116,7 +119,7 @@ public class SistemaInteractivo {
     /**
      * Imprime el menu principal del sistema por consola.
      */
-    private void mostrarMenuPrincipal2() {
+    private void mostrarMenuPrincipal() {
         System.out.print("\n+------------------------------------------------------------+\n"
                 + "| SISTEMA DE GESTION DEL TORNEO MUNDIAL 2026                 |\n"
                 + "+------------------------------------------------------------+\n"
@@ -135,7 +138,7 @@ public class SistemaInteractivo {
      * @param opcion La opcion ingresada por el usuario.
      * @return True si el usuario eligio salir, false en caso contrario.
      */
-    private boolean procesarMenuPrincipal2(int opcion) {
+    private boolean procesarMenuPrincipal(int opcion) {
         try {
             switch (opcion) {
                 case 1:
@@ -974,13 +977,14 @@ public class SistemaInteractivo {
      * @param lista    Lista de lineas a imprimir.
      * @param msgVacio Mensaje a mostrar si la lista no tiene datos.
      */
-    private void imprimirLista(ArrayList<String> lista, String msgVacio) {
+   private void imprimirLista(ArrayList<String> lista, String msgVacio) {
         if (lista == null || lista.isEmpty()) {
             System.out.println(msgVacio);
             return;
         }
-        for (String l : lista)
+        for (String l : lista) {
             System.out.println(l);
+        }
     }
 
     /** Solicita un grupo y muestra su tabla de posiciones. */
@@ -998,8 +1002,9 @@ public class SistemaInteractivo {
      */
     private void reporteTablaResultados() {
         Seleccion seleccion = seleccionarSeleccion("Seleccione la seleccion:");
-        if (seleccion == null)
+        if (seleccion == null) {
             return;
+        }
         imprimirLista(tablaResultados.obtenerResultados(seleccion), "No hay resultados para esta seleccion.");
     }
 
@@ -1056,11 +1061,11 @@ public class SistemaInteractivo {
     /** Solicita un partido y muestra su ficha tecnica completa. */
     private void reporteFichaTecnica() {
         Partido partido = seleccionarPartido("Seleccione el partido:");
-        if (partido == null)
+        if (partido == null) {
             return;
+        }
         imprimirLista(fichaTecnica.obtenerFicha(partido), "No hay ficha tecnica disponible.");
     }
-
     /**
      * Solicita si la consulta es por estadio o por ciudad y muestra
      * la cantidad de partidos con fecha, horario, equipos y resultado.
@@ -1099,8 +1104,9 @@ public class SistemaInteractivo {
     private void mostrarInfoMundial() {
         System.out.println("\nInformacion del Mundial: \n" + "Año: " + mundial.getAnio() + "\n" + "Mascota: "
                 + mundial.getMascota());
-        if (mundial.getSedes() != null)
+        if (mundial.getSedes() != null) {
             System.out.println("Sedes registradas: " + mundial.getSedes().size());
+        }
     }
 
     // -------------------------------------------------------------------------
@@ -1113,15 +1119,16 @@ public class SistemaInteractivo {
      * @param mensaje  Texto a mostrar antes de la lista.
      * @return El pais seleccionado, o null si no hay paises.
      */
-    private Pais seleccionarPais(String mensaje ) {
+    private Pais seleccionarPais(String mensaje) {
         ArrayList<Pais> paises = obtenerTodosLosPaises();
         if (paises.isEmpty()) {
             System.out.println("No hay paises disponibles.");
             return null;
         }
-        System.out.println(mensaje );
-        for (int i = 0; i < paises.size(); i++)
+        System.out.println(mensaje);
+        for (int i = 0; i < paises.size(); i++) {
             System.out.println((i + 1) + ". " + paises.get(i).getNombre());
+        }
         int opcion = leerEnteroValido("Opcion: ", "Opcion no valida.", v -> v >= 1 && v <= paises.size()) - 1;
         return paises.get(opcion);
     }
@@ -1132,14 +1139,14 @@ public class SistemaInteractivo {
      * @param mensaje Texto a mostrar antes de la lista.
      * @return La seleccion elegida, o null si no hay selecciones.
      */
-    private Seleccion seleccionarSeleccion(String mensaje ) {
+    private Seleccion seleccionarSeleccion(String mensaje) {
         ArrayList<Seleccion> selecciones = obtenerTodasLasSelecciones();
         if (selecciones.isEmpty()) {
             System.out.println("No hay selecciones registradas.");
             return null;
         }
         selecciones.sort((a, b) -> a.getNombreFederacion().compareToIgnoreCase(b.getNombreFederacion()));
-        System.out.println(mensaje );
+        System.out.println(mensaje);
         for (int i = 0; i < selecciones.size(); i++) {
             Seleccion sel = selecciones.get(i);
             String pais = sel.getPais() != null ? sel.getPais().getNombre() : "Sin pais";
@@ -1174,11 +1181,13 @@ public class SistemaInteractivo {
      * @param excluir     Seleccion a excluir de la lista.
      * @return La seleccion elegida.
      */
-    private Seleccion seleccionarSeleccionDeLista(ArrayList<Seleccion> selecciones, Seleccion excluir) {
+   private Seleccion seleccionarSeleccionDeLista(ArrayList<Seleccion> selecciones, Seleccion excluir) {
         ArrayList<Seleccion> copia = new ArrayList<>();
-        for (Seleccion sel : selecciones)
-            if (sel != excluir)
+        for (Seleccion sel : selecciones) {
+            if (sel != excluir) {
                 copia.add(sel);
+            }
+        }
         return seleccionarSeleccionDeLista(copia);
     }
 
@@ -1188,17 +1197,18 @@ public class SistemaInteractivo {
      * @param mensaje  Texto a mostrar antes de la lista.
      * @return El grupo elegido, o null si no hay grupos.
      */
-    private Grupo seleccionarGrupo(String mensaje ) {
+   private Grupo seleccionarGrupo(String mensaje) {
         ArrayList<Grupo> grupos = obtenerTodosLosGrupos();
         if (grupos.isEmpty()) {
             System.out.println("No hay grupos registrados.");
             return null;
         }
-        System.out.println(mensaje );
-        for (int i = 0; i < grupos.size(); i++)
+        System.out.println(mensaje);
+        for (int i = 0; i < grupos.size(); i++) {
             System.out.println(
-                    (i + 1) + ". " + grupos.get(i).getIdentificador() + " - " + grupos.get(i).getDescripcion() 
+                    (i + 1) + ". " + grupos.get(i).getIdentificador() + " - " + grupos.get(i).getDescripcion()
                     + " Cantidad de Selecciones " + grupos.get(i).getSelecciones().size());
+        }
         int opcion = leerEnteroValido("Opcion: ", "Opcion no valida.", v -> v >= 1 && v <= grupos.size()) - 1;
         return grupos.get(opcion);
     }
@@ -1209,14 +1219,15 @@ public class SistemaInteractivo {
      * @param mensaje  Texto a mostrar antes de la lista.
      * @return La fase elegida, o null si no hay fases.
      */
-    private Fase seleccionarFase(String mensaje ) {
+    private Fase seleccionarFase(String mensaje) {
         if (fases == null || fases.isEmpty()) {
             System.out.println("No hay fases registradas.");
             return null;
         }
         System.out.println(mensaje);
-        for (int i = 0; i < fases.size(); i++)
+        for (int i = 0; i < fases.size(); i++) {
             System.out.println((i + 1) + ". " + fases.get(i).getNombre());
+        }
         int opcion = leerEnteroValido("Opcion: ", "Opcion no valida.", v -> v >= 1 && v <= fases.size()) - 1;
         return fases.get(opcion);
     }
@@ -1257,7 +1268,9 @@ public class SistemaInteractivo {
             return null;
         }
         partidos.sort((a, b) -> {
-            if (a.getFecha() != b.getFecha()) return Integer.compare(a.getFecha(), b.getFecha());
+            if (a.getFecha() != b.getFecha()) {
+                return Integer.compare(a.getFecha(), b.getFecha());
+            }
             return Integer.compare(a.getHorario(), b.getHorario());
         });
         System.out.println(mensaje);
@@ -1300,15 +1313,17 @@ public class SistemaInteractivo {
      * @param partido El partido del que se obtienen los jugadores.
      * @return El jugador elegido, o null si el partido no tiene jugadores.
      */
-    private Jugador seleccionarJugadorDePartido(Partido partido) {
+   private Jugador seleccionarJugadorDePartido(Partido partido) {
         if (partido == null || partido.getParticipaciones() == null) {
             System.out.println("El partido no tiene participaciones.");
             return null;
         }
         ArrayList<Jugador> jugadores = new ArrayList<>();
-        for (Participacion p : partido.getParticipaciones())
-            if (p != null && p.getSeleccion() != null && p.getSeleccion().getJugadores() != null)
+        for (Participacion p : partido.getParticipaciones()) {
+            if (p != null && p.getSeleccion() != null && p.getSeleccion().getJugadores() != null) {
                 jugadores.addAll(p.getSeleccion().getJugadores());
+            }
+        }
         if (jugadores.isEmpty()) {
             System.out.println("No hay jugadores para este partido.");
             return null;
@@ -1392,16 +1407,20 @@ public class SistemaInteractivo {
             if (fase != null && fase.getGrupos() != null) {
                 for (Grupo grupo : fase.getGrupos()) {
                     if (grupo != null && grupo.getSelecciones() != null) {
-                        for (Seleccion sel : grupo.getSelecciones())
-                            if (sel != null && !selecciones.contains(sel))
+                        for (Seleccion sel : grupo.getSelecciones()) {
+                            if (sel != null && !selecciones.contains(sel)) {
                                 selecciones.add(sel);
+                            }
+                        }
                     }
                 }
             }
         }
-        for (Pais pais : obtenerTodosLosPaises())
-            if (pais.getSeleccion() != null && !selecciones.contains(pais.getSeleccion()))
+        for (Pais pais : obtenerTodosLosPaises()) {
+            if (pais.getSeleccion() != null && !selecciones.contains(pais.getSeleccion())) {
                 selecciones.add(pais.getSeleccion());
+            }
+        }
         return selecciones;
     }
 
@@ -1413,11 +1432,15 @@ public class SistemaInteractivo {
      */
     private ArrayList<Grupo> obtenerTodosLosGrupos() {
         ArrayList<Grupo> grupos = new ArrayList<>();
-        for (Fase fase : fases)
-            if (fase != null && fase.getGrupos() != null)
-                for (Grupo grupo : fase.getGrupos())
-                    if (grupo != null && !grupos.contains(grupo))
+        for (Fase fase : fases) {
+            if (fase != null && fase.getGrupos() != null) {
+                for (Grupo grupo : fase.getGrupos()) {
+                    if (grupo != null && !grupos.contains(grupo)) {
                         grupos.add(grupo);
+                    }
+                }
+            }
+        }
         return grupos;
     }
 
@@ -1429,12 +1452,17 @@ public class SistemaInteractivo {
      */
     private ArrayList<Estadio> obtenerTodosLosEstadios() {
         ArrayList<Estadio> estadios = new ArrayList<>();
-        if (mundial.getSedes() != null)
-            for (Sede s : mundial.getSedes())
-                if (s != null && s.getEstadios() != null)
-                    for (Estadio e : s.getEstadios())
-                        if (e != null && !estadios.contains(e))
+        if (mundial.getSedes() != null) {
+            for (Sede s : mundial.getSedes()) {
+                if (s != null && s.getEstadios() != null) {
+                    for (Estadio e : s.getEstadios()) {
+                        if (e != null && !estadios.contains(e)) {
                             estadios.add(e);
+                        }
+                    }
+                }
+            }
+        }
         return estadios;
     }
 
@@ -1446,14 +1474,17 @@ public class SistemaInteractivo {
      */
     private ArrayList<Partido> obtenerTodosLosPartidos() {
         ArrayList<Partido> partidos = new ArrayList<>();
-        for (Fase fase : fases)
-            if (fase != null && fase.getPartidos() != null)
-                for (Partido p : fase.getPartidos())
-                    if (p != null && !partidos.contains(p))
+        for (Fase fase : fases) {
+            if (fase != null && fase.getPartidos() != null) {
+                for (Partido p : fase.getPartidos()) {
+                    if (p != null && !partidos.contains(p)) {
                         partidos.add(p);
+                    }
+                }
+            }
+        }
         return partidos;
     }
-
     // -------------------------------------------------------------------------
     // UTILIDADES
     // -------------------------------------------------------------------------

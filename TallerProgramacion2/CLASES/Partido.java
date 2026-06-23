@@ -128,12 +128,9 @@ public class Partido {
     /** @return La lista de eventos del partido. */
     public ArrayList<Evento> getEventos() { return eventos; }
 
-
-
     /** @return La lista de arbitrajes del partido. */
     public ArrayList<Arbitraje> getArbitrajes() { return arbitrajes; }
 
-   
 
     /**
      * Registra un evento en el partido, validando que el jugador involucrado
